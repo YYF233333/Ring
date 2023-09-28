@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 AssetServer="*res://AssetServer/AssetServer.gd"
 SaveServer="*res://SaveServer/SaveServer.gd"
 Interpreter="*res://CoreRuntime/Interpreter/Interpreter.gd"
+IOServer="*res://UI/IOServer.gd"
 
 [display]
 

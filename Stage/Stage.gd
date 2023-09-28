@@ -4,3 +4,9 @@ extends Node2D
 
 @export var background: Background
 @export var characters: Dictionary
+
+func serialize() -> String:
+	return ""
+
+func deserialize(data: String) -> void:
+	pass

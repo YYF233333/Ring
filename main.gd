@@ -10,4 +10,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	var a := 0
+	var b := 1
+	for i in range(100_000):
+		var c := (a + b) + (a + b) + (a + b) + (a + b)

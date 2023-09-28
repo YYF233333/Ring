@@ -3,13 +3,17 @@ class_name InputType
 
 enum _Type {
 	ScriptStepForward,
-	Save,
-	Load,
+	SaveToFile,
+	LoadFromFile,
+	LoadFromHistory,
+	UpdatePersistVariable,
 }
 
 static var ScriptStepForward := InputType.new(_Type.ScriptStepForward)
-static var Save := InputType.new(_Type.Save)
-static var Load := InputType.new(_Type.Load)
+static var SaveToFile := InputType.new(_Type.SaveToFile)
+static var LoadFromFile := InputType.new(_Type.LoadFromFile)
+static var LoadFromHistory := InputType.new(_Type.LoadFromHistory)
+static var UpdatePersistVariable := InputType.new(_Type.UpdatePersistVariable)
 
 var _type: _Type
 

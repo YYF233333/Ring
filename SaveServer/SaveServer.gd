@@ -3,7 +3,9 @@ extends Node
 
 # placehold
 class Archive:
-	pass
+	var name: String
+	var stage: String
+	var script_execute_index: int # 当前执行到的脚本位置
 
 var _archives_loaded: bool = false
 var _archives: Dictionary # Dict[String, Archive]
