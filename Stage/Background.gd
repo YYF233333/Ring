@@ -8,6 +8,5 @@ func _ready() -> void:
 	_sprite.centered = false
 	add_child(_sprite)
 
-func show_picture(texture: Asset) -> void:
-	assert(texture.is_type(AssetType.IMAGE))
-	_sprite.texture = texture.unwrap()
+func show_picture(path: String) -> void:
+	_sprite.texture = load("res://" + path)

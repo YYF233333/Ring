@@ -3,7 +3,6 @@ extends Node
 ## 所有输出经过该模块派发给UI组件
 
 ## 服务器初始化
-## param[in]: save_folder 存档文件夹路径
 func init() -> void:
 	pass
 

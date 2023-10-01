@@ -1,40 +1,84 @@
 class_name RingScript
-## 存放编译完成的脚本，可直接被解释器执行
+## 脚本编译器
 
 class InstBlock:
 	var insts: Array[Expression]
 
-## 编译后指令
-var instructions: Array[Expression]
+	func _init(insts: Array[Expression]) -> void:
+		self.insts = insts
 
-func _init(source: String) -> void:
-	instructions = parse(source)
+	func append(other: InstBlock) -> void:
+		insts.append_array(other.insts)
 
-static func parse(source: String) -> Array[Expression]:
-	var ret: Array[Expression] = []
-	var regex := RegEx.new()
-	regex.compile(
-		"(?<name>[\\S]+):\\\"(?<text>[^\\\"]+)\\\"" \
-		+ "|```[\\S]*\\n(?<code>[\\s\\S]*)```" \
-		+ "|!\\[\\]\\((?<img_path>[\\s\\S]*)\\)"
-	)
-	var inst := regex.search(source)
-	while inst:
-		var expr_text := ""
-		var expr := Expression.new()
-		if inst.get_string("name"):
-			expr_text = "%s.say(%s)" % \
-			[inst.get_string("name"), inst.get_string("text")]
-		elif inst.get_string("code"):
-			expr_text = inst.get_string("code")
-		elif inst.get_string("img_path"):
-			expr_text = "bg.show_texture(%s)" % inst.get_string("img_path")
-		else:
-			push_error("Unmatched script part %s" % inst.get_string())
-		var ec := expr.parse(expr_text)
-		if ec != Error.OK:
-			push_error("Invalid syntax: %s" % expr_text)
-		else:
-			ret.push_back(expr)
-		inst = regex.search(source, inst.get_end())
-	return ret
+class Parser:
+	var source: String
+	var index: int
+
+	func _init(source: String) -> void:
+		self.source = source
+		index = 0
+
+	func end() -> bool:
+		return index >= source.length()
+
+	func next_block() -> InstBlock:
+		if index < source.length():
+			var ret := parse_say()
+			if ret != null:
+				return InstBlock.new([ret])
+			ret = parse_bg_change()
+			if ret != null:
+				return InstBlock.new([ret])
+			parse_any()
+		return null
+
+	func parse_say() -> Expression:
+		var say := RegEx.create_from_string("(?<name>[\\S]+):\\\"(?<text>[^\\\"]+)\\\"")
+		var say_block := say.search(source, index)
+		if say_block != null and say_block.get_start() == index:
+			index = say_block.get_end()
+			var expr_text := "say(\"%s\", \"%s\")" % \
+			[say_block.get_string("name"), say_block.get_string("text")]
+			var expr := Expression.new()
+			var ec := expr.parse(expr_text)
+			if ec != Error.OK:
+				push_error("Invalid syntax: %s" % say_block.get_string())
+			else:
+				return expr
+		return null
+
+	func parse_bg_change() -> Expression:
+		var bg_change := RegEx.create_from_string("!\\[\\]\\((?<img_path>[\\s\\S]*)\\)")
+		var bg_change_block := bg_change.search(source, index)
+		if bg_change_block != null and bg_change_block.get_start() == index:
+			index = bg_change_block.get_end()
+			var expr_text := "stage.background.show_picture(\"%s\")" \
+			% bg_change_block.get_string("img_path")
+			print(expr_text)
+			var expr := Expression.new()
+			var ec := expr.parse(expr_text)
+			if ec != Error.OK:
+				push_error("Invalid syntax: %s" % bg_change_block.get_string())
+			else:
+				return expr
+		return null
+
+	func parse_code() -> Expression:
+		return Expression.new()
+
+	func parse_any() -> void:
+		push_warning("Unmatched character %s" % source[index])
+		index += 1
+
+static func compile(source: String) -> Array[InstBlock]:
+	var inst_blocks: Array[InstBlock] = []
+	var parser := Parser.new(source)
+	while not parser.end():
+		var block := parser.next_block()
+		if block != null:
+			inst_blocks.append(block)
+	return inst_blocks
+
+#static func parse(source: String) -> Array[InstBlock]:
+#	var ret: Array[InstBlock] = []
+#	var code_block := RegEx.create_from_string("```[\\S]*\\n(?<code>[\\s\\S]*)```")

@@ -10,4 +10,5 @@
 # e.g.
 stage.bg.show("background.png")
 ```
-![](test.png)
+
+![](icon.svg)

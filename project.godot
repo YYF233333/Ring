@@ -21,6 +21,7 @@ AssetServer="*res://AssetServer/AssetServer.gd"
 SaveServer="*res://SaveServer/SaveServer.gd"
 Interpreter="*res://CoreRuntime/Interpreter/Interpreter.gd"
 IOServer="*res://UI/IOServer.gd"
+Stage="*res://Stage/Stage.gd"
 
 [display]
 
@@ -31,3 +32,7 @@ window/stretch/mode="viewport"
 [filesystem]
 
 import/blender/enabled=false
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
