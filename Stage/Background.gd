@@ -10,3 +10,6 @@ func _ready() -> void:
 
 func show_picture(texture: Texture2D) -> void:
 	_sprite.texture = texture
+	# 暂时默认拉伸至屏幕大小
+	var scale := get_viewport_rect().size / texture.get_size()
+	_sprite.scale = scale

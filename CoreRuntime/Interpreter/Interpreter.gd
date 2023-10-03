@@ -1,8 +1,6 @@
 extends Node
 ## 全局脚本解释器
 
-const InstBlock = RingScript.InstBlock
-
 # 脚本执行环境
 var stage: Stage
 var asset_server: Node
@@ -36,6 +34,10 @@ func example() -> void:
 
 func say(name: String, content: String):
 	print("%s say %s" % [name, content])
+
+func show_character(name: String) -> void:
+	stage.characters["红叶"] = Character.new(["红叶"], [load(name)])
+	stage.add_child(stage.characters["红叶"])
 
 # 局部变量管理
 func push_stack(item) -> void:
