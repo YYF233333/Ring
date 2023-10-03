@@ -8,7 +8,5 @@
 # 控制逻辑
 # 代码块可以操作运行时提供的舞台对象(StageObject)
 # e.g.
-stage.bg.show("background.png")
+stage.background.show_picture(asset_server.load_img("res://icon.svg"))
 ```
-
-![](icon.svg)

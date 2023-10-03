@@ -8,5 +8,5 @@ func _ready() -> void:
 	_sprite.centered = false
 	add_child(_sprite)
 
-func show_picture(path: String) -> void:
-	_sprite.texture = load("res://" + path)
+func show_picture(texture: Texture2D) -> void:
+	_sprite.texture = texture

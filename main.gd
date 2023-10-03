@@ -14,7 +14,6 @@ func _ready() -> void:
 	Interpreter.step()
 	Interpreter.step()
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

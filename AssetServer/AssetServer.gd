@@ -5,10 +5,10 @@ extends Node
 ## metadata information about assets.
 
 static func load_img(path: String):
-	## extension is part after last dot
-	var ext := path.rsplit(".", true, 1)[0]
+	# file format extension
+	var ext := path.get_extension()
 	if ext in ["png", "jpg", "svg"]:
-		var img := load(path) as ImageTexture
+		var img := load(path)
 		return img
 	elif ext == "psd":
 		push_error("psd format is not supported yet")

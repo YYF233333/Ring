@@ -3,12 +3,14 @@ extends Node
 
 const InstBlock = RingScript.InstBlock
 
-## 脚本执行环境
+# 脚本执行环境
 var stage: Stage
 var asset_server: Node
 var save_server: Node
-var cur_script: Array[InstBlock]
+var cur_script: Array[InstBlock] = []
 var next_block_idx := 0
+var local_variables: Dictionary = {}
+var stack: Array = []
 
 func _ready() -> void:
 	stage = Stage
@@ -21,15 +23,34 @@ func load_script(script: Array[InstBlock]) -> void:
 func step() -> void:
 	var cur_block := cur_script[next_block_idx]
 	for cur_inst in cur_block.insts:
+		# Interpreter is Env
 		cur_inst.execute([], self)
 		if cur_inst.has_execute_failed():
 			push_error("Error: %s" % cur_inst.get_error_text())
 	next_block_idx += 1
 
 ## 脚本可调用接口
-## 接口返回值统一为解释器本身
+
 func example() -> void:
 	print("test user-script interface")
 
 func say(name: String, content: String):
 	print("%s say %s" % [name, content])
+
+# 局部变量管理
+func push_stack(item) -> void:
+	stack.push_back(item)
+
+func pop_stack() -> Variant:
+	return stack.pop_back()
+
+func set_local(name: String, value: Variant) -> void:
+	local_variables[name] = value
+
+func get_local(name: String) -> Variant:
+	if not local_variables.has(name):
+		push_error("Accessing unexisted local var %s", name)
+	return local_variables.get(name)
+
+func remove_local(name: String) -> bool:
+	return local_variables.erase(name)
