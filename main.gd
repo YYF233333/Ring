@@ -10,11 +10,6 @@ func _ready() -> void:
 	var logo := load("res://icon.svg")
 	var chara := Character.new(["logo"], [logo])
 	#add_child(chara)
-	Interpreter.step()
-	Interpreter.step()
-	Interpreter.step()
-	Interpreter.step()
-	Interpreter.step()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

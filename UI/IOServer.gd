@@ -9,3 +9,7 @@ extends Node
 
 func script_step_forward() -> void:
 	Interpreter.step()
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_accept"):
+		Interpreter.step()

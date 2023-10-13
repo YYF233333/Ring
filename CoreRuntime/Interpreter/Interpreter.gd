@@ -33,11 +33,17 @@ func example() -> void:
 	print("test user-script interface")
 
 func say(name: String, content: String):
+	$/root/Node2D/Label.text = content
 	print("%s say %s" % [name, content])
 
-func show_character(name: String) -> void:
-	stage.characters["红叶"] = Character.new(["红叶"], [load(name)])
-	stage.add_child(stage.characters["红叶"])
+func show_character(name: String, pos: String) -> void:
+	var chara := Character.new([name], [AssetServer.load_img_by_name(name)])
+	stage.characters[name] = chara
+	stage.add_child(chara)
+	chara.position = posname2pos(pos)
+
+func hide_character(name: String) -> void:
+	stage.remove_child(stage.characters[name])
 
 # 局部变量管理
 func push_stack(item) -> void:
@@ -56,3 +62,10 @@ func get_local(name: String) -> Variant:
 
 func remove_local(name: String) -> bool:
 	return local_variables.erase(name)
+
+func posname2pos(name: String) -> Vector2:
+	match name:
+		"left": return Vector2(100, 200)
+		"middle": return Vector2(500, 200)
+		"right": return Vector2(900, 200)
+		_: return Vector2(0, 0)

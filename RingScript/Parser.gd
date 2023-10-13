@@ -24,6 +24,9 @@ func next_block() -> InstBlock:
 		ret = parse_show_character()
 		if ret != null:
 			return ret
+		ret = parse_hide_character()
+		if ret != null:
+			return ret
 		parse_any()
 	return null
 
@@ -59,12 +62,27 @@ func parse_bg_change() -> InstBlock:
 	return InstBlock.new([expr])
 
 func parse_show_character() -> InstBlock:
-	var rule := RegEx.create_from_string("show (?<name>[\\S]*)\\n")
+	var rule := RegEx.create_from_string("show (?<name>[\\S]*) at (?<pos>[\\S]*)\\n")
 	var matched := rule.search(source, index)
 	if matched == null or matched.get_start() != index:
 		return null
 	index = matched.get_end()
-	var text := "show_character(\"%s\")" % matched.get_string("name")
+	var text := "show_character(\"%s\", \"%s\")" % \
+		[matched.get_string("name"), matched.get_string("pos")]
+	var expr := Expression.new()
+	var ec := expr.parse(text)
+	if ec != Error.OK:
+		push_error("Invalid Syntax: %s" % matched.get_string())
+		return null
+	return InstBlock.new([expr])
+
+func parse_hide_character() -> InstBlock:
+	var rule := RegEx.create_from_string("hide (?<name>[\\S]*)\\n")
+	var matched := rule.search(source, index)
+	if matched == null or matched.get_start() != index:
+		return null
+	index = matched.get_end()
+	var text := "hide_character(\"%s\")" % matched.get_string("name")
 	var expr := Expression.new()
 	var ec := expr.parse(text)
 	if ec != Error.OK:

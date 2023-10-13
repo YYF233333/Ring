@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://btbtytqch7pvb"]
+[gd_scene load_steps=3 format=3 uid="uid://btbtytqch7pvb"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_i456d"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_nfahs"]
+font_size = 40
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_i456d")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 200)
+offset_top = 880.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_vertical = 8
+label_settings = SubResource("LabelSettings_nfahs")
