@@ -3,5 +3,5 @@ class_name RingAnimation
 
 var _type: AnimationType
 
-## Lambda func which takes a Tween and configure it.
-var apply: Callable # func(Tween) -> Tween
+func apply(tween: Tween, node: Node) -> Tween:
+	return null

@@ -41,6 +41,9 @@ func show_character(name: String, pos: String) -> void:
 	stage.characters[name] = chara
 	stage.add_child(chara)
 	chara.position = posname2pos(pos)
+	chara.modulate.a = 0.0
+	var anima := AlphaAnimation.new(1.0)
+	anima.apply(chara.create_tween(), chara)
 
 func hide_character(name: String) -> void:
 	stage.remove_child(stage.characters[name])
