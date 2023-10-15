@@ -20,7 +20,7 @@ hide character (with ...)
 
 ![](test.png)
 
-<audio src="test.mp3"></audio>
+<audio src=test.mp3></audio>
 
 "# Chapter name"
 
@@ -50,7 +50,7 @@ show_bg = "![", identifier, "](", identifier, ")" ;
 play_audio = "<audio src=\"", identifier, "\"></audio>", " with ", identifier
 chapter_name = "# ", string
 code_block = "```", identifier, "\n", [ { code_statment | whitespace } ], "```"
-code_statement = assignment | branch | goto | Expression
+code_statement = assignment | branch | goto
 assignment = [ "var " ], identifier, " = ", Expression
 branch = "if ", Expression, ":", { code_statment }, "else:", { code_statement }
 goto = "goto ", identifier
