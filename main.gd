@@ -18,7 +18,10 @@ func _ready() -> void:
 	var bytes = c.Serialize()
 	var c2 = canvas.new()
 	c2.Deserialize(bytes)
-	add_child(c2)
+	add_child(c)
+	var img = c.get_children()[0]
+	print(img)
+	add_child(img)
 	#var c2 = bytes_to_var_with_objects(bytes)
 	#add_child(c)
 	#var chara := Character.new(["logo"], [logo])

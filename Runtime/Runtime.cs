@@ -1,4 +1,4 @@
-using Godot;
+ï»¿using Godot;
 using System;
 using RingEngine.Runtime.Script;
 using RingEngine.Runtime;
@@ -10,15 +10,15 @@ namespace RingEngine.Runtime
 {
     public partial class Runtime : Node
     {
-        // ½Å±¾ÄÚÇ¶´úÂë½âÊÍÆ÷
+        // è„šæœ¬å†…åµŒä»£ç è§£é‡Šå™¨
         public MoonSharp.Interpreter.Script codeInterpreter;
-        // ½Å±¾Ô´´úÂë
+        // è„šæœ¬æºä»£ç 
         public RingScript script;
         public UI UI;
         public Canvas canvas;
-        // ³Ö¾Ã»¯Êı¾İ´æ´¢£¨´æµµ¡¢È«¾Ö±äÁ¿£©
+        // æŒä¹…åŒ–æ•°æ®å­˜å‚¨ï¼ˆå­˜æ¡£ã€å…¨å±€å˜é‡ï¼‰
         public DataBase db;
-        // ËØ²Ä¹ÜÀí
+        // ç´ æç®¡ç†
         public Assets assets;
 
 
@@ -33,7 +33,7 @@ namespace RingEngine.Runtime
         }
 
         /// <summary>
-        /// ÔËĞĞ½Å±¾ÖÁÏÂÒ»¸öÖĞ¶Ïµã
+        /// è¿è¡Œè„šæœ¬è‡³ä¸‹ä¸€ä¸ªä¸­æ–­ç‚¹
         /// </summary>
         public void Step()
         {

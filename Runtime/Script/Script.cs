@@ -1,15 +1,23 @@
 ﻿using Godot;
+using RingEngine.Runtime.Effect;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace RingEngine.Runtime.Script
 {
     public class RingScript
     {
+        // 脚本所在文件夹路径
+        public string folderPath;
+        // 脚本文件名
+        public string scriptName;
         public List<IScriptBlock> segments;
-        public RingScript(string source)
+        public RingScript(string filePath)
         {
-            segments = Parser.Parse(source);
+            folderPath = ProjectSettings.LocalizePath(Path.GetDirectoryName(filePath));
+            scriptName = Path.GetFileNameWithoutExtension(filePath);
+            segments = Parser.Parse(File.ReadAllText(filePath));
         }
     }
 
@@ -56,15 +64,15 @@ namespace RingEngine.Runtime.Script
     {
         public string imgName;
         public string imgPath;
-        public string position;
+        public string placement;
         public string effect;
 
 
-        public Show(string path, string pos, string effect, string name)
+        public Show(string path, string placement, string effect, string name)
         {
             imgName = name;
             imgPath = path;
-            position = pos;
+            this.placement = placement;
             this.effect = effect;
         }
 
@@ -73,19 +81,20 @@ namespace RingEngine.Runtime.Script
             return obj is Show show &&
                    imgName == show.imgName &&
                    imgPath == show.imgPath &&
-                   position == show.position &&
+                   placement == show.placement &&
                    effect == show.effect;
         }
 
         public void Execute(Runtime runtime)
         {
-            var img = GD.Load("res://" + imgPath);
-            throw new NotImplementedException();
+            var texture = GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath));
+            runtime.canvas.AddTexture(imgName, texture, Placements.Get(placement));
+            runtime.canvas.ApplyEffect(imgName, Effects.Get(effect));
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(imgName, imgPath, position, effect);
+            return HashCode.Combine(imgName, imgPath, placement, effect);
         }
     }
 
