@@ -9,10 +9,6 @@
 #show_character()
 ```
 
-show 红叶 at left
+changeBG to <img src="bg1.png" style="zoom: 10%;" /> with dissolve
 
-hide 红叶
-
-change to<img src="bg1.png" style="zoom: 10%;" /> with dissolve
-
-show <img src=".\assets\char.png" alt="chara" style="zoom:10%;" /> at left
+show <img src="assets/chara.png" style="zoom:25%;" /> as 红叶 at farleft with dissolve

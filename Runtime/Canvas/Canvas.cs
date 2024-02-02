@@ -1,14 +1,27 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 public partial class Canvas : Node2D
 {
-    List<Node2D> childs;
+    Dictionary<string, Node2D> childs;
 
-    public Canvas()
+    public Canvas() { this.childs = []; }
+
+    public void Deserialize(string serialized_data)
     {
-        this.childs = [];
+        var childs_bin = (Dictionary<string, byte[]>)JsonSerializer.Deserialize(serialized_data, typeof(Dictionary<string, byte[]>));
+        foreach (var pair in childs_bin)
+        {
+            var child = (Node2D)GD.BytesToVarWithObjects(pair.Value);
+            childs[pair.Key] = child;
+            child.Name = pair.Key;
+            AddChild(child);
+        }
     }
 
     public void AddTexture(string name, Texture2D texture, Vector2 position, int zIndex = 0, bool centered = false)
@@ -19,20 +32,25 @@ public partial class Canvas : Node2D
         child.ZIndex = zIndex;
         child.Centered = centered;
         child.Position = position;
-        childs.Add(child);
+        childs[name] = child;
         AddChild(child);
     }
 
     public void RemoveTexture(string name)
     {
-        foreach (var child in childs)
+        var child = childs[name];
+        RemoveChild(child);
+        child.QueueFree();
+        childs.Remove(name);
+    }
+
+    public string Serialize()
+    {
+        Dictionary<string, byte[]> childs_bin = [];
+        foreach (var pair in childs)
         {
-            if (child.Name == name)
-            {
-                RemoveChild(child);
-                child.QueueFree();
-                break;
-            }
+            childs_bin[pair.Key] = GD.VarToBytesWithObjects(pair.Value);
         }
+        return JsonSerializer.Serialize(childs_bin);
     }
 }
