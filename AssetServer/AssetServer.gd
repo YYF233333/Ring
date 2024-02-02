@@ -27,7 +27,8 @@ static func load_img(path: String):
 		return null
 
 static func load_script(path: String):
-	return RingScript.compile(FileAccess.get_file_as_string(path))
+	return null
+	#return RingScript.compile(FileAccess.get_file_as_string(path))
 
 static func load_audio(path: String):
 	pass

@@ -1,0 +1,16 @@
+<Project Sdk="Godot.NET.Sdk/4.2.1">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+		<TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<RootNamespace>RingEngine</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="RingScript\**" />
+		<EmbeddedResource Remove="RingScript\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="RingScript\Ring Runtime.csproj" />
+	</ItemGroup>
+</Project>
