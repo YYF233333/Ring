@@ -1,10 +1,14 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
-using ParseResult = (string, Ring_Runtime.IScriptBlock?);
 
-namespace Ring_Runtime
+#nullable enable
+using ParseResult = (string, RingEngine.Runtime.Script.IScriptBlock?);
+
+namespace RingEngine.Runtime.Script
 {
-    static class Parser
+    public static class Parser
     {
         public static List<IScriptBlock> Parse(string source)
         {
@@ -19,13 +23,6 @@ namespace Ring_Runtime
                     source = ret.Item1;
                     continue;
                 }
-                ret = ParseBG(source);
-                if (ret.Item2 != null)
-                {
-                    blocks.Add(ret.Item2);
-                    source = ret.Item1;
-                    continue;
-                }
                 ret = ParseCodeBlock(source);
                 if (ret.Item2 != null)
                 {
@@ -33,7 +30,7 @@ namespace Ring_Runtime
                     source = ret.Item1;
                     continue;
                 }
-                ret = ParseBuiltInFunction(source);
+                ret = BuiltInFunctionParser.Parse(source);
                 if (ret.Item2 != null)
                 {
                     blocks.Add(ret.Item2);
@@ -70,11 +67,6 @@ namespace Ring_Runtime
             return new ParseResult(ret[1], new CodeBlock(ident, code));
         }
 
-        static ParseResult ParseBuiltInFunction(string source)
-        {
-            return BuiltInFunctionParser.Parse(source);
-        }
-
         static ParseResult ParseShowChapterName(string source)
         {
             string pattern = @"[#]+[\s]+(?<name>[\s\S]+)\n";
@@ -97,18 +89,6 @@ namespace Ring_Runtime
             return (source, null);
         }
 
-        static ParseResult ParseBG(string source)
-        {
-            string pattern = @"\A!\[(?<anim>[\s\S]*)\]\((?<path>[\s\S]*)\)";
-            var match = Regex.Match(source, pattern);
-            if (match.Success)
-            {
-                var ret = new BG(match.Groups["path"].Value, match.Groups["anim"].Value);
-                return new ParseResult(source[match.Length..], ret);
-            }
-            return new ParseResult(source, null);
-        }
-
         static ParseResult ParseAudio(string source)
         {
             string pattern = @"\A<audio src=""(?<path>[\s\S]*)""></audio>";
@@ -123,13 +103,13 @@ namespace Ring_Runtime
 
     }
 
-    static class BuiltInFunctionParser
+    public static class BuiltInFunctionParser
     {
         delegate ParseResult Parser(string source);
         static readonly Dictionary<string, Parser> Parsers = new Dictionary<string, Parser>
         {
-            {"Show", ParseShowCharacter },
-            {"Hide", ParseHideCharacter },
+            {"Show", ParseShow },
+            {"Hide", ParseHide },
         };
 
         public static ParseResult Parse(string source)
@@ -144,20 +124,20 @@ namespace Ring_Runtime
             return new ParseResult(source, null);
         }
 
-        public static ParseResult ParseShowCharacter(string source)
+        public static ParseResult ParseShow(string source)
         {
-            string pattern = @"\Ashow (?<name>[\S]*) at (?<pos>[\S]*)\n";
+            string pattern = @"\Ashow <img src=""(?<path>[\s\S]*)""[\s\S]*/> at (?<pos>[\S]*)";
             var match = Regex.Match(source, pattern);
             Trace.Assert(match.Success);
-            return new ParseResult(source[match.Length..], new ShowCharacter(match.Groups["name"].Value, match.Groups["pos"].Value));
+            return new ParseResult(source[match.Length..], new Show(match.Groups["path"].Value, match.Groups["pos"].Value));
         }
 
-        public static ParseResult ParseHideCharacter(string source)
+        public static ParseResult ParseHide(string source)
         {
             string pattern = @"\Ahide(?<name> [\S] *)\n";
             var match = Regex.Match(source, pattern);
             Trace.Assert(match.Success);
-            return new ParseResult(source[match.Length..], new HideCharacter(match.Groups["name"].Value));
+            return new ParseResult(source[match.Length..], new Hide(match.Groups["name"].Value));
         }
     }
 }

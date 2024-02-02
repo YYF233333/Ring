@@ -1,8 +1,12 @@
-﻿namespace Ring_Runtime
+﻿using Godot;
+using System;
+using System.Collections.Generic;
+
+namespace RingEngine.Runtime.Script
 {
     public class RingScript
     {
-        List<IScriptBlock> segments;
+        public List<IScriptBlock> segments;
         public RingScript(string source)
         {
             segments = Parser.Parse(source);
@@ -16,16 +20,6 @@
         /// </summary>
         /// <param name="runtime">运行时环境</param>
         public void Execute(Runtime runtime);
-    }
-
-    public abstract class BuiltInFunction
-    {
-        /// <summary>
-        /// <参数名，参数值>
-        /// </summary>
-        protected Dictionary<string, string> args;
-
-        public BuiltInFunction() { args = []; ; }
     }
 
     class CodeBlock : IScriptBlock
@@ -46,25 +40,31 @@
     }
 
 
-    class ShowCharacter : BuiltInFunction, IScriptBlock
+    class Show : IScriptBlock
     {
-        public ShowCharacter(string name, string pos)
+        string imgPath;
+        string position;
+
+
+        public Show(string imgPath, string pos)
         {
-            args.Add("name", name);
-            args.Add("pos", pos);
+            this.imgPath = imgPath;
+            position = pos;
         }
 
         public void Execute(Runtime runtime)
         {
+            var img = GD.Load("res://" + imgPath);
             throw new NotImplementedException();
         }
     }
 
-    class HideCharacter : BuiltInFunction, IScriptBlock
+    class Hide : IScriptBlock
     {
-        public HideCharacter(string name)
+        string name;
+        public Hide(string name)
         {
-            args.Add("name", name);
+            this.name = name;
         }
 
         public void Execute(Runtime runtime)
@@ -97,27 +97,6 @@
         {
             this.characterName = characterName;
             this.content = content;
-        }
-
-        public void Execute(Runtime runtime)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-
-
-    class BG : IScriptBlock
-    {
-        // path to the new background image
-        string path;
-        // animation used in show process
-        string animation;
-
-        public BG(string path, string animation)
-        {
-            this.path = path;
-            this.animation = animation;
         }
 
         public void Execute(Runtime runtime)

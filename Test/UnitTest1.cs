@@ -1,9 +1,7 @@
-using RingScript;
-
 namespace Test
 {
     [TestClass]
-    public class TestScript
+    public class UnitTest1
     {
         [TestMethod]
         public void TestMethod1()

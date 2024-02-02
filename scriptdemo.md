@@ -13,4 +13,6 @@ show 红叶 at left
 
 hide 红叶
 
-![](bg1.png)
+change to<img src="bg1.png" style="zoom: 10%;" /> with dissolve
+
+show <img src=".\assets\char.png" alt="chara" style="zoom:10%;" /> at left

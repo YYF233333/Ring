@@ -8,9 +8,11 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="RingScript\**" />
+		<Compile Remove="Test\**" />
 		<EmbeddedResource Remove="RingScript\**" />
+		<EmbeddedResource Remove="Test\**" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="RingScript\Ring Runtime.csproj" />
+	  <PackageReference Include="MoonSharp" Version="2.0.0" />
 	</ItemGroup>
 </Project>

@@ -17,11 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-AssetServer="*res://AssetServer/AssetServer.gd"
 SaveServer="*res://SaveServer/SaveServer.gd"
 IOServer="*res://UI/IOServer.gd"
 Stage="*res://Stage/Stage.gd"
-Glue="*res://glue.cs"
 
 [display]
 
