@@ -6,20 +6,9 @@ using System.Threading.Tasks;
 
 namespace RingEngine.Runtime
 {
-    public class UI
-    {
-        public UI()
-        {
-        }
-    }
 
     public class DataBase
     {
         public DataBase() { }
-    }
-
-    public class Assets
-    {
-        public Assets() { }
     }
 }

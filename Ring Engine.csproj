@@ -17,5 +17,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Runtime\Canvas\" />
+	  <Folder Include="Runtime\UI\" />
 	</ItemGroup>
 </Project>

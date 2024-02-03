@@ -1,4 +1,5 @@
 using Godot;
+using RingEngine.Runtime;
 using RingEngine.Runtime.Effect;
 using RingEngine.Runtime.Script;
 using System;
@@ -9,12 +10,13 @@ public partial class main : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        GetNode<Runtime>("/root/Runtime").Step();
+        GetNode<Runtime>("/root/Runtime").Step();
         //var canvas = new Canvas();
-        //canvas.AddTexture("红叶", GD.Load<Texture2D>("res://assets/chara.png"), Vector2.Zero);
+        //GetNode<Runtime>("/root/Runtime").canvas.AddTexture("红叶", GD.Load<Texture2D>("res://assets/chara.png"), Placements.Get("farleft"));
         //AddChild(canvas);
         //canvas.ApplyEffect("红叶", new Dissolve(2.0));
-        var script = new RingScript("./scriptdemo.md");
-        GD.Print(script.folderPath);
+
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

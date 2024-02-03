@@ -2,6 +2,7 @@
 using RingEngine.Runtime.Effect;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace RingEngine.Runtime.Script
@@ -15,9 +16,10 @@ namespace RingEngine.Runtime.Script
         public List<IScriptBlock> segments;
         public RingScript(string filePath)
         {
-            folderPath = ProjectSettings.LocalizePath(Path.GetDirectoryName(filePath));
+            Trace.Assert(filePath.StartsWith("res://"));
+            folderPath = StringExtensions.GetBaseDir(filePath);
             scriptName = Path.GetFileNameWithoutExtension(filePath);
-            segments = Parser.Parse(File.ReadAllText(filePath));
+            segments = Parser.Parse(Godot.FileAccess.GetFileAsString(filePath));
         }
     }
 
@@ -41,6 +43,7 @@ namespace RingEngine.Runtime.Script
             this.identifier = identifier;
         }
 
+        // 测试代码使用
         public override bool Equals(object obj)
         {
             return obj is CodeBlock block &&
@@ -53,12 +56,12 @@ namespace RingEngine.Runtime.Script
             runtime.codeInterpreter.DoString(code);
         }
 
+        // 测试代码使用
         public override int GetHashCode()
         {
             return HashCode.Combine(identifier, code);
         }
     }
-
 
     public class Show : IScriptBlock
     {
@@ -187,7 +190,8 @@ namespace RingEngine.Runtime.Script
 
         public void Execute(Runtime runtime)
         {
-            throw new NotImplementedException();
+            runtime.UI.ChangeCharacterName(name);
+            runtime.UI.Print(content);
         }
 
         public override int GetHashCode()

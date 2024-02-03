@@ -93,7 +93,7 @@ namespace RingEngine.Runtime.Script
 
         public static ParseResult ParseSay(string source)
         {
-            string pattern = @"\A(?<ident>\S+)\s*?:\s*?""(?<content>[\s\S]*?)""";
+            string pattern = @"\A(?<ident>\S+)\s*?(:|：)\s*?""(?<content>[\s\S]*?)""";
             var match = Regex.Match(source, pattern);
             if (match.Success)
             {

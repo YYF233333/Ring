@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SaveServer="*res://SaveServer/SaveServer.gd"
 IOServer="*res://UI/IOServer.gd"
 Stage="*res://Stage/Stage.gd"
+Runtime="*res://Runtime/Runtime.cs"
 
 [display]
 

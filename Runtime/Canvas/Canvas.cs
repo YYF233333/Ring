@@ -16,18 +16,6 @@ public partial class Canvas : Node2D
 
     public Canvas() { childs = []; }
 
-    public void Deserialize(string serialized_data)
-    {
-        var childs_bin = (Dictionary<string, byte[]>)JsonSerializer.Deserialize(serialized_data, typeof(Dictionary<string, byte[]>));
-        foreach (var pair in childs_bin)
-        {
-            var child = (Sprite2D)GD.BytesToVarWithObjects(pair.Value);
-            childs[pair.Key] = child;
-            child.Name = pair.Key;
-            AddChild(child);
-        }
-    }
-
     public void AddTexture(string name, Texture2D texture, Placement placement, int zIndex = 0, bool centered = false)
     {
         var child = new Sprite2D();
@@ -62,5 +50,17 @@ public partial class Canvas : Node2D
             childs_bin[pair.Key] = GD.VarToBytesWithObjects(pair.Value);
         }
         return JsonSerializer.Serialize(childs_bin);
+    }
+
+    public void Deserialize(string serialized_data)
+    {
+        var childs_bin = (Dictionary<string, byte[]>)JsonSerializer.Deserialize(serialized_data, typeof(Dictionary<string, byte[]>));
+        foreach (var pair in childs_bin)
+        {
+            var child = (Sprite2D)GD.BytesToVarWithObjects(pair.Value);
+            childs[pair.Key] = child;
+            child.Name = pair.Key;
+            AddChild(child);
+        }
     }
 }

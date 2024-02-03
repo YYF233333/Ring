@@ -10,7 +10,7 @@ namespace RingEngine.Runtime.Effect
     public interface IEffect
     {
         /// <summary>
-        /// 对节点应用当前效果
+        /// 对节点应用当前效果，动效的目标状态通常为节点的当前状态
         /// </summary>
         /// <param name="node">目标节点</param>
         public void apply(Node node);
@@ -31,9 +31,9 @@ namespace RingEngine.Runtime.Effect
 
     public class Dissolve : IEffect
     {
-        float startAlpha;
-        float endAlpha;
-        float duration;
+        public float startAlpha;
+        public float endAlpha;
+        public float duration;
         public Dissolve(double duration = 1.0, double endAlpha = 1.0, double startAlpha = 0.0)
         {
             this.startAlpha = (float)startAlpha;

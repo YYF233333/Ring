@@ -5,6 +5,7 @@ using RingEngine.Runtime;
 using MoonSharp.Interpreter;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using System.Diagnostics;
 
 namespace RingEngine.Runtime
 {
@@ -18,18 +19,21 @@ namespace RingEngine.Runtime
         public Canvas canvas;
         // 持久化数据存储（存档、全局变量）
         public DataBase db;
-        // 素材管理
-        public Assets assets;
+        // 下一条执行的代码块index
+        public int PC = 0;
 
 
         public Runtime()
         {
             codeInterpreter = new MoonSharp.Interpreter.Script();
-            script = new RingScript("");
+            script = new RingScript("res://main.md");
             UI = new UI();
+            UI.Name = "UI";
+            AddChild(UI);
             canvas = new Canvas();
+            canvas.Name = "Canvas";
+            AddChild(canvas);
             db = new DataBase();
-            assets = new Assets();
         }
 
         /// <summary>
@@ -37,16 +41,9 @@ namespace RingEngine.Runtime
         /// </summary>
         public void Step()
         {
-
-        }
-        // Called when the node enters the scene tree for the first time.
-        public override void _Ready()
-        {
-        }
-
-        // Called every frame. 'delta' is the elapsed time since the previous frame.
-        public override void _Process(double delta)
-        {
+            Trace.Assert(PC < script.segments.Count);
+            script.segments[PC].Execute(this);
+            PC++;
         }
     }
 }

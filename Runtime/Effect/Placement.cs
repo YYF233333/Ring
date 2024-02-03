@@ -18,7 +18,15 @@ namespace RingEngine.Runtime.Effect
     {
         static Dictionary<string, Placement> table = new Dictionary<string, Placement>
         {
-            {"farleft", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } }
+            {"farleft", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } },
+            {"farmiddle", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } },
+            {"farright", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } },
+            {"left", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } },
+            {"middle", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } },
+            {"right", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } },
+            {"nearleft", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } },
+            {"nearmiddle", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } },
+            {"nearright", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } }
         };
 
         public static Placement Get(string name)
