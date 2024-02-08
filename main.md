@@ -1,6 +1,29 @@
-changeBG to <img src="bg1.png" alt="chara" style="zoom:25%;" />
-show <img src="chara.png" alt="chara" style="zoom:25%;" /> as 红叶 at farleft with dissolve
+# Chapter ???
 
-红叶："114514"
+changeBG to <img src="assets/bg1.png" alt="bg1" style="zoom:25%;" /> with dissolve
 
+少年："那么，世界回应了少女，实现了她的心愿？"
 
+？？："不完全是这样..."
+
+？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"
+
+？？："真的只是些许，只有一点点变化哦。"
+
+少年："这也...太悲哀了。"
+
+？？："世界本就如此，何来悲哀。"
+
+？？："说到底，哪有什么万能的许愿机啊..."
+
+少年："那么，人的执念，人的祈愿，就真的一点意义都没有吗"
+
+？？："倒也不能这么说。"
+
+？？："如果要说的话，愿望这种东西大概相当于燃料吧。世界本身的燃料。"
+
+？？："人可能会对它抱有期许，认为它有强大的力量足以改变很多东西。"
+
+？？："然而当他们真的认识到个中含义时，那东西早已被燃尽，灰烬都找不见了。"
+
+changeBG to <img src="assets/black.png" alt="black" style="zoom:25%;" /> with dissolve

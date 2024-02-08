@@ -30,8 +30,6 @@ namespace RingEngine.Runtime.Script
         /// </summary>
         /// <param name="runtime">运行时环境</param>
         public void Execute(Runtime runtime);
-
-        public void Print();
     }
 
     public class CodeBlock : IScriptBlock
@@ -64,9 +62,9 @@ namespace RingEngine.Runtime.Script
             return HashCode.Combine(identifier, code);
         }
 
-        public void Print()
+        public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"CodeBlock: identifier: {identifier}, code: {code}";
         }
     }
 
@@ -110,28 +108,45 @@ namespace RingEngine.Runtime.Script
             return HashCode.Combine(imgName, imgPath, placement, effect);
         }
 
-        public void Print()
+        public override string ToString()
         {
-            GD.Print("show: name:", imgName, " path:", imgPath, " placement:", placement, " effect:", effect);
+            return $"show: name: {imgName}, path: {imgPath}, placement: {placement}, effect: {effect}";
         }
     }
 
     public class Hide : IScriptBlock
     {
-        string name;
-        public Hide(string name)
+        public string name;
+        public string effect;
+
+        public Hide(string name, string effect)
         {
             this.name = name;
+            this.effect = effect;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Hide hide &&
+                   name == hide.name &&
+                   effect == hide.effect;
         }
 
         public void Execute(Runtime runtime)
         {
-            throw new NotImplementedException();
+            IEffect instance = Effects.Get(effect);
+            runtime.canvas.ApplyEffect(name, instance);
+            runtime.canvas.ApplyEffect(name, new Chain([new Delay(instance.GetDuration()), new Delete()]));
         }
 
-        public void Print()
+        public override int GetHashCode()
         {
-            throw new NotImplementedException();
+            return HashCode.Combine(name, effect);
+        }
+
+        public override string ToString()
+        {
+            return $"hide: name: {name}, effect: {effect}";
         }
     }
 
@@ -156,11 +171,20 @@ namespace RingEngine.Runtime.Script
         public void Execute(Runtime runtime)
         {
             var canvas = runtime.canvas;
-            var texture = GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath));
-            var oldBG = canvas.changeBG(texture);
+            var texture = canvas.Stretch(GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath)));
+            canvas.RenameTexture("BG", "oldBG");
+            var oldBG = canvas.childs["oldBG"];
+            //oldBG.ZIndex -= 1;
+            canvas.AddTexture("BG", texture, Placements.BG, -1);
             if (effect != "")
             {
-                canvas.ApplyEffect(canvas.BG, Effects.Get(effect));
+                IEffect instance = Effects.Get(effect);
+                canvas.ApplyEffect("BG", instance);
+                canvas.ApplyEffect("oldBG", new Chain([new Delay(instance.GetDuration()), new Delete()]));
+            }
+            else
+            {
+                canvas.RemoveTexture("oldBG");
             }
         }
 
@@ -169,9 +193,9 @@ namespace RingEngine.Runtime.Script
             return HashCode.Combine(imgPath, effect);
         }
 
-        public void Print()
+        public override string ToString()
         {
-            GD.Print("changeBG: path:", imgPath, " effect:", effect);
+            return $"changeBG: path: {imgPath}, effect: {effect}";
         }
     }
 
@@ -192,7 +216,7 @@ namespace RingEngine.Runtime.Script
 
         public void Execute(Runtime runtime)
         {
-            runtime.UI.chapterName = chapterName;
+            runtime.UI.ShowChapterName(chapterName);
         }
 
         public override int GetHashCode()
@@ -200,9 +224,9 @@ namespace RingEngine.Runtime.Script
             return HashCode.Combine(chapterName);
         }
 
-        public void Print()
+        public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"showChapterName: {chapterName}";
         }
     }
 
@@ -235,9 +259,9 @@ namespace RingEngine.Runtime.Script
             return HashCode.Combine(name, content);
         }
 
-        public void Print()
+        public override string ToString()
         {
-            GD.Print("Say: name:", name, " content:", content);
+            return $"Say: name: {name}, content: {content}";
         }
     }
 

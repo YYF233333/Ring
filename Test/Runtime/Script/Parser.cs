@@ -138,5 +138,25 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
             ChangeBG block = (ChangeBG)ret.Item2;
             Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "dissolve"), block);
         }
+
+        [TestMethod]
+        public void TestParseHide()
+        {
+            var ret = BuiltInFunctionParser.ParseHide(@"hide 红叶");
+            Assert.AreEqual("", ret.Item1);
+            Assert.IsNotNull(ret.Item2);
+            Hide block = (Hide)ret.Item2;
+            Assert.AreEqual(new Hide("红叶", ""), block);
+        }
+
+        [TestMethod]
+        public void TestParseHideWithEffect()
+        {
+            var ret = BuiltInFunctionParser.ParseHide(@"hide 红叶 with dissolve");
+            Assert.AreEqual("", ret.Item1);
+            Assert.IsNotNull(ret.Item2);
+            Hide block = (Hide)ret.Item2;
+            Assert.AreEqual(new Hide("红叶", "dissolve"), block);
+        }
     }
 }

@@ -61,7 +61,6 @@ theme_override_constants/margin_bottom = 45
 [node name="TextBox" type="RichTextLabel" parent="TextBoxBack/MarginContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
-text = "你好"
 
 [node name="MarginContainer2" type="MarginContainer" parent="TextBoxBack/MarginContainer"]
 layout_mode = 2
@@ -72,7 +71,6 @@ theme_override_constants/margin_bottom = 175
 [node name="TextBox" type="RichTextLabel" parent="TextBoxBack/MarginContainer/MarginContainer2"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
-text = "【srp】"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -168,6 +166,7 @@ layout_mode = 2
 texture_normal = ExtResource("20_5hsud")
 
 [node name="ChapterNameBack" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_top = 50.0
 offset_right = 415.0
@@ -180,5 +179,4 @@ offset_left = 64.0
 offset_top = 4.0
 offset_right = 367.0
 offset_bottom = 71.0
-text = "Chapter 1-1"
 label_settings = SubResource("LabelSettings_n8uij")

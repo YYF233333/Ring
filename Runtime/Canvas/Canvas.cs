@@ -2,6 +2,7 @@
 using RingEngine.Runtime.Effect;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -12,28 +13,24 @@ using System.Text.Json.Serialization;
 /// </summary>
 public partial class Canvas : Node2D
 {
-    public Dictionary<string, Sprite2D> childs;
-
-    public Sprite2D BG;
+    public Dictionary<string, Sprite2D> childs = [];
+    public Dictionary<Node, Tween> tweens = [];
 
     public Canvas()
     {
         // 占位BG
-        var bg = new Sprite2D();
-        AddChild(bg);
-        childs = [];
-        BG = bg;
+        AddTexture("BG", GD.Load<Texture2D>("res://assets/Runtime/black.png"), Placements.BG, -1);
     }
 
-    public Sprite2D changeBG(Texture2D texture)
+    public Texture2D Stretch(Texture2D texture)
     {
-        var oldBG = BG;
-        BG = new Sprite2D();
-        BG.Texture = texture;
-        BG.ZIndex = -1;
-        BG.Centered = false;
-        AddChild(BG);
-        return oldBG;
+        var windowSize = GetTree().Root.Size;
+        var image = texture.GetImage();
+        var imageSize = image.GetSize();
+        var scale = Math.Max(windowSize.X / (float)imageSize.X, windowSize.Y / (float)imageSize.Y);
+        scale = Math.Max(scale, 1);
+        image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
+        return ImageTexture.CreateFromImage(image);
     }
 
     public void AddTexture(string name, Texture2D texture, Placement placement, int zIndex = 0, bool centered = false)
@@ -47,13 +44,14 @@ public partial class Canvas : Node2D
         child.Scale = new Vector2(placement.scale, placement.scale);
         childs[name] = child;
         AddChild(child);
+        Trace.Assert(child.Name == name);
     }
 
     public void RenameTexture(string name, string newName)
     {
         var child = childs[name];
         child.Name = newName;
-        childs.Remove(name);
+        //childs.Remove(name);
         childs[newName] = child;
     }
 
@@ -68,19 +66,34 @@ public partial class Canvas : Node2D
         }
     }
 
+    public void ApplyEffect(Node node, EffectFunc effect)
+    {
+        if (tweens.ContainsKey(node))
+        {
+            var tween = tweens[node];
+            if (tween.IsRunning())
+            {
+                tweens[node].Pause();
+                Trace.Assert(false == tweens[node].CustomStep(114514));
+            }
+            tweens.Remove(node);
+        }
+        tweens[node] = effect(node);
+    }
+
     public void ApplyEffect(string name, IEffect effect)
     {
-        effect.Apply(childs[name]);
+        ApplyEffect(childs[name], effect.Apply);
     }
 
     public void ApplyEffect(string name, EffectFunc effect)
     {
-        effect(childs[name]);
+        ApplyEffect(childs[name], effect);
     }
 
     public void ApplyEffect(Node node, IEffect effect)
     {
-        effect.Apply(node);
+        ApplyEffect(node, effect.Apply);
     }
 
     public string Serialize()

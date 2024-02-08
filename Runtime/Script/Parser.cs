@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
@@ -51,6 +52,7 @@ namespace RingEngine.Runtime.Script
                     source = ret.Item1;
                     continue;
                 }
+                GD.Print(source);
                 throw new Exception($"Parser Error at \"{source.Substring(0, 20)}\"");
             }
             return blocks;
@@ -158,10 +160,12 @@ namespace RingEngine.Runtime.Script
 
         public static ParseResult ParseHide(string source)
         {
-            string pattern = @"\Ahide (?<name>[\S]*?)\n";
+            string pattern = @"\Ahide (?<name>[\S]+)( with (?<effect>\S+))?";
             var match = Regex.Match(source, pattern);
             Trace.Assert(match.Success);
-            return new ParseResult(source[match.Length..], new Hide(match.Groups["name"].Value));
+            var effect_group = match.Groups.GetValueOrDefault("effect");
+            string effect = effect_group != null ? effect_group.Value : "";
+            return new ParseResult(source[match.Length..], new Hide(match.Groups["name"].Value, effect));
         }
 
         public static ParseResult ParseChangeBG(string source)

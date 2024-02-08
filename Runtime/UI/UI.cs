@@ -1,5 +1,6 @@
 ﻿using Godot;
 using RingEngine.Runtime;
+using RingEngine.Runtime.Effect;
 using System;
 using System.Collections.Generic;
 
@@ -50,5 +51,14 @@ public partial class UI : Control
         {
             text = content;
         }
+    }
+
+    public void ShowChapterName(string chapterName, IEffect present = null, IEffect disappear = null, double duration = 2.0)
+    {
+        present ??= new Dissolve(endAlpha: 1.0);
+        disappear ??= new Fade();
+        var effect = new Chain([present, new Delay(duration), disappear]);
+        this.chapterName = chapterName;
+        effect.Apply(GetNode("ChapterNameBack"));
     }
 }

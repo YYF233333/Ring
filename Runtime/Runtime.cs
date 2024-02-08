@@ -46,9 +46,15 @@ namespace RingEngine.Runtime
         /// </summary>
         public void Step()
         {
-            Trace.Assert(PC < script.segments.Count);
-            script.segments[PC].Execute(this);
-            PC++;
+            if (PC < script.segments.Count)
+            {
+                script.segments[PC].Execute(this);
+                PC++;
+            }
+            else
+            {
+                throw new Exception("Script Out of Bound!");
+            }
         }
 
         public override void _UnhandledInput(InputEvent @event)

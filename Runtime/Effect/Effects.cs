@@ -1,6 +1,7 @@
 ﻿using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,31 +16,57 @@ namespace RingEngine.Runtime.Effect
         /// </summary>
         /// <param name="node">目标节点</param>
         /// 
-        public void Apply(Node node);
+        /// <param name="tween">Tween Object（如果已经创建）</param>
+        public Tween Apply(Node node, Tween tween = null);
 
         /// <summary>
         /// 获取效果的持续时间
         /// </summary>
         /// <returns></returns>
-        public float getDuration();
+        public float GetDuration();
     }
 
     // 临时定义效果函数
-    public delegate void EffectFunc(Node node);
+    public delegate Tween EffectFunc(Node node, Tween tween = null);
 
     public static class Effects
     {
-
         static Dictionary<string, IEffect> effects = new Dictionary<string, IEffect>
         {
             {"transparent", new SetAlpha(0) },
             {"opaque", new SetAlpha(1) },
-            {"dissolve", new Dissolve() }
+            {"dissolve", new Dissolve() },
+            {"fade", new Fade() }
         };
 
         public static IEffect Get(string name)
         {
             return effects[name];
+        }
+    }
+
+    public class Chain : IEffect
+    {
+        List<IEffect> effects;
+
+        public Chain(List<IEffect> effects)
+        {
+            this.effects = effects;
+        }
+
+        public Tween Apply(Node node, Tween tween = null)
+        {
+            tween ??= node.CreateTween();
+            foreach (var effect in effects)
+            {
+                tween = effect.Apply(node, tween);
+            }
+            return tween;
+        }
+
+        public float GetDuration()
+        {
+            return effects.Sum(x => x.GetDuration());
         }
     }
 
@@ -55,65 +82,93 @@ namespace RingEngine.Runtime.Effect
             this.alpha = (float)alpha;
         }
 
-        public void Apply(Node node)
+        public Tween Apply(Node node, Tween tween = null)
         {
-            var sprite = (Sprite2D)node;
-            Color c = sprite.Modulate;
-            c.A = alpha;
-            sprite.Modulate = c;
+            tween ??= node.CreateTween();
+            tween.TweenCallback(Callable.From(() =>
+            {
+                var sprite = (CanvasItem)node;
+                Color c = sprite.Modulate;
+                c.A = alpha;
+                sprite.Modulate = c;
+            }));
+            return tween;
         }
 
-        public float getDuration()
+        public float GetDuration()
         {
             return 0;
         }
     }
 
-    public class Defer : IEffect
+    public class Delete : IEffect
+    {
+        public Tween Apply(Node node, Tween tween = null)
+        {
+            tween ??= node.CreateTween();
+            tween.TweenCallback(Callable.From(() =>
+            {
+                var canvas = node.GetParent<Canvas>();
+                canvas.RemoveTexture(node.Name);
+            }));
+            return tween;
+        }
+
+        public float GetDuration()
+        {
+            return 0;
+        }
+    }
+
+    public class Delay : IEffect
     {
         public float duration;
-        public EffectFunc effect;
 
-        public Defer(EffectFunc effect, float duration)
+        public Delay(double duration)
         {
-            this.duration = duration;
-            this.effect = effect;
+            this.duration = (float)duration;
         }
 
-        public void Apply(Node node)
+        public Tween Apply(Node node, Tween tween = null)
         {
-            var tween = node.CreateTween();
-            tween.TweenCallback(Callable.From(() => effect(node))).SetDelay(duration);
+            tween ??= node.CreateTween();
+            tween.TweenInterval(duration);
+            return tween;
         }
 
-        public float getDuration()
+        public float GetDuration()
         {
-            throw new NotImplementedException();
+            return duration;
         }
     }
 
     public class Dissolve : IEffect
     {
         public float startAlpha;
-        public float endAlpha;
+        public float? endAlpha;
         public float duration;
-        public Dissolve(double duration = 1.0, double endAlpha = 1.0, double startAlpha = 0.0)
+        public Dissolve(double duration = 1.0, double startAlpha = 0.0, double? endAlpha = null)
         {
             this.startAlpha = (float)startAlpha;
-            this.endAlpha = (float)endAlpha;
+            this.endAlpha = (float?)endAlpha;
             this.duration = (float)duration;
         }
-        public void Apply(Node node)
+        public Tween Apply(Node node, Tween tween = null)
         {
-            var sprite = (Sprite2D)node;
-            Color c = sprite.Modulate;
-            c.A = startAlpha;
-            sprite.Modulate = c;
-            var tween = node.CreateTween();
+            tween ??= node.CreateTween();
+            var sprite = (CanvasItem)node;
+            var endAlpha = this.endAlpha ?? sprite.Modulate.A;
+            tween.TweenCallback(Callable.From(() =>
+            {
+                Color c = sprite.Modulate;
+                c.A = startAlpha;
+                sprite.Modulate = c;
+            }));
             tween.TweenProperty(node, "modulate:a", endAlpha, duration);
+            return tween;
         }
 
-        public float getDuration()
+        public float GetDuration()
         {
             return duration;
         }
@@ -121,18 +176,33 @@ namespace RingEngine.Runtime.Effect
 
     public class Fade : IEffect
     {
-        public float startAlpha;
+        public float? startAlpha;
         public float endAlpha;
         public float duration;
-
-        public void Apply(Node node)
+        public Fade(double duration = 1.0, double endAlpha = 0.0, double? startAlpha = null)
         {
-            throw new NotImplementedException();
+            this.startAlpha = (float?)startAlpha;
+            this.endAlpha = (float)endAlpha;
+            this.duration = (float)duration;
+        }
+        public Tween Apply(Node node, Tween tween = null)
+        {
+            tween ??= node.CreateTween();
+            var sprite = (CanvasItem)node;
+            var startAlpha = this.startAlpha ?? sprite.Modulate.A;
+            tween.TweenCallback(Callable.From(() =>
+            {
+                Color c = sprite.Modulate;
+                c.A = startAlpha;
+                sprite.Modulate = c;
+            }));
+            tween.TweenProperty(node, "modulate:a", endAlpha, duration);
+            return tween;
         }
 
-        public float getDuration()
+        public float GetDuration()
         {
-            throw new NotImplementedException();
+            return duration;
         }
     }
 }
