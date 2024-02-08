@@ -3,6 +3,7 @@ using RingEngine.Runtime;
 using RingEngine.Runtime.Effect;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public partial class UI : Control
 {
@@ -17,11 +18,18 @@ public partial class UI : Control
         set => GetNode<Label>("./ChapterNameBack/ChapterName").Text = value;
     }
 
+    public RichTextLabel textBox
+    {
+        get => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer/TextBox");
+    }
+
     public string text
     {
-        get => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer/TextBox").Text;
-        set => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer/TextBox").Text = value;
+        get => textBox.Text;
+        set => textBox.Text = value;
     }
+
+    public Tween textBoxTween;
 
     public string characterName
     {
@@ -50,6 +58,16 @@ public partial class UI : Control
         else
         {
             text = content;
+            if (textBoxTween != null && textBoxTween.IsRunning())
+            {
+                textBoxTween.Pause();
+                textBoxTween.CustomStep(114);
+                textBoxTween.Kill();
+            }
+            textBoxTween = textBox.CreateTween();
+            textBox.VisibleRatio = 0;
+            textBoxTween.TweenProperty(textBox, "visible_ratio", 1.0, 1.0);
+
         }
     }
 

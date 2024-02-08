@@ -35,13 +35,36 @@ namespace RingEngine.Runtime.Effect
         {
             {"transparent", new SetAlpha(0) },
             {"opaque", new SetAlpha(1) },
-            {"dissolve", new Dissolve() },
+            {"dissolve", new Dissolve(2) },
             {"fade", new Fade() }
         };
 
         public static IEffect Get(string name)
         {
             return effects[name];
+        }
+    }
+
+    public class LambdaEffect : IEffect
+    {
+        EffectFunc func;
+        float duration;
+
+        public LambdaEffect(EffectFunc func, double duration = 0)
+        {
+            this.func = func;
+            this.duration = (float)duration;
+        }
+
+        public Tween Apply(Node node, Tween tween = null)
+        {
+            tween ??= node.CreateTween();
+            return func(node, tween);
+        }
+
+        public float GetDuration()
+        {
+            return duration;
         }
     }
 

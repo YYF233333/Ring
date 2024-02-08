@@ -47,12 +47,20 @@ public partial class Canvas : Node2D
         Trace.Assert(child.Name == name);
     }
 
-    public void RenameTexture(string name, string newName)
+    public Sprite2D ReplaceBG(Texture2D texture)
     {
-        var child = childs[name];
-        child.Name = newName;
-        //childs.Remove(name);
-        childs[newName] = child;
+        var child = childs["BG"];
+        child.Name = "zombieBG";
+        var newChild = new Sprite2D();
+        newChild.Name = "BG";
+        newChild.Texture = texture;
+        newChild.ZIndex = child.ZIndex;
+        newChild.Centered = child.Centered;
+        newChild.Position = child.Position;
+        newChild.Scale = child.Scale;
+        AddChild(newChild);
+        childs["BG"] = newChild;
+        return child;
     }
 
     public void RemoveTexture(string name)
@@ -74,7 +82,8 @@ public partial class Canvas : Node2D
             if (tween.IsRunning())
             {
                 tweens[node].Pause();
-                Trace.Assert(false == tweens[node].CustomStep(114514));
+                tweens[node].CustomStep(114);
+                tweens[node].Kill();
             }
             tweens.Remove(node);
         }

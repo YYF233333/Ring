@@ -134,9 +134,7 @@ namespace RingEngine.Runtime.Script
 
         public void Execute(Runtime runtime)
         {
-            IEffect instance = Effects.Get(effect);
-            runtime.canvas.ApplyEffect(name, instance);
-            runtime.canvas.ApplyEffect(name, new Chain([new Delay(instance.GetDuration()), new Delete()]));
+            runtime.canvas.ApplyEffect(name, new Chain([Effects.Get(effect), new Delete()]));
         }
 
         public override int GetHashCode()
@@ -172,19 +170,29 @@ namespace RingEngine.Runtime.Script
         {
             var canvas = runtime.canvas;
             var texture = canvas.Stretch(GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath)));
-            canvas.RenameTexture("BG", "oldBG");
-            var oldBG = canvas.childs["oldBG"];
-            //oldBG.ZIndex -= 1;
-            canvas.AddTexture("BG", texture, Placements.BG, -1);
+            var oldBG = canvas.ReplaceBG(texture);
             if (effect != "")
             {
                 IEffect instance = Effects.Get(effect);
                 canvas.ApplyEffect("BG", instance);
-                canvas.ApplyEffect("oldBG", new Chain([new Delay(instance.GetDuration()), new Delete()]));
+                canvas.ApplyEffect(oldBG, new Chain([
+                    new Delay(instance.GetDuration()),
+                    new LambdaEffect((Node node, Tween tween) =>
+                    {
+                        tween.TweenCallback(Callable.From(() =>
+                        {
+                            node.GetParent().RemoveChild(node);
+                            node.QueueFree();
+                        }));
+                        return tween;
+                    })
+                    ])
+                );
             }
             else
             {
-                canvas.RemoveTexture("oldBG");
+                canvas.RemoveChild(oldBG);
+                oldBG.QueueFree();
             }
         }
 
