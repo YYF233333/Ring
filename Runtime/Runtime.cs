@@ -6,6 +6,7 @@ using MoonSharp.Interpreter;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Diagnostics;
+using RingEngine.Runtime.Storage;
 
 namespace RingEngine.Runtime
 {
@@ -27,14 +28,18 @@ namespace RingEngine.Runtime
         {
             codeInterpreter = new MoonSharp.Interpreter.Script();
             script = new RingScript("res://main.md");
-            UI = new UI();
+            UI = GD.Load<PackedScene>("res://Runtime/UI/UI.tscn").Instantiate<UI>();
             UI.Name = "UI";
+            // 强制显示在canvas之上
+            UI.ZIndex = 1;
             AddChild(UI);
             canvas = new Canvas();
             canvas.Name = "Canvas";
             AddChild(canvas);
             db = new DataBase();
         }
+
+
 
         /// <summary>
         /// 运行脚本至下一个中断点
@@ -44,6 +49,17 @@ namespace RingEngine.Runtime
             Trace.Assert(PC < script.segments.Count);
             script.segments[PC].Execute(this);
             PC++;
+        }
+
+        public override void _UnhandledInput(InputEvent @event)
+        {
+            if (@event is InputEventKey)
+            {
+                if (Input.IsActionPressed("ui_accept"))
+                {
+                    Step();
+                }
+            }
         }
     }
 }

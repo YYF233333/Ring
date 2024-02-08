@@ -30,6 +30,8 @@ namespace RingEngine.Runtime.Script
         /// </summary>
         /// <param name="runtime">运行时环境</param>
         public void Execute(Runtime runtime);
+
+        public void Print();
     }
 
     public class CodeBlock : IScriptBlock
@@ -60,6 +62,11 @@ namespace RingEngine.Runtime.Script
         public override int GetHashCode()
         {
             return HashCode.Combine(identifier, code);
+        }
+
+        public void Print()
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -92,12 +99,20 @@ namespace RingEngine.Runtime.Script
         {
             var texture = GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath));
             runtime.canvas.AddTexture(imgName, texture, Placements.Get(placement));
-            runtime.canvas.ApplyEffect(imgName, Effects.Get(effect));
+            if (effect != "")
+            {
+                runtime.canvas.ApplyEffect(imgName, Effects.Get(effect));
+            }
         }
 
         public override int GetHashCode()
         {
             return HashCode.Combine(imgName, imgPath, placement, effect);
+        }
+
+        public void Print()
+        {
+            GD.Print("show: name:", imgName, " path:", imgPath, " placement:", placement, " effect:", effect);
         }
     }
 
@@ -110,6 +125,11 @@ namespace RingEngine.Runtime.Script
         }
 
         public void Execute(Runtime runtime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Print()
         {
             throw new NotImplementedException();
         }
@@ -135,12 +155,23 @@ namespace RingEngine.Runtime.Script
 
         public void Execute(Runtime runtime)
         {
-            throw new NotImplementedException();
+            var canvas = runtime.canvas;
+            var texture = GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath));
+            var oldBG = canvas.changeBG(texture);
+            if (effect != "")
+            {
+                canvas.ApplyEffect(canvas.BG, Effects.Get(effect));
+            }
         }
 
         public override int GetHashCode()
         {
             return HashCode.Combine(imgPath, effect);
+        }
+
+        public void Print()
+        {
+            GD.Print("changeBG: path:", imgPath, " effect:", effect);
         }
     }
 
@@ -161,12 +192,17 @@ namespace RingEngine.Runtime.Script
 
         public void Execute(Runtime runtime)
         {
-            throw new NotImplementedException();
+            runtime.UI.chapterName = chapterName;
         }
 
         public override int GetHashCode()
         {
             return HashCode.Combine(chapterName);
+        }
+
+        public void Print()
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -190,13 +226,18 @@ namespace RingEngine.Runtime.Script
 
         public void Execute(Runtime runtime)
         {
-            runtime.UI.ChangeCharacterName(name);
+            runtime.UI.characterName = name;
             runtime.UI.Print(content);
         }
 
         public override int GetHashCode()
         {
             return HashCode.Combine(name, content);
+        }
+
+        public void Print()
+        {
+            GD.Print("Say: name:", name, " content:", content);
         }
     }
 
@@ -214,6 +255,11 @@ namespace RingEngine.Runtime.Script
         }
 
         public void Execute(Runtime runtime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Print()
         {
             throw new NotImplementedException();
         }

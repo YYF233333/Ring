@@ -12,9 +12,29 @@ using System.Text.Json.Serialization;
 /// </summary>
 public partial class Canvas : Node2D
 {
-    Dictionary<string, Sprite2D> childs;
+    public Dictionary<string, Sprite2D> childs;
 
-    public Canvas() { childs = []; }
+    public Sprite2D BG;
+
+    public Canvas()
+    {
+        // 占位BG
+        var bg = new Sprite2D();
+        AddChild(bg);
+        childs = [];
+        BG = bg;
+    }
+
+    public Sprite2D changeBG(Texture2D texture)
+    {
+        var oldBG = BG;
+        BG = new Sprite2D();
+        BG.Texture = texture;
+        BG.ZIndex = -1;
+        BG.Centered = false;
+        AddChild(BG);
+        return oldBG;
+    }
 
     public void AddTexture(string name, Texture2D texture, Placement placement, int zIndex = 0, bool centered = false)
     {
@@ -29,17 +49,38 @@ public partial class Canvas : Node2D
         AddChild(child);
     }
 
-    public void RemoveTexture(string name)
+    public void RenameTexture(string name, string newName)
     {
         var child = childs[name];
-        RemoveChild(child);
-        child.QueueFree();
+        child.Name = newName;
         childs.Remove(name);
+        childs[newName] = child;
+    }
+
+    public void RemoveTexture(string name)
+    {
+        if (childs.ContainsKey(name))
+        {
+            var child = childs[name];
+            RemoveChild(child);
+            child.QueueFree();
+            childs.Remove(name);
+        }
     }
 
     public void ApplyEffect(string name, IEffect effect)
     {
-        effect.apply(childs[name]);
+        effect.Apply(childs[name]);
+    }
+
+    public void ApplyEffect(string name, EffectFunc effect)
+    {
+        effect(childs[name]);
+    }
+
+    public void ApplyEffect(Node node, IEffect effect)
+    {
+        effect.Apply(node);
     }
 
     public string Serialize()

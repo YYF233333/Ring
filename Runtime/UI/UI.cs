@@ -10,10 +10,25 @@ public partial class UI : Control
     // 各组件注册的回调函数
     Dictionary<string, EventHandler> handlers = new Dictionary<string, EventHandler>();
 
-    public void RegisterCallback(string name, EventHandler handler)
+    public string chapterName
     {
-        handlers[name] = handler;
+        get => GetNode<Label>("./ChapterNameBack/ChapterName").Text;
+        set => GetNode<Label>("./ChapterNameBack/ChapterName").Text = value;
     }
+
+    public string text
+    {
+        get => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer/TextBox").Text;
+        set => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer/TextBox").Text = value;
+    }
+
+    public string characterName
+    {
+        get => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer2/TextBox").Text.Trim(['【', '】']);
+        set => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer2/TextBox").Text = '【' + value + '】';
+    }
+
+    public void RegisterCallback(string name, EventHandler handler) { handlers[name] = handler; }
 
     public void UnregisterCallback(string name) { handlers.Remove(name); }
 
@@ -27,14 +42,13 @@ public partial class UI : Control
     /// </summary>
     public void Print(string content, bool append = false)
     {
-        GD.Print(content);
-    }
-
-    /// <summary>
-    /// 替换人物名称文本框内容
-    /// </summary>
-    public void ChangeCharacterName(string name)
-    {
-        GD.Print($"Character: {name}");
+        if (append)
+        {
+            text += content;
+        }
+        else
+        {
+            text = content;
+        }
     }
 }

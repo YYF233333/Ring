@@ -29,6 +29,8 @@ namespace RingEngine.Runtime.Effect
             {"nearright", new Placement { scale = 0.5f, position = new Vector2(0.0f, 0.0f) } }
         };
 
+        public static Placement BG = new Placement { scale = 1.0f, position = new Vector2(0.0f, 0.0f) };
+
         public static Placement Get(string name)
         {
             return table[name];

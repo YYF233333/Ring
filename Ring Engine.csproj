@@ -13,10 +13,10 @@
 		<EmbeddedResource Remove="Test\**" />
 	</ItemGroup>
 	<ItemGroup>
+	  <PackageReference Include="LiteDB" Version="5.0.17" />
 	  <PackageReference Include="MoonSharp" Version="2.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Runtime\Canvas\" />
-	  <Folder Include="Runtime\UI\" />
 	</ItemGroup>
 </Project>
