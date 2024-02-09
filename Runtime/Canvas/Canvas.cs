@@ -3,14 +3,8 @@ using RingEngine.Runtime.Effect;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
-/// <summary>
-/// 由于不知名原因Canvas的子节点无法在Canvas外部访问
-/// </summary>
 public partial class Canvas : Node2D
 {
     public Dictionary<string, Sprite2D> childs = [];
