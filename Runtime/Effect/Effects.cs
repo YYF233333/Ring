@@ -120,10 +120,10 @@ namespace RingEngine.Runtime.Effect
         public Tween Apply(Node node, Tween tween = null)
         {
             tween ??= node.CreateTween();
-            var sprite = (CanvasItem)node;
-            var startAlpha = this.startAlpha ?? sprite.Modulate.A;
             tween.TweenCallback(Callable.From(() =>
             {
+                var sprite = (CanvasItem)node;
+                var startAlpha = this.startAlpha ?? sprite.Modulate.A;
                 Color c = sprite.Modulate;
                 c.A = startAlpha;
                 sprite.Modulate = c;

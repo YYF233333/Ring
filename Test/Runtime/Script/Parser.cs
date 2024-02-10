@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RingEngine.Runtime.Script;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using RingEngine.Runtime.Effect;
 
 namespace Test.Runtime.Script
 {
@@ -117,6 +119,16 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
             Assert.IsNotNull(ret.Item2);
             Show block = (Show)ret.Item2;
             Assert.AreEqual(new Show("assets/bg2.jpg", "left", "dissolve", "红叶"), block);
+        }
+
+        [TestMethod]
+        public void TestParseShowWithEffectWithParam()
+        {
+            var ret = BuiltInFunctionParser.ParseShow(@"show <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" /> as 红叶 at left with Dissolve(2.0,0.5)");
+            Assert.AreEqual("", ret.Item1);
+            Assert.IsNotNull(ret.Item2);
+            Show block = (Show)ret.Item2;
+            Assert.AreEqual(new Show("assets/bg2.jpg", "left", "Dissolve(2.0,0.5)", "红叶"), block);
         }
 
         [TestMethod]

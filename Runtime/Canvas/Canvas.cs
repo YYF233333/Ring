@@ -1,4 +1,5 @@
 ﻿using Godot;
+using RingEngine.Runtime;
 using RingEngine.Runtime.Effect;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,11 @@ using System.Text.Json;
 public partial class Canvas : Node2D
 {
     public Dictionary<string, Sprite2D> childs = [];
-    public Dictionary<Node, Tween> tweens = [];
+    public Dictionary<Node, Tween> tweens;
 
-    public Canvas()
+    public Canvas(Dictionary<Node, Tween> tweens)
     {
+        this.tweens = tweens;
         // 占位BG
         AddTexture("BG", GD.Load<Texture2D>("res://assets/Runtime/black.png"), Placements.BG, -1);
     }
@@ -70,17 +72,7 @@ public partial class Canvas : Node2D
 
     public void ApplyEffect(Node node, EffectFunc effect)
     {
-        if (tweens.ContainsKey(node))
-        {
-            var tween = tweens[node];
-            if (tween.IsRunning())
-            {
-                tweens[node].Pause();
-                tweens[node].CustomStep(114);
-                tweens[node].Kill();
-            }
-            tweens.Remove(node);
-        }
+        Trace.Assert(false == tweens.ContainsKey(node));
         tweens[node] = effect(node);
     }
 

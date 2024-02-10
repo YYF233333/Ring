@@ -30,7 +30,7 @@ namespace RingEngine.Runtime.Effect
         {
             {"transparent", new SetAlpha(0) },
             {"opaque", new SetAlpha(1) },
-            {"dissolve", new Dissolve(2) },
+            {"dissolve", new Dissolve() },
             {"fade", new Fade() }
         };
 

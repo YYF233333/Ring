@@ -12,6 +12,8 @@ public partial class UI : Control
     // 各组件注册的回调函数
     Dictionary<string, EventHandler> handlers = new Dictionary<string, EventHandler>();
 
+    public Dictionary<Node, Tween> tweens { get => GetParent<Runtime>().tweens; }
+
     public string chapterName
     {
         get => GetNode<Label>("./ChapterNameBack/ChapterName").Text;
@@ -22,14 +24,6 @@ public partial class UI : Control
     {
         get => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer/TextBox");
     }
-
-    public string text
-    {
-        get => textBox.Text;
-        set => textBox.Text = value;
-    }
-
-    public Tween textBoxTween;
 
     public string characterName
     {
@@ -53,18 +47,14 @@ public partial class UI : Control
     {
         if (append)
         {
-            text += content;
+            textBox.Text += content;
         }
         else
         {
-            text = content;
-            if (textBoxTween != null && textBoxTween.IsRunning())
-            {
-                textBoxTween.Pause();
-                textBoxTween.CustomStep(114);
-                textBoxTween.Kill();
-            }
-            textBoxTween = textBox.CreateTween();
+            textBox.Text = content;
+            Trace.Assert(false == tweens.ContainsKey(textBox));
+            var textBoxTween = textBox.CreateTween();
+            tweens[textBox] = textBoxTween;
             textBox.VisibleRatio = 0;
             textBoxTween.TweenProperty(textBox, "visible_ratio", 1.0, 1.0);
 
@@ -73,10 +63,12 @@ public partial class UI : Control
 
     public void ShowChapterName(string chapterName, IEffect present = null, IEffect disappear = null, double duration = 2.0)
     {
+        Trace.Assert(false == tweens.ContainsKey(GetNode("ChapterNameBack")));
         present ??= new Dissolve(endAlpha: 1.0);
         disappear ??= new Fade();
         var effect = new Chain([present, new Delay(duration), disappear]);
         this.chapterName = chapterName;
-        effect.Apply(GetNode("ChapterNameBack"));
+        var tween = effect.Apply(GetNode("ChapterNameBack"));
+        tweens[GetNode("ChapterNameBack")] = tween;
     }
 }

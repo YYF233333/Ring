@@ -7,10 +7,11 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Diagnostics;
 using RingEngine.Runtime.Storage;
+using System.Collections.Generic;
 
 namespace RingEngine.Runtime
 {
-    public partial class Runtime : Node
+    public partial class Runtime : Node2D
     {
         // 脚本内嵌代码解释器
         public MoonSharp.Interpreter.Script codeInterpreter;
@@ -18,6 +19,7 @@ namespace RingEngine.Runtime
         public RingScript script;
         public UI UI;
         public Canvas canvas;
+        public Dictionary<Node, Tween> tweens = [];
         // 持久化数据存储（存档、全局变量）
         public DataBase db;
         // 下一条执行的代码块index
@@ -33,7 +35,7 @@ namespace RingEngine.Runtime
             // 强制显示在canvas之上
             UI.ZIndex = 1;
             AddChild(UI);
-            canvas = new Canvas();
+            canvas = new Canvas(tweens);
             canvas.Name = "Canvas";
             AddChild(canvas);
             db = new DataBase();
@@ -46,6 +48,19 @@ namespace RingEngine.Runtime
         /// </summary>
         public void Step()
         {
+            var flag = false;
+            foreach (var (node, tween) in tweens)
+            {
+                if (tween.IsRunning())
+                {
+                    tween.Pause();
+                    tween.CustomStep(114);
+                    tween.Kill();
+                    flag = true;
+                }
+                tweens.Remove(node);
+            }
+            if (flag) { return; }
             if (PC < script.segments.Count)
             {
                 script.segments[PC].Execute(this);

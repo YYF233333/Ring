@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dd2xoi5kttqqh"]
+[gd_scene load_steps=4 format=3 uid="uid://dd2xoi5kttqqh"]
 
 [ext_resource type="Texture2D" uid="uid://c0da2wk3t2log" path="res://assets/figs/p1.jpg" id="1_exlkj"]
 [ext_resource type="Texture2D" uid="uid://ctwh2td4u8mhd" path="res://assets/figs/p2.jpg" id="2_3nu6u"]
+[ext_resource type="Script" path="res://scenes/StartGame.gd" id="3_mi4ly"]
 
 [node name="Title" type="ColorRect"]
 anchors_preset = 15
@@ -59,6 +60,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 64
 text = "开始游戏"
+script = ExtResource("3_mi4ly")
 
 [node name="LoadGame" type="Button" parent="HBoxContainer/Right/VBoxContainer/MenuVBoxContainer"]
 layout_mode = 2
@@ -87,3 +89,5 @@ size_flags_stretch_ratio = 0.5
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
+
+[connection signal="pressed" from="HBoxContainer/Right/VBoxContainer/MenuVBoxContainer/StartGame" to="HBoxContainer/Right/VBoxContainer/MenuVBoxContainer/StartGame" method="_on_pressed"]
