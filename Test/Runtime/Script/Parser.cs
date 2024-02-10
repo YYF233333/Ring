@@ -44,6 +44,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
                 Assert.AreEqual(pair.First, pair.Second);
             }
         }
+
         [TestMethod]
         public void TestParseShowChapterName()
         {

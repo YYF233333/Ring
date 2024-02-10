@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 
 namespace RingEngine.Runtime.Effect
 {
@@ -100,9 +101,22 @@ namespace RingEngine.Runtime.Effect
             return tween;
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Dissolve dissolve &&
+                   startAlpha == dissolve.startAlpha &&
+                   endAlpha == dissolve.endAlpha &&
+                   duration == dissolve.duration;
+        }
+
         public float GetDuration()
         {
             return duration;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(startAlpha, endAlpha, duration);
         }
     }
 
