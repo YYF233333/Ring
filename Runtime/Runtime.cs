@@ -8,13 +8,16 @@ using System.Text.Json;
 using System.Diagnostics;
 using RingEngine.Runtime.Storage;
 using System.Collections.Generic;
+using System.Linq;
+using RingEngine.Runtime.Effect;
+using MoonSharp.Interpreter.Interop;
 
 namespace RingEngine.Runtime
 {
     public partial class Runtime : Node2D
     {
         // 脚本内嵌代码解释器
-        public MoonSharp.Interpreter.Script codeInterpreter;
+        public LuaInterpreter interpreter;
         // 脚本源代码
         public RingScript script;
         public UI UI;
@@ -28,7 +31,7 @@ namespace RingEngine.Runtime
 
         public Runtime()
         {
-            codeInterpreter = new MoonSharp.Interpreter.Script();
+            interpreter = new LuaInterpreter();
             script = new RingScript("res://main.md");
             UI = GD.Load<PackedScene>("res://Runtime/UI/UI.tscn").Instantiate<UI>();
             UI.Name = "UI";
@@ -63,8 +66,14 @@ namespace RingEngine.Runtime
             if (flag) { return; }
             if (PC < script.segments.Count)
             {
-                script.segments[PC].Execute(this);
-                PC++;
+                var @continue = false;
+                do
+                {
+                    @continue = script.segments[PC].@continue;
+                    script.segments[PC].Execute(this);
+                    PC++;
+                } while (@continue && PC < script.segments.Count);
+
             }
             else
             {

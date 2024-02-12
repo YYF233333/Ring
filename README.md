@@ -4,11 +4,11 @@
 
 - [ ] 如何对依赖godot runtime的代码进行单元测试
 - [ ] 动画重构，chain effect bug
-- [ ] 脚本语言选择：C#/Lua/Python
+- [x] 脚本语言选择：lua
 - [ ] 跳转语句如何设计？
-- [ ] 场景序列化实现
 - [ ] 实现常用的蒙版、Camera、shader动画
 - [ ] UI模块
+- [ ] 场景序列化实现
 - [ ] 存档系统（Using LiteDB）
 - [ ] 解决动画中断后节点延迟清理问题
 - [ ] 快进的时候chapter name的动画效果如何处理

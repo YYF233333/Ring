@@ -26,7 +26,7 @@ namespace RingEngine.Runtime.Effect
 
     public static class Effects
     {
-        static Dictionary<string, IEffect> effects = new Dictionary<string, IEffect>
+        public static Dictionary<string, IEffect> effects = new Dictionary<string, IEffect>
         {
             {"transparent", new SetAlpha(0) },
             {"opaque", new SetAlpha(1) },

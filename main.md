@@ -1,6 +1,6 @@
 # Chapter ???
 
-changeBG to <img src="assets/bg1.png" alt="bg1" style="zoom:25%;" /> with dissolve
+changeBG <img src="assets/bg1.png" alt="bg1" style="zoom:25%;" /> with dissolve
 
 少年："那么，世界回应了少女，实现了她的心愿？"
 
@@ -26,4 +26,4 @@ changeBG to <img src="assets/bg1.png" alt="bg1" style="zoom:25%;" /> with dissol
 
 ？？："然而当他们真的认识到个中含义时，那东西早已被燃尽，灰烬都找不见了。"
 
-changeBG to <img src="assets/black.png" alt="black" style="zoom:25%;" /> with dissolve
+changeBG <img src="assets/black.png" alt="black" style="zoom:25%;" /> with dissolve

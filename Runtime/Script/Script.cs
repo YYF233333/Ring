@@ -23,13 +23,17 @@ namespace RingEngine.Runtime.Script
         }
     }
 
-    public interface IScriptBlock
+    public abstract class IScriptBlock
     {
+        /// <summary>
+        /// 执行完当前语句块后是否继续执行
+        /// </summary>
+        public bool @continue = false;
+
         /// <summary>
         /// 执行当前代码块
         /// </summary>
-        /// <param name="runtime">运行时环境</param>
-        public void Execute(Runtime runtime);
+        public abstract void Execute(Runtime runtime);
     }
 
     public class CodeBlock : IScriptBlock
@@ -51,9 +55,9 @@ namespace RingEngine.Runtime.Script
                    code == block.code;
         }
 
-        public void Execute(Runtime runtime)
+        public override void Execute(Runtime runtime)
         {
-            runtime.codeInterpreter.DoString(code);
+            runtime.interpreter.Eval(code);
         }
 
         // 测试代码使用
@@ -93,13 +97,13 @@ namespace RingEngine.Runtime.Script
                    effect == show.effect;
         }
 
-        public void Execute(Runtime runtime)
+        public override void Execute(Runtime runtime)
         {
             var texture = GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath));
             runtime.canvas.AddTexture(imgName, texture, Placements.Get(placement));
             if (effect != "")
             {
-                runtime.canvas.ApplyEffect(imgName, Effects.Get(effect));
+                runtime.canvas.ApplyEffect(imgName, runtime.interpreter.Eval<IEffect>(effect));
             }
         }
 
@@ -132,9 +136,9 @@ namespace RingEngine.Runtime.Script
                    effect == hide.effect;
         }
 
-        public void Execute(Runtime runtime)
+        public override void Execute(Runtime runtime)
         {
-            runtime.canvas.ApplyEffect(name, new Chain([Effects.Get(effect), new Delete()]));
+            runtime.canvas.ApplyEffect(name, new Chain([runtime.interpreter.Eval<IEffect>(effect), new Delete()]));
         }
 
         public override int GetHashCode()
@@ -155,6 +159,7 @@ namespace RingEngine.Runtime.Script
 
         public ChangeBG(string path, string effect)
         {
+            @continue = true;
             this.imgPath = path;
             this.effect = effect;
         }
@@ -166,14 +171,14 @@ namespace RingEngine.Runtime.Script
                    effect == bG.effect;
         }
 
-        public void Execute(Runtime runtime)
+        public override void Execute(Runtime runtime)
         {
             var canvas = runtime.canvas;
             var texture = canvas.Stretch(GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath)));
             var oldBG = canvas.ReplaceBG(texture);
             if (effect != "")
             {
-                IEffect instance = Effects.Get(effect);
+                IEffect instance = runtime.interpreter.Eval<IEffect>(effect);
                 canvas.ApplyEffect("BG", instance);
                 canvas.ApplyEffect(oldBG, new Chain([
                     new Delay(instance.GetDuration()),
@@ -222,7 +227,7 @@ namespace RingEngine.Runtime.Script
                    chapterName == name.chapterName;
         }
 
-        public void Execute(Runtime runtime)
+        public override void Execute(Runtime runtime)
         {
             runtime.UI.ShowChapterName(chapterName);
         }
@@ -256,7 +261,7 @@ namespace RingEngine.Runtime.Script
                    content == say.content;
         }
 
-        public void Execute(Runtime runtime)
+        public override void Execute(Runtime runtime)
         {
             runtime.UI.characterName = name;
             runtime.UI.Print(content);
@@ -286,7 +291,7 @@ namespace RingEngine.Runtime.Script
             this.animation = animation;
         }
 
-        public void Execute(Runtime runtime)
+        public override void Execute(Runtime runtime)
         {
             throw new NotImplementedException();
         }

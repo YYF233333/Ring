@@ -24,7 +24,6 @@ namespace RingEngine.Runtime.Script
                 var ret = ParseShowChapterName(source);
                 if (ret.Item2 != null)
                 {
-                    Console.WriteLine("ShowChapterName");
                     blocks.Add(ret.Item2);
                     source = ret.Item1;
                     continue;
@@ -32,7 +31,6 @@ namespace RingEngine.Runtime.Script
                 ret = ParseCodeBlock(source);
                 if (ret.Item2 != null)
                 {
-                    Console.WriteLine("CodeBlock");
                     blocks.Add(ret.Item2);
                     source = ret.Item1;
                     continue;
@@ -47,12 +45,10 @@ namespace RingEngine.Runtime.Script
                 ret = ParseSay(source);
                 if (ret.Item2 != null)
                 {
-                    Console.WriteLine("Say");
                     blocks.Add(ret.Item2);
                     source = ret.Item1;
                     continue;
                 }
-                GD.Print(source);
                 throw new Exception($"Parser Error at \"{source.Substring(0, 20)}\"");
             }
             return blocks;
@@ -142,7 +138,7 @@ namespace RingEngine.Runtime.Script
 
         public static ParseResult ParseShow(string source)
         {
-            string pattern = @"\Ashow <img src=""(?<path>[^""]*)""[\s\S]*?/> as (?<name>\S+) at (?<pos>\S+)( with (?<effect>[\S]+))?";
+            string pattern = @"\Ashow *<img src=""(?<path>[^""]*)""[\s\S]*?/> *as (?<name>\S+) at (?<pos>\S+)( with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
             var match = Regex.Match(source, pattern);
             Trace.Assert(match.Success);
             var effect_group = match.Groups.GetValueOrDefault("effect");
@@ -170,7 +166,7 @@ namespace RingEngine.Runtime.Script
 
         public static ParseResult ParseChangeBG(string source)
         {
-            string pattern = @"\AchangeBG to <img src=""(?<path>[\s\S]*?)""[\s\S]*?/>( with (?<effect>\S+))?";
+            string pattern = @"\AchangeBG *<img src=""(?<path>[\s\S]*?)""[\s\S]*?/>( *with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
             var match = Regex.Match(source, pattern);
             Trace.Assert(match.Success);
             var effect_group = match.Groups.GetValueOrDefault("effect");

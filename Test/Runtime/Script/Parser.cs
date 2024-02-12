@@ -20,14 +20,14 @@ namespace Test.Runtime.Script
 #show_character()
 ```
 
-changeBG to <img src=""bg1.png"" style=""zoom: 10%;"" /> with dissolve
+changeBG <img src=""bg1.png"" style=""zoom: 10%;"" /> with dissolve
 
 show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft with dissolve
 
 ";
 
         [TestMethod]
-        public void TestParse()
+        public void Parse()
         {
             var ret = Parser.Parse(script);
             Assert.AreEqual(5, ret.Count);
@@ -39,14 +39,14 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
                 new Show("assets/chara.png", "farleft", "dissolve", "红叶")
             ];
 
-            foreach (var pair in answer.Zip(ret))
+            foreach (var (reference, actual) in answer.Zip(ret))
             {
-                Assert.AreEqual(pair.First, pair.Second);
+                Assert.AreEqual(reference, actual);
             }
         }
 
         [TestMethod]
-        public void TestParseShowChapterName()
+        public void ParseShowChapterName()
         {
             var ret = Parser.ParseShowChapterName("# Chapter 1\n");
             Assert.AreEqual("", ret.Item1);
@@ -55,7 +55,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         }
 
         [TestMethod]
-        public void TestParseSay()
+        public void ParseSay()
         {
             var ret = Parser.ParseSay("红叶 : \"台词 abab;:.\n\"");
             Assert.AreEqual("", ret.Item1);
@@ -64,7 +64,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         }
 
         [TestMethod]
-        public void TestParseSay2()
+        public void ParseSay2()
         {
             var ret = Parser.ParseSay("红叶 ： \"台词 abab;:.\n\"");
             Assert.AreEqual("", ret.Item1);
@@ -73,7 +73,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         }
 
         [TestMethod]
-        public void TestParseSayNotEnd()
+        public void ParseSayNotEnd()
         {
             var ret = Parser.ParseSay("红叶 : \"台词\"\nother content");
             Assert.AreEqual("\nother content", ret.Item1);
@@ -82,7 +82,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         }
 
         [TestMethod]
-        public void TestParseCodeBlock()
+        public void ParseCodeBlock()
         {
             var ret = Parser.ParseCodeBlock(@"``` Python
 # 控制逻辑
@@ -103,7 +103,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
     public class TestBuiltInParser
     {
         [TestMethod]
-        public void TestParseShow()
+        public void ParseShow()
         {
             var ret = BuiltInFunctionParser.ParseShow(@"show <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" /> as 红叶 at left");
             Assert.AreEqual("", ret.Item1);
@@ -113,7 +113,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         }
 
         [TestMethod]
-        public void TestParseShowWithEffect()
+        public void ParseShowWithEffect()
         {
             var ret = BuiltInFunctionParser.ParseShow(@"show <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" /> as 红叶 at left with dissolve");
             Assert.AreEqual("", ret.Item1);
@@ -123,19 +123,34 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         }
 
         [TestMethod]
-        public void TestParseShowWithEffectWithParam()
+        public void ParseShowIndent()
         {
-            var ret = BuiltInFunctionParser.ParseShow(@"show <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" /> as 红叶 at left with Dissolve(2.0,0.5)");
+            var ret = BuiltInFunctionParser.ParseShow(@"show<img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" />as 红叶 at left");
             Assert.AreEqual("", ret.Item1);
             Assert.IsNotNull(ret.Item2);
             Show block = (Show)ret.Item2;
-            Assert.AreEqual(new Show("assets/bg2.jpg", "left", "Dissolve(2.0,0.5)", "红叶"), block);
+            Assert.AreEqual(new Show("assets/bg2.jpg", "left", "", "红叶"), block);
+            ret = BuiltInFunctionParser.ParseShow(@"show   <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" />   as 红叶 at left");
+            Assert.AreEqual("", ret.Item1);
+            Assert.IsNotNull(ret.Item2);
+            block = (Show)ret.Item2;
+            Assert.AreEqual(new Show("assets/bg2.jpg", "left", "", "红叶"), block);
         }
 
         [TestMethod]
-        public void TestParseChangeBG()
+        public void ParseShowWithInlineCode()
         {
-            var ret = BuiltInFunctionParser.ParseChangeBG(@"changeBG to <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" />");
+            var ret = BuiltInFunctionParser.ParseShow(@"show <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" /> as 红叶 at left with `Dissolve(2.0, 0.5)`");
+            Assert.AreEqual("", ret.Item1);
+            Assert.IsNotNull(ret.Item2);
+            Show block = (Show)ret.Item2;
+            Assert.AreEqual(new Show("assets/bg2.jpg", "left", "Dissolve(2.0, 0.5)", "红叶"), block);
+        }
+
+        [TestMethod]
+        public void ParseChangeBG()
+        {
+            var ret = BuiltInFunctionParser.ParseChangeBG(@"changeBG <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" />");
             Assert.AreEqual("", ret.Item1);
             Assert.IsNotNull(ret.Item2);
             ChangeBG block = (ChangeBG)ret.Item2;
@@ -143,9 +158,9 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         }
 
         [TestMethod]
-        public void TestParseChangeBGWithEffect()
+        public void ParseChangeBGWithEffect()
         {
-            var ret = BuiltInFunctionParser.ParseChangeBG(@"changeBG to <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" /> with dissolve");
+            var ret = BuiltInFunctionParser.ParseChangeBG(@"changeBG <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" /> with dissolve");
             Assert.AreEqual("", ret.Item1);
             Assert.IsNotNull(ret.Item2);
             ChangeBG block = (ChangeBG)ret.Item2;
@@ -153,7 +168,32 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         }
 
         [TestMethod]
-        public void TestParseHide()
+        public void ParseChangeBGIndent()
+        {
+            var ret = BuiltInFunctionParser.ParseChangeBG(@"changeBG<img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" />with dissolve");
+            Assert.AreEqual("", ret.Item1);
+            Assert.IsNotNull(ret.Item2);
+            ChangeBG block = (ChangeBG)ret.Item2;
+            Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "dissolve"), block);
+            ret = BuiltInFunctionParser.ParseChangeBG(@"changeBG   <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" />   with dissolve");
+            Assert.AreEqual("", ret.Item1);
+            Assert.IsNotNull(ret.Item2);
+            block = (ChangeBG)ret.Item2;
+            Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "dissolve"), block);
+        }
+
+        [TestMethod]
+        public void ParseChangeBGWithInlineCode()
+        {
+            var ret = BuiltInFunctionParser.ParseChangeBG(@"changeBG <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" /> with `Dissolve(2.0, 0.5)`");
+            Assert.AreEqual("", ret.Item1);
+            Assert.IsNotNull(ret.Item2);
+            ChangeBG block = (ChangeBG)ret.Item2;
+            Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "Dissolve(2.0, 0.5)"), block);
+        }
+
+        [TestMethod]
+        public void ParseHide()
         {
             var ret = BuiltInFunctionParser.ParseHide(@"hide 红叶");
             Assert.AreEqual("", ret.Item1);
@@ -163,7 +203,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         }
 
         [TestMethod]
-        public void TestParseHideWithEffect()
+        public void ParseHideWithEffect()
         {
             var ret = BuiltInFunctionParser.ParseHide(@"hide 红叶 with dissolve");
             Assert.AreEqual("", ret.Item1);
