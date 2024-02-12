@@ -8,12 +8,12 @@ using System.Text.Json;
 
 public partial class Canvas : Node2D
 {
-    public Dictionary<string, Sprite2D> childs = [];
-    public Dictionary<Node, Tween> tweens;
+    Dictionary<string, Sprite2D> childs = [];
 
-    public Canvas(Dictionary<Node, Tween> tweens)
+    public Sprite2D this[string name] => childs[name];
+
+    public Canvas()
     {
-        this.tweens = tweens;
         // 占位BG
         AddTexture("BG", GD.Load<Texture2D>("res://assets/Runtime/black.png"), Placements.BG, -1);
     }
@@ -68,27 +68,6 @@ public partial class Canvas : Node2D
             child.QueueFree();
             childs.Remove(name);
         }
-    }
-
-    public void ApplyEffect(Node node, EffectFunc effect)
-    {
-        Trace.Assert(false == tweens.ContainsKey(node));
-        tweens[node] = effect(node);
-    }
-
-    public void ApplyEffect(string name, IEffect effect)
-    {
-        ApplyEffect(childs[name], effect.Apply);
-    }
-
-    public void ApplyEffect(string name, EffectFunc effect)
-    {
-        ApplyEffect(childs[name], effect);
-    }
-
-    public void ApplyEffect(Node node, IEffect effect)
-    {
-        ApplyEffect(node, effect.Apply);
     }
 
     public string Serialize()

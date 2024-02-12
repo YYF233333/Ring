@@ -1,16 +1,9 @@
 ﻿using Godot;
-using System;
-using RingEngine.Runtime.Script;
-using RingEngine.Runtime;
-using MoonSharp.Interpreter;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using System.Diagnostics;
-using RingEngine.Runtime.Storage;
-using System.Collections.Generic;
-using System.Linq;
 using RingEngine.Runtime.Effect;
-using MoonSharp.Interpreter.Interop;
+using RingEngine.Runtime.Script;
+using RingEngine.Runtime.Storage;
+using System;
+using System.Collections.Generic;
 
 namespace RingEngine.Runtime
 {
@@ -22,7 +15,8 @@ namespace RingEngine.Runtime
         public RingScript script;
         public UI UI;
         public Canvas canvas;
-        public Dictionary<Node, Tween> tweens = [];
+        // 动画效果缓冲区
+        public EffectBuffer effectBuffer;
         // 持久化数据存储（存档、全局变量）
         public DataBase db;
         // 下一条执行的代码块index
@@ -38,9 +32,10 @@ namespace RingEngine.Runtime
             // 强制显示在canvas之上
             UI.ZIndex = 1;
             AddChild(UI);
-            canvas = new Canvas(tweens);
+            canvas = new Canvas();
             canvas.Name = "Canvas";
             AddChild(canvas);
+            effectBuffer = new EffectBuffer();
             db = new DataBase();
         }
 
@@ -51,19 +46,11 @@ namespace RingEngine.Runtime
         /// </summary>
         public void Step()
         {
-            var flag = false;
-            foreach (var (node, tween) in tweens)
+            if (effectBuffer.IsRunning)
             {
-                if (tween.IsRunning())
-                {
-                    tween.Pause();
-                    tween.CustomStep(114);
-                    tween.Kill();
-                    flag = true;
-                }
-                tweens.Remove(node);
+                effectBuffer.Interrupt();
+                return;
             }
-            if (flag) { return; }
             if (PC < script.segments.Count)
             {
                 var @continue = false;

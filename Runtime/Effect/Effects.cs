@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using System.Diagnostics;
 
 namespace RingEngine.Runtime.Effect
 {
@@ -15,7 +16,7 @@ namespace RingEngine.Runtime.Effect
             this.alpha = (float)alpha;
         }
 
-        public Tween Apply(Node node, Tween tween = null)
+        public Tween Apply(Node node, Tween tween)
         {
             tween ??= node.CreateTween();
             tween.TweenCallback(Callable.From(() =>
@@ -36,7 +37,7 @@ namespace RingEngine.Runtime.Effect
 
     public class Delete : IEffect
     {
-        public Tween Apply(Node node, Tween tween = null)
+        public Tween Apply(Node node, Tween tween)
         {
             tween ??= node.CreateTween();
             tween.TweenCallback(Callable.From(() =>
@@ -62,7 +63,7 @@ namespace RingEngine.Runtime.Effect
             this.duration = (float)duration;
         }
 
-        public Tween Apply(Node node, Tween tween = null)
+        public Tween Apply(Node node, Tween tween)
         {
             tween ??= node.CreateTween();
             tween.TweenInterval(duration);
@@ -77,26 +78,17 @@ namespace RingEngine.Runtime.Effect
 
     public class Dissolve : IEffect
     {
-        public float startAlpha;
-        public float? endAlpha;
+        public float endAlpha;
         public float duration;
-        public Dissolve(double duration = 1.0, double startAlpha = 0.0, double? endAlpha = null)
+        public Dissolve(double duration = 1.0, double endAlpha = 1.0)
         {
-            this.startAlpha = (float)startAlpha;
-            this.endAlpha = (float?)endAlpha;
+            this.endAlpha = (float)endAlpha;
             this.duration = (float)duration;
         }
-        public Tween Apply(Node node, Tween tween = null)
+        public Tween Apply(Node node, Tween tween)
         {
             tween ??= node.CreateTween();
-            var sprite = (CanvasItem)node;
-            var endAlpha = this.endAlpha ?? sprite.Modulate.A;
-            tween.TweenCallback(Callable.From(() =>
-            {
-                Color c = sprite.Modulate;
-                c.A = startAlpha;
-                sprite.Modulate = c;
-            }));
+            Trace.Assert(node.IsClass("CanvasItem"));
             tween.TweenProperty(node, "modulate:a", endAlpha, duration);
             return tween;
         }
@@ -104,7 +96,6 @@ namespace RingEngine.Runtime.Effect
         public override bool Equals(object obj)
         {
             return obj is Dissolve dissolve &&
-                   startAlpha == dissolve.startAlpha &&
                    endAlpha == dissolve.endAlpha &&
                    duration == dissolve.duration;
         }
@@ -116,32 +107,23 @@ namespace RingEngine.Runtime.Effect
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(startAlpha, endAlpha, duration);
+            return HashCode.Combine(endAlpha, duration);
         }
     }
 
     public class Fade : IEffect
     {
-        public float? startAlpha;
         public float endAlpha;
         public float duration;
-        public Fade(double duration = 1.0, double endAlpha = 0.0, double? startAlpha = null)
+        public Fade(double duration = 1.0, double endAlpha = 0.0)
         {
-            this.startAlpha = (float?)startAlpha;
             this.endAlpha = (float)endAlpha;
             this.duration = (float)duration;
         }
-        public Tween Apply(Node node, Tween tween = null)
+        public Tween Apply(Node node, Tween tween)
         {
             tween ??= node.CreateTween();
-            tween.TweenCallback(Callable.From(() =>
-            {
-                var sprite = (CanvasItem)node;
-                var startAlpha = this.startAlpha ?? sprite.Modulate.A;
-                Color c = sprite.Modulate;
-                c.A = startAlpha;
-                sprite.Modulate = c;
-            }));
+            Trace.Assert(node.IsClass("CanvasItem"));
             tween.TweenProperty(node, "modulate:a", endAlpha, duration);
             return tween;
         }

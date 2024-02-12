@@ -103,7 +103,9 @@ namespace RingEngine.Runtime.Script
             runtime.canvas.AddTexture(imgName, texture, Placements.Get(placement));
             if (effect != "")
             {
-                runtime.canvas.ApplyEffect(imgName, runtime.interpreter.Eval<IEffect>(effect));
+                runtime.effectBuffer.CreateOrGetGroup()
+                    .Add(runtime.canvas[imgName], runtime.interpreter.Eval<IEffect>(effect));
+                runtime.effectBuffer.FinishConstructGroup();
             }
         }
 
@@ -138,7 +140,9 @@ namespace RingEngine.Runtime.Script
 
         public override void Execute(Runtime runtime)
         {
-            runtime.canvas.ApplyEffect(name, new Chain([runtime.interpreter.Eval<IEffect>(effect), new Delete()]));
+            runtime.effectBuffer.CreateOrGetGroup()
+                .Add(runtime.canvas[name], new Chain([runtime.interpreter.Eval<IEffect>(effect), new Delete()]));
+            runtime.effectBuffer.FinishConstructGroup();
         }
 
         public override int GetHashCode()
@@ -179,8 +183,22 @@ namespace RingEngine.Runtime.Script
             if (effect != "")
             {
                 IEffect instance = runtime.interpreter.Eval<IEffect>(effect);
-                canvas.ApplyEffect("BG", instance);
-                canvas.ApplyEffect(oldBG, new Chain([
+                var effectGroup = runtime.effectBuffer.CreateOrGetGroup();
+                effectGroup.Add(canvas["BG"], new Chain([
+                    new LambdaEffect((Node node, Tween tween) =>
+                    {
+                        tween.TweenCallback(Callable.From(() =>
+                        {
+                            var bg = (CanvasItem)node;
+                            var c = bg.Modulate;
+                            c.A = 0;
+                            bg.Modulate = c;
+                        }));
+                        return tween;
+                    }),
+                    instance
+                ]));
+                effectGroup.Add(oldBG, new Chain([
                     new Delay(instance.GetDuration()),
                     new LambdaEffect((Node node, Tween tween) =>
                     {
@@ -191,8 +209,9 @@ namespace RingEngine.Runtime.Script
                         }));
                         return tween;
                     })
-                    ])
-                );
+                ]));
+                // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
+                runtime.effectBuffer.FinishConstructGroup();
             }
             else
             {
@@ -229,7 +248,23 @@ namespace RingEngine.Runtime.Script
 
         public override void Execute(Runtime runtime)
         {
-            runtime.UI.ShowChapterName(chapterName);
+            var init = new LambdaEffect((Node node, Tween tween) =>
+            {
+                tween.TweenCallback(Callable.From(() =>
+                {
+                    runtime.UI.ChapterName = chapterName;
+                    var ChapterNameBack = (TextureRect)node;
+                    var c = ChapterNameBack.Modulate;
+                    c.A = 0;
+                    ChapterNameBack.Modulate = c;
+                }));
+                return tween;
+            });
+            var present = new Dissolve();
+            var disappear = new Fade();
+            var effect = new Chain([init, present, new Delay(2.0), disappear]);
+            runtime.effectBuffer.CreateOrGetGroup().Add(runtime.UI.ChapterNameBack, effect);
+            runtime.effectBuffer.FinishConstructGroup();
         }
 
         public override int GetHashCode()
@@ -263,8 +298,18 @@ namespace RingEngine.Runtime.Script
 
         public override void Execute(Runtime runtime)
         {
-            runtime.UI.characterName = name;
-            runtime.UI.Print(content);
+            runtime.effectBuffer.CreateOrGetGroup().Add(runtime.UI.TextBox, new LambdaEffect((Node node, Tween tween) =>
+            {
+                tween.TweenCallback(Callable.From(() =>
+                {
+                    runtime.UI.CharacterName = name;
+                    runtime.UI.TextBox.Text = content;
+                    runtime.UI.TextBox.VisibleRatio = 0;
+                }));
+                tween.TweenProperty(runtime.UI.TextBox, "visible_ratio", 1.0, 1.0);
+                return tween;
+            }));
+            runtime.effectBuffer.FinishConstructGroup();
         }
 
         public override int GetHashCode()

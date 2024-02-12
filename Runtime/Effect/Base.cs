@@ -7,22 +7,21 @@ namespace RingEngine.Runtime.Effect
     public interface IEffect
     {
         /// <summary>
-        /// 对节点应用当前效果，动效的目标状态通常为节点的当前状态
+        /// 对节点应用当前效果
         /// </summary>
         /// <param name="node">目标节点</param>
         /// 
         /// <param name="tween">Tween Object（如果已经创建）</param>
-        public Tween Apply(Node node, Tween tween = null);
+        public Tween Apply(Node node, Tween tween);
 
         /// <summary>
         /// 获取效果的持续时间
         /// </summary>
-        /// <returns></returns>
         public float GetDuration();
     }
 
     // 用于参数类型
-    public delegate Tween EffectFunc(Node node, Tween tween = null);
+    public delegate Tween EffectFunc(Node node, Tween tween);
 
     public static class Effects
     {
@@ -51,7 +50,7 @@ namespace RingEngine.Runtime.Effect
             this.duration = (float)duration;
         }
 
-        public Tween Apply(Node node, Tween tween = null)
+        public Tween Apply(Node node, Tween tween)
         {
             tween ??= node.CreateTween();
             return func(node, tween);
@@ -72,7 +71,7 @@ namespace RingEngine.Runtime.Effect
             this.effects = effects;
         }
 
-        public Tween Apply(Node node, Tween tween = null)
+        public Tween Apply(Node node, Tween tween)
         {
             tween ??= node.CreateTween();
             foreach (var effect in effects)
