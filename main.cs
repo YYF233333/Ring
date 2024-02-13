@@ -1,9 +1,4 @@
 using Godot;
-using RingEngine.Runtime;
-using RingEngine.Runtime.Effect;
-using RingEngine.Runtime.Script;
-using System;
-using System.IO;
 
 public partial class main : Node2D
 {

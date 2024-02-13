@@ -1,46 +1,40 @@
-﻿using MoonSharp.Interpreter.Interop;
-using MoonSharp.Interpreter;
-using RingEngine.Runtime.Effect;
-using System;
-using System.Collections.Generic;
+namespace RingEngine.Runtime.Script;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MoonSharp.Interpreter;
+using MoonSharp.Interpreter.Interop;
+using RingEngine.Runtime.Effect;
 
-namespace RingEngine.Runtime.Script
+public class LuaInterpreter
 {
-    public class LuaInterpreter
+    Script interpreter;
+
+    public LuaInterpreter()
     {
-        MoonSharp.Interpreter.Script interpreter;
-
-        public LuaInterpreter()
+        UserData.RegistrationPolicy = InteropRegistrationPolicy.Automatic;
+        interpreter = new Script();
+        foreach (var (name, func) in LuaEnvironment.GetAllEffects())
         {
-            UserData.RegistrationPolicy = InteropRegistrationPolicy.Automatic;
-            interpreter = new MoonSharp.Interpreter.Script();
-            foreach (var (name, func) in LuaEnvironment.GetAllEffects())
-            {
-                interpreter.Globals[name] = DynValue.NewCallback(
-                    (_, args) =>
-                    {
-                        var param = args.GetArray().Select(x => x.ToObject());
-                        return DynValue.FromObject(interpreter, func(param.ToArray()));
-                    }
-                );
-            }
-            foreach (var (name, effect) in Effects.effects)
-            {
-                interpreter.Globals[name] = effect;
-            }
+            interpreter.Globals[name] = DynValue.NewCallback(
+                (_, args) =>
+                {
+                    var param = args.GetArray().Select(x => x.ToObject());
+                    return DynValue.FromObject(interpreter, func(param.ToArray()));
+                }
+            );
         }
-
-        public object Eval(string expr)
+        foreach (var (name, effect) in Effects.effects)
         {
-            return interpreter.DoString($"return {expr}").ToObject();
+            interpreter.Globals[name] = effect;
         }
+    }
 
-        public T Eval<T>(string expr)
-        {
-            return interpreter.DoString($"return {expr}").ToObject<T>();
-        }
+    public object Eval(string expr)
+    {
+        return interpreter.DoString($"return {expr}").ToObject();
+    }
+
+    public T Eval<T>(string expr)
+    {
+        return interpreter.DoString($"return {expr}").ToObject<T>();
     }
 }

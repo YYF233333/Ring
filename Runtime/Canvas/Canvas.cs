@@ -1,10 +1,9 @@
-﻿using Godot;
-using RingEngine.Runtime;
-using RingEngine.Runtime.Effect;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.Json;
+using Godot;
+using RingEngine.Runtime.Effect;
 
 public partial class Canvas : Node2D
 {
@@ -31,13 +30,15 @@ public partial class Canvas : Node2D
 
     public void AddTexture(string name, Texture2D texture, Placement placement, int zIndex = 0, bool centered = false)
     {
-        var child = new Sprite2D();
-        child.Name = name;
-        child.Texture = texture;
-        child.ZIndex = zIndex;
-        child.Centered = centered;
-        child.Position = placement.position;
-        child.Scale = new Vector2(placement.scale, placement.scale);
+        var child = new Sprite2D
+        {
+            Name = name,
+            Texture = texture,
+            ZIndex = zIndex,
+            Centered = centered,
+            Position = placement.position,
+            Scale = new Vector2(placement.scale, placement.scale)
+        };
         childs[name] = child;
         AddChild(child);
         Trace.Assert(child.Name == name);
@@ -47,13 +48,15 @@ public partial class Canvas : Node2D
     {
         var child = childs["BG"];
         child.Name = "zombieBG";
-        var newChild = new Sprite2D();
-        newChild.Name = "BG";
-        newChild.Texture = texture;
-        newChild.ZIndex = child.ZIndex;
-        newChild.Centered = child.Centered;
-        newChild.Position = child.Position;
-        newChild.Scale = child.Scale;
+        var newChild = new Sprite2D
+        {
+            Name = "BG",
+            Texture = texture,
+            ZIndex = child.ZIndex,
+            Centered = child.Centered,
+            Position = child.Position,
+            Scale = child.Scale
+        };
         AddChild(newChild);
         childs["BG"] = newChild;
         return child;
@@ -61,9 +64,9 @@ public partial class Canvas : Node2D
 
     public void RemoveTexture(string name)
     {
-        if (childs.ContainsKey(name))
+        if (childs.TryGetValue(name, out var value))
         {
-            var child = childs[name];
+            var child = value;
             RemoveChild(child);
             child.QueueFree();
             childs.Remove(name);
@@ -80,9 +83,9 @@ public partial class Canvas : Node2D
         return JsonSerializer.Serialize(childs_bin);
     }
 
-    public void Deserialize(string serialized_data)
+    public void Deserialize(string serializedData)
     {
-        var childs_bin = (Dictionary<string, byte[]>)JsonSerializer.Deserialize(serialized_data, typeof(Dictionary<string, byte[]>));
+        var childs_bin = (Dictionary<string, byte[]>)JsonSerializer.Deserialize(serializedData, typeof(Dictionary<string, byte[]>));
         foreach (var pair in childs_bin)
         {
             var child = (Sprite2D)GD.BytesToVarWithObjects(pair.Value);

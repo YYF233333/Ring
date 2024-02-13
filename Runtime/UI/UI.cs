@@ -1,16 +1,12 @@
-﻿using Godot;
-using RingEngine.Runtime;
-using RingEngine.Runtime.Effect;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using Godot;
 
 public partial class UI : Control
 {
     public delegate void EventHandler(object args);
 
     // 各组件注册的回调函数
-    Dictionary<string, EventHandler> handlers = new Dictionary<string, EventHandler>();
+    Dictionary<string, EventHandler> handlers = [];
 
     public TextureRect ChapterNameBack => GetNode<TextureRect>("./ChapterNameBack");
 
