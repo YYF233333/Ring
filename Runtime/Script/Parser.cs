@@ -119,7 +119,8 @@ public static class BuiltInFunctionParser
     {
         {"show", ParseShow },
         {"hide", ParseHide },
-        {"changeBG", ParseChangeBG }
+        {"changeBG", ParseChangeBG },
+        {"changeScene", ParseChangeScene }
     };
 
     public static ParseResult Parse(string source)
@@ -170,5 +171,15 @@ public static class BuiltInFunctionParser
         var effect_group = match.Groups.GetValueOrDefault("effect");
         var effect = effect_group != null ? effect_group.Value : "";
         return new ParseResult(source[match.Length..], new ChangeBG(match.Groups["path"].Value, effect));
+    }
+
+    public static ParseResult ParseChangeScene(string source)
+    {
+        var pattern = @"\AchangeScene *<img src=""(?<path>[\s\S]*?)""[\s\S]*?/>( *with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
+        var match = Regex.Match(source, pattern);
+        Trace.Assert(match.Success);
+        var effect_group = match.Groups.GetValueOrDefault("effect");
+        var effect = effect_group != null ? effect_group.Value : "";
+        return new ParseResult(source[match.Length..], new ChangeScene(match.Groups["path"].Value, effect));
     }
 }

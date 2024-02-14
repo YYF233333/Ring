@@ -1,40 +1,38 @@
 namespace RingEngine.Runtime.Script;
-using System.Linq;
-using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Interop;
+
+using System;
+using NLua;
 using RingEngine.Runtime.Effect;
 
-public class LuaInterpreter
+public class LuaInterpreter : IDisposable
 {
-    Script interpreter;
+    Lua interpreter;
 
     public LuaInterpreter()
     {
-        UserData.RegistrationPolicy = InteropRegistrationPolicy.Automatic;
-        interpreter = new Script();
-        foreach (var (name, func) in LuaEnvironment.GetAllEffects())
-        {
-            interpreter.Globals[name] = DynValue.NewCallback(
-                (_, args) =>
-                {
-                    var param = args.GetArray().Select(x => x.ToObject());
-                    return DynValue.FromObject(interpreter, func(param.ToArray()));
-                }
-            );
-        }
+        interpreter = new Lua();
+        interpreter.State.Encoding = System.Text.Encoding.UTF8;
+        interpreter.LoadCLRPackage();
+        interpreter.DoString(@"import ('RingEngine', 'RingEngine.Runtime.Effect')");
         foreach (var (name, effect) in Effects.effects)
         {
-            interpreter.Globals[name] = effect;
+            interpreter[name] = effect;
         }
     }
 
     public object Eval(string expr)
     {
-        return interpreter.DoString($"return {expr}").ToObject();
+        return interpreter.DoString($"return {expr}")[0];
     }
 
     public T Eval<T>(string expr)
     {
-        return interpreter.DoString($"return {expr}").ToObject<T>();
+        return (T)interpreter.DoString($"return {expr}")[0];
+    }
+
+    public void Dispose()
+    {
+        interpreter.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

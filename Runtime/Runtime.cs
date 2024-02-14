@@ -48,16 +48,13 @@ public partial class Runtime : Node2D
     /// </summary>
     public void Step()
     {
-        if (mainBuffer.IsRunning || nonBlockingBuffer.IsRunning)
+        if (nonBlockingBuffer.IsRunning)
         {
-            if (mainBuffer.IsRunning)
-            {
-                mainBuffer.Interrupt();
-            }
-            if (nonBlockingBuffer.IsRunning)
-            {
-                nonBlockingBuffer.Interrupt();
-            }
+            nonBlockingBuffer.Interrupt();
+        }
+        if (mainBuffer.IsRunning)
+        {
+            mainBuffer.Interrupt();
             return;
         }
         if (PC < script.segments.Count)

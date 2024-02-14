@@ -8,9 +8,6 @@ public interface IEffect
     /// <summary>
     /// 对节点应用当前效果
     /// </summary>
-    /// <param name="node">目标节点</param>
-    /// 
-    /// <param name="tween">Tween Object（如果已经创建）</param>
     public Tween Apply(Node node, Tween tween);
 
     /// <summary>
@@ -35,12 +32,23 @@ public static class Effects
 
 public class LambdaEffect : IEffect
 {
+    public delegate void CallBack();
     EffectFunc func;
     float duration;
 
     public LambdaEffect(EffectFunc func, double duration = 0)
     {
         this.func = func;
+        this.duration = (float)duration;
+    }
+
+    public LambdaEffect(CallBack callBack, double duration = 0)
+    {
+        this.func = (node, tween) =>
+        {
+            tween.TweenCallback(Callable.From(() => callBack()));
+            return tween;
+        };
         this.duration = (float)duration;
     }
 

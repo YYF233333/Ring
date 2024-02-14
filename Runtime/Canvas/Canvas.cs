@@ -8,6 +8,7 @@ using RingEngine.Runtime.Effect;
 public partial class Canvas : Node2D
 {
     Dictionary<string, Sprite2D> childs = [];
+    public Sprite2D Mask;
 
     public Sprite2D this[string name] => childs[name];
 
@@ -15,6 +16,14 @@ public partial class Canvas : Node2D
     {
         // 占位BG
         AddTexture("BG", GD.Load<Texture2D>("res://assets/Runtime/black.png"), Placements.BG, -1);
+        Mask = new Sprite2D
+        {
+            Name = "Mask",
+            Texture = null,
+            ZIndex = 1,
+            Centered = false,
+        };
+        AddChild(Mask);
     }
 
     public Texture2D Stretch(Texture2D texture)
@@ -26,6 +35,16 @@ public partial class Canvas : Node2D
         scale = Math.Max(scale, 1);
         image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
         return ImageTexture.CreateFromImage(image);
+    }
+
+    public void AddMask(Texture2D texture)
+    {
+        Mask.Texture = texture;
+    }
+
+    public void RemoveMask()
+    {
+        Mask.Texture = null;
     }
 
     public void AddTexture(string name, Texture2D texture, Placement placement, int zIndex = 0, bool centered = false)
@@ -71,6 +90,16 @@ public partial class Canvas : Node2D
             child.QueueFree();
             childs.Remove(name);
         }
+    }
+
+    public void RemoveAll(bool includeBG = true)
+    {
+        foreach (var child in childs.Values)
+        {
+            RemoveChild(child);
+            child.QueueFree();
+        }
+        childs = includeBG ? [] : new() { { "BG", childs["BG"] } };
     }
 
     public string Serialize()

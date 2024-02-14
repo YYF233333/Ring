@@ -102,7 +102,6 @@ public class Fade : IEffect
     }
     public Tween Apply(Node node, Tween tween)
     {
-        tween ??= node.CreateTween();
         Trace.Assert(node.IsClass("CanvasItem"));
         tween.TweenProperty(node, "modulate:a", endAlpha, duration);
         return tween;

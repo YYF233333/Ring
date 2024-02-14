@@ -93,6 +93,13 @@ public class Show : IScriptBlock
     public override void Execute(Runtime runtime)
     {
         var texture = GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath));
+        var windowSize = new Vector2I(950, 2184);
+        var image = texture.GetImage();
+        var imageSize = image.GetSize();
+        var scale = Math.Min(windowSize.X / (float)imageSize.X, windowSize.Y / (float)imageSize.Y);
+        //scale = Math.Max(scale, 1);
+        image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
+        texture = ImageTexture.CreateFromImage(image);
         runtime.canvas.AddTexture(imgName, texture, Placements.Get(placement));
         if (effect != "")
         {
@@ -171,30 +178,13 @@ public class ChangeBG : IScriptBlock
             var instance = runtime.interpreter.Eval<IEffect>(effect);
             // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
             runtime.mainBuffer.Append(new EffectGroupBuilder()
-                .Add(canvas["BG"], new Chain([
-                    new LambdaEffect((Node node, Tween tween) =>
-                    {
-                        tween.TweenCallback(Callable.From(() =>
-                        {
-                            var bg = (CanvasItem)node;
-                            var c = bg.Modulate;
-                            c.A = 0;
-                            bg.Modulate = c;
-                        }));
-                        return tween;
-                    }),
-                    instance
-                ]))
+                .Add(canvas["BG"], new Chain([new SetAlpha(0), instance]))
                 .Add(oldBG, new Chain([
                     new Delay(instance.GetDuration()),
-                    new LambdaEffect((Node node, Tween tween) =>
+                    new LambdaEffect(() =>
                     {
-                        tween.TweenCallback(Callable.From(() =>
-                        {
-                            node.GetParent().RemoveChild(node);
-                            node.QueueFree();
-                        }));
-                        return tween;
+                        canvas.RemoveChild(oldBG);
+                        oldBG.QueueFree();
                     })
                 ]))
                 .Build());
@@ -209,6 +199,38 @@ public class ChangeBG : IScriptBlock
     public override int GetHashCode() => HashCode.Combine(imgPath, effect);
 
     public override string ToString() => $"changeBG: path: {imgPath}, effect: {effect}";
+}
+
+public class ChangeScene : IScriptBlock
+{
+    public string bgPath;
+    public string effect;
+
+    public ChangeScene(string path, string effect)
+    {
+        //@continue = true;
+        this.bgPath = path;
+        this.effect = effect;
+    }
+
+    public override void Execute(Runtime runtime)
+    {
+        var canvas = runtime.canvas;
+        var texture = canvas.Stretch(GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, bgPath)));
+        if (effect != "")
+        {
+            var instance = runtime.interpreter.Eval<ITransition>(effect);
+            // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
+            foreach (var group in instance.Build(canvas, texture))
+            {
+                runtime.mainBuffer.Append(group);
+            }
+        }
+        else
+        {
+            canvas.AddTexture("BG", texture, Placements.BG, -1);
+        }
+    }
 }
 
 public class ShowChapterName : IScriptBlock
@@ -229,17 +251,11 @@ public class ShowChapterName : IScriptBlock
 
     public override void Execute(Runtime runtime)
     {
-        var init = new LambdaEffect((Node node, Tween tween) =>
+        var init = new LambdaEffect(() =>
         {
-            tween.TweenCallback(Callable.From(() =>
-            {
-                runtime.UI.ChapterName = ChapterName;
-                var ChapterNameBack = (TextureRect)node;
-                var c = ChapterNameBack.Modulate;
-                c.A = 0;
-                ChapterNameBack.Modulate = c;
-            }));
-            return tween;
+            runtime.UI.ChapterName = ChapterName;
+            var ChapterNameBack = runtime.UI.ChapterNameBack;
+            ChapterNameBack.Modulate = new Color(ChapterNameBack.Modulate, 0);
         });
         runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Chain([init, new Dissolve()])).Build());
         runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Delay(2.0)).Build());

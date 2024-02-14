@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Ring Engine.csproj" />
+		<ProjectReference Include="..\RingEngine.csproj" />
 	</ItemGroup>
 
 </Project>
