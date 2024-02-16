@@ -15,7 +15,7 @@ public partial class Canvas : Node2D
     public Canvas()
     {
         // 占位BG
-        AddTexture("BG", GD.Load<Texture2D>("res://assets/Runtime/black.png"), Placements.BG, -1);
+        AddTexture("BG", GD.Load<Texture2D>("res://assets/Runtime/black.png"), Placement.BG, -1);
         Mask = new Sprite2D
         {
             Name = "Mask",
@@ -55,7 +55,7 @@ public partial class Canvas : Node2D
             Texture = texture,
             ZIndex = zIndex,
             Centered = centered,
-            Position = placement.position,
+            Position = new Vector2(placement.x, 200.0f),
             Scale = new Vector2(placement.scale, placement.scale)
         };
         childs[name] = child;

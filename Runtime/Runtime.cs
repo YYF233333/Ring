@@ -24,7 +24,7 @@ public partial class Runtime : Node2D
 
     public Runtime()
     {
-        interpreter = new LuaInterpreter();
+        interpreter = new LuaInterpreter(FileAccess.GetFileAsString("res://init.lua"));
         script = new RingScript("res://main.md");
         UI = GD.Load<PackedScene>("res://Runtime/UI/UI.tscn").Instantiate<UI>();
         UI.Name = "UI";

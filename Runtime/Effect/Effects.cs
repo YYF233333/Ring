@@ -15,7 +15,7 @@ public class SetAlpha : IEffect
         this.alpha = (float)alpha;
     }
 
-    public Tween Apply(Node node, Tween tween)
+    public void Apply(Node node, Tween tween)
     {
         tween.TweenCallback(Callable.From(() =>
         {
@@ -24,59 +24,55 @@ public class SetAlpha : IEffect
             c.A = alpha;
             sprite.Modulate = c;
         }));
-        return tween;
     }
 
-    public float GetDuration() => 0;
+    public double GetDuration() => 0;
 }
 
 public class Delete : IEffect
 {
-    public Tween Apply(Node node, Tween tween)
+    public void Apply(Node node, Tween tween)
     {
         tween.TweenCallback(Callable.From(() =>
         {
             var canvas = node.GetParent<Canvas>();
             canvas.RemoveTexture(node.Name);
         }));
-        return tween;
     }
 
-    public float GetDuration() => 0;
+    public double GetDuration() => 0;
 }
 
 public class Delay : IEffect
 {
-    public float duration;
+    public double duration;
 
     public Delay(double duration)
     {
-        this.duration = (float)duration;
+        this.duration = duration;
     }
 
-    public Tween Apply(Node node, Tween tween)
+    public void Apply(Node node, Tween tween)
     {
         tween.TweenInterval(duration);
-        return tween;
     }
 
-    public float GetDuration() => duration;
+    public double GetDuration() => duration;
 }
 
 public class Dissolve : IEffect
 {
     public float endAlpha;
-    public float duration;
+    public double duration;
     public Dissolve(double duration = 1.0, double endAlpha = 1.0)
     {
         this.endAlpha = (float)endAlpha;
-        this.duration = (float)duration;
+        this.duration = duration;
     }
-    public Tween Apply(Node node, Tween tween)
+    public void Apply(Node node, Tween tween)
     {
         Trace.Assert(node.IsClass("CanvasItem"));
         tween.TweenProperty(node, "modulate:a", endAlpha, duration);
-        return tween;
     }
 
     public override bool Equals(object obj)
@@ -86,7 +82,7 @@ public class Dissolve : IEffect
                duration == dissolve.duration;
     }
 
-    public float GetDuration() => duration;
+    public double GetDuration() => duration;
 
     public override int GetHashCode() => HashCode.Combine(endAlpha, duration);
 }
@@ -94,18 +90,17 @@ public class Dissolve : IEffect
 public class Fade : IEffect
 {
     public float endAlpha;
-    public float duration;
+    public double duration;
     public Fade(double duration = 1.0, double endAlpha = 0.0)
     {
         this.endAlpha = (float)endAlpha;
-        this.duration = (float)duration;
+        this.duration = duration;
     }
-    public Tween Apply(Node node, Tween tween)
+    public void Apply(Node node, Tween tween)
     {
         Trace.Assert(node.IsClass("CanvasItem"));
         tween.TweenProperty(node, "modulate:a", endAlpha, duration);
-        return tween;
     }
 
-    public float GetDuration() => duration;
+    public double GetDuration() => duration;
 }

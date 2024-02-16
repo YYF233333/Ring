@@ -100,7 +100,7 @@ public class Show : IScriptBlock
         //scale = Math.Max(scale, 1);
         image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
         texture = ImageTexture.CreateFromImage(image);
-        runtime.canvas.AddTexture(imgName, texture, Placements.Get(placement));
+        runtime.canvas.AddTexture(imgName, texture, runtime.interpreter.Eval<Placement>(placement));
         if (effect != "")
         {
             runtime.mainBuffer.Append(new EffectGroupBuilder()
@@ -112,10 +112,7 @@ public class Show : IScriptBlock
 
     public override int GetHashCode() => HashCode.Combine(imgName, imgPath, placement, effect);
 
-    public override string ToString()
-    {
-        return $"show: name: {imgName}, path: {imgPath}, placement: {placement}, effect: {effect}";
-    }
+    public override string ToString() => $"show: name: {imgName}, path: {imgPath}, placement: {placement}, effect: {effect}";
 }
 
 public class Hide : IScriptBlock
@@ -140,7 +137,7 @@ public class Hide : IScriptBlock
     {
         runtime.mainBuffer.Append(new EffectGroupBuilder()
             .Add(runtime.canvas[name],
-                 new Chain([runtime.interpreter.Eval<IEffect>(effect), new Delete()]))
+                 new Chain(runtime.interpreter.Eval<IEffect>(effect), new Delete()))
             .Build());
     }
 
@@ -178,15 +175,15 @@ public class ChangeBG : IScriptBlock
             var instance = runtime.interpreter.Eval<IEffect>(effect);
             // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
             runtime.mainBuffer.Append(new EffectGroupBuilder()
-                .Add(canvas["BG"], new Chain([new SetAlpha(0), instance]))
-                .Add(oldBG, new Chain([
+                .Add(canvas["BG"], new Chain(new SetAlpha(0), instance))
+                .Add(oldBG, new Chain(
                     new Delay(instance.GetDuration()),
                     new LambdaEffect(() =>
                     {
                         canvas.RemoveChild(oldBG);
                         oldBG.QueueFree();
                     })
-                ]))
+                ))
                 .Build());
         }
         else
@@ -221,14 +218,11 @@ public class ChangeScene : IScriptBlock
         {
             var instance = runtime.interpreter.Eval<ITransition>(effect);
             // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
-            foreach (var group in instance.Build(canvas, texture))
-            {
-                runtime.mainBuffer.Append(group);
-            }
+            runtime.mainBuffer.Append(instance.Build(canvas, texture));
         }
         else
         {
-            canvas.AddTexture("BG", texture, Placements.BG, -1);
+            canvas.AddTexture("BG", texture, Placement.BG, -1);
         }
     }
 }
@@ -257,7 +251,7 @@ public class ShowChapterName : IScriptBlock
             var ChapterNameBack = runtime.UI.ChapterNameBack;
             ChapterNameBack.Modulate = new Color(ChapterNameBack.Modulate, 0);
         });
-        runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Chain([init, new Dissolve()])).Build());
+        runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Chain(init, new Dissolve())).Build());
         runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Delay(2.0)).Build());
         runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Fade()).Build());
     }
@@ -296,7 +290,6 @@ public class Say : IScriptBlock
                 runtime.UI.TextBox.VisibleRatio = 0;
             }));
             tween.TweenProperty(runtime.UI.TextBox, "visible_ratio", 1.0, 1.0);
-            return tween;
         })).Build());
     }
 

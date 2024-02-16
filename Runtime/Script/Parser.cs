@@ -137,7 +137,7 @@ public static class BuiltInFunctionParser
 
     public static ParseResult ParseShow(string source)
     {
-        var pattern = @"\Ashow *<img src=""(?<path>[^""]*)""[\s\S]*?/> *as (?<name>\S+) at (?<pos>\S+)( with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
+        var pattern = @"\Ashow *<img src=""(?<path>[^""]*)""[\s\S]*?/> *as (?<name>\S+) at (`(?<pos>[^`]+)`|(?<pos>\S+))( with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
         var match = Regex.Match(source, pattern);
         Trace.Assert(match.Success);
         var effect_group = match.Groups.GetValueOrDefault("effect");

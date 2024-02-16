@@ -37,6 +37,18 @@ public class EffectBuffer
         }
     }
 
+    public void Append(IEnumerable<EffectGroup> groups)
+    {
+        foreach (var group in groups)
+        {
+            buffer.Enqueue(group);
+        }
+        if (runningGroup == null)
+        {
+            Submit();
+        }
+    }
+
     public void Interrupt()
     {
         // 最后一个active Tween finish的时候就会触发Submit，提前解绑runningGroup防止Assert失败
