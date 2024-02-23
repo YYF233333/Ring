@@ -3,10 +3,12 @@ namespace RingEngine.Runtime.Script;
 using System;
 using NLua;
 using RingEngine.Runtime.Effect;
+using RingEngine.Runtime.Storage;
 
 public class LuaInterpreter : IDisposable
 {
     Lua interpreter;
+    DataBase global;
 
     /// <param name="init">
     /// Qol，构建完成后立即执行的初始化代码
@@ -16,11 +18,13 @@ public class LuaInterpreter : IDisposable
     /// interpreter.Eval(init);
     /// </code>
     /// </param>
-    public LuaInterpreter(string init = "")
+    public LuaInterpreter(ref DataBase global, string init = "")
     {
+        this.global = global;
         interpreter = new Lua();
         interpreter.State.Encoding = System.Text.Encoding.UTF8;
         interpreter.LoadCLRPackage();
+        interpreter["global"] = global;
         interpreter.DoString(init);
         foreach (var (name, effect) in Effects.effects)
         {

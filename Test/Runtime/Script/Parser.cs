@@ -23,7 +23,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
     [TestMethod]
     public void Parse()
     {
-        var ret = Parser.Parse(script);
+        (var ret, _) = Parser.Parse(script);
         Assert.AreEqual(5, ret.Count);
         List<IScriptBlock> answer = [
             new ShowChapterName("章节标题"),
@@ -37,6 +37,13 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         {
             Assert.AreEqual(reference, actual);
         }
+    }
+
+    [TestMethod]
+    public void ParseLabel()
+    {
+        var ret = Parser.ParseLabel(@"**选择支1**");
+        Assert.AreEqual("选择支1", ret);
     }
 
     [TestMethod]
@@ -204,5 +211,21 @@ public class TestBuiltInParser
         Assert.IsNotNull(ret.Item2);
         Hide block = (Hide)ret.Item2;
         Assert.AreEqual(new Hide("红叶", "dissolve"), block);
+    }
+
+    [TestMethod]
+    public void ParseJumpToLabel()
+    {
+        var ret = BuiltInFunctionParser.ParseJumpToLabel(@"goto label1");
+        Assert.AreEqual("", ret.Item1);
+        Assert.IsNotNull(ret.Item2);
+        JumpToLabel block = (JumpToLabel)ret.Item2;
+        Assert.AreEqual(new JumpToLabel(true, "label1"), block);
+
+        ret = BuiltInFunctionParser.ParseJumpToLabel(@"goto `label expression`");
+        Assert.AreEqual("", ret.Item1);
+        Assert.IsNotNull(ret.Item2);
+        block = (JumpToLabel)ret.Item2;
+        Assert.AreEqual(new JumpToLabel(false, "label expression"), block);
     }
 }

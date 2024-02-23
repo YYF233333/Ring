@@ -481,3 +481,6 @@ dotnet_diagnostic.IDE0021.severity = silent
 
 # CA2211: 非常量字段应当不可见
 dotnet_diagnostic.CA2211.severity = silent
+
+# SYSLIB0011: 类型或成员已过时
+dotnet_diagnostic.SYSLIB0011.severity = suggestion

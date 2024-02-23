@@ -1,27 +1,26 @@
 <Project Sdk="Godot.NET.Sdk/4.2.1">
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
-		<TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
-		<EnableDynamicLoading>true</EnableDynamicLoading>
-		<RootNamespace>RingEngine</RootNamespace>
-	</PropertyGroup>
-	<ItemGroup>
-		<Compile Remove="Document\**" />
-		<Compile Remove="RingScript\**" />
-		<Compile Remove="Test\**" />
-		<EmbeddedResource Remove="Document\**" />
-		<EmbeddedResource Remove="RingScript\**" />
-		<EmbeddedResource Remove="Test\**" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Include="LiteDB" Version="5.0.19" />
-	  <PackageReference Include="NLua" Version="1.7.2" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Runtime\Canvas\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <None Include=".editorconfig" />
-	</ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>RingEngine</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Document\**" />
+    <Compile Remove="RingScript\**" />
+    <Compile Remove="Test\**" />
+    <EmbeddedResource Remove="Document\**" />
+    <EmbeddedResource Remove="RingScript\**" />
+    <EmbeddedResource Remove="Test\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NLua" Version="1.7.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Runtime\Canvas\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
+  </ItemGroup>
 </Project>

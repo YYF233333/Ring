@@ -1,4 +1,4 @@
-using LiteDB;
+//using LiteDB;
 using System.Text;
 
 namespace Test
@@ -13,7 +13,7 @@ namespace Test
             Assert.AreEqual(@"main", folder);
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void test()
         {
             var db = new LiteDatabase(":memory:");
@@ -23,6 +23,6 @@ namespace Test
             fs.Download("test", ret);
             var s = Encoding.UTF8.GetString(ret.ToArray());
             Assert.AreEqual("aaaabbbbccccdddd", s);
-        }
+        }*/
     }
 }

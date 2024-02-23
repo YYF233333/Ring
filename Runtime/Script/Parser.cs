@@ -9,9 +9,10 @@ using ParseResult = (string, IScriptBlock?);
 
 public static class Parser
 {
-    public static List<IScriptBlock> Parse(string source)
+    public static (List<IScriptBlock>, Dictionary<string, int>) Parse(string source)
     {
         List<IScriptBlock> blocks = [];
+        Dictionary<string, int> labels = [];
         while (source != "")
         {
             source = source.TrimStart();
@@ -33,6 +34,12 @@ public static class Parser
                 source = ret.Item1;
                 continue;
             }
+            var label = ParseLabel(source);
+            if (label != null)
+            {
+                labels[label] = blocks.Count;
+            }
+
             ret = BuiltInFunctionParser.Parse(source);
             if (ret.Item2 != null)
             {
@@ -49,7 +56,7 @@ public static class Parser
             }
             throw new Exception($"Parser Error at \"{source[..20]}\"");
         }
-        return blocks;
+        return (blocks, labels);
     }
 
     static (string, string?) ParseIdentifier(string source)
@@ -98,7 +105,7 @@ public static class Parser
         return new ParseResult(source, null);
     }
 
-    static ParseResult ParseAudio(string source)
+    public static ParseResult ParseAudio(string source)
     {
         var pattern = @"\A<audio src=""(?<path>[\s\S]*?)""></audio>";
         var match = Regex.Match(source, pattern);
@@ -108,6 +115,17 @@ public static class Parser
             return new ParseResult(source[match.Length..], ret);
         }
         return new ParseResult(source, null);
+    }
+
+    public static string? ParseLabel(string source)
+    {
+        var pattern = @"\A\*\*(?<label>[\s\S]+?)\*\*";
+        var match = Regex.Match(source, pattern);
+        if (match.Success)
+        {
+            return match.Groups["label"].Value;
+        }
+        return null;
     }
 
 }
@@ -120,7 +138,8 @@ public static class BuiltInFunctionParser
         {"show", ParseShow },
         {"hide", ParseHide },
         {"changeBG", ParseChangeBG },
-        {"changeScene", ParseChangeScene }
+        {"changeScene", ParseChangeScene },
+        {"goto", ParseJumpToLabel },
     };
 
     public static ParseResult Parse(string source)
@@ -181,5 +200,18 @@ public static class BuiltInFunctionParser
         var effect_group = match.Groups.GetValueOrDefault("effect");
         var effect = effect_group != null ? effect_group.Value : "";
         return new ParseResult(source[match.Length..], new ChangeScene(match.Groups["path"].Value, effect));
+    }
+
+    public static ParseResult ParseJumpToLabel(string source)
+    {
+        var pattern = @"\Agoto (?<label>[\s\S]+)";
+        var match = Regex.Match(source, pattern);
+        Trace.Assert(match.Success);
+        var label = match.Groups["label"].Value;
+        if (label.StartsWith('`'))
+        {
+            return new ParseResult(source[match.Length..], new JumpToLabel(false, label[1..^1]));
+        }
+        return new ParseResult(source[match.Length..], new JumpToLabel(true, label));
     }
 }

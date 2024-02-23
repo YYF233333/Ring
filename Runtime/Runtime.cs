@@ -1,5 +1,6 @@
 namespace RingEngine.Runtime;
 using System;
+using System.Collections.Generic;
 using Godot;
 using RingEngine.Runtime.Effect;
 using RingEngine.Runtime.Script;
@@ -16,15 +17,20 @@ public partial class Runtime : Node2D
     // 动画效果缓冲区
     public EffectBuffer mainBuffer;
     public EffectBuffer nonBlockingBuffer;
-    // 持久化数据存储（存档、全局变量）
-    public DataBase db;
-    // 下一条执行的代码块index
-    public int PC = 0;
+    // 持久化数据存储
+    public DataBase global;
+    // 进度无关全局设置
+    public GlobalConfig config;
+    /// <summary>
+    /// 下一条执行的代码块index
+    /// </summary>
+    public int PC { get => global.PC; set => global.PC = value; }
 
 
     public Runtime()
     {
-        interpreter = new LuaInterpreter(FileAccess.GetFileAsString("res://init.lua"));
+        global = new DataBase();
+        interpreter = new LuaInterpreter(ref global, FileAccess.GetFileAsString("res://init.lua"));
         script = new RingScript("res://main.md");
         UI = GD.Load<PackedScene>("res://Runtime/UI/UI.tscn").Instantiate<UI>();
         UI.Name = "UI";
@@ -38,9 +44,14 @@ public partial class Runtime : Node2D
         AddChild(canvas);
         mainBuffer = new EffectBuffer();
         nonBlockingBuffer = new EffectBuffer();
-        db = new DataBase();
+        config = new GlobalConfig();
     }
 
+    public void DebugSnapshot()
+    {
+        var snap = new Snapshot(this);
+        snap.Save("res://snapshot");
+    }
 
 
     /// <summary>
@@ -66,7 +77,7 @@ public partial class Runtime : Node2D
                 script.segments[PC].Execute(this);
                 PC++;
             } while (@continue && PC < script.segments.Count);
-
+            global.history.Add(new Snapshot(this));
         }
         else
         {
@@ -81,6 +92,10 @@ public partial class Runtime : Node2D
             if (Input.IsActionPressed("ui_accept"))
             {
                 Step();
+            }
+            if (Input.IsActionPressed("ui_cancel"))
+            {
+                DebugSnapshot();
             }
         }
     }

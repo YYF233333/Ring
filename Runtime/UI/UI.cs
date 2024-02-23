@@ -1,13 +1,8 @@
-using System.Collections.Generic;
+using System.Text.Json;
 using Godot;
 
 public partial class UI : Control
 {
-    public delegate void EventHandler(object args);
-
-    // 各组件注册的回调函数
-    Dictionary<string, EventHandler> handlers = [];
-
     public TextureRect ChapterNameBack => GetNode<TextureRect>("./ChapterNameBack");
 
     public string ChapterName
@@ -24,12 +19,10 @@ public partial class UI : Control
         set => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer2/TextBox").Text = '【' + value + '】';
     }
 
-    public void RegisterCallback(string name, EventHandler handler) { handlers[name] = handler; }
-
-    public void UnregisterCallback(string name) { handlers.Remove(name); }
-
-    public void Call(string name, object args)
+    public PackedScene Serialize()
     {
-        handlers[name](args);
+        var scene = new PackedScene();
+        scene.Pack(this);
+        return scene;
     }
 }

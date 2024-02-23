@@ -13,12 +13,13 @@ public class RingScript
     // 脚本文件名
     public string scriptName;
     public List<IScriptBlock> segments;
+    public Dictionary<string, int> labels;
     public RingScript(string filePath)
     {
         Trace.Assert(filePath.StartsWith("res://"));
         folderPath = StringExtensions.GetBaseDir(filePath);
         scriptName = Path.GetFileNameWithoutExtension(filePath);
-        segments = Parser.Parse(Godot.FileAccess.GetFileAsString(filePath));
+        (segments, labels) = Parser.Parse(Godot.FileAccess.GetFileAsString(filePath));
     }
 }
 
@@ -65,6 +66,41 @@ public class CodeBlock : IScriptBlock
     public override string ToString() => $"CodeBlock: identifier: {identifier}, code: {code}";
 }
 
+public class JumpToLabel : IScriptBlock
+{
+    /// <summary>
+    /// true => identifier为label名
+    /// false => identifier为Lua表达式
+    /// </summary>
+    public bool isLiteral;
+    public string identifier;
+
+    public JumpToLabel(bool isLiteral, string identifier)
+    {
+        @continue = true;
+        this.isLiteral = isLiteral;
+        this.identifier = identifier;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is JumpToLabel label &&
+            this.@continue == label.@continue &&
+            this.isLiteral == label.isLiteral &&
+            this.identifier == label.identifier;
+    }
+
+    public override void Execute(Runtime runtime)
+    {
+        var label = isLiteral ? identifier : runtime.interpreter.Eval<string>(identifier);
+        var targetPC = runtime.script.labels[label];
+        // Execute结束后会PC++，所以这里要减1
+        runtime.PC = targetPC - 1;
+    }
+
+    public override int GetHashCode() => HashCode.Combine(this.@continue, this.isLiteral, this.identifier);
+}
+
 public class Show : IScriptBlock
 {
     public string imgName;
@@ -99,6 +135,7 @@ public class Show : IScriptBlock
         var scale = Math.Min(windowSize.X / (float)imageSize.X, windowSize.Y / (float)imageSize.Y);
         //scale = Math.Max(scale, 1);
         image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
+        // TODO:这一步会导致存档体积膨胀，统一分辨率并去除这个resize
         texture = ImageTexture.CreateFromImage(image);
         runtime.canvas.AddTexture(imgName, texture, runtime.interpreter.Eval<Placement>(placement));
         if (effect != "")

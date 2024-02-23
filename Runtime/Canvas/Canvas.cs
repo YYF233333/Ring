@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text.Json;
 using Godot;
 using RingEngine.Runtime.Effect;
 
@@ -24,6 +23,7 @@ public partial class Canvas : Node2D
             Centered = false,
         };
         AddChild(Mask);
+        Mask.Owner = this;
     }
 
     public Texture2D Stretch(Texture2D texture)
@@ -60,6 +60,7 @@ public partial class Canvas : Node2D
         };
         childs[name] = child;
         AddChild(child);
+        child.Owner = this;
         Trace.Assert(child.Name == name);
     }
 
@@ -77,6 +78,7 @@ public partial class Canvas : Node2D
             Scale = child.Scale
         };
         AddChild(newChild);
+        newChild.Owner = this;
         childs["BG"] = newChild;
         return child;
     }
@@ -102,25 +104,10 @@ public partial class Canvas : Node2D
         childs = includeBG ? [] : new() { { "BG", childs["BG"] } };
     }
 
-    public string Serialize()
+    public PackedScene Serialize()
     {
-        Dictionary<string, byte[]> childs_bin = [];
-        foreach (var pair in childs)
-        {
-            childs_bin[pair.Key] = GD.VarToBytesWithObjects(pair.Value);
-        }
-        return JsonSerializer.Serialize(childs_bin);
-    }
-
-    public void Deserialize(string serializedData)
-    {
-        var childs_bin = (Dictionary<string, byte[]>)JsonSerializer.Deserialize(serializedData, typeof(Dictionary<string, byte[]>));
-        foreach (var pair in childs_bin)
-        {
-            var child = (Sprite2D)GD.BytesToVarWithObjects(pair.Value);
-            childs[pair.Key] = child;
-            child.Name = pair.Key;
-            AddChild(child);
-        }
+        var scene = new PackedScene();
+        scene.Pack(this);
+        return scene;
     }
 }

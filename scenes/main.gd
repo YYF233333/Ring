@@ -19,4 +19,3 @@ func game_start():
 	tween.tween_callback(func():
 		$Runtime.process_mode = Node.PROCESS_MODE_INHERIT
 		)
-
