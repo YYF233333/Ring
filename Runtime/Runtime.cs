@@ -1,6 +1,7 @@
 namespace RingEngine.Runtime;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Godot;
 using RingEngine.Runtime.Effect;
 using RingEngine.Runtime.Script;
@@ -30,7 +31,10 @@ public partial class Runtime : Node2D
     public Runtime()
     {
         global = new DataBase();
-        interpreter = new LuaInterpreter(ref global, FileAccess.GetFileAsString("res://init.lua"));
+        config = new GlobalConfig()
+        {
+            YBaseTable = new Dictionary<string, double> { { "红叶", 600 } }
+        };
         script = new RingScript("res://main.md");
         UI = GD.Load<PackedScene>("res://Runtime/UI/UI.tscn").Instantiate<UI>();
         UI.Name = "UI";
@@ -39,12 +43,15 @@ public partial class Runtime : Node2D
         AddChild(UI);
         canvas = new Canvas
         {
-            Name = "Canvas"
+            Name = "Canvas",
+            // 理论上class变量传引用，修改Runtime.config会同步更新Canvas.conifg
+            config = config
         };
         AddChild(canvas);
         mainBuffer = new EffectBuffer();
         nonBlockingBuffer = new EffectBuffer();
-        config = new GlobalConfig();
+        interpreter = new LuaInterpreter(this, FileAccess.GetFileAsString("res://init.lua"));
+        interpreter.Eval(@"GetPlacement(""红叶"", 0)");
     }
 
     public void DebugSnapshot()

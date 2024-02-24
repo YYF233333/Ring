@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Godot;
 using RingEngine.Runtime.Effect;
+using RingEngine.Runtime.Storage;
 
 public partial class Canvas : Node2D
 {
+    public GlobalConfig config;
     Dictionary<string, Sprite2D> childs = [];
     public Sprite2D Mask;
 
@@ -49,13 +51,14 @@ public partial class Canvas : Node2D
 
     public void AddTexture(string name, Texture2D texture, Placement placement, int zIndex = 0, bool centered = false)
     {
+        //Trace.Assert(texture.GetSize() == config.CharacterSize);
         var child = new Sprite2D
         {
             Name = name,
             Texture = texture,
             ZIndex = zIndex,
             Centered = centered,
-            Position = new Vector2(placement.x, 200.0f),
+            Position = new Vector2(placement.x, placement.y),
             Scale = new Vector2(placement.scale, placement.scale)
         };
         childs[name] = child;

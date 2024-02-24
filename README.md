@@ -3,7 +3,7 @@
 ## TODO List
 
 - [ ] 如何对依赖godot runtime的代码进行单元测试
-- [x] 脚本语言选择：lua
+- [ ] ~~脚本语言选择：lua~~**重新考虑脚本语言和集成框架**
 - [ ] 跳转语句如何设计？
     - [ ] jump to file start（无难度）（叫什么名字，goto已经给label jump了）
     - [x] jump to given label
@@ -59,6 +59,8 @@
     能做到的操作：单步回退、任意步回退、指定位置保存、重载后恢复历史
     
     Canvas.scn体积大的原因是素材在挂上去的时候做了resize，这一步重新生成了一个新的Image不对应磁盘上的任何文件，所以保存的时候需要存储，这个问题的原因是当前素材分辨率不一致，需要载入时resize，统一分辨率即可。
+    
+- [ ] avatar support
 
 ## Tips
 
