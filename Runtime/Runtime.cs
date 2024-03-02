@@ -50,8 +50,7 @@ public partial class Runtime : Node2D
         AddChild(canvas);
         mainBuffer = new EffectBuffer();
         nonBlockingBuffer = new EffectBuffer();
-        interpreter = new LuaInterpreter(this, FileAccess.GetFileAsString("res://init.lua"));
-        interpreter.Eval(@"GetPlacement(""红叶"", 0)");
+        interpreter = new LuaInterpreter(FileAccess.GetFileAsString("res://init.lua"));
     }
 
     public void DebugSnapshot()

@@ -2,8 +2,6 @@ namespace RingEngine.Runtime.Script;
 
 using System;
 using NLua;
-using RingEngine.Runtime.Effect;
-using RingEngine.Runtime.Storage;
 
 public class LuaInterpreter : IDisposable
 {
@@ -17,17 +15,12 @@ public class LuaInterpreter : IDisposable
     /// interpreter.Eval(init);
     /// </code>
     /// </param>
-    public LuaInterpreter(Runtime runtime, string init = "")
+    public LuaInterpreter(string init = "")
     {
         interpreter = new Lua();
         interpreter.State.Encoding = System.Text.Encoding.UTF8;
         interpreter.LoadCLRPackage();
-        interpreter["runtime"] = runtime;
         interpreter.DoString(init, "init");
-        foreach (var (name, effect) in Effects.effects)
-        {
-            interpreter[name] = effect;
-        }
     }
 
     /// <summary>
@@ -35,7 +28,7 @@ public class LuaInterpreter : IDisposable
     /// </summary>
     /// <param name="expr"></param>
     /// <returns></returns>
-    public object Eval(string expr) => interpreter.DoString($"return {expr}")[0];
+    public dynamic Eval(string expr) => interpreter.DoString($"return {expr}")[0];
 
     /// <summary>
     /// 运行表达式<c>expr</c>并返回结果（如果有）

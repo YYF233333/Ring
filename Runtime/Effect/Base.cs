@@ -19,17 +19,6 @@ public interface IEffect
 // 用于参数类型
 public delegate void EffectFunc(Node node, Tween tween);
 
-public static class Effects
-{
-    public static Dictionary<string, IEffect> effects = new()
-    {
-        {"transparent", new SetAlpha(0) },
-        {"opaque", new SetAlpha(1) },
-        {"dissolve", new Dissolve() },
-        {"fade", new Fade() }
-    };
-}
-
 public class LambdaEffect : IEffect
 {
     public delegate void CallBack();

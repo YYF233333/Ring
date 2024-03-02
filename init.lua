@@ -16,8 +16,8 @@ nearleft = Placement(0.0, 200.0, 1.0)
 nearmiddle = Placement(450.0, 200.0, 1.0)
 nearright = Placement(900.0, 200.0, 1.0)
 
-function GetPlacement(character_name, position)
-    local y_base_table = runtime.conifg.YBaseTable;
-    local y_base = y_base_table[character_name];
-    return 1;
-end
+-- Effects
+transparent = SetAlpha(0)
+opaque = SetAlpha(1)
+dissolve = Dissolve()
+fade = Fade()

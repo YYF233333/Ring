@@ -115,6 +115,7 @@ public class Show : IScriptBlock
         imgPath = path;
         this.placement = placement;
         this.effect = effect;
+
     }
 
     public override bool Equals(object obj)
@@ -137,12 +138,12 @@ public class Show : IScriptBlock
         image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
         // TODO:这一步会导致存档体积膨胀，统一分辨率并去除这个resize
         texture = ImageTexture.CreateFromImage(image);
-        runtime.canvas.AddTexture(imgName, texture, runtime.interpreter.Eval<Placement>(placement));
+        runtime.canvas.AddTexture(imgName, texture, runtime.interpreter.Eval(placement));
         if (effect != "")
         {
+            IEffect instance = runtime.interpreter.Eval(effect);
             runtime.mainBuffer.Append(new EffectGroupBuilder()
-                .Add(runtime.canvas[imgName],
-                     runtime.interpreter.Eval<IEffect>(effect))
+                .Add(runtime.canvas[imgName], instance)
                 .Build());
         }
     }
@@ -193,6 +194,7 @@ public class ChangeBG : IScriptBlock
         @continue = true;
         this.imgPath = path;
         this.effect = effect;
+
     }
 
     public override bool Equals(object obj)
@@ -209,7 +211,7 @@ public class ChangeBG : IScriptBlock
         var oldBG = canvas.ReplaceBG(texture);
         if (effect != "")
         {
-            var instance = runtime.interpreter.Eval<IEffect>(effect);
+            IEffect instance = runtime.interpreter.Eval(effect);
             // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
             runtime.mainBuffer.Append(new EffectGroupBuilder()
                 .Add(canvas["BG"], new Chain(new SetAlpha(0), instance))
@@ -245,6 +247,7 @@ public class ChangeScene : IScriptBlock
         //@continue = true;
         this.bgPath = path;
         this.effect = effect;
+
     }
 
     public override void Execute(Runtime runtime)
@@ -253,13 +256,15 @@ public class ChangeScene : IScriptBlock
         var texture = canvas.Stretch(GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, bgPath)));
         if (effect != "")
         {
-            var instance = runtime.interpreter.Eval<ITransition>(effect);
+            ITransition instance = runtime.interpreter.Eval(effect);
             // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
             runtime.mainBuffer.Append(instance.Build(canvas, texture));
         }
         else
         {
-            canvas.AddTexture("BG", texture, Placement.BG, -1);
+            var oldBG = canvas.ReplaceBG(texture);
+            canvas.RemoveChild(oldBG);
+            oldBG.QueueFree();
         }
     }
 }
@@ -318,7 +323,9 @@ public class Say : IScriptBlock
 
     public override void Execute(Runtime runtime)
     {
-        runtime.mainBuffer.Append(new EffectGroupBuilder().Add(runtime.UI.TextBox, new LambdaEffect((Node node, Tween tween) =>
+        runtime.mainBuffer.Append(new EffectGroupBuilder().Add(
+            runtime.UI.TextBox,
+            new LambdaEffect((Node node, Tween tween) =>
         {
             tween.TweenCallback(Callable.From(() =>
             {

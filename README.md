@@ -4,6 +4,8 @@
 
 - [ ] 如何对依赖godot runtime的代码进行单元测试
 - [ ] ~~脚本语言选择：lua~~**重新考虑脚本语言和集成框架**
+    - [ ] CS-Script?
+
 - [ ] 跳转语句如何设计？
     - [ ] jump to file start（无难度）（叫什么名字，goto已经给label jump了）
     - [x] jump to given label

@@ -1,10 +1,16 @@
-<Project Sdk="Godot.NET.Sdk/4.2.1">
+﻿<Project Sdk="Godot.NET.Sdk/4.2.1">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>RingEngine</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ExportRelease|AnyCPU'">
+    <Optimize>False</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Document\**" />
@@ -15,6 +21,7 @@
     <EmbeddedResource Remove="Test\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Godot.NET.Sdk" Version="4.2.1" />
     <PackageReference Include="NLua" Version="1.7.2" />
   </ItemGroup>
   <ItemGroup>
