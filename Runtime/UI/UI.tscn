@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://dgbqw5xywsnn"]
+[gd_scene load_steps=28 format=3 uid="uid://dgbqw5xywsnn"]
 
 [ext_resource type="Script" path="res://Runtime/UI/UI.cs" id="1_ocqio"]
-[ext_resource type="Texture2D" uid="uid://bmwhwrigxx8fm" path="res://button/11451.png" id="1_xt1cu"]
 [ext_resource type="Texture2D" uid="uid://7fs12kkcq4rj" path="res://button/1404.png" id="1_yuxqm"]
 [ext_resource type="Texture2D" uid="uid://cmgc48siko708" path="res://button/1400.png" id="2_hf4ne"]
+[ext_resource type="Shader" path="res://Runtime/UI/textbox.gdshader" id="2_hqdq0"]
+[ext_resource type="Texture2D" uid="uid://bhv541fvefuq7" path="res://assets/textbox.png" id="2_vb5qb"]
 [ext_resource type="Texture2D" uid="uid://cx25xkfm461yc" path="res://button/1408.png" id="3_h6qna"]
 [ext_resource type="Texture2D" uid="uid://vcjik3cs3wx0" path="res://button/1414.png" id="4_buf8g"]
 [ext_resource type="Texture2D" uid="uid://b62ib3if6i346" path="res://button/1418.png" id="5_otgfj"]
@@ -24,9 +25,12 @@
 [ext_resource type="Texture2D" uid="uid://duoxd2u0qpgq3" path="res://button/1462.png" id="20_5hsud"]
 [ext_resource type="Texture2D" uid="uid://cm02kog6ick3o" path="res://button/9217.png" id="22_qiumh"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p14iq"]
+shader = ExtResource("2_hqdq0")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ow5bj"]
-texture = ExtResource("1_xt1cu")
-modulate_color = Color(1, 0.568627, 0.678431, 1)
+texture = ExtResource("2_vb5qb")
+region_rect = Rect2(0, 521, 1280, 185)
 
 [sub_resource type="LabelSettings" id="LabelSettings_n8uij"]
 font_size = 45
@@ -41,6 +45,7 @@ grow_vertical = 2
 script = ExtResource("1_ocqio")
 
 [node name="TextBoxBack" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_p14iq")
 layout_mode = 0
 offset_top = 817.0
 offset_right = 1920.0
@@ -60,6 +65,7 @@ theme_override_constants/margin_bottom = 45
 
 [node name="TextBox" type="RichTextLabel" parent="TextBoxBack/MarginContainer/MarginContainer"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 40
 
 [node name="MarginContainer2" type="MarginContainer" parent="TextBoxBack/MarginContainer"]
@@ -70,6 +76,7 @@ theme_override_constants/margin_bottom = 175
 
 [node name="TextBox" type="RichTextLabel" parent="TextBoxBack/MarginContainer/MarginContainer2"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 40
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

@@ -3,8 +3,8 @@
 ## TODO List
 
 - [ ] 如何对依赖godot runtime的代码进行单元测试
-- [ ] ~~脚本语言选择：lua~~**重新考虑脚本语言和集成框架**
-    - [ ] CS-Script?
+- [x] 脚本语言选择：lua
+    - [x] ~~CS-Script?~~Godot C# runtime有问题没法用
 
 - [ ] 跳转语句如何设计？
     - [ ] jump to file start（无难度）（叫什么名字，goto已经给label jump了）

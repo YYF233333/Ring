@@ -1,24 +1,24 @@
 # Chapter ???
 
-changeBG <img src="assets/bg1.png" alt="bg1" style="zoom:25%;" /> with dissolve
+changeBG <img src="assets/bg1.png" alt="bg1" style="zoom:10%;" /> with `Dissolve(2.0)`
 
-show <img src="assets/2.png" alt="2" style="zoom:5%;" /> as 红叶 at farleft
+show <img src="assets/2.png" alt="2" style="zoom:5%;" /> as 红叶 at farleft with dissolve
 
-show <img src="assets/chara.png" alt="chara" style="zoom:25%;" /> as 红叶2 at farmiddle
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶2 at farmiddle
 
-show <img src="assets/chara.png" alt="chara" style="zoom:25%;" /> as 红叶3 at farright
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶3 at farright
 
-show <img src="assets/chara.png" alt="chara" style="zoom:25%;" /> as 红叶4 at left
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶4 at left
 
-show <img src="assets/chara.png" alt="chara" style="zoom:25%;" /> as 红叶5 at middle
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶5 at middle
 
-show <img src="assets/chara.png" alt="chara" style="zoom:25%;" /> as 红叶6 at right
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶6 at right
 
-show <img src="assets/chara.png" alt="chara" style="zoom:25%;" /> as 红叶7 at nearleft
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶7 at nearleft
 
-show <img src="assets/chara.png" alt="chara" style="zoom:25%;" /> as 红叶8 at nearmiddle
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶8 at nearmiddle
 
-show <img src="assets/chara.png" alt="chara" style="zoom:25%;" /> as 红叶9 at nearright
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶9 at nearright
 
 少年："那么，世界回应了少女，实现了她的心愿？"
 
