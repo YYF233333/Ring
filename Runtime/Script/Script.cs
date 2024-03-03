@@ -269,6 +269,24 @@ public class ChangeScene : IScriptBlock
     }
 }
 
+public class UIAnim : IScriptBlock
+{
+    public string effect;
+
+    public UIAnim(string effect)
+    {
+        @continue = true;
+        this.effect = effect;
+    }
+
+    public override void Execute(Runtime runtime)
+    {
+        runtime.mainBuffer.Append(new EffectGroupBuilder()
+            .Add(runtime.UI, runtime.interpreter.Eval<IEffect>(effect))
+            .Build());
+    }
+}
+
 public class ShowChapterName : IScriptBlock
 {
     public string ChapterName;

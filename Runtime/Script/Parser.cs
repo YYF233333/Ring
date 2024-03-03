@@ -54,7 +54,7 @@ public static class Parser
                 source = ret.Item1;
                 continue;
             }
-            throw new Exception($"Parser Error at \"{source[..20]}\"");
+            throw new Exception($"Parser Error at \"{source[..Math.Min(source.Length, 20)]}\"");
         }
         return (blocks, labels);
     }
@@ -96,7 +96,7 @@ public static class Parser
 
     public static ParseResult ParseSay(string source)
     {
-        var pattern = @"\A(?<ident>\S+)\s*?(:|：)\s*?""(?<content>[\s\S]*?)""";
+        var pattern = @"\A(?<ident>[\s\S]*?)\s*?(:|：)\s*?""(?<content>[\s\S]*?)""";
         var match = Regex.Match(source, pattern);
         if (match.Success)
         {
@@ -140,6 +140,7 @@ public static class BuiltInFunctionParser
         {"changeBG", ParseChangeBG },
         {"changeScene", ParseChangeScene },
         {"goto", ParseJumpToLabel },
+        {"UIAnim", ParseUIAnim },
     };
 
     public static ParseResult Parse(string source)
@@ -213,5 +214,13 @@ public static class BuiltInFunctionParser
             return new ParseResult(source[match.Length..], new JumpToLabel(false, label[1..^1]));
         }
         return new ParseResult(source[match.Length..], new JumpToLabel(true, label));
+    }
+
+    public static ParseResult ParseUIAnim(string source)
+    {
+        var pattern = @"\AUIAnim (`(?<effect>[^`]+)`|(?<effect>\S+))";
+        var match = Regex.Match(source, pattern);
+        Trace.Assert(match.Success);
+        return new ParseResult(source[match.Length..], new UIAnim(match.Groups["effect"].Value));
     }
 }

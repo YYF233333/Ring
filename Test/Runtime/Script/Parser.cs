@@ -74,6 +74,15 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
     }
 
     [TestMethod]
+    public void ParseSayEmpty()
+    {
+        var ret = Parser.ParseSay("： \"台词 abab;:.\n\"");
+        Assert.AreEqual("", ret.Item1);
+        Assert.IsNotNull(ret.Item2);
+        Assert.AreEqual(new Say("", "台词 abab;:.\n"), ret.Item2);
+    }
+
+    [TestMethod]
     public void ParseSayNotEnd()
     {
         var ret = Parser.ParseSay("红叶 : \"台词\"\nother content");

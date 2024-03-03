@@ -2,23 +2,9 @@
 
 changeBG <img src="assets/bg1.png" alt="bg1" style="zoom:10%;" /> with `Dissolve(2.0)`
 
-show <img src="assets/2.png" alt="2" style="zoom:5%;" /> as 红叶 at farleft with dissolve
+UIAnim fade
 
-show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶2 at farmiddle
-
-show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶3 at farright
-
-show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶4 at left
-
-show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶5 at middle
-
-show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶6 at right
-
-show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶7 at nearleft
-
-show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶8 at nearmiddle
-
-show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶9 at nearright
+UIAnim dissolve
 
 少年："那么，世界回应了少女，实现了她的心愿？"
 
@@ -44,4 +30,40 @@ show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶9 at 
 
 ？？："然而当他们真的认识到个中含义时，那东西早已被燃尽，灰烬都找不见了。"
 
-changeScene <img src="assets/bg1.png" alt="bg1" style="zoom:25%;" /> with `ImageTrans()`
+
+
+？？？："唔…"
+？？？："好冷…"
+："中央空调正呼呼地吹出冷风。"
+旁白："刚刚还在梦中的我突然醒转过来。"
+旁白："似乎和往常有些异样，因病痛辗转而又醒来的话，身体是僵硬沉重的，然而现在则非常轻盈。"
+？？？："这是我的回光返照了吗...还是..."
+旁白："梦里我似乎在一片氤氲着甜蜜花香的树林中漫步，然后听到了谁人在吟诵着诗歌。"
+
+changeBG <img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with `dissolve`
+
+changeBG <img src="./assets/nexhos001_n_19201440.jpg" alt="nexhos001_n_19201440" style="zoom: 25%;" /> with `dissolve`
+
+？？？："......"
+旁白："我尝试活动身体，然而发现四肢无论怎样也使不上劲，只能靠扭动躯体才能勉强坐起来。"
+旁白："真是的，明明身体已经到了这种地步，还要让我做这样美丽的梦吗。"
+旁白："然而我并不感到悲伤。"
+旁白："或者说，早就不会再因为自己这副样子感到悲伤了。"
+旁白："但是这个梦让我感到了久违的温暖与充实。只是，醒来的时候，空调的冷风瞬间让我清醒过来。"
+旁白："公园的细节仿佛瞬间就从我的脑海中流走了，我也不再能够看清那人的面容。然而那诗歌却仍然留在脑海之中。"
+？？？:“挚爱之人死去之时，我必须杀死自己。挚爱之人死去之时，除此之外，别无他法。”
+？？？："中原中也吗？"
+旁白："我望向来看护的母亲。她正趴在床头柜上熟睡着，手边还有一个削到一半的苹果。"
+旁白："而我甚至没有气力去为操劳的母亲披一件衣服..."
+？？？："真的...非常非常...对不起。"
+旁白："鼻子一酸。"
+
+
+
+
+
+
+
+
+旁白："寻常的周日，寻常的傍晚，我正走在回学校的路上。"
+

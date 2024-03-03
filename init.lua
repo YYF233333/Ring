@@ -21,3 +21,7 @@ transparent = SetAlpha(0)
 opaque = SetAlpha(1)
 dissolve = Dissolve()
 fade = Fade()
+
+-- Transition
+dissolveTrans = DissolveTrans()
+
