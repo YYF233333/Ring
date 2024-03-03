@@ -21,6 +21,11 @@ public class RingScript
         scriptName = Path.GetFileNameWithoutExtension(filePath);
         (segments, labels) = Parser.Parse(Godot.FileAccess.GetFileAsString(filePath));
     }
+
+    public string ToResourcePath(string filePath)
+    {
+        return Path.Combine(folderPath, filePath);
+    }
 }
 
 public abstract class IScriptBlock
@@ -258,7 +263,7 @@ public class ChangeScene : IScriptBlock
         {
             ITransition instance = runtime.interpreter.Eval(effect);
             // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
-            runtime.mainBuffer.Append(instance.Build(canvas, texture));
+            runtime.mainBuffer.Append(instance.Build(runtime: runtime, texture));
         }
         else
         {
@@ -279,12 +284,21 @@ public class UIAnim : IScriptBlock
         this.effect = effect;
     }
 
+    public override bool Equals(object obj)
+    {
+        return obj is UIAnim anim &&
+            this.@continue == anim.@continue &&
+            this.effect == anim.effect;
+    }
+
     public override void Execute(Runtime runtime)
     {
         runtime.mainBuffer.Append(new EffectGroupBuilder()
             .Add(runtime.UI, runtime.interpreter.Eval<IEffect>(effect))
             .Build());
     }
+
+    public override int GetHashCode() => HashCode.Combine(this.@continue, this.effect);
 }
 
 public class ShowChapterName : IScriptBlock

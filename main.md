@@ -2,7 +2,13 @@
 
 changeBG <img src="assets/bg1.png" alt="bg1" style="zoom:10%;" /> with `Dissolve(2.0)`
 
+changeScene <img src="assets/bg1.png" alt="bg1" style="zoom:10%;" />  with `ImageTrans("res://assets/Runtime/wink.png")`
+
+changeScene <img src="assets/bg1.png" alt="bg1" style="zoom:10%;" /> with ImageTrans("./assets/Runtime/wink.png")
+
 UIAnim fade
+
+# chapter
 
 UIAnim dissolve
 

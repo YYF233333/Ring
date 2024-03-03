@@ -237,4 +237,14 @@ public class TestBuiltInParser
         block = (JumpToLabel)ret.Item2;
         Assert.AreEqual(new JumpToLabel(false, "label expression"), block);
     }
+
+    [TestMethod]
+    public void ParseUIAnim()
+    {
+        var ret = BuiltInFunctionParser.ParseUIAnim(@"UIAnim dissolve");
+        Assert.AreEqual("", ret.Item1);
+        Assert.IsNotNull(ret.Item2);
+        UIAnim block = (UIAnim)ret.Item2;
+        Assert.AreEqual(new UIAnim("dissolve"), block);
+    }
 }

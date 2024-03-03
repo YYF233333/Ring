@@ -12,10 +12,10 @@ public interface ITransition
     /// <summary>
     /// 在当前<c>Canvas</c>上构建转场效果
     /// </summary>
-    /// <param name="canvas"></param>
+    /// <param name="runtime"></param>
     /// <param name="newBG"></param>
     /// <returns>若干效果组，直接提交给EffectBuffer即可</returns>
-    public IEnumerable<EffectGroup> Build(Canvas canvas, Texture2D newBG);
+    public IEnumerable<EffectGroup> Build(Runtime runtime, Texture2D newBG);
 
     /// <summary>
     /// 获取转场的持续时间
@@ -34,8 +34,9 @@ public class DissolveTrans : ITransition
         this.duration = duration;
     }
 
-    public IEnumerable<EffectGroup> Build(Canvas canvas, Texture2D newBG)
+    public IEnumerable<EffectGroup> Build(Runtime runtime, Texture2D newBG)
     {
+        var canvas = runtime.canvas;
         var group1 = new EffectGroupBuilder()
             .Add(canvas.Mask, new Chain(
                 new LambdaEffect(() =>
@@ -60,23 +61,41 @@ public class DissolveTrans : ITransition
 
 public class ImageTrans : ITransition
 {
-    public Texture2D mask;
-    public Texture2D control;
+    public string maskPath = "res://assets/Runtime/black.png";
+    public string controlPath;
     public double duration;
     public bool reversed;
     public float smooth;
 
-    public ImageTrans(Texture2D mask = null, double duration = 2, bool reversed = false, double smooth = 0.2)
+    public ImageTrans(double duration = 2, bool reversed = false, double smooth = 0.2)
     {
-        this.mask = GD.Load<Texture2D>("res://assets/Runtime/black.png");
-        this.control = GD.Load<Texture2D>("res://assets/Runtime/rule_10.png");
+        this.controlPath = "res://assets/Runtime/rule_10.png";
         this.duration = duration;
         this.reversed = reversed;
         this.smooth = (float)smooth;
     }
 
-    public IEnumerable<EffectGroup> Build(Canvas canvas, Texture2D newBG)
+    public ImageTrans(string controlPath, double duration = 2, bool reversed = false, double smooth = 0.2)
     {
+        this.controlPath = controlPath;
+        this.duration = duration;
+        this.reversed = reversed;
+        this.smooth = (float)smooth;
+    }
+
+    public IEnumerable<EffectGroup> Build(Runtime runtime, Texture2D newBG)
+    {
+        if (!maskPath.StartsWith("res://"))
+        {
+            maskPath = runtime.script.ToResourcePath(maskPath);
+        }
+        if (!controlPath.StartsWith("res://"))
+        {
+            controlPath = runtime.script.ToResourcePath(controlPath);
+        }
+        var mask = GD.Load<Texture2D>(maskPath);
+        var control = GD.Load<Texture2D>(controlPath);
+        var canvas = runtime.canvas;
         var group1 = new EffectGroupBuilder()
             .Add(canvas.Mask, new Chain(
                 new LambdaEffect(() =>

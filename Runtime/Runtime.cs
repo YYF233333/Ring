@@ -50,7 +50,7 @@ public partial class Runtime : Node2D
         AddChild(canvas);
         mainBuffer = new EffectBuffer();
         nonBlockingBuffer = new EffectBuffer();
-        interpreter = new LuaInterpreter(FileAccess.GetFileAsString("res://init.lua"));
+        interpreter = new LuaInterpreter(this, FileAccess.GetFileAsString("res://init.lua"));
     }
 
     public void DebugSnapshot()

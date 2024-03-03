@@ -169,6 +169,7 @@ texture_normal = ExtResource("20_5hsud")
 
 [node name="ChapterNameBack" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
+top_level = true
 layout_mode = 0
 offset_top = 50.0
 offset_right = 415.0

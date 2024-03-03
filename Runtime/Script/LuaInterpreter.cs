@@ -15,11 +15,12 @@ public class LuaInterpreter : IDisposable
     /// interpreter.Eval(init);
     /// </code>
     /// </param>
-    public LuaInterpreter(string init = "")
+    public LuaInterpreter(Runtime runtime, string init = "")
     {
         interpreter = new Lua();
         interpreter.State.Encoding = System.Text.Encoding.UTF8;
         interpreter.LoadCLRPackage();
+        interpreter["runtime"] = runtime;
         interpreter.DoString(init, "init");
     }
 
