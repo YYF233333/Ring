@@ -27,6 +27,13 @@ public static class Parser
                 source = ret.Item1;
                 continue;
             }
+            ret = ParsePlayAudio(source);
+            if (ret.Item2 != null)
+            {
+                blocks.Add(ret.Item2);
+                source = ret.Item1;
+                continue;
+            }
             ret = ParseCodeBlock(source);
             if (ret.Item2 != null)
             {
@@ -105,13 +112,13 @@ public static class Parser
         return new ParseResult(source, null);
     }
 
-    public static ParseResult ParseAudio(string source)
+    public static ParseResult ParsePlayAudio(string source)
     {
         var pattern = @"\A<audio src=""(?<path>[\s\S]*?)""></audio>";
         var match = Regex.Match(source, pattern);
         if (match.Success)
         {
-            var ret = new Audio(match.Groups["path"].Value, "");
+            var ret = new PlayAudio(match.Groups["path"].Value);
             return new ParseResult(source[match.Length..], ret);
         }
         return new ParseResult(source, null);
@@ -141,6 +148,7 @@ public static class BuiltInFunctionParser
         {"changeScene", ParseChangeScene },
         {"goto", ParseJumpToLabel },
         {"UIAnim", ParseUIAnim },
+        {"stopAudio", ParseStopAudio },
     };
 
     public static ParseResult Parse(string source)
@@ -222,5 +230,13 @@ public static class BuiltInFunctionParser
         var match = Regex.Match(source, pattern);
         Trace.Assert(match.Success);
         return new ParseResult(source[match.Length..], new UIAnim(match.Groups["effect"].Value));
+    }
+
+    public static ParseResult ParseStopAudio(string source)
+    {
+        var pattern = @"\AstopAudio";
+        var match = Regex.Match(source, pattern);
+        Trace.Assert(match.Success);
+        return new ParseResult(source[match.Length..], new StopAudio());
     }
 }

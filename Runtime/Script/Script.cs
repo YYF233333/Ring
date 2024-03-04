@@ -374,26 +374,60 @@ public class Say : IScriptBlock
     public override string ToString() => $"Say: name: {name}, content: {content}";
 }
 
-public class Audio : IScriptBlock
+public class PlayAudio : IScriptBlock
 {
     // path to the audio file("" excluded)
     string path;
     // animation used in audio change
-    string animation;
+    float FadeInTime;
 
-    public Audio(string path, string animation)
+    public PlayAudio(string path, double FadeInTime = 0.5)
     {
+        @continue = true;
         this.path = path;
-        this.animation = animation;
+        this.FadeInTime = (float)FadeInTime;
     }
 
     public override void Execute(Runtime runtime)
     {
-        throw new NotImplementedException();
+        var audio = GD.Load<AudioStream>(runtime.script.ToResourcePath(path));
+        runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(
+            runtime.audio,
+            new LambdaEffect((_, tween) =>
+            {
+                tween.TweenCallback(Callable.From(() =>
+                {
+                    runtime.audio.VolumeDb = -80.0f;
+                    runtime.audio.Play(audio);
+                }));
+                tween.TweenProperty(runtime.audio, "volume_db", 0.0, FadeInTime)
+                    .SetTrans(Tween.TransitionType.Expo)
+                    .SetEase(Tween.EaseType.Out);
+            })
+            ).Build());
+    }
+}
+
+public class StopAudio : IScriptBlock
+{
+    float FadeOutTime;
+
+    public StopAudio(double fadeOutTime = 1.0)
+    {
+        @continue = true;
+        this.FadeOutTime = (float)fadeOutTime;
     }
 
-    public void Print()
+    public override void Execute(Runtime runtime)
     {
-        throw new NotImplementedException();
+        runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(
+            runtime.audio,
+            new LambdaEffect((_, tween) =>
+            {
+                tween.TweenProperty(runtime.audio, "volume_db", -80.0, FadeOutTime)
+                    .SetTrans(Tween.TransitionType.Expo)
+                    .SetEase(Tween.EaseType.In);
+            })
+            ).Build());
     }
 }

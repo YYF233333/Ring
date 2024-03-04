@@ -15,6 +15,8 @@ public partial class Runtime : Node2D
     public RingScript script;
     public UI UI;
     public Canvas canvas;
+    // 音乐音效
+    public Audio audio;
     // 动画效果缓冲区
     public EffectBuffer mainBuffer;
     public EffectBuffer nonBlockingBuffer;
@@ -48,6 +50,11 @@ public partial class Runtime : Node2D
             config = config
         };
         AddChild(canvas);
+        audio = new Audio()
+        {
+            Name = "Audio"
+        };
+        AddChild(audio);
         mainBuffer = new EffectBuffer();
         nonBlockingBuffer = new EffectBuffer();
         interpreter = new LuaInterpreter(this, FileAccess.GetFileAsString("res://init.lua"));

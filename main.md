@@ -1,20 +1,17 @@
 # Chapter ???
 
-changeBG <img src="assets/bg1.png" alt="bg1" style="zoom:10%;" /> with `Dissolve(2.0)`
+changeBG <img src="assets/bg1.png" alt="bg1" style="zoom:10%;" /> with dissolve
 
-changeScene <img src="assets/bg1.png" alt="bg1" style="zoom:10%;" />  with `ImageTrans("res://assets/Runtime/wink.png")`
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶 at farleft
 
-changeScene <img src="assets/bg1.png" alt="bg1" style="zoom:10%;" /> with ImageTrans("./assets/Runtime/wink.png")
+<audio src="assets/RBGM2208Tr2_SUMMERTIME.mp3"></audio>
 
-UIAnim fade
-
-# chapter
-
-UIAnim dissolve
 
 少年："那么，世界回应了少女，实现了她的心愿？"
 
 ？？："不完全是这样..."
+
+stopAudio
 
 ？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"
 
