@@ -143,13 +143,38 @@ public class Show : IScriptBlock
         image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
         // TODO:这一步会导致存档体积膨胀，统一分辨率并去除这个resize
         texture = ImageTexture.CreateFromImage(image);
-        runtime.canvas.AddTexture(imgName, texture, runtime.interpreter.Eval(placement));
-        if (effect != "")
+        var canvas = runtime.canvas;
+        if (canvas.HasChild(imgName))
+        {// 同名替换
+            if (effect == "")
+            {
+                canvas.RemoveTexture(imgName);
+                canvas.AddTexture(imgName, texture, runtime.interpreter.Eval(placement));
+            }
+            else
+            {
+                canvas.RenameTexture(imgName, imgName + "_old");
+                canvas.AddTexture(imgName, texture, runtime.interpreter.Eval(placement));
+                canvas[imgName].Modulate = new Color(canvas[imgName].Modulate, 0);
+                IEffect instance = runtime.interpreter.Eval(effect);
+                runtime.mainBuffer.Append(new EffectGroupBuilder()
+                    .Add(canvas[imgName], instance)
+                    .Add(canvas[imgName + "_old"],
+                        new Chain(new Delay(instance.GetDuration()), new Delete()))
+                    .Build());
+            }
+        }
+        else
         {
-            IEffect instance = runtime.interpreter.Eval(effect);
-            runtime.mainBuffer.Append(new EffectGroupBuilder()
-                .Add(runtime.canvas[imgName], instance)
-                .Build());
+            canvas.AddTexture(imgName, texture, runtime.interpreter.Eval(placement));
+            if (effect != "")
+            {
+                canvas[imgName].Modulate = new Color(canvas[imgName].Modulate, 0);
+                IEffect instance = runtime.interpreter.Eval(effect);
+                runtime.mainBuffer.Append(new EffectGroupBuilder()
+                    .Add(canvas[imgName], instance)
+                    .Build());
+            }
         }
     }
 

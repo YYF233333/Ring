@@ -4,14 +4,20 @@ changeBG <img src="assets/bg1.png" alt="bg1" style="zoom:10%;" /> with dissolve
 
 show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶 at farleft
 
-<audio src="assets/RBGM2208Tr2_SUMMERTIME.mp3"></audio>
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶2 at farright with dissolve
+
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶 at left
+
+show <img src="assets/chara.png" alt="chara" style="zoom:10%;" /> as 红叶2 at right with dissolve
+
+
 
 
 少年："那么，世界回应了少女，实现了她的心愿？"
 
 ？？："不完全是这样..."
 
-stopAudio
+
 
 ？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"
 

@@ -25,6 +25,7 @@
     <PackageReference Include="NLua" Version="1.7.2" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Runtime\Audio\" />
     <Folder Include="Runtime\Canvas\" />
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,8 @@ public partial class Canvas : Node2D
 
     public Sprite2D this[string name] => childs[name];
 
+    public bool HasChild(string name) => childs.ContainsKey(name);
+
     public Canvas()
     {
         // 占位BG
@@ -65,6 +67,15 @@ public partial class Canvas : Node2D
         AddChild(child);
         child.Owner = this;
         Trace.Assert(child.Name == name);
+    }
+
+    public void RenameTexture(string name, string newName)
+    {
+        Trace.Assert(childs.ContainsKey(name) && !childs.ContainsKey(newName));
+        var child = childs[name];
+        child.Name = newName;
+        childs.Remove(name);
+        childs[newName] = child;
     }
 
     public Sprite2D ReplaceBG(Texture2D texture)

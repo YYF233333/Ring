@@ -2,6 +2,16 @@
 
 ## TODO List
 
+**new:**
+
+- [x] show同名立绘实现crossfade
+- [ ] 动效顺序debug
+- [ ] 增添BG Placement
+- [ ] 实现Camera移动动画
+- [ ] 导出脚本块@continue属性
+
+
+
 - [ ] 如何对依赖godot runtime的代码进行单元测试
 - [x] 脚本语言选择：lua
     - [x] ~~CS-Script?~~Godot C# runtime有问题没法用
