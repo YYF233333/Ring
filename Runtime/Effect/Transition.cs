@@ -49,7 +49,7 @@ public class DissolveTrans : ITransition
             .Build();
         var group2 = new EffectGroupBuilder()
             .Add(canvas.Mask, new Chain(
-                new LambdaEffect(() => canvas["BG"].Texture = canvas.Stretch(newBG)),
+                new LambdaEffect(() => canvas.BG.Texture = canvas.Stretch(newBG)),
                 new Fade(duration / 2),
                 new LambdaEffect(canvas.RemoveMask)
             ))
@@ -122,7 +122,7 @@ public class ImageTrans : ITransition
             .Build();
         var group2 = new EffectGroupBuilder()
             .Add(canvas.Mask, new Chain(
-                new LambdaEffect(() => canvas["BG"].Texture = canvas.Stretch(newBG)),
+                new LambdaEffect(() => canvas.BG.Texture = canvas.Stretch(newBG)),
                 new LambdaEffect((Node node, Tween tween) =>
                 {
                     tween.TweenMethod(Callable.From((float progress) =>

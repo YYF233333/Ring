@@ -1,12 +1,15 @@
 namespace RingEngine.Runtime.Effect;
 
 using System;
+using Godot;
 
 public class Placement
 {
     public float x;
     public float y;
     public float scale;
+
+    public Vector2 Position => new(x, y);
 
     public Placement(double x, double y, double scale)
     {

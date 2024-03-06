@@ -116,6 +116,7 @@ public class Show : IScriptBlock
 
     public Show(string path, string placement, string effect, string name)
     {
+        @continue = true;
         imgName = name;
         imgPath = path;
         this.placement = placement;
@@ -246,7 +247,7 @@ public class ChangeBG : IScriptBlock
                 .Add(runtime.canvas, new LambdaEffect((_, tween) =>
                 {
                     var oldBG = canvas.ReplaceBG(texture);
-                    canvas["BG"].Modulate = new Color(canvas["BG"].Modulate, 0);
+                    canvas.BG.Modulate = new Color(canvas.BG.Modulate, 0);
                     new Chain(
                         instance,
                         new LambdaEffect(() =>
@@ -254,7 +255,7 @@ public class ChangeBG : IScriptBlock
                             canvas.RemoveChild(oldBG);
                             oldBG.QueueFree();
                         })
-                        ).Apply(canvas["BG"], tween);
+                        ).Apply(canvas.BG, tween);
                 })).Build());
         }
         else

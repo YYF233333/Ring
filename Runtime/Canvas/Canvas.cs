@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
+using System.Xml.Linq;
 using Godot;
 using RingEngine.Runtime.Effect;
 using RingEngine.Runtime.Storage;
@@ -10,6 +12,8 @@ public partial class Canvas : Node2D
     public GlobalConfig config;
     Dictionary<string, Sprite2D> childs = [];
     public Sprite2D Mask;
+    public Sprite2D BG;
+    public Sprite2D ZombieBG;
 
     public Sprite2D this[string name] => childs[name];
 
@@ -19,6 +23,17 @@ public partial class Canvas : Node2D
     {
         // 占位BG
         AddTexture("BG", GD.Load<Texture2D>("res://assets/Runtime/black.png"), Placement.BG, -1);
+        BG = new Sprite2D
+        {
+            Name = "BG",
+            Texture = GD.Load<Texture2D>("res://assets/Runtime/black.png"),
+            ZIndex = -1,
+            Centered = false,
+            Position = Placement.BG.Position,
+            Scale = new Vector2(Placement.BG.scale, Placement.BG.scale)
+        };
+        AddChild(BG);
+        BG.Owner = this;
         Mask = new Sprite2D
         {
             Name = "Mask",
@@ -80,21 +95,20 @@ public partial class Canvas : Node2D
 
     public Sprite2D ReplaceBG(Texture2D texture)
     {
-        var child = childs["BG"];
-        child.Name = "zombieBG";
-        var newChild = new Sprite2D
+        BG.Name = "zombieBG";
+        ZombieBG = BG;
+        BG = new Sprite2D
         {
             Name = "BG",
             Texture = texture,
-            ZIndex = child.ZIndex,
-            Centered = child.Centered,
-            Position = child.Position,
-            Scale = child.Scale
+            ZIndex = ZombieBG.ZIndex,
+            Centered = ZombieBG.Centered,
+            Position = ZombieBG.Position,
+            Scale = ZombieBG.Scale
         };
-        AddChild(newChild);
-        newChild.Owner = this;
-        childs["BG"] = newChild;
-        return child;
+        AddChild(BG);
+        BG.Owner = this;
+        return ZombieBG;
     }
 
     public void RemoveTexture(string name)
