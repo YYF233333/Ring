@@ -69,7 +69,6 @@ public static class Parser
                 source = ret.Item1;
                 continue;
             }
-            GD.PrintErr($"Parser Error at \"{source[..Math.Min(source.Length, 20)]}\"");
             throw new ParserException(source);
         }
         return (blocks, labels);
@@ -176,7 +175,10 @@ public static class BuiltInFunctionParser
     {
         var pattern = @"\Ashow *<img src=""(?<path>[^""]*)""[\s\S]*?/> *as (?<name>\S+) at (`(?<pos>[^`]+)`|(?<pos>\S+))( with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
         var match = Regex.Match(source, pattern);
-        Trace.Assert(match.Success);
+        if (!match.Success)
+        {
+            throw new ParserException(source);
+        }
         var effect_group = match.Groups.GetValueOrDefault("effect");
         var effect = effect_group != null ? effect_group.Value : "";
         return new ParseResult(
@@ -194,7 +196,10 @@ public static class BuiltInFunctionParser
     {
         var pattern = @"\Ahide (?<name>[\S]+)( with (?<effect>\S+))?";
         var match = Regex.Match(source, pattern);
-        Trace.Assert(match.Success);
+        if (!match.Success)
+        {
+            throw new ParserException(source);
+        }
         var effect_group = match.Groups.GetValueOrDefault("effect");
         var effect = effect_group != null ? effect_group.Value : "";
         return new ParseResult(source[match.Length..], new Hide(match.Groups["name"].Value, effect));
@@ -204,7 +209,10 @@ public static class BuiltInFunctionParser
     {
         var pattern = @"\AchangeBG *<img src=""(?<path>[\s\S]*?)""[\s\S]*?/>( *with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
         var match = Regex.Match(source, pattern);
-        Trace.Assert(match.Success);
+        if (!match.Success)
+        {
+            throw new ParserException(source);
+        }
         var effect_group = match.Groups.GetValueOrDefault("effect");
         var effect = effect_group != null ? effect_group.Value : "";
         return new ParseResult(source[match.Length..], new ChangeBG(match.Groups["path"].Value, effect));
@@ -214,7 +222,10 @@ public static class BuiltInFunctionParser
     {
         var pattern = @"\AchangeScene *<img src=""(?<path>[\s\S]*?)""[\s\S]*?/>( *with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
         var match = Regex.Match(source, pattern);
-        Trace.Assert(match.Success);
+        if (!match.Success)
+        {
+            throw new ParserException(source);
+        }
         var effect_group = match.Groups.GetValueOrDefault("effect");
         var effect = effect_group != null ? effect_group.Value : "";
         return new ParseResult(source[match.Length..], new ChangeScene(match.Groups["path"].Value, effect));
@@ -224,7 +235,10 @@ public static class BuiltInFunctionParser
     {
         var pattern = @"\Agoto (?<label>[\s\S]+)";
         var match = Regex.Match(source, pattern);
-        Trace.Assert(match.Success);
+        if (!match.Success)
+        {
+            throw new ParserException(source);
+        }
         var label = match.Groups["label"].Value;
         if (label.StartsWith('`'))
         {
@@ -237,7 +251,10 @@ public static class BuiltInFunctionParser
     {
         var pattern = @"\AUIAnim (`(?<effect>[^`]+)`|(?<effect>\S+))";
         var match = Regex.Match(source, pattern);
-        Trace.Assert(match.Success);
+        if (!match.Success)
+        {
+            throw new ParserException(source);
+        }
         return new ParseResult(source[match.Length..], new UIAnim(match.Groups["effect"].Value));
     }
 
@@ -245,7 +262,10 @@ public static class BuiltInFunctionParser
     {
         var pattern = @"\AstopAudio";
         var match = Regex.Match(source, pattern);
-        Trace.Assert(match.Success);
+        if (!match.Success)
+        {
+            throw new ParserException(source);
+        }
         return new ParseResult(source[match.Length..], new StopAudio());
     }
 }

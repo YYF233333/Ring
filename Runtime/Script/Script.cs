@@ -19,7 +19,14 @@ public class RingScript
         Trace.Assert(filePath.StartsWith("res://"));
         folderPath = StringExtensions.GetBaseDir(filePath);
         scriptName = Path.GetFileNameWithoutExtension(filePath);
-        (segments, labels) = Parser.Parse(Godot.FileAccess.GetFileAsString(filePath));
+        try
+        {
+            (segments, labels) = Parser.Parse(Godot.FileAccess.GetFileAsString(filePath));
+        }
+        catch (Exception ex)
+        {
+            GD.PrintErr(ex.Message);
+        }
     }
 
     public string ToResourcePath(string filePath)
