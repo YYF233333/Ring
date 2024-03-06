@@ -3,9 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Godot;
 
 #nullable enable
 using ParseResult = (string, IScriptBlock?);
+
+public class ParserException : Exception
+{
+    public ParserException(string source)
+        : base($"Parser Error at \"{source[..Math.Min(source.Length, 20)]}\"")
+    { }
+}
 
 public static class Parser
 {
@@ -61,7 +69,8 @@ public static class Parser
                 source = ret.Item1;
                 continue;
             }
-            throw new Exception($"Parser Error at \"{source[..Math.Min(source.Length, 20)]}\"");
+            GD.PrintErr($"Parser Error at \"{source[..Math.Min(source.Length, 20)]}\"");
+            throw new ParserException(source);
         }
         return (blocks, labels);
     }

@@ -238,25 +238,28 @@ public class ChangeBG : IScriptBlock
     {
         var canvas = runtime.canvas;
         var texture = canvas.Stretch(GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath)));
-        var oldBG = canvas.ReplaceBG(texture);
         if (effect != "")
         {
             IEffect instance = runtime.interpreter.Eval(effect);
             // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
             runtime.mainBuffer.Append(new EffectGroupBuilder()
-                .Add(canvas["BG"], new Chain(new SetAlpha(0), instance))
-                .Add(oldBG, new Chain(
-                    new Delay(instance.GetDuration()),
-                    new LambdaEffect(() =>
-                    {
-                        canvas.RemoveChild(oldBG);
-                        oldBG.QueueFree();
-                    })
-                ))
-                .Build());
+                .Add(runtime.canvas, new LambdaEffect((_, tween) =>
+                {
+                    var oldBG = canvas.ReplaceBG(texture);
+                    canvas["BG"].Modulate = new Color(canvas["BG"].Modulate, 0);
+                    new Chain(
+                        instance,
+                        new LambdaEffect(() =>
+                        {
+                            canvas.RemoveChild(oldBG);
+                            oldBG.QueueFree();
+                        })
+                        ).Apply(canvas["BG"], tween);
+                })).Build());
         }
         else
         {
+            var oldBG = canvas.ReplaceBG(texture);
             canvas.RemoveChild(oldBG);
             oldBG.QueueFree();
         }
