@@ -5,7 +5,7 @@
 **new:**
 
 - [x] show同名立绘实现crossfade
-- [ ] 动效顺序debug
+- [x] 动效顺序debug
 - [ ] 增添BG Placement
 - [ ] 实现Camera移动动画
 - [ ] 导出脚本块@continue属性
