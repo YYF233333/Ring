@@ -51,7 +51,7 @@ public partial class Canvas : Node2D
         var image = texture.GetImage();
         var imageSize = image.GetSize();
         var scale = Math.Max(windowSize.X / (float)imageSize.X, windowSize.Y / (float)imageSize.Y);
-        scale = Math.Max(scale, 1);
+        //scale = Math.Max(scale, 1);
         image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
         return ImageTexture.CreateFromImage(image);
     }

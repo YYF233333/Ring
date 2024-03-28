@@ -4,7 +4,7 @@
 
 **new:**
 
-- [ ] showBG导致parser死循环
+- [x] ParserException包含行数
 
 - [x] show同名立绘实现crossfade
 - [x] 动效顺序debug

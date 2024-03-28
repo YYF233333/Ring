@@ -2,6 +2,7 @@ namespace RingEngine.Runtime.Script;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Godot;
 
@@ -10,8 +11,17 @@ using ParseResult = (string, IScriptBlock?);
 
 public class ParserException : Exception
 {
+    const int MaxLength = 50;
     public ParserException(string source)
-        : base($"Parser Error at \"{source[..Math.Min(source.Length, 20)]}\"")
+        : base(source[..Math.Min(source.Length, MaxLength)])
+    { }
+
+    public ParserException(string source, int line)
+        : base($"Syntax Error at line {line}: \"{source[..Math.Min(source.Length, MaxLength)]}\"")
+    { }
+
+    public ParserException(Exception inner, int line)
+        : base($"Syntax Error at line {line}: \"{inner.Message}\"")
     { }
 }
 
@@ -21,6 +31,7 @@ public static class Parser
     {
         List<IScriptBlock> blocks = [];
         Dictionary<string, int> labels = [];
+        var totalLineNum = source.Count("\n");
         while (source != "")
         {
             source = source.TrimStart();
@@ -28,48 +39,55 @@ public static class Parser
             {
                 break;
             }
-            var ret = ParseShowChapterName(source);
-            if (ret.Item2 != null)
+            try
             {
-                blocks.Add(ret.Item2);
-                source = ret.Item1;
-                continue;
-            }
-            ret = ParsePlayAudio(source);
-            if (ret.Item2 != null)
-            {
-                blocks.Add(ret.Item2);
-                source = ret.Item1;
-                continue;
-            }
-            ret = ParseCodeBlock(source);
-            if (ret.Item2 != null)
-            {
-                blocks.Add(ret.Item2);
-                source = ret.Item1;
-                continue;
-            }
-            var label = ParseLabel(source);
-            if (label != null)
-            {
-                labels[label] = blocks.Count;
-            }
+                var ret = ParseShowChapterName(source);
+                if (ret.Item2 != null)
+                {
+                    blocks.Add(ret.Item2);
+                    source = ret.Item1;
+                    continue;
+                }
+                ret = ParsePlayAudio(source);
+                if (ret.Item2 != null)
+                {
+                    blocks.Add(ret.Item2);
+                    source = ret.Item1;
+                    continue;
+                }
+                ret = ParseCodeBlock(source);
+                if (ret.Item2 != null)
+                {
+                    blocks.Add(ret.Item2);
+                    source = ret.Item1;
+                    continue;
+                }
+                var label = ParseLabel(source);
+                if (label != null)
+                {
+                    labels[label] = blocks.Count;
+                }
 
-            ret = BuiltInFunctionParser.Parse(source);
-            if (ret.Item2 != null)
-            {
-                blocks.Add(ret.Item2);
-                source = ret.Item1;
-                continue;
+                ret = BuiltInFunctionParser.Parse(source);
+                if (ret.Item2 != null)
+                {
+                    blocks.Add(ret.Item2);
+                    source = ret.Item1;
+                    continue;
+                }
+                ret = ParseSay(source);
+                if (ret.Item2 != null)
+                {
+                    blocks.Add(ret.Item2);
+                    source = ret.Item1;
+                    continue;
+                }
             }
-            ret = ParseSay(source);
-            if (ret.Item2 != null)
+            catch (ParserException e)
             {
-                blocks.Add(ret.Item2);
-                source = ret.Item1;
-                continue;
+                throw new ParserException(e, totalLineNum - source.Count("\n") + 1);
             }
-            throw new ParserException(source);
+            throw new ParserException(source, totalLineNum - source.Count("\n") + 1);
         }
         return (blocks, labels);
     }

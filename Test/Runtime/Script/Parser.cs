@@ -40,6 +40,13 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
     }
 
     [TestMethod]
+    public void Parse2()
+    {
+        var script = File.ReadAllText("C:\\Users\\Yufeng Ying\\Desktop\\Ring\\main.md");
+        (var ret, _) = Parser.Parse(script);
+    }
+
+    [TestMethod]
     public void ParseLabel()
     {
         var ret = Parser.ParseLabel(@"**选择支1**");
