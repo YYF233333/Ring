@@ -60,18 +60,23 @@ public partial class Runtime : Node2D
         interpreter = new LuaInterpreter(this, FileAccess.GetFileAsString("res://init.lua"));
     }
 
-    public Runtime(string snapshotPath) : this()
+    public void LoadSnapshot(string snapshotPath)
     {
         var snap = Snapshot.Load(snapshotPath);
+        LoadSnapshot(snap);
+    }
+
+    public void LoadSnapshot(Snapshot snapshot)
+    {
         RemoveChild(UI);
         UI.QueueFree();
         RemoveChild(canvas);
         canvas.QueueFree();
-        UI = snap.UI.Instantiate<UI>();
+        UI = snapshot.UI.Instantiate<UI>();
         AddChild(UI);
-        canvas = snap.Canvas.Instantiate<Canvas>();
+        canvas = snapshot.Canvas.Instantiate<Canvas>();
         AddChild(canvas);
-        global.Deserialize(snap.global);
+        global.Deserialize(snapshot.global);
     }
 
     public void DebugSnapshot()
@@ -123,6 +128,10 @@ public partial class Runtime : Node2D
             if (Input.IsActionPressed("ui_cancel"))
             {
                 DebugSnapshot();
+            }
+            if (Input.IsActionPressed("ui_text_backspace"))
+            {
+                LoadSnapshot(global.LoadHistory(1));
             }
         }
     }

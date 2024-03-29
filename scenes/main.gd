@@ -21,7 +21,8 @@ func game_start():
 		)
 
 func load_snapshot():
-	var runtime: Node2D = load("res://Runtime/Runtime.cs").new("res://snapshot")
+	var runtime: Node2D = load("res://Runtime/Runtime.cs").new()
+	runtime.LoadSnapshot("res://snapshot")
 	runtime.name = "Runtime"
 	add_child(runtime)
 	var title = $Title
