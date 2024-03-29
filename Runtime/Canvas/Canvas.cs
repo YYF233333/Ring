@@ -22,6 +22,30 @@ public partial class Canvas : Node2D
 
     public Canvas()
     {
+    }
+
+    public override void _Ready()
+    {
+        if (GetChildCount() > 0)
+        {
+            // 存档恢复
+            foreach (var child in GetChildren())
+            {
+                switch (child.Name)
+                {
+                    case "BG":
+                        BG = child as Sprite2D;
+                        break;
+                    case "Mask":
+                        Mask = child as Sprite2D;
+                        break;
+                    default:
+                        childs[child.Name] = child as Sprite2D;
+                        break;
+                }
+            }
+            return;
+        }
         // 占位BG
         AddTexture("BG", GD.Load<Texture2D>("res://assets/Runtime/black.png"), Placement.BG, -1);
         BG = new Sprite2D
@@ -49,24 +73,21 @@ public partial class Canvas : Node2D
     public static void OverwriteTexture(string path, Image image)
     {
         using var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Read);
-        if (file.GetLength() > (ulong)image.GetData().Length)
+        switch (Path.GetExtension(path))
         {
-            switch (Path.GetExtension(path))
-            {
 
-                case ".png":
-                    image.SavePng(path);
-                    break;
-                case ".webp":
-                    image.SaveWebp(path);
-                    break;
-                case ".jpg":
-                    image.SaveJpg(path);
-                    break;
-                default:
-                    GD.Print($"Unknown image format {Path.GetExtension(path)}, skip.");
-                    break;
-            }
+            case ".png":
+                image.SavePng(path);
+                break;
+            case ".webp":
+                image.SaveWebp(path);
+                break;
+            case ".jpg":
+                image.SaveJpg(path);
+                break;
+            default:
+                GD.Print($"Unknown image format {Path.GetExtension(path)}, skip.");
+                break;
         }
     }
 
@@ -78,8 +99,9 @@ public partial class Canvas : Node2D
         var scale = Math.Max(_windowSize.X / (float)imageSize.X, _windowSize.Y / (float)imageSize.Y);
         if (scale != 1)
         {
+            GD.Print($"stretch {texture.ResourcePath}, scale {scale}");
             image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
-
+            OverwriteTexture(texture.ResourcePath, image);
             return ImageTexture.CreateFromImage(image);
         }
         else

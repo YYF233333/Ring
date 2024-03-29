@@ -1,5 +1,9 @@
 # RE: Ring Engine
 
+## BUG
+
+- [ ] BG不在名为BG的节点上
+
 ## TODO List
 
 **new:**

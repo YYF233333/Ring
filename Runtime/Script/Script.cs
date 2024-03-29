@@ -293,7 +293,7 @@ public class ChangeScene : IScriptBlock
         {
             ITransition instance = runtime.interpreter.Eval(effect);
             // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
-            runtime.mainBuffer.Append(instance.Build(runtime: runtime, texture));
+            runtime.mainBuffer.Append(instance.Build(runtime, texture));
         }
         else
         {

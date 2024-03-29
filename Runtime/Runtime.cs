@@ -60,6 +60,20 @@ public partial class Runtime : Node2D
         interpreter = new LuaInterpreter(this, FileAccess.GetFileAsString("res://init.lua"));
     }
 
+    public Runtime(string snapshotPath) : this()
+    {
+        var snap = Snapshot.Load(snapshotPath);
+        RemoveChild(UI);
+        UI.QueueFree();
+        RemoveChild(canvas);
+        canvas.QueueFree();
+        UI = snap.UI.Instantiate<UI>();
+        AddChild(UI);
+        canvas = snap.Canvas.Instantiate<Canvas>();
+        AddChild(canvas);
+        global.Deserialize(snap.global);
+    }
+
     public void DebugSnapshot()
     {
         var snap = new Snapshot(this);

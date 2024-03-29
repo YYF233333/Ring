@@ -19,3 +19,11 @@ func game_start():
 	tween.tween_callback(func():
 		$Runtime.process_mode = Node.PROCESS_MODE_INHERIT
 		)
+
+func load_snapshot():
+	var runtime: Node2D = load("res://Runtime/Runtime.cs").new("res://snapshot")
+	runtime.name = "Runtime"
+	add_child(runtime)
+	var title = $Title
+	remove_child(title)
+	title.queue_free()

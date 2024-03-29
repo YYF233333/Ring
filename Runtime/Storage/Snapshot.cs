@@ -8,7 +8,7 @@ public class Snapshot
     public PackedScene Canvas;
     public string global;
 
-    public Snapshot() { }
+    Snapshot() { }
 
     public Snapshot(Runtime runtime)
     {
@@ -21,7 +21,7 @@ public class Snapshot
     {
         folder = folder.TrimSuffix("/");
         var UI = ResourceLoader.Load<PackedScene>($"{folder}/UI.tscn");
-        var Canvas = ResourceLoader.Load<PackedScene>($"{folder}/Canvas.scn");
+        var Canvas = ResourceLoader.Load<PackedScene>($"{folder}/Canvas.tscn");
         string global;
         using (var file = FileAccess.Open($"{folder}/global.json", FileAccess.ModeFlags.Read)
             ?? throw new Exception($"Failed to open file {folder}/global.json"))
@@ -49,7 +49,7 @@ public class Snapshot
         {
             throw new Exception($"Failed to save UI");
         }
-        ret = ResourceSaver.Save(Canvas, $"{folder}/Canvas.scn", ResourceSaver.SaverFlags.Compress);
+        ret = ResourceSaver.Save(Canvas, $"{folder}/Canvas.tscn");
         if (ret != Error.Ok)
         {
             throw new Exception($"Failed to save Canvas");
@@ -64,12 +64,6 @@ public class Snapshot
 
     public Runtime Instantiate()
     {
-        var runtime = new Runtime
-        {
-            UI = UI.Instantiate<UI>(),
-            canvas = Canvas.Instantiate<Canvas>()
-        };
-        runtime.global.Deserialize(global);
-        return runtime;
+        throw new NotImplementedException();
     }
 }
