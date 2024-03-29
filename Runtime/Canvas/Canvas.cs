@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
 using Godot;
@@ -45,15 +46,46 @@ public partial class Canvas : Node2D
         Mask.Owner = this;
     }
 
-    public Texture2D Stretch(Texture2D texture)
+    public static void OverwriteTexture(string path, Image image)
     {
-        var windowSize = GetTree().Root.Size;
+        using var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Read);
+        if (file.GetLength() > (ulong)image.GetData().Length)
+        {
+            switch (Path.GetExtension(path))
+            {
+
+                case ".png":
+                    image.SavePng(path);
+                    break;
+                case ".webp":
+                    image.SaveWebp(path);
+                    break;
+                case ".jpg":
+                    image.SaveJpg(path);
+                    break;
+                default:
+                    GD.Print($"Unknown image format {Path.GetExtension(path)}, skip.");
+                    break;
+            }
+        }
+    }
+
+    public Texture2D Stretch(Texture2D texture, Vector2I? windowSize = null)
+    {
+        var _windowSize = windowSize ?? GetTree().Root.Size;
         var image = texture.GetImage();
         var imageSize = image.GetSize();
-        var scale = Math.Max(windowSize.X / (float)imageSize.X, windowSize.Y / (float)imageSize.Y);
-        //scale = Math.Max(scale, 1);
-        image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
-        return ImageTexture.CreateFromImage(image);
+        var scale = Math.Max(_windowSize.X / (float)imageSize.X, _windowSize.Y / (float)imageSize.Y);
+        if (scale != 1)
+        {
+            image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
+
+            return ImageTexture.CreateFromImage(image);
+        }
+        else
+        {
+            return texture;
+        }
     }
 
     public void AddMask(Texture2D texture) => Mask.Texture = texture;

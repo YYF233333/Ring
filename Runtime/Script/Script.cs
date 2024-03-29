@@ -144,14 +144,7 @@ public class Show : IScriptBlock
     {
         var texture = GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath));
         var windowSize = new Vector2I(950, 2184);
-        var image = texture.GetImage();
-        var imageSize = image.GetSize();
-        var scale = Math.Min(windowSize.X / (float)imageSize.X, windowSize.Y / (float)imageSize.Y);
-        //scale = Math.Max(scale, 1);
-        image.Resize((int)(imageSize.X * scale), (int)(imageSize.Y * scale));
-        // TODO:这一步会导致存档体积膨胀，统一分辨率并去除这个resize
-        texture = ImageTexture.CreateFromImage(image);
-        ChangeBG.OverwriteTexture(Path.Combine(runtime.script.folderPath, imgPath), image);
+        texture = runtime.canvas.Stretch(texture, windowSize);
         var canvas = runtime.canvas;
         if (canvas.HasChild(imgName))
         {// 同名替换
@@ -243,35 +236,10 @@ public class ChangeBG : IScriptBlock
                effect == bG.effect;
     }
 
-    public static void OverwriteTexture(string path, Image image)
-    {
-        using var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Read);
-        if (file.GetLength() > (ulong)image.GetData().Length)
-        {
-            switch (Path.GetExtension(path))
-            {
-
-                case ".png":
-                    image.SavePng(path);
-                    break;
-                case ".webp":
-                    image.SaveWebp(path);
-                    break;
-                case ".jpg":
-                    image.SaveJpg(path);
-                    break;
-                default:
-                    GD.Print($"Unknown image format {Path.GetExtension(path)}, skip.");
-                    break;
-            }
-        }
-    }
-
     public override void Execute(Runtime runtime)
     {
         var canvas = runtime.canvas;
         var texture = canvas.Stretch(GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath)));
-        OverwriteTexture(Path.Combine(runtime.script.folderPath, imgPath), texture.GetImage());
         if (effect != "")
         {
             IEffect instance = runtime.interpreter.Eval(effect);
