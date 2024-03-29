@@ -56,15 +56,9 @@ public partial class Canvas : Node2D
         return ImageTexture.CreateFromImage(image);
     }
 
-    public void AddMask(Texture2D texture)
-    {
-        Mask.Texture = texture;
-    }
+    public void AddMask(Texture2D texture) => Mask.Texture = texture;
 
-    public void RemoveMask()
-    {
-        Mask.Texture = null;
-    }
+    public void RemoveMask() => Mask.Texture = null;
 
     public void AddTexture(string name, Texture2D texture, Placement placement, int zIndex = 0, bool centered = false)
     {

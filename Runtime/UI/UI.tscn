@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Runtime/UI/UI.cs" id="1_ocqio"]
 [ext_resource type="Texture2D" uid="uid://7fs12kkcq4rj" path="res://button/1404.png" id="1_yuxqm"]
 [ext_resource type="Texture2D" uid="uid://cmgc48siko708" path="res://button/1400.png" id="2_hf4ne"]
-[ext_resource type="Texture2D" uid="uid://bhv541fvefuq7" path="res://assets/textbox.png" id="2_vb5qb"]
+[ext_resource type="Texture2D" uid="uid://b7e252aragbh6" path="res://assets/textbox.png" id="2_vb5qb"]
 [ext_resource type="Texture2D" uid="uid://cx25xkfm461yc" path="res://button/1408.png" id="3_h6qna"]
 [ext_resource type="Texture2D" uid="uid://vcjik3cs3wx0" path="res://button/1414.png" id="4_buf8g"]
 [ext_resource type="Texture2D" uid="uid://b62ib3if6i346" path="res://button/1418.png" id="5_otgfj"]
