@@ -4,6 +4,12 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 
 ？？？："那么，世界回应了少女，实现了她的心愿？"
 
+```py
+runtime:LoadMiniGame()
+```
+
+
+
 ？？："不完全是这样..."
 
 ？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"
@@ -17,6 +23,8 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 ？？："说到底，哪有什么万能的许愿机啊..."
 
 ？？？："那么，人的执念，人的祈愿，就真的一点意义都没有吗"
+
+
 
 ？？："倒也不能这么说。"
 

@@ -20,9 +20,7 @@ public partial class Canvas : Node2D
 
     public bool HasChild(string name) => childs.ContainsKey(name);
 
-    public Canvas()
-    {
-    }
+    public Canvas() { }
 
     public override void _Ready()
     {
@@ -75,7 +73,6 @@ public partial class Canvas : Node2D
         using var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Read);
         switch (Path.GetExtension(path))
         {
-
             case ".png":
                 image.SavePng(path);
                 break;
@@ -96,7 +93,10 @@ public partial class Canvas : Node2D
         var _windowSize = windowSize ?? GetTree().Root.Size;
         var image = texture.GetImage();
         var imageSize = image.GetSize();
-        var scale = Math.Max(_windowSize.X / (float)imageSize.X, _windowSize.Y / (float)imageSize.Y);
+        var scale = Math.Max(
+            _windowSize.X / (float)imageSize.X,
+            _windowSize.Y / (float)imageSize.Y
+        );
         if (scale != 1)
         {
             GD.Print($"stretch {texture.ResourcePath}, scale {scale}");
@@ -114,7 +114,13 @@ public partial class Canvas : Node2D
 
     public void RemoveMask() => Mask.Texture = null;
 
-    public void AddTexture(string name, Texture2D texture, Placement placement, int zIndex = 0, bool centered = false)
+    public void AddTexture(
+        string name,
+        Texture2D texture,
+        Placement placement,
+        int zIndex = 0,
+        bool centered = false
+    )
     {
         //Trace.Assert(texture.GetSize() == config.CharacterSize);
         var child = new Sprite2D

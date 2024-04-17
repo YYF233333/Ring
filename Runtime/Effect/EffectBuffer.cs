@@ -1,4 +1,5 @@
 namespace RingEngine.Runtime.Effect;
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using Godot;
@@ -21,10 +22,13 @@ public class EffectBuffer
 {
     // 当前正在运行的效果组
     HashSet<Tween> runningGroup = null;
+
     // 正在运行的Tween数量
     int activeTweenCount = 0;
+
     // 等待队列
     Queue<EffectGroup> buffer = [];
+
     // 当前是否有效果正在运行
     public bool IsRunning => activeTweenCount > 0;
 

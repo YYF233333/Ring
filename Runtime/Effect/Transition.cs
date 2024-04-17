@@ -1,4 +1,5 @@
 namespace RingEngine.Runtime.Effect;
+
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -38,24 +39,31 @@ public class DissolveTrans : ITransition
     {
         var canvas = runtime.canvas;
         var group1 = new EffectGroupBuilder()
-            .Add(canvas.Mask, new Chain(
-                new LambdaEffect(() =>
-                {
-                    canvas.AddMask(mask);
-                    canvas.Mask.Modulate = new Color(canvas.Mask.Modulate, 0);
-                }),
-                new Dissolve(duration / 2)
-            ))
+            .Add(
+                canvas.Mask,
+                new Chain(
+                    new LambdaEffect(() =>
+                    {
+                        canvas.AddMask(mask);
+                        canvas.Mask.Modulate = new Color(canvas.Mask.Modulate, 0);
+                    }),
+                    new Dissolve(duration / 2)
+                )
+            )
             .Build();
         var group2 = new EffectGroupBuilder()
-            .Add(canvas.Mask, new Chain(
-                new LambdaEffect(() => canvas.BG.Texture = canvas.Stretch(newBG)),
-                new Fade(duration / 2),
-                new LambdaEffect(canvas.RemoveMask)
-            ))
+            .Add(
+                canvas.Mask,
+                new Chain(
+                    new LambdaEffect(() => canvas.BG.Texture = canvas.Stretch(newBG)),
+                    new Fade(duration / 2),
+                    new LambdaEffect(canvas.RemoveMask)
+                )
+            )
             .Build();
         return new[] { group1, group2 }.AsEnumerable();
     }
+
     public double GetDuration() => duration;
 }
 
@@ -75,7 +83,12 @@ public class ImageTrans : ITransition
         this.smooth = (float)smooth;
     }
 
-    public ImageTrans(string controlPath, double duration = 2, bool reversed = false, double smooth = 0.2)
+    public ImageTrans(
+        string controlPath,
+        double duration = 2,
+        bool reversed = false,
+        double smooth = 0.2
+    )
     {
         this.controlPath = controlPath;
         this.duration = duration;
@@ -97,44 +110,75 @@ public class ImageTrans : ITransition
         var control = GD.Load<Texture2D>(controlPath);
         var canvas = runtime.canvas;
         var group1 = new EffectGroupBuilder()
-            .Add(canvas.Mask, new Chain(
-                new LambdaEffect(() =>
-                {
-                    canvas.AddMask(mask);
-                    var material = new ShaderMaterial
+            .Add(
+                canvas.Mask,
+                new Chain(
+                    new LambdaEffect(() =>
                     {
-                        Shader = GD.Load<Shader>("res://Runtime/Effect/mask.gdshader"),
-                    };
-                    material.SetShaderParameter("progress", 0.0);
-                    material.SetShaderParameter("smooth_size", smooth);
-                    material.SetShaderParameter("control", control);
-                    material.SetShaderParameter("reversed", reversed);
-                    canvas.Mask.Material = material;
-                }),
-                new LambdaEffect((Node node, Tween tween) =>
-                {
-                    tween.TweenMethod(Callable.From((float progress) =>
-                    {
-                        ((ShaderMaterial)canvas.Mask.Material).SetShaderParameter("progress", progress);
-                    }), 0.0, 1.0, duration / 2);
-                })
-            ))
+                        canvas.AddMask(mask);
+                        var material = new ShaderMaterial
+                        {
+                            Shader = GD.Load<Shader>("res://Runtime/Effect/mask.gdshader"),
+                        };
+                        material.SetShaderParameter("progress", 0.0);
+                        material.SetShaderParameter("smooth_size", smooth);
+                        material.SetShaderParameter("control", control);
+                        material.SetShaderParameter("reversed", reversed);
+                        canvas.Mask.Material = material;
+                    }),
+                    new LambdaEffect(
+                        (Node node, Tween tween) =>
+                        {
+                            tween.TweenMethod(
+                                Callable.From(
+                                    (float progress) =>
+                                    {
+                                        ((ShaderMaterial)canvas.Mask.Material).SetShaderParameter(
+                                            "progress",
+                                            progress
+                                        );
+                                    }
+                                ),
+                                0.0,
+                                1.0,
+                                duration / 2
+                            );
+                        }
+                    )
+                )
+            )
             .Build();
         var group2 = new EffectGroupBuilder()
-            .Add(canvas.Mask, new Chain(
-                new LambdaEffect(() => canvas.BG.Texture = canvas.Stretch(newBG)),
-                new LambdaEffect((Node node, Tween tween) =>
-                {
-                    tween.TweenMethod(Callable.From((float progress) =>
-                    {
-                        ((ShaderMaterial)canvas.Mask.Material).SetShaderParameter("progress", progress);
-                    }), 1.0, 0.0, duration / 2);
-                }),
-                new LambdaEffect(() => canvas.Mask.Material = null),
-                new LambdaEffect(canvas.RemoveMask)
-            ))
+            .Add(
+                canvas.Mask,
+                new Chain(
+                    new LambdaEffect(() => canvas.BG.Texture = canvas.Stretch(newBG)),
+                    new LambdaEffect(
+                        (Node node, Tween tween) =>
+                        {
+                            tween.TweenMethod(
+                                Callable.From(
+                                    (float progress) =>
+                                    {
+                                        ((ShaderMaterial)canvas.Mask.Material).SetShaderParameter(
+                                            "progress",
+                                            progress
+                                        );
+                                    }
+                                ),
+                                1.0,
+                                0.0,
+                                duration / 2
+                            );
+                        }
+                    ),
+                    new LambdaEffect(() => canvas.Mask.Material = null),
+                    new LambdaEffect(canvas.RemoveMask)
+                )
+            )
             .Build();
         return new[] { group1, group2 }.AsEnumerable();
     }
+
     public double GetDuration() => duration;
 }

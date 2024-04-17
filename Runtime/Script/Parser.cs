@@ -1,28 +1,27 @@
 namespace RingEngine.Runtime.Script;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Godot;
-
 #nullable enable
 using ParseResult = (string, IScriptBlock?);
 
 public class ParserException : Exception
 {
     const int MaxLength = 50;
+
     public ParserException(string source)
-        : base(source[..Math.Min(source.Length, MaxLength)])
-    { }
+        : base(source[..Math.Min(source.Length, MaxLength)]) { }
 
     public ParserException(string source, int line)
         : base($"Syntax Error at line {line}: \"{source[..Math.Min(source.Length, MaxLength)]}\"")
     { }
 
     public ParserException(Exception inner, int line)
-        : base($"Syntax Error at line {line}: \"{inner.Message}\"")
-    { }
+        : base($"Syntax Error at line {line}: \"{inner.Message}\"") { }
 }
 
 public static class Parser
@@ -122,7 +121,10 @@ public static class Parser
         var match = Regex.Match(source, pattern);
         if (match.Success)
         {
-            return new ParseResult(source[match.Length..], new ShowChapterName(match.Groups["name"].Value.Trim()));
+            return new ParseResult(
+                source[match.Length..],
+                new ShowChapterName(match.Groups["name"].Value.Trim())
+            );
         }
         return new ParseResult(source, null);
     }
@@ -133,7 +135,10 @@ public static class Parser
         var match = Regex.Match(source, pattern);
         if (match.Success)
         {
-            return new ParseResult(source[match.Length..], new Say(match.Groups["ident"].Value, match.Groups["content"].Value));
+            return new ParseResult(
+                source[match.Length..],
+                new Say(match.Groups["ident"].Value, match.Groups["content"].Value)
+            );
         }
         return new ParseResult(source, null);
     }
@@ -160,22 +165,22 @@ public static class Parser
         }
         return null;
     }
-
 }
 
 public static class BuiltInFunctionParser
 {
     delegate ParseResult Parser(string source);
-    static readonly Dictionary<string, Parser> Parsers = new()
-    {
-        {"show", ParseShow },
-        {"hide", ParseHide },
-        {"changeBG", ParseChangeBG },
-        {"changeScene", ParseChangeScene },
-        {"goto", ParseJumpToLabel },
-        {"UIAnim", ParseUIAnim },
-        {"stopAudio", ParseStopAudio },
-    };
+    static readonly Dictionary<string, Parser> Parsers =
+        new()
+        {
+            { "show", ParseShow },
+            { "hide", ParseHide },
+            { "changeBG", ParseChangeBG },
+            { "changeScene", ParseChangeScene },
+            { "goto", ParseJumpToLabel },
+            { "UIAnim", ParseUIAnim },
+            { "stopAudio", ParseStopAudio },
+        };
 
     public static ParseResult Parse(string source)
     {
@@ -191,7 +196,8 @@ public static class BuiltInFunctionParser
 
     public static ParseResult ParseShow(string source)
     {
-        var pattern = @"\Ashow *<img src=""(?<path>[^""]*)""[\s\S]*?/> *as (?<name>\S+) at (`(?<pos>[^`]+)`|(?<pos>\S+))( with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
+        var pattern =
+            @"\Ashow *<img src=""(?<path>[^""]*)""[\s\S]*?/> *as (?<name>\S+) at (`(?<pos>[^`]+)`|(?<pos>\S+))( with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
         var match = Regex.Match(source, pattern);
         if (!match.Success)
         {
@@ -220,12 +226,16 @@ public static class BuiltInFunctionParser
         }
         var effect_group = match.Groups.GetValueOrDefault("effect");
         var effect = effect_group != null ? effect_group.Value : "";
-        return new ParseResult(source[match.Length..], new Hide(match.Groups["name"].Value, effect));
+        return new ParseResult(
+            source[match.Length..],
+            new Hide(match.Groups["name"].Value, effect)
+        );
     }
 
     public static ParseResult ParseChangeBG(string source)
     {
-        var pattern = @"\AchangeBG *<img src=""(?<path>[\s\S]*?)""[\s\S]*?/>( *with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
+        var pattern =
+            @"\AchangeBG *<img src=""(?<path>[\s\S]*?)""[\s\S]*?/>( *with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
         var match = Regex.Match(source, pattern);
         if (!match.Success)
         {
@@ -233,12 +243,16 @@ public static class BuiltInFunctionParser
         }
         var effect_group = match.Groups.GetValueOrDefault("effect");
         var effect = effect_group != null ? effect_group.Value : "";
-        return new ParseResult(source[match.Length..], new ChangeBG(match.Groups["path"].Value, effect));
+        return new ParseResult(
+            source[match.Length..],
+            new ChangeBG(match.Groups["path"].Value, effect)
+        );
     }
 
     public static ParseResult ParseChangeScene(string source)
     {
-        var pattern = @"\AchangeScene *<img src=""(?<path>[\s\S]*?)""[\s\S]*?/>( *with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
+        var pattern =
+            @"\AchangeScene *<img src=""(?<path>[\s\S]*?)""[\s\S]*?/>( *with (`(?<effect>[^`]+)`|(?<effect>\S+)))?";
         var match = Regex.Match(source, pattern);
         if (!match.Success)
         {
@@ -246,7 +260,10 @@ public static class BuiltInFunctionParser
         }
         var effect_group = match.Groups.GetValueOrDefault("effect");
         var effect = effect_group != null ? effect_group.Value : "";
-        return new ParseResult(source[match.Length..], new ChangeScene(match.Groups["path"].Value, effect));
+        return new ParseResult(
+            source[match.Length..],
+            new ChangeScene(match.Groups["path"].Value, effect)
+        );
     }
 
     public static ParseResult ParseJumpToLabel(string source)

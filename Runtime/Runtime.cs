@@ -1,4 +1,5 @@
 namespace RingEngine.Runtime;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,24 +12,33 @@ public partial class Runtime : Node2D
 {
     // 脚本内嵌代码解释器
     public LuaInterpreter interpreter;
+
     // 脚本源代码
     public RingScript script;
     public UI UI;
     public Canvas canvas;
+
     // 音乐音效
     public Audio audio;
+
     // 动画效果缓冲区
     public EffectBuffer mainBuffer;
     public EffectBuffer nonBlockingBuffer;
+
     // 持久化数据存储
     public DataBase global;
+
     // 进度无关全局设置
     public GlobalConfig config;
+
     /// <summary>
     /// 下一条执行的代码块index
     /// </summary>
-    public int PC { get => global.PC; set => global.PC = value; }
-
+    public int PC
+    {
+        get => global.PC;
+        set => global.PC = value;
+    }
 
     public Runtime()
     {
@@ -50,10 +60,7 @@ public partial class Runtime : Node2D
             config = config
         };
         AddChild(canvas);
-        audio = new Audio()
-        {
-            Name = "Audio"
-        };
+        audio = new Audio() { Name = "Audio" };
         AddChild(audio);
         mainBuffer = new EffectBuffer();
         nonBlockingBuffer = new EffectBuffer();
@@ -84,7 +91,6 @@ public partial class Runtime : Node2D
         var snap = new Snapshot(this);
         snap.Save("res://snapshot");
     }
-
 
     /// <summary>
     /// 运行脚本至下一个中断点
@@ -127,13 +133,34 @@ public partial class Runtime : Node2D
             }
             if (Input.IsActionPressed("ui_cancel"))
             {
+                if (nonBlockingBuffer.IsRunning)
+                {
+                    nonBlockingBuffer.Interrupt();
+                }
+                if (mainBuffer.IsRunning)
+                {
+                    mainBuffer.Interrupt();
+                }
                 DebugSnapshot();
             }
             if (Input.IsActionPressed("ui_text_backspace"))
             {
+                if (nonBlockingBuffer.IsRunning)
+                {
+                    nonBlockingBuffer.Interrupt();
+                }
+                if (mainBuffer.IsRunning)
+                {
+                    mainBuffer.Interrupt();
+                }
                 LoadSnapshot(global.LoadHistory(1));
             }
         }
     }
-}
 
+    public int LoadMiniGame()
+    {
+        GetParent().Call("load_mini_game");
+        return 0;
+    }
+}

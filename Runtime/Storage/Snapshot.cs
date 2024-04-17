@@ -1,4 +1,5 @@
 namespace RingEngine.Runtime.Storage;
+
 using System;
 using Godot;
 
@@ -23,8 +24,11 @@ public class Snapshot
         var UI = ResourceLoader.Load<PackedScene>($"{folder}/UI.tscn");
         var Canvas = ResourceLoader.Load<PackedScene>($"{folder}/Canvas.tscn");
         string global;
-        using (var file = FileAccess.Open($"{folder}/global.json", FileAccess.ModeFlags.Read)
-            ?? throw new Exception($"Failed to open file {folder}/global.json"))
+        using (
+            var file =
+                FileAccess.Open($"{folder}/global.json", FileAccess.ModeFlags.Read)
+                ?? throw new Exception($"Failed to open file {folder}/global.json")
+        )
         {
             global = file.GetAsText();
         }
@@ -55,8 +59,11 @@ public class Snapshot
             throw new Exception($"Failed to save Canvas");
         }
 
-        using (var file = FileAccess.Open($"{folder}/global.json", FileAccess.ModeFlags.Write)
-            ?? throw new Exception($"Failed to create file {folder}/global.json"))
+        using (
+            var file =
+                FileAccess.Open($"{folder}/global.json", FileAccess.ModeFlags.Write)
+                ?? throw new Exception($"Failed to create file {folder}/global.json")
+        )
         {
             file.StoreString(global);
         }

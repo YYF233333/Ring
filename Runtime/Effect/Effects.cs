@@ -1,4 +1,5 @@
 namespace RingEngine.Runtime.Effect;
+
 using System;
 using System.Diagnostics;
 using Godot;
@@ -17,13 +18,15 @@ public class SetAlpha : IEffect
 
     public void Apply(Node node, Tween tween)
     {
-        tween.TweenCallback(Callable.From(() =>
-        {
-            var sprite = (CanvasItem)node;
-            var c = sprite.Modulate;
-            c.A = alpha;
-            sprite.Modulate = c;
-        }));
+        tween.TweenCallback(
+            Callable.From(() =>
+            {
+                var sprite = (CanvasItem)node;
+                var c = sprite.Modulate;
+                c.A = alpha;
+                sprite.Modulate = c;
+            })
+        );
     }
 
     public double GetDuration() => 0;
@@ -33,11 +36,13 @@ public class Delete : IEffect
 {
     public void Apply(Node node, Tween tween)
     {
-        tween.TweenCallback(Callable.From(() =>
-        {
-            var canvas = node.GetParent<Canvas>();
-            canvas.RemoveTexture(node.Name);
-        }));
+        tween.TweenCallback(
+            Callable.From(() =>
+            {
+                var canvas = node.GetParent<Canvas>();
+                canvas.RemoveTexture(node.Name);
+            })
+        );
     }
 
     public double GetDuration() => 0;
@@ -64,11 +69,13 @@ public class Dissolve : IEffect
 {
     public float endAlpha;
     public double duration;
+
     public Dissolve(double duration = 1.0, double endAlpha = 1.0)
     {
         this.endAlpha = (float)endAlpha;
         this.duration = duration;
     }
+
     public void Apply(Node node, Tween tween)
     {
         Trace.Assert(node.IsClass("CanvasItem"));
@@ -77,9 +84,9 @@ public class Dissolve : IEffect
 
     public override bool Equals(object obj)
     {
-        return obj is Dissolve dissolve &&
-               endAlpha == dissolve.endAlpha &&
-               duration == dissolve.duration;
+        return obj is Dissolve dissolve
+            && endAlpha == dissolve.endAlpha
+            && duration == dissolve.duration;
     }
 
     public double GetDuration() => duration;
@@ -91,11 +98,13 @@ public class Fade : IEffect
 {
     public float endAlpha;
     public double duration;
+
     public Fade(double duration = 1.0, double endAlpha = 0.0)
     {
         this.endAlpha = (float)endAlpha;
         this.duration = duration;
     }
+
     public void Apply(Node node, Tween tween)
     {
         Trace.Assert(node.IsClass("CanvasItem"));

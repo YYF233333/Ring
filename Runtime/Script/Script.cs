@@ -1,4 +1,5 @@
 namespace RingEngine.Runtime.Script;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,10 +11,12 @@ public class RingScript
 {
     // 脚本所在文件夹路径
     public string folderPath;
+
     // 脚本文件名
     public string scriptName;
     public List<IScriptBlock> segments;
     public Dictionary<string, int> labels;
+
     public RingScript(string filePath)
     {
         Trace.Assert(filePath.StartsWith("res://"));
@@ -53,6 +56,7 @@ public class CodeBlock : IScriptBlock
     // language specified in markdown codeblock(unused)
     string identifier;
     string code;
+
     public CodeBlock(string identifier, string code)
     {
         this.code = code;
@@ -62,9 +66,7 @@ public class CodeBlock : IScriptBlock
     // 测试代码使用
     public override bool Equals(object obj)
     {
-        return obj is CodeBlock block &&
-               identifier == block.identifier &&
-               code == block.code;
+        return obj is CodeBlock block && identifier == block.identifier && code == block.code;
     }
 
     public override void Execute(Runtime runtime)
@@ -96,10 +98,10 @@ public class JumpToLabel : IScriptBlock
 
     public override bool Equals(object obj)
     {
-        return obj is JumpToLabel label &&
-            this.@continue == label.@continue &&
-            this.isLiteral == label.isLiteral &&
-            this.identifier == label.identifier;
+        return obj is JumpToLabel label
+            && this.@continue == label.@continue
+            && this.isLiteral == label.isLiteral
+            && this.identifier == label.identifier;
     }
 
     public override void Execute(Runtime runtime)
@@ -110,7 +112,8 @@ public class JumpToLabel : IScriptBlock
         runtime.PC = targetPC - 1;
     }
 
-    public override int GetHashCode() => HashCode.Combine(this.@continue, this.isLiteral, this.identifier);
+    public override int GetHashCode() =>
+        HashCode.Combine(this.@continue, this.isLiteral, this.identifier);
 }
 
 public class Show : IScriptBlock
@@ -120,7 +123,6 @@ public class Show : IScriptBlock
     public string placement;
     public string effect;
 
-
     public Show(string path, string placement, string effect, string name)
     {
         @continue = true;
@@ -128,16 +130,15 @@ public class Show : IScriptBlock
         imgPath = path;
         this.placement = placement;
         this.effect = effect;
-
     }
 
     public override bool Equals(object obj)
     {
-        return obj is Show show &&
-               imgName == show.imgName &&
-               imgPath == show.imgPath &&
-               placement == show.placement &&
-               effect == show.effect;
+        return obj is Show show
+            && imgName == show.imgName
+            && imgPath == show.imgPath
+            && placement == show.placement
+            && effect == show.effect;
     }
 
     public override void Execute(Runtime runtime)
@@ -147,7 +148,7 @@ public class Show : IScriptBlock
         texture = runtime.canvas.Stretch(texture, windowSize);
         var canvas = runtime.canvas;
         if (canvas.HasChild(imgName))
-        {// 同名替换
+        { // 同名替换
             if (effect == "")
             {
                 canvas.RemoveTexture(imgName);
@@ -159,11 +160,15 @@ public class Show : IScriptBlock
                 canvas.AddTexture(imgName, texture, runtime.interpreter.Eval(placement));
                 canvas[imgName].Modulate = new Color(canvas[imgName].Modulate, 0);
                 IEffect instance = runtime.interpreter.Eval(effect);
-                runtime.mainBuffer.Append(new EffectGroupBuilder()
-                    .Add(canvas[imgName], instance)
-                    .Add(canvas[imgName + "_old"],
-                        new Chain(new Delay(instance.GetDuration()), new Delete()))
-                    .Build());
+                runtime.mainBuffer.Append(
+                    new EffectGroupBuilder()
+                        .Add(canvas[imgName], instance)
+                        .Add(
+                            canvas[imgName + "_old"],
+                            new Chain(new Delay(instance.GetDuration()), new Delete())
+                        )
+                        .Build()
+                );
             }
         }
         else
@@ -173,16 +178,17 @@ public class Show : IScriptBlock
             {
                 canvas[imgName].Modulate = new Color(canvas[imgName].Modulate, 0);
                 IEffect instance = runtime.interpreter.Eval(effect);
-                runtime.mainBuffer.Append(new EffectGroupBuilder()
-                    .Add(canvas[imgName], instance)
-                    .Build());
+                runtime.mainBuffer.Append(
+                    new EffectGroupBuilder().Add(canvas[imgName], instance).Build()
+                );
             }
         }
     }
 
     public override int GetHashCode() => HashCode.Combine(imgName, imgPath, placement, effect);
 
-    public override string ToString() => $"show: name: {imgName}, path: {imgPath}, placement: {placement}, effect: {effect}";
+    public override string ToString() =>
+        $"show: name: {imgName}, path: {imgPath}, placement: {placement}, effect: {effect}";
 }
 
 public class Hide : IScriptBlock
@@ -198,17 +204,19 @@ public class Hide : IScriptBlock
 
     public override bool Equals(object obj)
     {
-        return obj is Hide hide &&
-               name == hide.name &&
-               effect == hide.effect;
+        return obj is Hide hide && name == hide.name && effect == hide.effect;
     }
 
     public override void Execute(Runtime runtime)
     {
-        runtime.mainBuffer.Append(new EffectGroupBuilder()
-            .Add(runtime.canvas[name],
-                 new Chain(runtime.interpreter.Eval<IEffect>(effect), new Delete()))
-            .Build());
+        runtime.mainBuffer.Append(
+            new EffectGroupBuilder()
+                .Add(
+                    runtime.canvas[name],
+                    new Chain(runtime.interpreter.Eval<IEffect>(effect), new Delete())
+                )
+                .Build()
+        );
     }
 
     public override int GetHashCode() => HashCode.Combine(name, effect);
@@ -226,38 +234,45 @@ public class ChangeBG : IScriptBlock
         @continue = true;
         this.imgPath = path;
         this.effect = effect;
-
     }
 
     public override bool Equals(object obj)
     {
-        return obj is ChangeBG bG &&
-               imgPath == bG.imgPath &&
-               effect == bG.effect;
+        return obj is ChangeBG bG && imgPath == bG.imgPath && effect == bG.effect;
     }
 
     public override void Execute(Runtime runtime)
     {
         var canvas = runtime.canvas;
-        var texture = canvas.Stretch(GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath)));
+        var texture = canvas.Stretch(
+            GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, imgPath))
+        );
         if (effect != "")
         {
             IEffect instance = runtime.interpreter.Eval(effect);
             // 对快进来说这里是checkpoint，正常运行时该group和后面的一起提交会连续运行
-            runtime.mainBuffer.Append(new EffectGroupBuilder()
-                .Add(runtime.canvas, new LambdaEffect((_, tween) =>
-                {
-                    var oldBG = canvas.ReplaceBG(texture);
-                    canvas.BG.Modulate = new Color(canvas.BG.Modulate, 0);
-                    new Chain(
-                        instance,
-                        new LambdaEffect(() =>
-                        {
-                            canvas.RemoveChild(oldBG);
-                            oldBG.QueueFree();
-                        })
-                        ).Apply(canvas.BG, tween);
-                })).Build());
+            runtime.mainBuffer.Append(
+                new EffectGroupBuilder()
+                    .Add(
+                        runtime.canvas,
+                        new LambdaEffect(
+                            (_, tween) =>
+                            {
+                                var oldBG = canvas.ReplaceBG(texture);
+                                canvas.BG.Modulate = new Color(canvas.BG.Modulate, 0);
+                                new Chain(
+                                    instance,
+                                    new LambdaEffect(() =>
+                                    {
+                                        canvas.RemoveChild(oldBG);
+                                        oldBG.QueueFree();
+                                    })
+                                ).Apply(canvas.BG, tween);
+                            }
+                        )
+                    )
+                    .Build()
+            );
         }
         else
         {
@@ -282,13 +297,14 @@ public class ChangeScene : IScriptBlock
         //@continue = true;
         this.bgPath = path;
         this.effect = effect;
-
     }
 
     public override void Execute(Runtime runtime)
     {
         var canvas = runtime.canvas;
-        var texture = canvas.Stretch(GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, bgPath)));
+        var texture = canvas.Stretch(
+            GD.Load<Texture2D>(Path.Combine(runtime.script.folderPath, bgPath))
+        );
         if (effect != "")
         {
             ITransition instance = runtime.interpreter.Eval(effect);
@@ -316,16 +332,16 @@ public class UIAnim : IScriptBlock
 
     public override bool Equals(object obj)
     {
-        return obj is UIAnim anim &&
-            this.@continue == anim.@continue &&
-            this.effect == anim.effect;
+        return obj is UIAnim anim && this.@continue == anim.@continue && this.effect == anim.effect;
     }
 
     public override void Execute(Runtime runtime)
     {
-        runtime.mainBuffer.Append(new EffectGroupBuilder()
-            .Add(runtime.UI, runtime.interpreter.Eval<IEffect>(effect))
-            .Build());
+        runtime.mainBuffer.Append(
+            new EffectGroupBuilder()
+                .Add(runtime.UI, runtime.interpreter.Eval<IEffect>(effect))
+                .Build()
+        );
     }
 
     public override int GetHashCode() => HashCode.Combine(this.@continue, this.effect);
@@ -343,8 +359,7 @@ public class ShowChapterName : IScriptBlock
 
     public override bool Equals(object obj)
     {
-        return obj is ShowChapterName name &&
-               ChapterName == name.ChapterName;
+        return obj is ShowChapterName name && ChapterName == name.ChapterName;
     }
 
     public override void Execute(Runtime runtime)
@@ -355,9 +370,17 @@ public class ShowChapterName : IScriptBlock
             var ChapterNameBack = runtime.UI.ChapterNameBack;
             ChapterNameBack.Modulate = new Color(ChapterNameBack.Modulate, 0);
         });
-        runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Chain(init, new Dissolve())).Build());
-        runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Delay(2.0)).Build());
-        runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Fade()).Build());
+        runtime.nonBlockingBuffer.Append(
+            new EffectGroupBuilder()
+                .Add(runtime.UI.ChapterNameBack, new Chain(init, new Dissolve()))
+                .Build()
+        );
+        runtime.nonBlockingBuffer.Append(
+            new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Delay(2.0)).Build()
+        );
+        runtime.nonBlockingBuffer.Append(
+            new EffectGroupBuilder().Add(runtime.UI.ChapterNameBack, new Fade()).Build()
+        );
     }
 
     public override int GetHashCode() => HashCode.Combine(ChapterName);
@@ -378,25 +401,32 @@ public class Say : IScriptBlock
 
     public override bool Equals(object obj)
     {
-        return obj is Say say &&
-               name == say.name &&
-               content == say.content;
+        return obj is Say say && name == say.name && content == say.content;
     }
 
     public override void Execute(Runtime runtime)
     {
-        runtime.mainBuffer.Append(new EffectGroupBuilder().Add(
-            runtime.UI.TextBox,
-            new LambdaEffect((Node node, Tween tween) =>
-        {
-            tween.TweenCallback(Callable.From(() =>
-            {
-                runtime.UI.CharacterName = name;
-                runtime.UI.TextBox.Text = content;
-                runtime.UI.TextBox.VisibleRatio = 0;
-            }));
-            tween.TweenProperty(runtime.UI.TextBox, "visible_ratio", 1.0, 1.0);
-        })).Build());
+        runtime.mainBuffer.Append(
+            new EffectGroupBuilder()
+                .Add(
+                    runtime.UI.TextBox,
+                    new LambdaEffect(
+                        (Node node, Tween tween) =>
+                        {
+                            tween.TweenCallback(
+                                Callable.From(() =>
+                                {
+                                    runtime.UI.CharacterName = name;
+                                    runtime.UI.TextBox.Text = content;
+                                    runtime.UI.TextBox.VisibleRatio = 0;
+                                })
+                            );
+                            tween.TweenProperty(runtime.UI.TextBox, "visible_ratio", 1.0, 1.0);
+                        }
+                    )
+                )
+                .Build()
+        );
     }
 
     public override int GetHashCode() => HashCode.Combine(name, content);
@@ -408,6 +438,7 @@ public class PlayAudio : IScriptBlock
 {
     // path to the audio file("" excluded)
     string path;
+
     // animation used in audio change
     float FadeInTime;
 
@@ -421,20 +452,29 @@ public class PlayAudio : IScriptBlock
     public override void Execute(Runtime runtime)
     {
         var audio = GD.Load<AudioStream>(runtime.script.ToResourcePath(path));
-        runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(
-            runtime.audio,
-            new LambdaEffect((_, tween) =>
-            {
-                tween.TweenCallback(Callable.From(() =>
-                {
-                    runtime.audio.VolumeDb = -80.0f;
-                    runtime.audio.Play(audio);
-                }));
-                tween.TweenProperty(runtime.audio, "volume_db", 0.0, FadeInTime)
-                    .SetTrans(Tween.TransitionType.Expo)
-                    .SetEase(Tween.EaseType.Out);
-            })
-            ).Build());
+        runtime.nonBlockingBuffer.Append(
+            new EffectGroupBuilder()
+                .Add(
+                    runtime.audio,
+                    new LambdaEffect(
+                        (_, tween) =>
+                        {
+                            tween.TweenCallback(
+                                Callable.From(() =>
+                                {
+                                    runtime.audio.VolumeDb = -80.0f;
+                                    runtime.audio.Play(audio);
+                                })
+                            );
+                            tween
+                                .TweenProperty(runtime.audio, "volume_db", 0.0, FadeInTime)
+                                .SetTrans(Tween.TransitionType.Expo)
+                                .SetEase(Tween.EaseType.Out);
+                        }
+                    )
+                )
+                .Build()
+        );
     }
 }
 
@@ -450,14 +490,21 @@ public class StopAudio : IScriptBlock
 
     public override void Execute(Runtime runtime)
     {
-        runtime.nonBlockingBuffer.Append(new EffectGroupBuilder().Add(
-            runtime.audio,
-            new LambdaEffect((_, tween) =>
-            {
-                tween.TweenProperty(runtime.audio, "volume_db", -80.0, FadeOutTime)
-                    .SetTrans(Tween.TransitionType.Expo)
-                    .SetEase(Tween.EaseType.In);
-            })
-            ).Build());
+        runtime.nonBlockingBuffer.Append(
+            new EffectGroupBuilder()
+                .Add(
+                    runtime.audio,
+                    new LambdaEffect(
+                        (_, tween) =>
+                        {
+                            tween
+                                .TweenProperty(runtime.audio, "volume_db", -80.0, FadeOutTime)
+                                .SetTrans(Tween.TransitionType.Expo)
+                                .SetEase(Tween.EaseType.In);
+                        }
+                    )
+                )
+                .Build()
+        );
     }
 }

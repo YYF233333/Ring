@@ -11,14 +11,19 @@ public partial class UI : Control
         set => GetNode<Label>("./ChapterNameBack/ChapterName").Text = value;
     }
 
-    public RichTextLabel TextBox => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer/TextBox");
+    public RichTextLabel TextBox =>
+        GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer/TextBox");
 
     public string CharacterName
     {
-        get => GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer2/TextBox").Text.Trim(['【', '】']);
+        get =>
+            GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer2/TextBox")
+                .Text.Trim(['【', '】']);
         set
         {
-            var node = GetNode<RichTextLabel>("./TextBoxBack/MarginContainer/MarginContainer2/TextBox");
+            var node = GetNode<RichTextLabel>(
+                "./TextBoxBack/MarginContainer/MarginContainer2/TextBox"
+            );
             if (string.IsNullOrEmpty(value.TrimStart()))
             {
                 node.Text = "";
@@ -27,7 +32,6 @@ public partial class UI : Control
             {
                 node.Text = "【" + value + "】";
             }
-
         }
     }
 

@@ -22,11 +22,7 @@ public class DataBase
 
     public string Serialize()
     {
-        return JsonSerializer.Serialize(
-            new Dictionary<string, object>
-            {
-                { "PC", PC }
-            });
+        return JsonSerializer.Serialize(new Dictionary<string, object> { { "PC", PC } });
     }
 
     public void Deserialize(string json)

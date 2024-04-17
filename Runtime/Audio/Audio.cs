@@ -1,5 +1,5 @@
-using Godot;
 using System.Diagnostics;
+using Godot;
 
 public partial class Audio : AudioStreamPlayer
 {
