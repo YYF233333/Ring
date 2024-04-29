@@ -21,6 +21,7 @@ public class LuaInterpreter : IDisposable
         interpreter.State.Encoding = System.Text.Encoding.UTF8;
         interpreter.LoadCLRPackage();
         interpreter["runtime"] = runtime;
+        interpreter["globalvar"] = runtime.global;
         interpreter.DoString(init, "init");
     }
 

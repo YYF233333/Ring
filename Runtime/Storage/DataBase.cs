@@ -1,9 +1,9 @@
 namespace RingEngine.Runtime.Storage;
 
 using System.Collections.Generic;
-using System.Text.Json;
-using Godot;
+using MessagePack;
 
+[MessagePackObject(keyAsPropertyName: true)]
 public class DataBase
 {
     /// <summary>
@@ -11,6 +11,9 @@ public class DataBase
     /// </summary>
     public int PC;
 
+    public Dictionary<string, object> global = [];
+
+    [IgnoreMember]
     public List<Snapshot> history = [];
 
     public Snapshot LoadHistory(int step)
@@ -20,14 +23,23 @@ public class DataBase
         return ret;
     }
 
-    public string Serialize()
+    public void SetGlobal(string name, object value)
     {
-        return JsonSerializer.Serialize(new Dictionary<string, object> { { "PC", PC } });
+        global[name] = value;
     }
 
-    public void Deserialize(string json)
+    public object GetGlobal(string name)
     {
-        var dict = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
-        PC = ((JsonElement)dict["PC"]).GetInt32();
+        return global[name];
+    }
+
+    public string Serialize()
+    {
+        return MessagePackSerializer.SerializeToJson(this);
+    }
+
+    public static DataBase Deserialize(string json)
+    {
+        return MessagePackSerializer.Deserialize<DataBase>(MessagePackSerializer.ConvertFromJson(json));
     }
 }

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/4.2.1">
+﻿<Project Sdk="Godot.NET.Sdk/4.2.2">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
@@ -22,6 +22,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Godot.NET.Sdk" Version="4.2.1" />
+    <PackageReference Include="MessagePack" Version="2.5.140" />
+    <PackageReference Include="MessagePackAnalyzer" Version="2.5.140">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="NLua" Version="1.7.2" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Godot;
+using NLua.Exceptions;
 using RingEngine.Runtime.Effect;
 
 public class RingScript
@@ -71,7 +72,14 @@ public class CodeBlock : IScriptBlock
 
     public override void Execute(Runtime runtime)
     {
-        runtime.interpreter.Eval(code);
+        try
+        {
+            runtime.interpreter.Eval(code);
+        }
+        catch (LuaException ex)
+        {
+            GD.PrintErr(ex.Message);
+        }
     }
 
     // 测试代码使用

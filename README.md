@@ -21,6 +21,8 @@
 
 
 - [ ] 如何对依赖godot runtime的代码进行单元测试
+    - [ ] https://gitlab.com/jfletcher94/gd-net-scout/
+
 - [x] 脚本语言选择：lua
     - [x] ~~CS-Script?~~Godot C# runtime有问题没法用
 

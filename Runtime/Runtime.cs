@@ -83,7 +83,7 @@ public partial class Runtime : Node2D
         AddChild(UI);
         canvas = snapshot.Canvas.Instantiate<Canvas>();
         AddChild(canvas);
-        global.Deserialize(snapshot.global);
+        global = DataBase.Deserialize(snapshot.global);
     }
 
     public void DebugSnapshot()
@@ -131,7 +131,7 @@ public partial class Runtime : Node2D
             {
                 Step();
             }
-            if (Input.IsActionPressed("ui_cancel"))
+            if (Input.IsActionPressed("Save"))
             {
                 if (nonBlockingBuffer.IsRunning)
                 {
@@ -154,6 +154,11 @@ public partial class Runtime : Node2D
                     mainBuffer.Interrupt();
                 }
                 LoadSnapshot(global.LoadHistory(1));
+            }
+            if (Input.IsActionPressed("Load"))
+            {
+                var snap = Snapshot.Load("res://snapshot");
+                LoadSnapshot(snap);
             }
         }
     }
