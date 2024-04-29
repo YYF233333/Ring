@@ -60,6 +60,7 @@ public class CodeBlock : IScriptBlock
 
     public CodeBlock(string identifier, string code)
     {
+        this.@continue = true;
         this.code = code;
         this.identifier = identifier;
     }
@@ -114,7 +115,7 @@ public class JumpToLabel : IScriptBlock
 
     public override void Execute(Runtime runtime)
     {
-        var label = isLiteral ? identifier : runtime.interpreter.Eval<string>(identifier);
+        var label = isLiteral ? identifier : runtime.interpreter.Eval(identifier);
         var targetPC = runtime.script.labels[label];
         // Execute结束后会PC++，所以这里要减1
         runtime.PC = targetPC - 1;
@@ -221,7 +222,7 @@ public class Hide : IScriptBlock
             new EffectGroupBuilder()
                 .Add(
                     runtime.canvas[name],
-                    new Chain(runtime.interpreter.Eval<IEffect>(effect), new Delete())
+                    new Chain(runtime.interpreter.Eval(effect), new Delete())
                 )
                 .Build()
         );
@@ -347,7 +348,7 @@ public class UIAnim : IScriptBlock
     {
         runtime.mainBuffer.Append(
             new EffectGroupBuilder()
-                .Add(runtime.UI, runtime.interpreter.Eval<IEffect>(effect))
+                .Add(runtime.UI, runtime.interpreter.Eval(effect))
                 .Build()
         );
     }

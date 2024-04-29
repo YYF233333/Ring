@@ -28,17 +28,13 @@ public class LuaInterpreter : IDisposable
     /// <summary>
     /// 运行表达式<c>expr</c>并返回结果（如果有）
     /// </summary>
-    /// <param name="expr"></param>
-    /// <returns></returns>
-    public dynamic Eval(string expr) => interpreter.DoString($"return {expr}")[0];
-
-    /// <summary>
-    /// 运行表达式<c>expr</c>并返回结果（如果有）
-    /// </summary>
-    /// <typeparam name="T">返回值类型</typeparam>
-    /// <param name="expr"></param>
-    /// <returns></returns>
-    public T Eval<T>(string expr) => (T)interpreter.DoString($"return {expr}")[0];
+    /// <param name="expr">待求值表达式</param>
+    /// <returns>表达式求值结果，如果表达式无值返回null</returns>
+    public dynamic Eval(string expr)
+    {
+        var ret = interpreter.DoString($"return {expr}");
+        return ret.Length > 0 ? ret[0] : null;
+    }
 
     public void Dispose()
     {
