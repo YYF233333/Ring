@@ -9,8 +9,6 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 globalvar:SetGlobal('a', 1)
 ```
 
-
-
 ？？："不完全是这样..."
 
 ？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"

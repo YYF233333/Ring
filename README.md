@@ -10,6 +10,9 @@
 
 **new:**
 
+- [ ] 弹出选项卡
+- [ ] 数值面板
+
 - [x] ParserException包含行数
 
 - [x] show同名立绘实现crossfade

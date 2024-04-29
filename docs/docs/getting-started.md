@@ -44,6 +44,17 @@ changeBG <img src="assets/bg1.png" alt="bg1" style="zoom:25%;" /> with dissolve
 
 `# ChapterName`
 
+跳转指令：
+
+jump flag ? label1 : label2
+
+其中flag是个全局变量，flag != 0时跳转label1，flag == 0跳转label2。
+
+弹出选项卡：
+
+```lua
+```
 
 
-还没有跳转指令，所有内容都得写在根目录下面的main.md里，init.lua里的内容会在启动的时候执行，之后可以在代码块里调用。
+
+所有内容都得写在根目录下面的main.md里，init.lua里的内容会在启动的时候执行，之后可以在代码块里调用。
