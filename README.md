@@ -4,7 +4,6 @@
 
 - [ ] BG不在名为BG的节点上
 - [ ] 动画未结束时进行backlog会使动画系统崩溃
-- [x] Lua方法调用不一定有返回值，需要判断
 
 ## TODO List
 
@@ -26,9 +25,8 @@
 - [ ] 如何对依赖godot runtime的代码进行单元测试
     - [ ] https://gitlab.com/jfletcher94/gd-net-scout/
 
-- [x] 脚本语言选择：lua
-    - [x] ~~CS-Script?~~Godot C# runtime有问题没法用
-
+- [x] 脚本语言选择：python/pythonnet
+    
 - [ ] 跳转语句如何设计？
     - [ ] jump to file start（无难度）（叫什么名字，goto已经给label jump了）
     - [x] jump to given label
@@ -90,5 +88,3 @@
 ## Tips
 
 - C#脚本抛出异常~~不会传递到Godot侧~~会传过来，但是在调试器里，只有整个.NET运行时崩溃才会在输出里报错
-
-- Nlua import AssemblyName里不能有空格
