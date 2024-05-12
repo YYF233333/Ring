@@ -2,7 +2,6 @@ namespace RingEngine.Runtime;
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Godot;
 using RingEngine.Runtime.Effect;
 using RingEngine.Runtime.Script;
@@ -11,7 +10,7 @@ using RingEngine.Runtime.Storage;
 public partial class Runtime : Node2D
 {
     // 脚本内嵌代码解释器
-    public LuaInterpreter interpreter;
+    public PythonInterpreter interpreter;
 
     // 脚本源代码
     public RingScript script;
@@ -45,6 +44,9 @@ public partial class Runtime : Node2D
         global = new DataBase();
         config = new GlobalConfig()
         {
+            ProjectRoot = OS.HasFeature("editor")
+                ? ProjectSettings.GlobalizePath("res://")
+                : OS.GetExecutablePath().GetBaseDir(),
             YBaseTable = new Dictionary<string, double> { { "红叶", 600 } }
         };
         script = new RingScript("res://main.md");
@@ -64,7 +66,7 @@ public partial class Runtime : Node2D
         AddChild(audio);
         mainBuffer = new EffectBuffer();
         nonBlockingBuffer = new EffectBuffer();
-        interpreter = new LuaInterpreter(this, FileAccess.GetFileAsString("res://init.lua"));
+        interpreter = new PythonInterpreter(this, FileAccess.GetFileAsString("res://init.py"));
     }
 
     public void LoadSnapshot(string snapshotPath)

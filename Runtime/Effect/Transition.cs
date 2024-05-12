@@ -128,22 +128,18 @@ public class ImageTrans : ITransition
                     }),
                     new LambdaEffect(
                         (Node node, Tween tween) =>
-                        {
                             tween.TweenMethod(
                                 Callable.From(
                                     (float progress) =>
-                                    {
                                         ((ShaderMaterial)canvas.Mask.Material).SetShaderParameter(
                                             "progress",
                                             progress
-                                        );
-                                    }
+                                        )
                                 ),
                                 0.0,
                                 1.0,
                                 duration / 2
-                            );
-                        }
+                            )
                     )
                 )
             )
@@ -155,22 +151,18 @@ public class ImageTrans : ITransition
                     new LambdaEffect(() => canvas.BG.Texture = canvas.Stretch(newBG)),
                     new LambdaEffect(
                         (Node node, Tween tween) =>
-                        {
                             tween.TweenMethod(
                                 Callable.From(
                                     (float progress) =>
-                                    {
                                         ((ShaderMaterial)canvas.Mask.Material).SetShaderParameter(
                                             "progress",
                                             progress
-                                        );
-                                    }
+                                        )
                                 ),
                                 1.0,
                                 0.0,
                                 duration / 2
-                            );
-                        }
+                            )
                     ),
                     new LambdaEffect(() => canvas.Mask.Material = null),
                     new LambdaEffect(canvas.RemoveMask)

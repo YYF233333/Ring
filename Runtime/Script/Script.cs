@@ -75,7 +75,7 @@ public class CodeBlock : IScriptBlock
     {
         try
         {
-            runtime.interpreter.Eval(code);
+            runtime.interpreter.Exec(code);
         }
         catch (LuaException ex)
         {
@@ -161,12 +161,12 @@ public class Show : IScriptBlock
             if (effect == "")
             {
                 canvas.RemoveTexture(imgName);
-                canvas.AddTexture(imgName, texture, runtime.interpreter.Eval(placement));
+                canvas.AddTexture(imgName, texture, runtime.interpreter.Eval<Placement>(placement));
             }
             else
             {
                 canvas.RenameTexture(imgName, imgName + "_old");
-                canvas.AddTexture(imgName, texture, runtime.interpreter.Eval(placement));
+                canvas.AddTexture(imgName, texture, runtime.interpreter.Eval<Placement>(placement));
                 canvas[imgName].Modulate = new Color(canvas[imgName].Modulate, 0);
                 IEffect instance = runtime.interpreter.Eval(effect);
                 runtime.mainBuffer.Append(
@@ -182,7 +182,7 @@ public class Show : IScriptBlock
         }
         else
         {
-            canvas.AddTexture(imgName, texture, runtime.interpreter.Eval(placement));
+            canvas.AddTexture(imgName, texture, runtime.interpreter.Eval<Placement>(placement));
             if (effect != "")
             {
                 canvas[imgName].Modulate = new Color(canvas[imgName].Modulate, 0);
@@ -222,7 +222,7 @@ public class Hide : IScriptBlock
             new EffectGroupBuilder()
                 .Add(
                     runtime.canvas[name],
-                    new Chain(runtime.interpreter.Eval(effect), new Delete())
+                    new Chain(runtime.interpreter.Eval<IEffect>(effect), new Delete())
                 )
                 .Build()
         );
@@ -348,7 +348,7 @@ public class UIAnim : IScriptBlock
     {
         runtime.mainBuffer.Append(
             new EffectGroupBuilder()
-                .Add(runtime.UI, runtime.interpreter.Eval(effect))
+                .Add(runtime.UI, runtime.interpreter.Eval<IEffect>(effect))
                 .Build()
         );
     }
@@ -505,12 +505,10 @@ public class StopAudio : IScriptBlock
                     runtime.audio,
                     new LambdaEffect(
                         (_, tween) =>
-                        {
                             tween
                                 .TweenProperty(runtime.audio, "volume_db", -80.0, FadeOutTime)
                                 .SetTrans(Tween.TransitionType.Expo)
-                                .SetEase(Tween.EaseType.In);
-                        }
+                                .SetEase(Tween.EaseType.In)
                     )
                 )
                 .Build()

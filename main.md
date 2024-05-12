@@ -4,9 +4,9 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 
 ？？？："那么，世界回应了少女，实现了她的心愿？"
 
-```lua
---runtime:LoadMiniGame()
-globalvar:SetGlobal('a', 1)
+```python
+#runtime.LoadMiniGame()
+#globalvar:SetGlobal('a', 1)
 ```
 
 ？？："不完全是这样..."

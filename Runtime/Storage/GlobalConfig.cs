@@ -1,14 +1,14 @@
 namespace RingEngine.Runtime.Storage;
 
-using System;
+#nullable enable
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Godot;
 
 public class GlobalConfig
 {
+    public string? ProjectRoot;
+
     /// <summary>
     /// 画布大小，等于Godot中设置的窗口分辨率
     /// </summary>

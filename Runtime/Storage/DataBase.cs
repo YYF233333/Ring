@@ -40,6 +40,8 @@ public class DataBase
 
     public static DataBase Deserialize(string json)
     {
-        return MessagePackSerializer.Deserialize<DataBase>(MessagePackSerializer.ConvertFromJson(json));
+        return MessagePackSerializer.Deserialize<DataBase>(
+            MessagePackSerializer.ConvertFromJson(json)
+        );
     }
 }

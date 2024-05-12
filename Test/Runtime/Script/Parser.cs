@@ -138,7 +138,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Show block = (Show)ret.Item2;
+        var block = (Show)ret.Item2;
         Assert.AreEqual(new Show("assets/bg2.jpg", "left", "", "红叶"), block);
     }
 
@@ -150,7 +150,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Show block = (Show)ret.Item2;
+        var block = (Show)ret.Item2;
         Assert.AreEqual(new Show("assets/bg2.jpg", "left", "dissolve", "红叶"), block);
     }
 
@@ -162,7 +162,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Show block = (Show)ret.Item2;
+        var block = (Show)ret.Item2;
         Assert.AreEqual(new Show("assets/bg2.jpg", "left", "", "红叶"), block);
         ret = BuiltInFunctionParser.ParseShow(
             @"show   <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" />   as 红叶 at left"
@@ -181,7 +181,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Show block = (Show)ret.Item2;
+        var block = (Show)ret.Item2;
         Assert.AreEqual(new Show("assets/bg2.jpg", "left", "Dissolve(2.0, 0.5)", "红叶"), block);
     }
 
@@ -193,7 +193,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        ChangeBG block = (ChangeBG)ret.Item2;
+        var block = (ChangeBG)ret.Item2;
         Assert.AreEqual(new ChangeBG("assets/bg2.jpg", ""), block);
     }
 
@@ -205,7 +205,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        ChangeBG block = (ChangeBG)ret.Item2;
+        var block = (ChangeBG)ret.Item2;
         Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "dissolve"), block);
     }
 
@@ -217,7 +217,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        ChangeBG block = (ChangeBG)ret.Item2;
+        var block = (ChangeBG)ret.Item2;
         Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "dissolve"), block);
         ret = BuiltInFunctionParser.ParseChangeBG(
             @"changeBG   <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" />   with dissolve"
@@ -236,7 +236,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        ChangeBG block = (ChangeBG)ret.Item2;
+        var block = (ChangeBG)ret.Item2;
         Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "Dissolve(2.0, 0.5)"), block);
     }
 
@@ -246,7 +246,7 @@ public class TestBuiltInParser
         var ret = BuiltInFunctionParser.ParseHide(@"hide 红叶");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Hide block = (Hide)ret.Item2;
+        var block = (Hide)ret.Item2;
         Assert.AreEqual(new Hide("红叶", ""), block);
     }
 
@@ -256,7 +256,7 @@ public class TestBuiltInParser
         var ret = BuiltInFunctionParser.ParseHide(@"hide 红叶 with dissolve");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Hide block = (Hide)ret.Item2;
+        var block = (Hide)ret.Item2;
         Assert.AreEqual(new Hide("红叶", "dissolve"), block);
     }
 
@@ -266,7 +266,7 @@ public class TestBuiltInParser
         var ret = BuiltInFunctionParser.ParseJumpToLabel(@"goto label1");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        JumpToLabel block = (JumpToLabel)ret.Item2;
+        var block = (JumpToLabel)ret.Item2;
         Assert.AreEqual(new JumpToLabel(true, "label1"), block);
 
         ret = BuiltInFunctionParser.ParseJumpToLabel(@"goto `label expression`");
@@ -282,7 +282,7 @@ public class TestBuiltInParser
         var ret = BuiltInFunctionParser.ParseUIAnim(@"UIAnim dissolve");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        UIAnim block = (UIAnim)ret.Item2;
+        var block = (UIAnim)ret.Item2;
         Assert.AreEqual(new UIAnim("dissolve"), block);
     }
 }

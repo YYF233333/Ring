@@ -1,6 +1,5 @@
 namespace RingEngine.Runtime.Effect;
 
-using System.Collections.Generic;
 using System.Linq;
 using Godot;
 

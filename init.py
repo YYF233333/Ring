@@ -1,11 +1,12 @@
--- Lua环境初始化
+import clr
+clr.AddReference("RingEngine")
 
-import('RingEngine', 'RingEngine.Runtime')
-import('RingEngine', 'RingEngine.Runtime.Effect')
-import('RingEngine', 'RingEngine.Runtime.Script')
-import('RingEngine', 'RingEngine.Runtime.Storage')
+from RingEngine.Runtime import *
+from RingEngine.Runtime.Effect import *
+from RingEngine.Runtime.Script import *
+from RingEngine.Runtime.Storage import *
 
--- Placements
+# Placements
 farleft = Placement(0.0, 300.0, 0.5)
 farmiddle = Placement(700.0, 300.0, 0.5)
 farright = Placement(1400.0, 300.0, 0.5)
@@ -16,12 +17,11 @@ nearleft = Placement(0.0, 300.0, 1.0)
 nearmiddle = Placement(450.0, 300.0, 1.0)
 nearright = Placement(900.0, 300.0, 1.0)
 
--- Effects
+# Effects
 transparent = SetAlpha(0)
 opaque = SetAlpha(1)
 dissolve = Dissolve()
 fade = Fade()
 
--- Transition
+# Transition
 dissolveTrans = DissolveTrans()
-
