@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Consumable_Info" load_steps=2 format=3 uid="uid://deuloc7586wrh"]
+
+[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumable_info.gd" id="1_nstdb"]
+
+[resource]
+script = ExtResource("1_nstdb")
+consumable_id = 999
+consumable_name = "package"
+consumable_description = "等待约定时间再开启吧"
+max_possess_amount = 1
+price = -1

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Drop_Info" load_steps=2 format=3 uid="uid://d0i5m41ulos3p"]
+
+[ext_resource type="Script" path="res://breakout/scenes/drops/base/drop_info.gd" id="1_7j3tl"]
+
+[resource]
+script = ExtResource("1_7j3tl")
+drop_id = 3
+drop_name = "slow"
+drop_description = "slowen all the balls"
+effect_layer = 1
+effect_multiplier = 0.8
+effect_last_time = 10.0
+basic_drop_luck_level = -1.0

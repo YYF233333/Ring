@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3q7j6p8uprke"]
+
+[ext_resource type="PackedScene" uid="uid://hwfbtok4re4l" path="res://breakout/scenes/bricks/indestructible_brick/indestructible_brick.tscn" id="1_jo1aq"]
+[ext_resource type="PackedScene" uid="uid://c81idhg4ab0ye" path="res://breakout/scenes/bricks/basic_brick/basic_brick.tscn" id="2_e7ub2"]
+[ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="3_170qc"]
+
+[node name="TestLevel0" type="Node2D"]
+
+[node name="Bricks" type="Node2D" parent="." groups=["bricks"]]
+
+[node name="IndestructibleBrick" parent="Bricks" instance=ExtResource("1_jo1aq")]
+position = Vector2(960, 381)
+rotation = -0.00681059
+
+[node name="BasicBrick" parent="Bricks" instance=ExtResource("2_e7ub2")]
+position = Vector2(960, 304)
+
+[node name="BasicBrick2" parent="Bricks" instance=ExtResource("2_e7ub2")]
+position = Vector2(917, 304)
+
+[node name="BasicBrick3" parent="Bricks" instance=ExtResource("2_e7ub2")]
+position = Vector2(996, 305)
+
+[node name="Enemies" type="Node2D" parent="." groups=["enemies"]]
+
+[node name="BasicEnemy" parent="Enemies" instance=ExtResource("3_170qc")]
+position = Vector2(790, 145)
+max_health = 1000
+init_health = 1000

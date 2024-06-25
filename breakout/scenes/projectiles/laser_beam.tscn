@@ -1,0 +1,105 @@
+[gd_scene load_steps=12 format=3 uid="uid://bglykrd6pd7mw"]
+
+[ext_resource type="Script" path="res://breakout/scenes/projectiles/laser_beam.gd" id="1_wpie5"]
+[ext_resource type="Texture2D" uid="uid://b3mleuu8hw4cq" path="res://breakout/assets/Mine/pixil-glowing-blue.png" id="2_dwbio"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4fmy"]
+size = Vector2(46, 256)
+
+[sub_resource type="Gradient" id="Gradient_4qncj"]
+offsets = PackedFloat32Array(0.548638, 0.85214)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_253ak"]
+gradient = SubResource("Gradient_4qncj")
+
+[sub_resource type="Curve" id="Curve_we0c1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.659649, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kmiyg"]
+curve = SubResource("Curve_we0c1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3rpti"]
+particle_flag_disable_z = true
+spread = 60.0
+initial_velocity_min = 120.0
+initial_velocity_max = 120.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_kmiyg")
+color = Color(0.5, 3, 6, 1)
+color_ramp = SubResource("GradientTexture1D_253ak")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r1myt"]
+particle_flag_disable_z = true
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_kmiyg")
+color = Color(0.5, 3, 6, 1)
+color_ramp = SubResource("GradientTexture1D_253ak")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lpxdy"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 2, 1)
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = 100.0
+tangential_accel_max = 100.0
+scale_min = 0.2
+scale_max = 0.3
+
+[sub_resource type="Environment" id="Environment_nlr8l"]
+background_mode = 3
+glow_enabled = true
+glow_levels/4 = 1.0
+glow_intensity = 0.5
+glow_blend_mode = 0
+glow_hdr_luminance_cap = 2.0
+
+[node name="LaserBeam" type="RayCast2D"]
+target_position = Vector2(1000, 0)
+collision_mask = 74
+script = ExtResource("1_wpie5")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 200, 0)
+default_color = Color(0.5, 3, 6, 1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(400, 0)
+shape = SubResource("RectangleShape2D_k4fmy")
+
+[node name="CastingParticle" type="GPUParticles2D" parent="."]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_3rpti")
+texture = ExtResource("2_dwbio")
+lifetime = 0.3
+
+[node name="CollidingParticle" type="GPUParticles2D" parent="."]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_r1myt")
+texture = ExtResource("2_dwbio")
+lifetime = 0.3
+
+[node name="BeamParticle" type="GPUParticles2D" parent="."]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_lpxdy")
+texture = ExtResource("2_dwbio")
+lifetime = 0.3
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nlr8l")
+
+[node name="AttackCoolDownTimer" type="Timer" parent="."]
+wait_time = 0.5

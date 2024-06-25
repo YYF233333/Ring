@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://couhfdt63uc48"]
+
+[ext_resource type="Script" path="res://breakout/scenes/balls/ball.gd" id="1_22xlr"]
+[ext_resource type="Texture2D" uid="uid://dngs2d4nowtar" path="res://breakout/assets/Ball.png" id="2_kbcy4"]
+[ext_resource type="Script" path="res://breakout/scenes/balls/trail.gd" id="3_41hon"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dnblf"]
+radius = 32.0
+
+[sub_resource type="Curve" id="Curve_s5xlt"]
+bake_resolution = 10
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_2xv1b"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.63, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.08, 1, 1, 1, 1)
+
+[node name="Ball" type="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
+collision_mask = 90
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_22xlr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kbcy4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dnblf")
+
+[node name="Line2D" type="Line2D" parent="."]
+top_level = true
+z_index = -1
+width = 8.0
+width_curve = SubResource("Curve_s5xlt")
+gradient = SubResource("Gradient_2xv1b")
+script = ExtResource("3_41hon")
+
+[node name="FireBallTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="LightningBallTimer" type="Timer" parent="."]
+one_shot = true

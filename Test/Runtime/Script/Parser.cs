@@ -2,7 +2,7 @@ namespace Test.Runtime.Script;
 
 using System.Collections.Generic;
 using System.Linq;
-using RingEngine.Runtime.Script;
+using RingEngine.Runtime.AVGRuntime.Script;
 
 [TestClass]
 public class TestParser

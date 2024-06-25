@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://df0xtjqcyqwyf"]
+
+[ext_resource type="Script" path="res://breakout/scenes/components/death_component.gd" id="1_v3dt5"]
+
+[node name="DeathComponent" type="Node"]
+script = ExtResource("1_v3dt5")

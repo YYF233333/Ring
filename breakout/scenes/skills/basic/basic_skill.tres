@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Skill_Info" load_steps=2 format=3 uid="uid://ccre4inhlqq2d"]
+
+[ext_resource type="Script" path="res://breakout/scenes/skills/base/skill_info.gd" id="1_qe34a"]
+
+[resource]
+script = ExtResource("1_qe34a")
+skill_id = 1
+skill_name = "basic skill"
+skill_description = "split all the ball
+lengthen the paddle to max length for 10s"
+max_charge = 50
+exhaust = 50
+price = 1

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://20ypco2aitd1"]
+
+[ext_resource type="Script" path="res://breakout/scenes/drops/fast/fast_drop.gd" id="1_o2r2g"]
+[ext_resource type="Texture2D" uid="uid://fms5amj8c7ae" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/42-Breakout-Tiles.png" id="2_81oir"]
+[ext_resource type="Resource" uid="uid://dlr4klimt3vxq" path="res://breakout/scenes/drops/fast/fast_drop.tres" id="2_sep4a"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fqkcl"]
+radius = 64.0
+height = 485.0
+
+[node name="FastDrop" type="Node2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_o2r2g")
+drop_info = ExtResource("2_sep4a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_81oir")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_fqkcl")

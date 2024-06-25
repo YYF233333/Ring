@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Consumable_Info" load_steps=2 format=3 uid="uid://u5ofbcilmh5d"]
+
+[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumable_info.gd" id="1_ibgth"]
+
+[resource]
+script = ExtResource("1_ibgth")
+consumable_id = 999
+consumable_name = "notebook"
+consumable_description = "获得状态“最美好的前途”，本局游戏伤害+100%，充能速度翻倍，ammo+5，回复所有生命值"
+max_possess_amount = 1
+price = -1

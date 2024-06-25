@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Consumable_Info" load_steps=2 format=3 uid="uid://c01e0ppjme4hj"]
+
+[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumable_info.gd" id="1_48led"]
+
+[resource]
+script = ExtResource("1_48led")
+consumable_id = 1
+consumable_name = "communicator"
+consumable_description = "charge the skill by 10"
+max_possess_amount = 1
+price = 10

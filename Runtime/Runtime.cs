@@ -3,171 +3,157 @@ namespace RingEngine.Runtime;
 using System;
 using System.Collections.Generic;
 using Godot;
-using RingEngine.Runtime.Effect;
-using RingEngine.Runtime.Script;
 using RingEngine.Runtime.Storage;
 
-public partial class Runtime : Node2D
+/// <summary>
+/// 子运行时抽象
+/// </summary>
+public interface ISubRuntime
 {
-    // 脚本内嵌代码解释器
-    public PythonInterpreter interpreter;
+    /// <summary>
+    /// 子运行时名称，唯一识别符
+    /// </summary>
+    public string RuntimeName { get; }
 
-    // 脚本源代码
-    public RingScript script;
-    public UI UI;
-    public Canvas canvas;
+    /// <summary>
+    /// 保存运行时当前状态。可选实现，不支持存档的子运行时可以忽略。
+    /// </summary>
+    /// <returns>运行时快照</returns>
+    public ISnapshot Save()
+    {
+        if (OS.HasFeature("editor"))
+        {
+            GD.Print(
+                $"SubRuntime {RuntimeName} does not implement Save Method, "
+                    + $"you may forget to implement this optional method."
+            );
+        }
+        return null;
+    }
 
-    // 音乐音效
-    public Audio audio;
+    /// <summary>
+    /// 从快照中恢复运行时状态。可选实现，不支持存档的子运行时可以忽略。
+    /// </summary>
+    /// <param name="snapshot">运行时状态快照</param>
+    public void LoadSnapshot(ISnapshot snapshot)
+    {
+        throw new NotImplementedException(
+            $"SubRuntime {RuntimeName} does not implement LoadSnapshot Method, "
+                + $"you may forget to implement this optional method."
+        );
+    }
 
-    // 动画效果缓冲区
-    public EffectBuffer mainBuffer;
-    public EffectBuffer nonBlockingBuffer;
+    /// <summary>
+    /// 接收由其它子运行时传来的消息。具体的消息格式由子运行时协商。
+    /// </summary>
+    /// <param name="runtimeName">发送方名称</param>
+    /// <param name="message">更新消息</param>
+    public void GetMessage(string runtimeName, object message);
+}
 
-    // 持久化数据存储
-    public DataBase global;
+/// <summary>
+/// 运行时快照接口
+/// </summary>
+public interface ISnapshot
+{
+    /// <summary>
+    /// 将当前运行时状态保存到指定文件夹（文件夹可能不存在）
+    /// </summary>
+    /// <param name="folder">存档文件夹路径</param>
+    public void Save(string folder);
 
+    /// <summary>
+    /// 从指定文件夹加载运行时状态
+    /// </summary>
+    /// <param name="folder">存档文件夹路径</param>
+    public void Load(string folder);
+}
+
+public enum SwitchMode
+{
+    /// <summary>
+    /// 卸载当前子运行时，恢复时需要加载快照
+    /// </summary>
+    Unload,
+
+    /// <summary>
+    /// 仅暂停处理当前子运行时，不生成快照
+    /// </summary>
+    Pause,
+}
+
+public partial class Runtime : Node
+{
     // 进度无关全局设置
     public GlobalConfig config;
 
-    /// <summary>
-    /// 下一条执行的代码块index
-    /// </summary>
-    public int PC
-    {
-        get => global.PC;
-        set => global.PC = value;
-    }
+    public Dictionary<string, CSharpScript> subRuntimes =
+        new()
+        {
+            { "AVGRuntime", GD.Load<CSharpScript>("res://Runtime/AVGRuntime/AVGRuntime.cs") },
+            { "Breakout", GD.Load<CSharpScript>("res://breakout/Root.cs") }
+        };
+
+    public Dictionary<string, ISnapshot> snapshots = [];
+
+    // TODO: 子场景切换动画组
+
 
     public Runtime()
     {
-        global = new DataBase();
         config = new GlobalConfig()
         {
-            ProjectRoot = OS.HasFeature("editor")
-                ? ProjectSettings.GlobalizePath("res://")
-                : OS.GetExecutablePath().GetBaseDir(),
             YBaseTable = new Dictionary<string, double> { { "红叶", 600 } }
         };
-        script = new RingScript("res://main.md");
-        UI = GD.Load<PackedScene>("res://Runtime/UI/UI.tscn").Instantiate<UI>();
-        UI.Name = "UI";
-        // 强制显示在canvas之上
-        UI.ZIndex = 1;
-        AddChild(UI);
-        canvas = new Canvas
-        {
-            Name = "Canvas",
-            // 理论上class变量传引用，修改Runtime.config会同步更新Canvas.conifg
-            config = config
-        };
-        AddChild(canvas);
-        audio = new Audio() { Name = "Audio" };
-        AddChild(audio);
-        mainBuffer = new EffectBuffer();
-        nonBlockingBuffer = new EffectBuffer();
-        interpreter = new PythonInterpreter(this, FileAccess.GetFileAsString("res://init.py"));
-    }
-
-    public void LoadSnapshot(string snapshotPath)
-    {
-        var snap = Snapshot.Load(snapshotPath);
-        LoadSnapshot(snap);
-    }
-
-    public void LoadSnapshot(Snapshot snapshot)
-    {
-        RemoveChild(UI);
-        UI.QueueFree();
-        RemoveChild(canvas);
-        canvas.QueueFree();
-        UI = snapshot.UI.Instantiate<UI>();
-        AddChild(UI);
-        canvas = snapshot.Canvas.Instantiate<Canvas>();
-        AddChild(canvas);
-        global = DataBase.Deserialize(snapshot.global);
-    }
-
-    public void DebugSnapshot()
-    {
-        var snap = new Snapshot(this);
-        snap.Save("res://snapshot");
+        var defaultRuntime = (Node)subRuntimes[config.DefaultRuntime].New();
+        AddChild(defaultRuntime);
     }
 
     /// <summary>
-    /// 运行脚本至下一个中断点
+    /// 切换子运行时，由当前运行的子运行时调用并指定后继子运行时。
     /// </summary>
-    public void Step()
+    /// <typeparam name="T">子运行时必须为Node且实现ISubRuntime</typeparam>
+    /// <param name="self">当前子运行时（即该方法调用方）</param>
+    /// <param name="nextSubRuntimeName">要激活的子运行时</param>
+    /// <param name="message">要传递的消息</param>
+    /// <param name="switchMode">切换模式，见<see cref="SwitchMode"/></param>
+    public void SwitchRuntime<T>(
+        T self,
+        string nextSubRuntimeName,
+        object message,
+        SwitchMode switchMode = SwitchMode.Unload
+    )
+        where T : Node, ISubRuntime
     {
-        if (nonBlockingBuffer.IsRunning)
+        switch (switchMode)
         {
-            nonBlockingBuffer.Interrupt();
+            case SwitchMode.Unload:
+                var snapshot = self.Save();
+                if (snapshot != null)
+                {
+                    snapshots[self.RuntimeName] = snapshot;
+                }
+                self.QueueFree();
+                break;
+            case SwitchMode.Pause:
+                self.ProcessMode = ProcessModeEnum.Disabled;
+                break;
+            default:
+                throw new ArgumentException($"Invalid SwitchMode {switchMode}");
         }
-        if (mainBuffer.IsRunning)
-        {
-            mainBuffer.Interrupt();
-            return;
-        }
-        if (PC < script.segments.Count)
-        {
-            var @continue = false;
-            do
-            {
-                @continue = script.segments[PC].@continue;
-                script.segments[PC].Execute(this);
-                PC++;
-            } while (@continue && PC < script.segments.Count);
-            global.history.Add(new Snapshot(this));
-        }
-        else
-        {
-            throw new Exception("Script Out of Bound!");
-        }
-    }
 
-    public override void _UnhandledInput(InputEvent @event)
-    {
-        if (@event is InputEventKey)
-        {
-            if (Input.IsActionPressed("ui_accept"))
-            {
-                Step();
-            }
-            if (Input.IsActionPressed("Save"))
-            {
-                if (nonBlockingBuffer.IsRunning)
-                {
-                    nonBlockingBuffer.Interrupt();
-                }
-                if (mainBuffer.IsRunning)
-                {
-                    mainBuffer.Interrupt();
-                }
-                DebugSnapshot();
-            }
-            if (Input.IsActionPressed("ui_text_backspace"))
-            {
-                if (nonBlockingBuffer.IsRunning)
-                {
-                    nonBlockingBuffer.Interrupt();
-                }
-                if (mainBuffer.IsRunning)
-                {
-                    mainBuffer.Interrupt();
-                }
-                LoadSnapshot(global.LoadHistory(1));
-            }
-            if (Input.IsActionPressed("Load"))
-            {
-                var snap = Snapshot.Load("res://snapshot");
-                LoadSnapshot(snap);
-            }
-        }
-    }
+        var nextSubRuntime = (Node)subRuntimes[nextSubRuntimeName].New();
+        AddChild(nextSubRuntime);
 
-    public int LoadMiniGame()
-    {
-        GetParent().Call("load_mini_game");
-        return 0;
+        var _nextSubRuntime = (ISubRuntime)nextSubRuntime;
+        if (snapshots.TryGetValue(nextSubRuntimeName, out var value))
+        {
+            _nextSubRuntime.LoadSnapshot(value);
+            snapshots.Remove(nextSubRuntimeName);
+        }
+        if (message != null)
+        {
+            _nextSubRuntime.GetMessage(self.RuntimeName, message);
+        }
     }
 }

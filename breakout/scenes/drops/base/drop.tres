@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Drop_Info" load_steps=2 format=3 uid="uid://d338a4egvif2h"]
+
+[ext_resource type="Script" path="res://breakout/scenes/drops/base/drop_info.gd" id="1_remm0"]
+
+[resource]
+script = ExtResource("1_remm0")
+drop_id = 0
+drop_name = "base"
+drop_description = "base class for drops
+"
+effect_layer = 1
+effect_multiplier = 1.0
+effect_last_time = 10.0
+can_be_dropped = true
+drop_percent_level = 0.0
+is_lucky_drop = false

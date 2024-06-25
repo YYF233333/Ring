@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Drop_Info" load_steps=2 format=3 uid="uid://cl2k8e0k7v44b"]
+
+[ext_resource type="Script" path="res://breakout/scenes/drops/base/drop_info.gd" id="1_eyrxm"]
+
+[resource]
+script = ExtResource("1_eyrxm")
+drop_id = 6
+drop_name = "laser beam"
+drop_description = "shoot a laser beam and deal damage"
+effect_layer = 1
+effect_multiplier = 1.0
+effect_last_time = 10.0
+can_be_dropped = true
+drop_percent_level = 0.0
+is_lucky_drop = false

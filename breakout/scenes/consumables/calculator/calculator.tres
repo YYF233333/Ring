@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Consumable_Info" load_steps=2 format=3 uid="uid://dqsjuieaqihf1"]
+
+[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumable_info.gd" id="1_36i1g"]
+
+[resource]
+script = ExtResource("1_36i1g")
+consumable_id = 3
+consumable_name = "strange calculator"
+consumable_description = "increase ball damage by 4 for 20s"
+max_possess_amount = 1
+price = 5

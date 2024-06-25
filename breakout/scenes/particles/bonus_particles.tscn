@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://dn2kckgy7bx2n"]
+
+[ext_resource type="Texture2D" uid="uid://cemwtsbeelw4p" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/59-Breakout-Tiles.png" id="1_r85xp"]
+
+[sub_resource type="Curve" id="Curve_dnn32"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 200), 0.0, 0.0, 0, 0, Vector2(0.989474, -200), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0ijnr"]
+curve = SubResource("Curve_dnn32")
+
+[sub_resource type="Curve" id="Curve_5o1r3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3w7hf"]
+curve = SubResource("Curve_5o1r3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cenct"]
+particle_flag_disable_z = true
+angle_min = -180.0
+angle_max = 180.0
+inherit_velocity_ratio = 1.0
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+linear_accel_curve = SubResource("CurveTexture_0ijnr")
+scale_min = 0.01
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_3w7hf")
+
+[node name="BonusParticles" type="GPUParticles2D"]
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_cenct")
+texture = ExtResource("1_r85xp")
+lifetime = 2.0
+fixed_fps = 2
+trail_lifetime = 1.0

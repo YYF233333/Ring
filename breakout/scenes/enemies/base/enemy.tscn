@@ -1,0 +1,108 @@
+[gd_scene load_steps=10 format=3 uid="uid://bns5ttbkdsbjk"]
+
+[ext_resource type="Script" path="res://breakout/scenes/enemies/base/enemy.gd" id="1_ne3pv"]
+[ext_resource type="Texture2D" uid="uid://7xx48cblmy02" path="res://breakout/icon.svg" id="2_i3xhg"]
+[ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_xa3t2"]
+[ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_xmjjn"]
+[ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_h1cae"]
+[ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="6_4j83i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_anf2t"]
+size = Vector2(126, 126)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8h0y0"]
+size = Vector2(136, 136)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_63wg3"]
+size = Vector2(180, 180)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 115
+motion_mode = 1
+script = ExtResource("1_ne3pv")
+enemy_name = "base enemy"
+enemy_description = "base class for enemies"
+max_health = 10
+init_health = 10
+basic_speed = 100.0
+sprites = Array[Texture]([ExtResource("2_i3xhg")])
+point = 100
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_xa3t2")]
+
+[node name="DeathComponent" parent="." instance=ExtResource("3_xmjjn")]
+
+[node name="IntervalHurtComponent" parent="." instance=ExtResource("4_h1cae")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_i3xhg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_anf2t")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("RectangleShape2D_8h0y0")
+
+[node name="ChainArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 72
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChainArea"]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_63wg3")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -10.0
+offset_right = 50.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -11.5
+offset_right = 5.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BonusParticles" parent="." instance=ExtResource("6_4j83i")]
+emitting = false
+
+[node name="KnockBackTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AttackCooldownTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

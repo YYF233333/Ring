@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Drop_Info" load_steps=2 format=3 uid="uid://c02dsdwgmdv04"]
+
+[ext_resource type="Script" path="res://breakout/scenes/drops/base/drop_info.gd" id="1_cm8rh"]
+
+[resource]
+script = ExtResource("1_cm8rh")
+drop_id = 4
+drop_name = "short"
+drop_description = "shorten the paddle"
+effect_layer = 1
+effect_multiplier = 1.0
+effect_last_time = 10.0
+basic_drop_luck_level = -1.0

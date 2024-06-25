@@ -1,9 +1,9 @@
 import clr
 clr.AddReference("RingEngine")
 
-from RingEngine.Runtime import *
-from RingEngine.Runtime.Effect import *
-from RingEngine.Runtime.Script import *
+from RingEngine.Runtime.AVGRuntime import *
+from RingEngine.Runtime.AVGRuntime.Effect import *
+from RingEngine.Runtime.AVGRuntime.Script import *
 from RingEngine.Runtime.Storage import *
 
 # Placements

@@ -2,8 +2,9 @@ namespace RingEngine.Runtime.Storage;
 
 using System;
 using Godot;
+using RingEngine.Runtime.AVGRuntime;
 
-public class Snapshot
+public class Snapshot : ISnapshot
 {
     public PackedScene UI;
     public PackedScene Canvas;
@@ -11,49 +12,52 @@ public class Snapshot
 
     Snapshot() { }
 
-    public Snapshot(Runtime runtime)
+    public Snapshot(AVGRuntime runtime)
     {
         UI = runtime.UI.Serialize();
         Canvas = runtime.canvas.Serialize();
         global = runtime.global.Serialize();
     }
 
-    public static Snapshot Load(string folder)
+    public Snapshot(string Folder)
     {
-        folder = folder.TrimSuffix("/");
-        var UI = ResourceLoader.Load<PackedScene>($"{folder}/UI.tscn");
-        var Canvas = ResourceLoader.Load<PackedScene>($"{folder}/Canvas.tscn");
+        Load(Folder);
+    }
+
+    public void Load(string Folder)
+    {
+        Folder = Folder.TrimSuffix("/");
+        var UI = ResourceLoader.Load<PackedScene>($"{Folder}/UI.tscn");
+        var Canvas = ResourceLoader.Load<PackedScene>($"{Folder}/Canvas.tscn");
         string global;
         using (
             var file =
-                FileAccess.Open($"{folder}/global.json", FileAccess.ModeFlags.Read)
-                ?? throw new Exception($"Failed to open file {folder}/global.json")
+                FileAccess.Open($"{Folder}/global.json", FileAccess.ModeFlags.Read)
+                ?? throw new Exception($"Failed to open file {Folder}/global.json")
         )
         {
             global = file.GetAsText();
         }
-        return new Snapshot
-        {
-            UI = UI,
-            Canvas = Canvas,
-            global = global
-        };
+
+        this.UI = UI;
+        this.Canvas = Canvas;
+        this.global = global;
     }
 
-    public void Save(string folder)
+    public void Save(string Folder)
     {
-        folder = folder.TrimSuffix("/");
-        var ret = DirAccess.MakeDirRecursiveAbsolute(folder);
+        Folder = Folder.TrimSuffix("/");
+        var ret = DirAccess.MakeDirRecursiveAbsolute(Folder);
         if (ret != Error.Ok)
         {
-            throw new Exception($"Failed to create directory {folder}");
+            throw new Exception($"Failed to create directory {Folder}");
         }
-        ret = ResourceSaver.Save(UI, $"{folder}/UI.tscn");
+        ret = ResourceSaver.Save(UI, $"{Folder}/UI.tscn");
         if (ret != Error.Ok)
         {
             throw new Exception($"Failed to save UI");
         }
-        ret = ResourceSaver.Save(Canvas, $"{folder}/Canvas.tscn");
+        ret = ResourceSaver.Save(Canvas, $"{Folder}/Canvas.tscn");
         if (ret != Error.Ok)
         {
             throw new Exception($"Failed to save Canvas");
@@ -61,15 +65,15 @@ public class Snapshot
 
         using (
             var file =
-                FileAccess.Open($"{folder}/global.json", FileAccess.ModeFlags.Write)
-                ?? throw new Exception($"Failed to create file {folder}/global.json")
+                FileAccess.Open($"{Folder}/global.json", FileAccess.ModeFlags.Write)
+                ?? throw new Exception($"Failed to create file {Folder}/global.json")
         )
         {
             file.StoreString(global);
         }
     }
 
-    public Runtime Instantiate()
+    public AVGRuntime Instantiate()
     {
         throw new NotImplementedException();
     }

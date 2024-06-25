@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Consumable_Info" load_steps=2 format=3 uid="uid://ih2x0ftk287j"]
+
+[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumable_info.gd" id="1_pvg2d"]
+
+[resource]
+script = ExtResource("1_pvg2d")
+consumable_id = 2
+consumable_name = "passport"
+consumable_description = "shoot a new ball"
+max_possess_amount = 5
+price = 5

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Skill_Info" load_steps=2 format=3 uid="uid://cpbcho8806rca"]
+
+[ext_resource type="Script" path="res://breakout/scenes/skills/base/skill_info.gd" id="1_c0860"]
+
+[resource]
+script = ExtResource("1_c0860")
+skill_id = 0
+skill_name = "void"
+skill_description = "base class for skills"
+max_charge = 0
+exhaust = 0
+price = 0

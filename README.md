@@ -2,12 +2,22 @@
 
 ## BUG
 
+- [ ] 从小游戏切换回AVG会冻结游戏
 - [ ] BG不在名为BG的节点上
 - [ ] 动画未结束时进行backlog会使动画系统崩溃
 
 ## TODO List
 
 **new:**
+
+- [ ] 重要重构：分离Game Runtime和AVL Runtime
+    - [x] Game Runtime包含存档、全局设置，AVL Runtime包含剩余的Runtime内容
+    - [x] 创建Game Runtime下切换子Runtime功能
+    - [ ] 以附加Runtime形式实现选项卡
+    - [x] 以附加Runtime形式接入小游戏
+    - [ ] 以附加Runtime形式实现Gallary等组件
+
+- [ ] 测试release build到没有python的机器上会不会有PYTHONPATH问题
 
 - [ ] 弹出选项卡
 - [ ] 数值面板
@@ -26,7 +36,8 @@
     - [ ] https://gitlab.com/jfletcher94/gd-net-scout/
 
 - [x] 脚本语言选择：python/pythonnet
-    
+  - [ ] 如何提供intellisense支持
+  
 - [ ] 跳转语句如何设计？
     - [ ] jump to file start（无难度）（叫什么名字，goto已经给label jump了）
     - [x] jump to given label

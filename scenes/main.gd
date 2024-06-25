@@ -1,15 +1,16 @@
+class_name GameManager
 extends Node
 
 static var cnt := 0
 
-@onready var minigame_scene: PackedScene = preload("res://Tetromino/minigame.tscn")
+@onready var minigame_scene: PackedScene
 
 func game_start():
 	var tween := create_tween()
 	tween.tween_property($Black, "modulate:a", 1.0, 1.0)
 	tween.tween_interval(0.5)
 	tween.tween_callback(func():
-		var runtime: Node2D = load("res://Runtime/Runtime.cs").new()
+		var runtime: Node = load("res://Runtime/Runtime.cs").new()
 		runtime.name = "Runtime"
 		add_child(runtime)
 		runtime.process_mode = Node.PROCESS_MODE_DISABLED
@@ -31,15 +32,26 @@ func load_snapshot():
 	remove_child(title)
 	title.queue_free()
 
-func load_mini_game():
-	var minigame_instance = minigame_scene.instantiate()
-	minigame_instance.name = "MiniGame"
-	minigame_instance.cleanup_hook = Callable(end_mini_game)
+func load_tetromino():
+	var tetromino = minigame_scene.instantiate()
+	tetromino.name = "Tetromino"
+	tetromino.cleanup_hook = Callable(end_tetromino)
 	$Runtime.process_mode = Node.PROCESS_MODE_DISABLED
 	$Runtime.visible = false
-	add_child(minigame_instance)
+	add_child(tetromino)
 
-func end_mini_game():
-	$MiniGame.queue_free()
+func end_tetromino():
+	$Tetromino.queue_free()
 	$Runtime.process_mode = Node.PROCESS_MODE_INHERIT
 	$Runtime.visible = true
+
+func init_minigame(name: String) -> void:
+	match name:
+		"Tetromino": load_tetromino()
+		_: print("Cannot find minigame " + name)
+
+func get_persist_data(name: String) -> Dictionary:
+	return {}
+
+func set_persist_data(name: String, data: Dictionary) -> void:
+	pass

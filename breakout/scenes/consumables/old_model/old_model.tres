@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Consumable_Info" load_steps=2 format=3 uid="uid://cs7cifp4f2xfi"]
+
+[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumable_info.gd" id="1_c2fd6"]
+
+[resource]
+script = ExtResource("1_c2fd6")
+consumable_id = 4
+consumable_name = "old model"
+consumable_description = "使用后30s内受到诅咒，球会对板子造成碰撞伤害
+30s后转化为道具珍藏绝版模型"
+max_possess_amount = 1
+price = -1

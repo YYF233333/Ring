@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl7mhsrrvxywn"]
+
+[ext_resource type="Script" path="res://breakout/scenes/skills/base/skill.gd" id="2_so3uc"]
+[ext_resource type="Resource" uid="uid://cpbcho8806rca" path="res://breakout/scenes/skills/base/skill.tres" id="3_46u4w"]
+
+[node name="Skill" type="TextureButton"]
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("2_so3uc")
+skill_info = ExtResource("3_46u4w")
+
+[node name="PriceLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

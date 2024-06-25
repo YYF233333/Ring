@@ -1,0 +1,1490 @@
+[gd_scene load_steps=2 format=3 uid="uid://dn5pcw3cnhbvh"]
+
+[ext_resource type="PackedScene" uid="uid://bol7poi84eil" path="res://breakout/scenes/bricks/sturdy_brick/sturdy_brick.tscn" id="1_65w3i"]
+
+[node name="TestLevel99-O-" type="Node2D"]
+
+[node name="Bricks" type="Node2D" parent="." groups=["bricks"]]
+
+[node name="line0" type="Node2D" parent="Bricks"]
+position = Vector2(0, 30)
+
+[node name="SturdyBrick5" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick11" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick12" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick16" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line0" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line1" type="Node2D" parent="Bricks"]
+position = Vector2(0, 55)
+
+[node name="SturdyBrick5" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+bonus = true
+
+[node name="SturdyBrick11" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+bonus = true
+
+[node name="SturdyBrick12" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+bonus = true
+
+[node name="SturdyBrick16" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line1" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line2" type="Node2D" parent="Bricks"]
+position = Vector2(0, 80)
+
+[node name="SturdyBrick5" parent="Bricks/line2" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line2" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line2" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line2" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line2" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick16" parent="Bricks/line2" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line2" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line2" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line2" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line2" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line3" type="Node2D" parent="Bricks"]
+position = Vector2(0, 105)
+
+[node name="SturdyBrick5" parent="Bricks/line3" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line3" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line3" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line3" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line3" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line3" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line3" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line3" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line4" type="Node2D" parent="Bricks"]
+position = Vector2(0, 130)
+
+[node name="SturdyBrick5" parent="Bricks/line4" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line4" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line4" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line4" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line4" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line4" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line5" type="Node2D" parent="Bricks"]
+position = Vector2(0, 155)
+
+[node name="SturdyBrick5" parent="Bricks/line5" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line5" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line5" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+bonus = true
+
+[node name="SturdyBrick11" parent="Bricks/line5" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+bonus = true
+
+[node name="SturdyBrick12" parent="Bricks/line5" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+bonus = true
+
+[node name="SturdyBrick19" parent="Bricks/line5" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line5" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line6" type="Node2D" parent="Bricks"]
+position = Vector2(0, 180)
+
+[node name="SturdyBrick5" parent="Bricks/line6" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line6" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line6" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line6" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line6" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line6" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line6" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick19" parent="Bricks/line6" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line6" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line7" type="Node2D" parent="Bricks"]
+position = Vector2(0, 205)
+
+[node name="SturdyBrick5" parent="Bricks/line7" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line7" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick9" parent="Bricks/line7" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line7" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line7" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line7" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line7" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick17" parent="Bricks/line7" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick20" parent="Bricks/line7" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line8" type="Node2D" parent="Bricks"]
+position = Vector2(0, 230)
+
+[node name="SturdyBrick5" parent="Bricks/line8" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line8" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick9" parent="Bricks/line8" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line8" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line8" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line8" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line8" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick17" parent="Bricks/line8" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick20" parent="Bricks/line8" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line9" type="Node2D" parent="Bricks"]
+position = Vector2(0, 255)
+
+[node name="SturdyBrick5" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick8" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick9" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick17" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick18" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick20" parent="Bricks/line9" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line10" type="Node2D" parent="Bricks"]
+position = Vector2(0, 280)
+
+[node name="SturdyBrick5" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick8" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick9" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick17" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick18" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick20" parent="Bricks/line10" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line11" type="Node2D" parent="Bricks"]
+position = Vector2(0, 305)
+
+[node name="SturdyBrick5" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick8" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick9" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick17" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick18" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick20" parent="Bricks/line11" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line12" type="Node2D" parent="Bricks"]
+position = Vector2(0, 330)
+
+[node name="SturdyBrick5" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick8" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick9" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick17" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick18" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick20" parent="Bricks/line12" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line13" type="Node2D" parent="Bricks"]
+position = Vector2(0, 355)
+
+[node name="SturdyBrick5" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick8" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick9" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick17" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick18" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick20" parent="Bricks/line13" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line14" type="Node2D" parent="Bricks"]
+position = Vector2(0, 380)
+
+[node name="SturdyBrick5" parent="Bricks/line14" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line14" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick9" parent="Bricks/line14" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line14" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line14" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line14" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line14" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick17" parent="Bricks/line14" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick20" parent="Bricks/line14" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line15" type="Node2D" parent="Bricks"]
+position = Vector2(0, 405)
+
+[node name="SturdyBrick5" parent="Bricks/line15" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line15" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick9" parent="Bricks/line15" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line15" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line15" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line15" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line15" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick17" parent="Bricks/line15" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick20" parent="Bricks/line15" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line16" type="Node2D" parent="Bricks"]
+position = Vector2(0, 430)
+
+[node name="SturdyBrick5" parent="Bricks/line16" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line16" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line16" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick10" parent="Bricks/line16" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line16" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line16" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick16" parent="Bricks/line16" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick19" parent="Bricks/line16" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line16" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line17" type="Node2D" parent="Bricks"]
+position = Vector2(0, 455)
+
+[node name="SturdyBrick5" parent="Bricks/line17" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line17" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line17" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick11" parent="Bricks/line17" instance=ExtResource("1_65w3i")]
+position = Vector2(960, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick12" parent="Bricks/line17" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+max_health = 3
+init_health = 3
+init_type = 2
+
+[node name="SturdyBrick19" parent="Bricks/line17" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line17" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line18" type="Node2D" parent="Bricks"]
+position = Vector2(0, 480)
+
+[node name="SturdyBrick5" parent="Bricks/line18" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line18" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line18" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line18" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line18" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line18" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line19" type="Node2D" parent="Bricks"]
+position = Vector2(0, 505)
+
+[node name="SturdyBrick5" parent="Bricks/line19" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line19" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line19" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line19" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line19" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line19" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line19" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line19" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line20" type="Node2D" parent="Bricks"]
+position = Vector2(0, 530)
+
+[node name="SturdyBrick5" parent="Bricks/line20" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line20" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line20" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line20" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line20" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick16" parent="Bricks/line20" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line20" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line20" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line20" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line20" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line21" type="Node2D" parent="Bricks"]
+position = Vector2(0, 555)
+
+[node name="SturdyBrick5" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick12" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick16" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line21" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line22" type="Node2D" parent="Bricks"]
+position = Vector2(0, 580)
+
+[node name="SturdyBrick5" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick12" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick16" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line22" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line23" type="Node2D" parent="Bricks"]
+position = Vector2(0, 605)
+
+[node name="SturdyBrick5" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick12" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick16" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line23" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line24" type="Node2D" parent="Bricks"]
+position = Vector2(0, 630)
+
+[node name="SturdyBrick5" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick12" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick16" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line24" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line25" type="Node2D" parent="Bricks"]
+position = Vector2(0, 655)
+
+[node name="SturdyBrick5" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick12" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick16" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line25" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line26" type="Node2D" parent="Bricks"]
+position = Vector2(0, 680)
+
+[node name="SturdyBrick5" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick12" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick16" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line26" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="line27" type="Node2D" parent="Bricks"]
+position = Vector2(0, 705)
+
+[node name="SturdyBrick5" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(600, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick6" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(660, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick7" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(720, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick8" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(780, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick9" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(840, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick10" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(900, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick12" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(1020, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick16" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(1080, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick17" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(1140, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick18" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(1200, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick19" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(1260, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="SturdyBrick20" parent="Bricks/line27" instance=ExtResource("1_65w3i")]
+position = Vector2(1320, 23)
+scale = Vector2(0.125, 0.125)
+
+[node name="Enemies" type="Node2D" parent="." groups=["enemies"]]

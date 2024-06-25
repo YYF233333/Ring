@@ -1,0 +1,101 @@
+[gd_scene load_steps=11 format=3 uid="uid://f1v8i5rxki0d"]
+
+[ext_resource type="Script" path="res://breakout/scenes/bricks/base/brick.gd" id="1_p3o87"]
+[ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_ov7kj"]
+[ext_resource type="Texture2D" uid="uid://dc68rdl7fdqhl" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/29-Breakout-Tiles.png" id="2_ttia7"]
+[ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_mtxkn"]
+[ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_si4qc"]
+[ext_resource type="Texture2D" uid="uid://cfv220aus3se1" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/27-Breakout-Tiles.png" id="6_pcowe"]
+[ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="7_8vdog"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_muqvs"]
+size = Vector2(126, 126)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_746rc"]
+size = Vector2(130, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_butaw"]
+size = Vector2(180, 180)
+
+[node name="Brick" type="StaticBody2D"]
+scale = Vector2(0.5, 0.5)
+collision_layer = 8
+collision_mask = 115
+script = ExtResource("1_p3o87")
+brick_name = "brick"
+brick_description = "base class for bricks"
+max_health = 10
+init_health = 10
+sprites = Array[Texture]([ExtResource("2_ttia7")])
+point = 100
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_ov7kj")]
+
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_mtxkn")]
+health_component = NodePath("../HealthComponent")
+
+[node name="IntervalHurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_si4qc")]
+health_component = NodePath("../HealthComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("6_pcowe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_muqvs")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("RectangleShape2D_746rc")
+
+[node name="ChainArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 72
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChainArea"]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_butaw")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -10.0
+offset_right = 50.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -11.5
+offset_right = 5.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BonusParticles" parent="." instance=ExtResource("7_8vdog")]
+emitting = false

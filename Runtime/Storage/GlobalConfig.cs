@@ -7,7 +7,12 @@ using Godot;
 
 public class GlobalConfig
 {
-    public string? ProjectRoot;
+    public static string ProjectRoot =>
+        OS.HasFeature("editor")
+            ? ProjectSettings.GlobalizePath("res://")
+            : OS.GetExecutablePath().GetBaseDir();
+
+    public string DefaultRuntime = "AVGRuntime";
 
     /// <summary>
     /// 画布大小，等于Godot中设置的窗口分辨率

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Drop_Info" load_steps=2 format=3 uid="uid://dlr4klimt3vxq"]
+
+[ext_resource type="Script" path="res://breakout/scenes/drops/base/drop_info.gd" id="1_frdf5"]
+
+[resource]
+script = ExtResource("1_frdf5")
+drop_id = 2
+drop_name = "fast"
+drop_description = "fasten all the balls"
+effect_layer = 1
+effect_multiplier = 1.25
+effect_last_time = 10.0
+can_be_dropped = true
+drop_luck_level = 0.0

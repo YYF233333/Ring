@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Consumable_Info" load_steps=2 format=3 uid="uid://cckhckt0fqk6m"]
+
+[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumable_info.gd" id="1_etlvt"]
+
+[resource]
+script = ExtResource("1_etlvt")
+consumable_id = 0
+consumable_name = "void"
+consumable_description = "base class for consumables"
+max_possess_amount = 5
+price = 1

@@ -31,8 +31,8 @@
     <PackageReference Include="pythonnet" Version="3.1.0-preview2024-05-07" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Runtime\Audio\" />
-    <Folder Include="Runtime\Canvas\" />
+    <Folder Include="Runtime\AVGRuntime\Audio\" />
+    <Folder Include="Runtime\AVGRuntime\Canvas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />

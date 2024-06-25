@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Consumable_Info" load_steps=2 format=3 uid="uid://tlx5dl8pgjvq"]
+
+[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumable_info.gd" id="1_qv2u4"]
+
+[resource]
+script = ExtResource("1_qv2u4")
+consumable_id = 4
+consumable_name = "new model"
+consumable_description = "使用后30s内玩家反弹所有伤害"
+max_possess_amount = 1
+price = -1
