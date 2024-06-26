@@ -1,7 +1,7 @@
 extends Node
 class_name Consumable_Manager
 
-#@onready var void_consumable_tres = preload("res://breakout/scenes/consumables/base/consumable.tres")
+@onready var void_consumable_tres = preload("res://breakout/scenes/consumables/base/consumable.tres")
 @onready var void_consumable_scene = preload("res://breakout/scenes/consumables/base/consumable.tscn")
 
 @onready var consumable_tres_pool: Array[Resource] = [

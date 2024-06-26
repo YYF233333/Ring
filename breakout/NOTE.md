@@ -113,7 +113,7 @@
 - [x] ~~平衡long和fast~~ 不同用途了
 - [ ] fever：得分翻五倍（那个金框贴图drop）
 - [ ] coin：获得一些资金（没贴图）
-- [ ] laser beam：一段时间内持续发射激光并造成伤害
+- [x] laser beam：一段时间内持续发射激光并造成伤害
 
 ##### ~~ball_buffs~~
 
@@ -170,7 +170,7 @@
 商店可以补货，但剧情道具不能补
 
 - [x] base
-- [ ] 携带消耗品栏位上限；选择携带消耗品界面
+- [ ] <del>携带消耗品栏位上限；选择携带消耗品界面</del> 不要了，全带，没那么多的（大不了24个之后就不准获取）
 - [ ] 幸运草：增加drop概率（维护一个玩家的drop_percent_multiplier，初始为1，对每次掉落与砖块的drop_percent乘算进行）
 - [x] 通行证：使用后立刻shoot一个球
 - [ ] *通行证持有上限可以设为结盟社团数或类似
@@ -294,7 +294,7 @@ level - 关卡序号 int
 |  1   |    communicator    |                  charge the skill 大招充能                   |     充能 +10     |      1       |
 |  2   |      passport      |                 shoot a new ball 发射一个球                  | 不会清除现存的球 |      5       |
 |  3   | strange calculator |  increase ball damage by 4 for 20s<br> 使用后20s内球伤害+4   |                  |      1       |
-|  4   |     old model      | 使用后30s内受到诅咒，球会对板子造成碰撞伤害<br/>30s后转化为道具珍藏绝版模型 |                  |      1       |
+|  4   |     old model      | 使用后30s内受到诅咒，球会对板子造成碰撞伤害<br>30s后转化为道具珍藏绝版模型 |                  |      1       |
 |  4t  |     new model      |                 使用后30s内玩家反弹所有伤害                  |        t         |      1       |
 | 999  |      package       |                     等待约定时间再开启吧                     |     D14转换      |      1       |
 | 999t |      notebook      | 获得状态“最美好的前途”，本局游戏伤害+100%，充能速度翻倍，ammo+5，回复所有生命值 |        t         |      1       |
@@ -302,27 +302,27 @@ level - 关卡序号 int
 
 ##### skill
 
-|  id  |  skill_name  |                         description                          |                       Supplement                        |
-| :--: | :----------: | :----------------------------------------------------------: | :-----------------------------------------------------: |
-|  0   |     void     |               base class for skills 基类/示例                |                          none                           |
-|  1   | basic skill  | split all the ball 球分裂<br/>lengthen the paddle to max length for 10s 板变到最长10s | 最长指99层long_buff<br/>可以猛吃short刷新复原倒计时续杯 |
-|  2   | blood bullet |             use 1 hp to shoot 1 ball 一血射一球              |                    不会清除现存的球                     |
-|      |              |                                                              |                                                         |
-|      |              |                                                              |                                                         |
+|  id  |  skill_name  |                         description                          |                       Supplement                       |
+| :--: | :----------: | :----------------------------------------------------------: | :----------------------------------------------------: |
+|  0   |     void     |               base class for skills 基类/示例                |                          none                          |
+|  1   | basic skill  | split all the ball 球分裂<br>lengthen the paddle to max length for 10s 板变到最长10s | 最长指99层long_buff<br>可以猛吃short刷新复原倒计时续杯 |
+|  2   | blood bullet |             use 1 hp to shoot 1 ball 一血射一球              |                    不会清除现存的球                    |
+|      |              |                                                              |                                                        |
+|      |              |                                                              |                                                        |
 
 ##### drop
 
-|  id  | drop_name  |            description            |      Supplement       |
-| :--: | :--------: | :-------------------------------: | :-------------------: |
-|  0   |    base    |       base class for drops        |           \           |
-|  1   |   split    | random one ball splits to 3 balls | split the oldest ball |
-|  2   |    fast    |       fasten all the balls        |                       |
-|  3   |    slow    |       slowen all the balls        |                       |
-|  4   |   short    |        shorten the paddle         |                       |
-|  5   |    long    |        lengthen the paddle        |                       |
-|  6   | laser_beam |                                   |                       |
-|      |            |                                   |                       |
-|      |            |                                   |                       |
+|  id  | drop_name  |            description             |             Supplement              |
+| :--: | :--------: | :--------------------------------: | :---------------------------------: |
+|  0   |    base    |        base class for drops        |                  \                  |
+|  1   |   split    | random one ball splits to 3 balls  |        split the oldest ball        |
+|  2   |    fast    |        fasten all the balls        |                                     |
+|  3   |    slow    |        slowen all the balls        |                                     |
+|  4   |   short    |         shorten the paddle         |                 10s                 |
+|  5   |    long    |        lengthen the paddle         |                 10s                 |
+|  6   | laser_beam | shoot a laser beam and deal damage | slow down the enemy when hit<br>10s |
+|      |            |                                    |                                     |
+|      |            |                                    |                                     |
 
 ##### policy
 

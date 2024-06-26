@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bns5ttbkdsbjk"]
 
 [ext_resource type="Script" path="res://breakout/scenes/enemies/base/enemy.gd" id="1_ne3pv"]
-[ext_resource type="Texture2D" uid="uid://7xx48cblmy02" path="res://breakout/icon.svg" id="2_i3xhg"]
+[ext_resource type="Texture2D" uid="uid://ddt6ta71mv1wc" path="res://breakout/icon.svg" id="2_i3xhg"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_xa3t2"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_xmjjn"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_h1cae"]
@@ -26,6 +26,7 @@ enemy_description = "base class for enemies"
 max_health = 10
 init_health = 10
 basic_speed = 100.0
+basic_acceleration = 200.0
 sprites = Array[Texture]([ExtResource("2_i3xhg")])
 point = 100
 

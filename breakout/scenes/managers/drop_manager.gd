@@ -1,44 +1,36 @@
 extends Node
 
-#@onready var void_drop_tres = preload("res://breakout/scenes/drops/base/drop.tres")
+@onready var void_drop_tres = preload("res://breakout/scenes/drops/base/drop.tres")
 @onready var void_drop_scene = preload("res://breakout/scenes/drops/base/drop.tscn")
 
 @onready var drop_tres_pool: Array[Resource] = [
-	#preload("res://breakout/scenes/drops/fast/fast_drop.tres"),
-	#preload("res://breakout/scenes/drops/fire_ball/fire_ball_drop.tres"),
-	#preload("res://breakout/scenes/drops/lightning_ball/lightning_ball_drop.tres"),
-	#preload("res://breakout/scenes/drops/long/long_drop.tres"),
-	#preload("res://breakout/scenes/drops/short/short_drop.tres"),
-	#preload("res://breakout/scenes/drops/slow/slow_drop.tres"),
-	#preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tres"),
-	#preload("res://breakout/scenes/drops/split/split_drop.tres")
+	preload("res://breakout/scenes/drops/fast/fast_drop.tres"),
+	preload("res://breakout/scenes/drops/long/long_drop.tres"),
+	preload("res://breakout/scenes/drops/short/short_drop.tres"),
+	preload("res://breakout/scenes/drops/slow/slow_drop.tres"),
+	preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tres"),
+	preload("res://breakout/scenes/drops/split/split_drop.tres")
 ]
 
 @onready var drop_scene_pool: Array[PackedScene] = [
-	#preload("res://breakout/scenes/drops/fast/fast_drop.tscn"),
-	#preload("res://breakout/scenes/drops/fire_ball/fire_ball_drop.tscn"),
-	#preload("res://breakout/scenes/drops/lightning_ball/lightning_ball_drop.tscn"),
-	#preload("res://breakout/scenes/drops/long/long_drop.tscn"),
-	#preload("res://breakout/scenes/drops/short/short_drop.tscn"),
-	#preload("res://breakout/scenes/drops/slow/slow_drop.tscn"),
-	#preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tscn"),
-	#preload("res://breakout/scenes/drops/split/split_drop.tscn")
+	preload("res://breakout/scenes/drops/fast/fast_drop.tscn"),
+	preload("res://breakout/scenes/drops/long/long_drop.tscn"),
+	preload("res://breakout/scenes/drops/short/short_drop.tscn"),
+	preload("res://breakout/scenes/drops/slow/slow_drop.tscn"),
+	preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tscn"),
+	preload("res://breakout/scenes/drops/split/split_drop.tscn")
 ]
 
 @onready var lucky_drop_tres_pool: Array[Resource] = [
-	#preload("res://breakout/scenes/drops/fire_ball/fire_ball_drop.tres"),
-	#preload("res://breakout/scenes/drops/lightning_ball/lightning_ball_drop.tres"),
-	#preload("res://breakout/scenes/drops/long/long_drop.tres"),
-	#preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tres"),
-	#preload("res://breakout/scenes/drops/split/split_drop.tres")
+	preload("res://breakout/scenes/drops/long/long_drop.tres"),
+	preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tres"),
+	preload("res://breakout/scenes/drops/split/split_drop.tres")
 ]
 
 @onready var lucky_drop_scene_pool: Array[PackedScene] = [
-	#preload("res://breakout/scenes/drops/fire_ball/fire_ball_drop.tscn"),
-	#preload("res://breakout/scenes/drops/lightning_ball/lightning_ball_drop.tscn"),
-	#preload("res://breakout/scenes/drops/long/long_drop.tscn"),
-	#preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tscn"),
-	#preload("res://breakout/scenes/drops/split/split_drop.tscn")
+	preload("res://breakout/scenes/drops/long/long_drop.tscn"),
+	preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tscn"),
+	preload("res://breakout/scenes/drops/split/split_drop.tscn")
 ]
 
 # please ensure one-to-one correspondence of drop_tres_pool and drop_scene_pool

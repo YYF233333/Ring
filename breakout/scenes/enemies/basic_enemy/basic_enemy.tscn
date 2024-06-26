@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_yx7hq"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_yysgq"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_rvx63"]
-[ext_resource type="Texture2D" uid="uid://7xx48cblmy02" path="res://breakout/icon.svg" id="6_2abtu"]
+[ext_resource type="Texture2D" uid="uid://ddt6ta71mv1wc" path="res://breakout/icon.svg" id="6_2abtu"]
 [ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="6_grvgx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_anf2t"]
@@ -28,7 +28,7 @@ enemy_description = "nothing unusual"
 max_health = 10
 init_health = 10
 basic_speed = 100.0
-basic_acceleration = 50.0
+basic_acceleration = 200.0
 sprites = Array[Texture]([ExtResource("6_2abtu")])
 point = 200
 

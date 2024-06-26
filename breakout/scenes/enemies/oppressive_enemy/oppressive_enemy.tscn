@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://vmqbmvg4x0l"]
 
 [ext_resource type="Script" path="res://breakout/scenes/enemies/oppressive_enemy/oppressive_enemy.gd" id="1_d7eit"]
-[ext_resource type="Texture2D" uid="uid://cebwjbt1st7e5" path="res://breakout/icon_heat.png" id="2_5q4i1"]
+[ext_resource type="Texture2D" uid="uid://bi0muynvg2nww" path="res://breakout/icon_heat.png" id="2_5q4i1"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="3_mbnlo"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="4_r15j5"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="5_nanaw"]
@@ -28,9 +28,10 @@ enemy_description = "nothing unusual"
 max_health = 100
 init_health = 100
 basic_speed = 200.0
-basic_acceleration = 100.0
+basic_acceleration = 400.0
 sprites = Array[Texture]([ExtResource("2_5q4i1")])
 point = 200
+direction = Vector2(0, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_mbnlo")]
 
