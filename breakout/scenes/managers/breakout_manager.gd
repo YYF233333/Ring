@@ -21,12 +21,15 @@ signal skill_charged
 signal ball_lost(ball: Ball)
 signal ball_hit(charge: int)
 
-signal game_over
+signal failed
+signal track_lost #剧情杀，特殊结算
+signal cleared
 
 var breakout: Breakout
 var skill: Skill
 var balls: Balls
 var paddle: Paddle
+var consumables: Consumables
 
 var is_game_ended : bool = false
 var ammo : int:
@@ -63,20 +66,73 @@ var blessed: bool = false:
 	set(value):
 		blessed = value
 		#视效
+		
+var init_message: Dictionary
+
 
 func _ready():
 	point_scored.connect(_on_point_scored)
 	ball_lost.connect(_on_ball_lost)
 	ammo_lost.connect(_on_ammo_lost)
 	
-	game_over.connect(_on_game_over)
+	failed.connect(_on_failed)
+	track_lost.connect(_on_track_lost)
+	cleared.connect(_on_cleared)
+
+func receive_init_message(message: Dictionary):
+	init_message = message.duplicate(true)
+	
+	
+func send_message() -> Dictionary:
+	var new_message = Dictionary()
+	
+	var player_consumables = Dictionary()
+	for consumable in consumables.consumables:
+		var id = (consumable as Consumable).consumable_info.consumable_id
+		var rest_times = (consumable as Consumable).rest_times
+		var transformed = (consumable as Consumable).transformed
+		player_consumables[id]["rest_times"] = rest_times
+		player_consumables[id]["transformed"] = transformed
+	new_message["player_consumables"] = player_consumables
+		
+	var level_result = Dictionary()
+	new_message["level_result"] = level_result
+		
+	return new_message
 	
 	
 func reset():
+	if init_message:
+		var player_consumables: Dictionary = init_message["player_consumables"]
+		for id in player_consumables:
+			var rest_times: int = player_consumables[id]["rest_times"]
+			var transformed: bool = player_consumables[id]["transformed"]
+			var consumable: Consumable = ConsumableManager.get_consumable_scene_by_id(id).instantiate()
+			consumable.rest_times = rest_times
+			consumable.transformed = transformed
+			consumables.consumables.append(consumable)
+		consumables.update()
+		
+		var selected_skill: int = init_message["selected_skill"]
+		skill = SkillManager.get_skill_scene_by_id(selected_skill).instantiate()
+		
+		var selected_policy: Array[int] = init_message["selected_policy"]
+		#TODO
+		
+		var current_level: int = init_message["current_level"]
+		#TODO
+		
+		var player_max_health: int = init_message["player_max_health"]
+		ValueManager.player_max_health = player_max_health
+		
+		var player_init_ammo: int = init_message["player_init_ammo"]
+		ValueManager.player_init_ammo = player_init_ammo
+	
+	
 	if skill:
 		skill.current_charge = 0
 	max_health = ValueManager.player_max_health #小心顺序，要先设置max_health
-	current_health = ValueManager.player_init_health
+	current_health = max_health
 	
 	ammo = ValueManager.player_init_ammo
 	score = 0
@@ -105,7 +161,7 @@ func get_health_percent():
 		
 func check_death():
 	if current_health <= 0:
-		game_over.emit()
+		failed.emit()
 
 	
 func _on_point_scored(point: int):
@@ -123,13 +179,24 @@ func _on_ammo_lost(value: int):
 		print("ammo run out") #TODO: hint label & restart bottom
 	
 	
-func _on_game_over():
+func _on_failed():
 	get_tree().paused = true
 	var end_screen = preload("res://breakout/scenes/screens/EndMiniGameScreen.tscn").instantiate()
 	breakout.add_child(end_screen)
+	
+func _on_track_lost():
+	get_tree().paused = true
+	var end_screen = preload("res://breakout/scenes/screens/EndMiniGameScreen.tscn").instantiate()
+	breakout.add_child(end_screen)
+	
+func _on_cleared():
+	get_tree().paused = true
+	var end_screen = preload("res://breakout/scenes/screens/EndMiniGameScreen.tscn").instantiate()
+	breakout.add_child(end_screen)
+	
 
 
 func _process(delta):
 	#debug
 	if Input.is_action_just_pressed("menu"):
-		_on_game_over()
+		_on_failed()

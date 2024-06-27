@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://breakout/scenes/bricks/base/brick.gd" id="1_p3o87"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_ov7kj"]
-[ext_resource type="Texture2D" uid="uid://dc68rdl7fdqhl" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/29-Breakout-Tiles.png" id="2_ttia7"]
+[ext_resource type="Texture2D" uid="uid://prhdxolpdqju" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/29-Breakout-Tiles.png" id="2_ttia7"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_mtxkn"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_si4qc"]
-[ext_resource type="Texture2D" uid="uid://cfv220aus3se1" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/27-Breakout-Tiles.png" id="6_pcowe"]
+[ext_resource type="Texture2D" uid="uid://b8pk0eqd6alf1" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/27-Breakout-Tiles.png" id="6_pcowe"]
 [ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="7_8vdog"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_muqvs"]

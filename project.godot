@@ -21,6 +21,8 @@ BreakoutManager="*res://breakout/scenes/managers/breakout_manager.gd"
 DropManager="*res://breakout/scenes/managers/drop_manager.gd"
 ValueManager="*res://breakout/scenes/managers/value_manager.gd"
 Utility="*res://breakout/scenes/utility/utility.gd"
+ConsumableManager="*res://breakout/scenes/managers/consumable_manager.gd"
+SkillManager="*res://breakout/scenes/managers/skill_manager.gd"
 
 [debug]
 

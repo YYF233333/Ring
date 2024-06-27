@@ -11,7 +11,10 @@ var rest_times: int:
 	set(value):
 		rest_times = min(max(value, 0), max_possess_amount)
 		rest_times_label.text = str(rest_times)
-		
+var transformed = false:
+	set(value):
+		transformed = value
+		_on_transformed() #没有形态转换则为空函数pass
 		
 func _ready():
 	_init_info()
@@ -80,4 +83,6 @@ func restore(value: int):
 			#$CurrentCharge/Price.hide()
 			#$CurrentCharge/budget.hide()
 
+func _on_transformed():
+	pass
 

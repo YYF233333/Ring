@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://breakout/scenes/bricks/indestructible_brick/indestructible_brick.gd" id="1_qol4v"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_yqu4r"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_2akhq"]
-[ext_resource type="Texture2D" uid="uid://iomavnst0hqk" path="res://breakout/assets/Brick-Blue.png" id="3_ts5qu"]
-[ext_resource type="Texture2D" uid="uid://dgry11fgec8y8" path="res://breakout/assets/Brick-Gray.png" id="4_eprt5"]
+[ext_resource type="Texture2D" uid="uid://yo5sgf1p4h42" path="res://breakout/assets/Brick-Blue.png" id="3_ts5qu"]
+[ext_resource type="Texture2D" uid="uid://writpa2gri8c" path="res://breakout/assets/Brick-Gray.png" id="4_eprt5"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="5_5ix3v"]
 [ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="7_dxudj"]
 

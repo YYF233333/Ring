@@ -14,8 +14,47 @@
 
 #### <span style='color:red'>对接</span>@yyf
 
-- [ ] consumables、skills、policy的获取（获取途径为剧情and后勤部？问问龙越）和查看，获取后吧id存到对应字典里，至少要有{物品id：物品数量}（后勤部补货的时候不能超出物品数量上限）（id表见下面的NOTE-id_list）
-- [ ] 类似包裹（Day14转换）这种道具的转换是在剧情中发生的
+- [ ] consumables、skills、policy的获取（获取途径为剧情and后勤部？问问龙越）和查看
+
+- [ ] 注意补货的时候不能超出物品数量上限
+
+- [ ] 注意类似包裹（Day14转换）这种道具的转换是在剧情中发生的
+
+- [ ] Message结构：
+
+  ```python
+  id - int	# id表见下面的NOTE-id_list
+  rest_times - int
+  transformed - bool # 部分消耗品有形态转换
+  
+  main2breakout message - dict{
+      "player_consumables": dict{
+          id: dict{
+          	"rest_times": int,
+          	"transformed": bool
+      	}
+      },
+      "selected_skill": id,
+      "selected_policy": array[id],
+      "current_level": id,
+      "player_max_health": int,
+      "player_init_ammo": int
+  }
+  
+  breakout2main message - dict{
+      "player_consumables": dict{
+          id: dict{
+          	"rest_times": int,
+          	"transformed": bool
+      	}
+      },
+      "level_result": dict{待定}
+  }
+  ```
+
+- [ ] 潜在bug：UI显示上consumable的排序问题。理论上要先到的排前面，但是用dict会按id排序。<br>可以考虑维护一个获得顺序序号，实例化breakout时一个个append
+
+- [ ] breakout的message接口见`breakout_manager.gd`
 
 #### 机制
 
@@ -50,11 +89,12 @@
 - [ ] 球碎
 - [x] 透明闪烁（Utility.flicker_transparent）、结束提示（Utility.end_hint）
 - [x] 激光视效
+- [ ] 被激光滋到视效
 
 #### 界面
 
 - [x] 道具界面（从俄罗斯方块consumable搬）
-- [ ] ~~使用道具时是否需要暂停？毕竟consumables数量应该不少~~ 不需要
+- [x] ~~使用道具时是否需要暂停？毕竟consumables数量应该不少~~ 不需要
 - [ ] buff栏
 
 #### 逻辑/实现方案
@@ -155,15 +195,15 @@
 - [ ] 震荡波：推走球
 - [ ] 范围回血
 - [ ] 制造砖块/召唤小弟
-- [ ] 水晶外壳：主动，5s内碰撞伤害变为回血（元气骑士水晶巨蟹）
-- [ ] 激光（\*或其他弹幕）：红摧毁/白推走碰到的一切实体（\*板子的话中心判定点）
-- [ ] 冻结：球速减缓，一段时间后恢复（破冰视觉特效）
+- [ ] 水晶外壳：主动，5s内受到碰撞伤害变为回血（元气骑士水晶巨蟹）
+- [ ] 激光（\*或其他弹幕）：击中板子中心判定点deal damage
+- [ ] 冻结/时缓：球速减缓，一段时间后恢复
 
 敌人个体：
 
 - [x] basic_enemy：垂直或水平移动
 - [x] oppressive_enemy：一直朝paddle移动，用于各种攻击性强的小怪（Day9黑帮小弟）
-- [ ] *oppressive_enemy不能穿墙的话可能要采用寻路算法（但感觉没工具包会很麻烦
+- [ ] *oppressive_enemy不能穿墙的话可能要采用寻路算法（但感觉没工具包会很麻烦（好像有个寻路节点
 
 ##### consumables
 
@@ -200,7 +240,7 @@
 
 ###### 其他
 
-- [ ] 教学关卡，主要教下流程，以及如何通过drop/consumable提升伤害
+- [ ] 教学关卡，简单教下流程，以及如何使用drop/consumable
 - [ ] Day9 和黑帮打架被撅烂
 
 #### BUG
@@ -218,6 +258,7 @@
 - [x] ~~emeny和ball之间的碰撞更是依托答辩。感觉问题要么出现在max_speed或者acceleration，要么在character2D本身，要么就是碰撞逻辑没写好。。。要么就是godot physics真不行~~
 - [x] knock_back：为了让oppressive_enemy创一下玩家之后能被推走，以及为了防止怪在玩家面前被球直接创到似，需要一个击退。但是不管是撞球还是撞板都有bug。
 - [x] （如果不好解决的话就不要knock_back了，给怪一个deal_damage_interval，然后让球的伤害从 球碰怪 改回 怪扫球）（我认为有knock back视觉效果上会更好而已。。。
+- [ ] basic_skill的结束提示在无限续时也会触发
 
 #### 杂
 
@@ -235,13 +276,11 @@
 
 那一堆数值Dic[str: int]
 
-consumable - 消耗品（consumable）- Dic[item_id: possess_amount] 类型为 Dic[int: int]
+consumable - dict{消耗品id：数量，形态}
 
-skill: 当前选择的技能id int，拥有的技能id_list Array[int]
+skill: 当前选择的技能，拥有的技能
 
-policy: 当前选择的方针id_list Array[int]，拥有的方针id_list Array[int]
-
-level - 关卡序号 int
+policy: 当前选择的方针，拥有的方针
 
 
 
@@ -284,21 +323,21 @@ level - 关卡序号 int
 
 #### id_list
 
-注：t 表示第二形态。初始默认为第一形态
+注：100+N 表示第二形态。初始默认为第一形态
 
 ##### consumables
 
-|  id  |  consumable_name   |                         description                          |    Supplement    | max_quantity |
-| :--: | :----------------: | :----------------------------------------------------------: | :--------------: | :----------: |
-|  0   |        void        |             base class for consumables 基类/示例             |     +1 score     |      5       |
-|  1   |    communicator    |                  charge the skill 大招充能                   |     充能 +10     |      1       |
-|  2   |      passport      |                 shoot a new ball 发射一个球                  | 不会清除现存的球 |      5       |
-|  3   | strange calculator |  increase ball damage by 4 for 20s<br> 使用后20s内球伤害+4   |                  |      1       |
-|  4   |     old model      | 使用后30s内受到诅咒，球会对板子造成碰撞伤害<br>30s后转化为道具珍藏绝版模型 |                  |      1       |
-|  4t  |     new model      |                 使用后30s内玩家反弹所有伤害                  |        t         |      1       |
-| 999  |      package       |                     等待约定时间再开启吧                     |     D14转换      |      1       |
-| 999t |      notebook      | 获得状态“最美好的前途”，本局游戏伤害+100%，充能速度翻倍，ammo+5，回复所有生命值 |        t         |      1       |
-|      |                    |                                                              |                  |              |
+|  id  |  consumable_name   |                         description                          |           Supplement           | max_quantity |
+| :--: | :----------------: | :----------------------------------------------------------: | :----------------------------: | :----------: |
+|  0   |        void        |             base class for consumables 基类/示例             |            +1 score            |      5       |
+|  1   |    communicator    |                  charge the skill 大招充能                   |            充能 +10            |      1       |
+|  2   |      passport      |                 shoot a new ball 发射一个球                  |        不会清除现存的球        |      5       |
+|  3   | strange calculator |  increase ball damage by 4 for 20s<br> 使用后20s内球伤害+4   |                                |      1       |
+|  4   |     old model      | 使用后30s内受到诅咒，球会对板子造成碰撞伤害<br>30s后转化为道具珍藏绝版模型 | 使用后永久转换（诅咒挺恶心的） |      1       |
+| 104  |     new model      |                 使用后30s内玩家反弹所有伤害                  |               t                |      1       |
+|  99  |      package       |                     等待约定时间再开启吧                     |            D14转换             |      1       |
+| 199  |      notebook      | 获得状态“最美好的前途”，本局游戏伤害+100%，充能速度翻倍，ammo+5，回复所有生命值 |               t                |      1       |
+|      |                    |                                                              |                                |              |
 
 ##### skill
 

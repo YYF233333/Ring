@@ -82,7 +82,7 @@ position = Vector2(1157, 144)
 [node name="Drops" type="Node2D" parent="." groups=["drops"]]
 
 [node name="LaserBeamDrop" parent="Drops" instance=ExtResource("6_76a8b")]
-position = Vector2(964, 435)
+position = Vector2(942, 307)
 
 [node name="Walls" type="Node2D" parent="." groups=["walls"]]
 

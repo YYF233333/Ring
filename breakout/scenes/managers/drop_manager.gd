@@ -46,7 +46,7 @@ func _ready():
 	_get_drop_percent()
 	_get_lucky_drop_percent()
 	_get_id_to_drop_scene_index()
-
+	_get_name_to_drop_scene_index()
 
 func _get_drop_percent():
 	each_drop_percent.clear()

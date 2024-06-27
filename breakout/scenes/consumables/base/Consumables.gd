@@ -1,4 +1,5 @@
 extends Control
+class_name Consumables
 
 @onready var select_box = $SelectBox as TextureRect
 
@@ -9,7 +10,9 @@ var consumables: Array[Node]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_info()
+	BreakoutManager.consumables = self
+	
+	update()
 	
 
 func _process(delta):
@@ -73,8 +76,14 @@ func change_consumable_instance(node: Node, from: Consumable, to: Consumable):
 	else:
 		remove_consumable_instance(node, from)
 		add_consumable_instance(node, to)
-
-func get_info():
+		
+func find_consumable_by_id(id: int):
+	for consumable in consumables:
+		if consumable.consumable_info.consumable_id == id:
+			return consumable
+	return null
+	
+func update():
 	selected_consumable_num = 0
 	consumables = $GridContainer.get_children()
 	consumable_num = consumables.size()
@@ -87,7 +96,7 @@ func get_info():
 
 func _on_consumable_manager_consumable_change(from: Consumable, to: Consumable):
 	change_consumable_instance($Consumable, from, to)
-	get_info()
+	update()
 
 func _on_consumable_manager_consumable_restore(consumable: Consumable, quantity: int):
 	for consumable_i in consumables:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://deo02t7m4xonq"]
 
 [ext_resource type="Script" path="res://breakout/scenes/consumables/base/Consumables.gd" id="1_yg7s0"]
-[ext_resource type="Texture2D" uid="uid://caed0fusuvyi5" path="res://breakout/assets/Mine/select_box.png" id="2_no4hm"]
+[ext_resource type="Texture2D" uid="uid://d1px1cpuu1d8i" path="res://breakout/assets/Mine/select_box.png" id="2_no4hm"]
 
 [node name="Consumables" type="Control"]
 layout_mode = 3

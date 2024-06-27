@@ -2,14 +2,12 @@ extends Node
 
 # player
 var player_max_health: int = 10
-var player_init_health: int = 10
 
 var player_init_ammo: int = 10
 
 var player_charge_multiplier: float = 1.0
 
-# damage
-var fire_hurt_interval: float = 1.0
+# drop
 var laser_beam_damage: float = 2.0 #每秒两次伤害
 
 # paddle
@@ -39,9 +37,6 @@ var ball_damage_addition: float = 0.0:
 		ball_damage_addition = value
 		_update_ball_damage()
 		
-# consumable
-var old_model_transformed: bool = false
-var package_transformed: bool = true
 
 func reset():
 	# 将数值重置为全局基础值
