@@ -2,7 +2,7 @@ extends Node2D
 
 var ring_sc
 
-var canvas = preload("res://Runtime/Canvas/Canvas.cs")
+var canvas = preload("res://Runtime/AVGRuntime/Canvas/Canvas.cs")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

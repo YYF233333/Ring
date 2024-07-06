@@ -109,7 +109,13 @@ public static class Parser
         {
             var ident = match.Groups["ident"].Value.Trim();
             var code = match.Groups["code"].Value.Trim();
-            return new ParseResult(source[match.Length..], new CodeBlock(ident, code));
+            var ret = new CodeBlock(ident, code);
+            // identifier可以用来设置continue属性
+            if (ident.StripEdges() is "false" or "False")
+            {
+                ret.@continue = false;
+            }
+            return new ParseResult(source[match.Length..], ret);
         }
         return (source, null);
     }

@@ -87,11 +87,11 @@ public partial class Runtime : Node
     // 进度无关全局设置
     public GlobalConfig config;
 
-    public Dictionary<string, CSharpScript> subRuntimes =
+    public Dictionary<string, Func<ISubRuntime>> subRuntimes =
         new()
         {
-            { "AVGRuntime", GD.Load<CSharpScript>("res://Runtime/AVGRuntime/AVGRuntime.cs") },
-            { "Breakout", GD.Load<CSharpScript>("res://breakout/Root.cs") }
+            { "AVGRuntime", () => (AVGRuntime.AVGRuntime)GD.Load<CSharpScript>("res://Runtime/AVGRuntime/AVGRuntime.cs").New() },
+            { "Breakout", () => (Root)GD.Load<CSharpScript>("res://breakout/Root.cs").New() }
         };
 
     public Dictionary<string, ISnapshot> snapshots = [];
@@ -105,7 +105,7 @@ public partial class Runtime : Node
         {
             YBaseTable = new Dictionary<string, double> { { "红叶", 600 } }
         };
-        var defaultRuntime = (Node)subRuntimes[config.DefaultRuntime].New();
+        var defaultRuntime = (Node)subRuntimes[config.DefaultRuntime]();
         AddChild(defaultRuntime);
     }
 
@@ -133,6 +133,7 @@ public partial class Runtime : Node
                 {
                     snapshots[self.RuntimeName] = snapshot;
                 }
+                RemoveChild(self);
                 self.QueueFree();
                 break;
             case SwitchMode.Pause:
@@ -142,18 +143,17 @@ public partial class Runtime : Node
                 throw new ArgumentException($"Invalid SwitchMode {switchMode}");
         }
 
-        var nextSubRuntime = (Node)subRuntimes[nextSubRuntimeName].New();
-        AddChild(nextSubRuntime);
+        var nextSubRuntime = subRuntimes[nextSubRuntimeName]();
+        AddChild(nextSubRuntime as Node);
 
-        var _nextSubRuntime = (ISubRuntime)nextSubRuntime;
         if (snapshots.TryGetValue(nextSubRuntimeName, out var value))
         {
-            _nextSubRuntime.LoadSnapshot(value);
+            nextSubRuntime.LoadSnapshot(value);
             snapshots.Remove(nextSubRuntimeName);
         }
         if (message != null)
         {
-            _nextSubRuntime.GetMessage(self.RuntimeName, message);
+            nextSubRuntime.GetMessage(self.RuntimeName, message);
         }
     }
 }
