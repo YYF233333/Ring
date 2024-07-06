@@ -61,6 +61,15 @@ public partial class AVGRuntime : Node2D, ISubRuntime
 
     public ISnapshot Save()
     {
+        if (global.IsExecuting)
+        {
+            PC++;
+            global.IsExecuting = false;
+            var ret = new Snapshot(this);
+            PC--;
+            global.IsExecuting = true;
+            return ret;
+        }
         return new Snapshot(this);
     }
 
@@ -115,7 +124,10 @@ public partial class AVGRuntime : Node2D, ISubRuntime
             do
             {
                 @continue = script.segments[PC].@continue;
+                // 设置flag，防止执行中调用Save
+                global.IsExecuting = true;
                 script.segments[PC].Execute(this);
+                global.IsExecuting = false;
                 PC++;
             } while (@continue && PC < script.segments.Count);
             global.history.Add(new Snapshot(this));

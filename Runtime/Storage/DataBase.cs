@@ -11,6 +11,11 @@ public class DataBase
     /// </summary>
     public int PC;
 
+    /// <summary>
+    /// 当前是否有脚本语句在执行
+    /// </summary>
+    public bool IsExecuting = false;
+
     public Dictionary<string, object> global = [];
 
     [IgnoreMember]

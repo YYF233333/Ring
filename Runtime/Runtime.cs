@@ -155,5 +155,10 @@ public partial class Runtime : Node
         {
             nextSubRuntime.GetMessage(self.RuntimeName, message);
         }
+
+        if (GetTree().Paused)
+        {
+            GetTree().Paused = false;
+        }
     }
 }
