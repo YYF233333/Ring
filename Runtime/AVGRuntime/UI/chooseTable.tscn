@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxhjyawr3m2kg"]
+[gd_scene load_steps=3 format=3 uid="uid://bxhjyawr3m2kg"]
 
-[ext_resource type="Script" path="res://Runtime/UI/ChooseTable.gd" id="1_4yc5i"]
 [ext_resource type="Texture2D" uid="uid://di7g4mdxyuj0g" path="res://button/1208.png" id="1_pyko8"]
-[ext_resource type="Script" path="res://Runtime/UI/ChooseTab.gd" id="2_u3f6b"]
+[ext_resource type="Script" path="res://Runtime/AVGRuntime/UI/ChooseTab.gd" id="2_u3f6b"]
 
 [node name="ChooseTable" type="Control"]
 layout_mode = 3
@@ -11,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_4yc5i")
+script = ExtResource("2_u3f6b")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

@@ -111,7 +111,7 @@ public static class Parser
             var code = match.Groups["code"].Value.Trim();
             var ret = new CodeBlock(ident, code);
             // identifier可以用来设置continue属性
-            if (ident.StripEdges() is "false" or "False")
+            if (ident.StripEdges().ToLowerInvariant() is "false")
             {
                 ret.@continue = false;
             }

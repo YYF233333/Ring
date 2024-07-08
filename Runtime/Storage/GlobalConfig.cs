@@ -12,7 +12,7 @@ public class GlobalConfig
             ? ProjectSettings.GlobalizePath("res://")
             : OS.GetExecutablePath().GetBaseDir();
 
-    public string DefaultRuntime = "AVGRuntime";
+    public string DefaultRuntime = "AVG";
 
     /// <summary>
     /// 画布大小，等于Godot中设置的窗口分辨率

@@ -23,15 +23,31 @@
 
 - [ ] 测试release build到没有python的机器上会不会有PYTHONPATH问题
 
-- [ ] 弹出选项卡
+- [x] 弹出选项卡
+
+    选项卡是一个场景，调用的时候AVG scene应该处于paused状态
+
+    - [ ] pause会不会影响UI响应，选择支应当允许保存
+
+    输入为构造参数：每个选项显示内容、是否可以选中（去音乐会.jpg）
+
+    输出为选中的选项编号
+
+    - [x] 竖排选项卡
+    - [ ] 横排选项卡
+
 - [ ] 数值面板
 
 - [x] ParserException包含行数
 
 - [x] show同名立绘实现crossfade
+
 - [x] 动效顺序debug
+
 - [ ] 增添BG Placement
+
 - [ ] 实现Camera移动动画
+
 - [ ] 导出脚本块@continue属性
 
 

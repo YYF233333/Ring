@@ -1,6 +1,9 @@
+using System.Linq;
+
 namespace RingEngine.Runtime.AVGRuntime;
 
 using System;
+using System.Collections.Generic;
 using Godot;
 using RingEngine.Runtime.AVGRuntime.Effect;
 using RingEngine.Runtime.AVGRuntime.Script;
@@ -8,7 +11,7 @@ using RingEngine.Runtime.Storage;
 
 public partial class AVGRuntime : Node2D, ISubRuntime
 {
-    public string RuntimeName => "AVGRuntime";
+    public string RuntimeName => "AVG";
 
     // 脚本内嵌代码解释器
     public PythonInterpreter interpreter;
@@ -90,6 +93,11 @@ public partial class AVGRuntime : Node2D, ISubRuntime
     public void GetMessage(string runtimeName, object message)
     {
         GD.Print($"{runtimeName} send message {message}");
+        if (runtimeName == "VerticalBranch")
+        {
+            var id = (int)message;
+            global.LastChosenOptionId = id;
+        }
     }
 
     public void LoadSnapshot(string snapshotPath)
@@ -181,5 +189,16 @@ public partial class AVGRuntime : Node2D, ISubRuntime
     public void InitMiniGame(string name)
     {
         GetParent<Runtime>().SwitchRuntime(this, name, new BreakoutMessage());
+    }
+
+    public void Branch(params string[] options)
+    {
+        GetParent<Runtime>()
+            .SwitchRuntime(
+                this,
+                "VerticalBranch",
+                options.Select((option, index) => (index, option)).ToArray(),
+                SwitchMode.Pause
+            );
     }
 }

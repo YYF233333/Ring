@@ -16,6 +16,8 @@ public class DataBase
     /// </summary>
     public bool IsExecuting = false;
 
+    public int? LastChosenOptionId;
+
     public Dictionary<string, object> global = [];
 
     [IgnoreMember]

@@ -24,6 +24,6 @@ public partial class Root : Node, ISubRuntime
     public void EndGame()
     {
         var message = new BreakoutMessage();
-        GetParent<Runtime>().SwitchRuntime(this, "AVGRuntime", message);
+        GetParent<Runtime>().SwitchRuntime(this, "AVG", message);
     }
 }

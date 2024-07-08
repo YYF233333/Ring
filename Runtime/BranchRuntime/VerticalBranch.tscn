@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://x5u2twatbtxf"]
+
+[ext_resource type="Script" path="res://Runtime/AVGRuntime/UI/ChooseTab.gd" id="1_326si"]
+[ext_resource type="Script" path="res://Runtime/BranchRuntime/VerticalBranch.cs" id="1_g1c38"]
+
+[node name="VerticalBranch" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g1c38")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Button" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(900, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "再老实地夸她一次
+"
+script = ExtResource("1_326si")
+
+[node name="Button2" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(900, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "这样太纠缠不休还是算了吧"
+
+[node name="Button3" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(900, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "这样太纠缠不休还是算了吧"
+
+[node name="Button4" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(900, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "这样太纠缠不休还是算了吧"
+
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/Button" to="MarginContainer/CenterContainer/VBoxContainer/Button" method="_on_pressed"]

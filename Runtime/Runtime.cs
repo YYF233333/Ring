@@ -90,11 +90,25 @@ public partial class Runtime : Node
     public Dictionary<string, Func<ISubRuntime>> subRuntimes =
         new()
         {
-            { "AVGRuntime", () => (AVGRuntime.AVGRuntime)GD.Load<CSharpScript>("res://Runtime/AVGRuntime/AVGRuntime.cs").New() },
-            { "Breakout", () => (Root)GD.Load<CSharpScript>("res://breakout/Root.cs").New() }
+            {
+                "AVG",
+                () =>
+                    (AVGRuntime.AVGRuntime)
+                        GD.Load<CSharpScript>("res://Runtime/AVGRuntime/AVGRuntime.cs").New()
+            },
+            { "Breakout", () => (Root)GD.Load<CSharpScript>("res://breakout/Root.cs").New() },
+            {
+                "VerticalBranch",
+                () =>
+                    (VerticalBranch)
+                        GD.Load<PackedScene>("res://Runtime/BranchRuntime/VerticalBranch.tscn")
+                            .Instantiate()
+            },
         };
 
     public Dictionary<string, ISnapshot> snapshots = [];
+
+    public HashSet<string> PausedRuntimes = [];
 
     // TODO: 子场景切换动画组
 
@@ -106,6 +120,7 @@ public partial class Runtime : Node
             YBaseTable = new Dictionary<string, double> { { "红叶", 600 } }
         };
         var defaultRuntime = (Node)subRuntimes[config.DefaultRuntime]();
+        defaultRuntime.Name = config.DefaultRuntime;
         AddChild(defaultRuntime);
     }
 
@@ -134,23 +149,39 @@ public partial class Runtime : Node
                     snapshots[self.RuntimeName] = snapshot;
                 }
                 RemoveChild(self);
+                // 防止SubRuntime忘记Free自己
                 self.QueueFree();
                 break;
             case SwitchMode.Pause:
                 self.ProcessMode = ProcessModeEnum.Disabled;
+                PausedRuntimes.Add(self.RuntimeName);
                 break;
             default:
                 throw new ArgumentException($"Invalid SwitchMode {switchMode}");
         }
 
-        var nextSubRuntime = subRuntimes[nextSubRuntimeName]();
-        AddChild(nextSubRuntime as Node);
-
-        if (snapshots.TryGetValue(nextSubRuntimeName, out var value))
+        ISubRuntime nextSubRuntime;
+        if (PausedRuntimes.Contains(nextSubRuntimeName))
         {
-            nextSubRuntime.LoadSnapshot(value);
-            snapshots.Remove(nextSubRuntimeName);
+            // 以Pause模式切换的
+            nextSubRuntime = (ISubRuntime)GetNode(nextSubRuntimeName);
+            (nextSubRuntime as Node).ProcessMode = ProcessModeEnum.Inherit;
+            PausedRuntimes.Remove(nextSubRuntimeName);
         }
+        else
+        {
+            // 以Unload模式切换的
+            nextSubRuntime = subRuntimes[nextSubRuntimeName]();
+            (nextSubRuntime as Node).Name = nextSubRuntimeName;
+            AddChild(nextSubRuntime as Node);
+
+            if (snapshots.TryGetValue(nextSubRuntimeName, out var value))
+            {
+                nextSubRuntime.LoadSnapshot(value);
+                snapshots.Remove(nextSubRuntimeName);
+            }
+        }
+
         if (message != null)
         {
             nextSubRuntime.GetMessage(self.RuntimeName, message);
