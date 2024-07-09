@@ -22,3 +22,7 @@ func _process(delta):
 		shake_time = 0
 		shake_force = 1.0
 		camera.offset = Vector2(0,0)
+
+	#debug
+	if Input.is_action_just_pressed("menu"):
+		BreakoutManager._on_failed()

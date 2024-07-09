@@ -119,7 +119,7 @@ public class JumpToLabel : IScriptBlock
         var label = isLiteral ? identifier : runtime.interpreter.Eval(identifier);
         var targetPC = runtime.script.labels[label];
         // Execute结束后会PC++，所以这里要减1
-        runtime.PC = targetPC - 1;
+        runtime.Global.PC = targetPC - 1;
     }
 
     public override int GetHashCode() =>

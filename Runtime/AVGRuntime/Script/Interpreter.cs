@@ -60,6 +60,7 @@ public class PythonInterpreter
                     GD.PushError("Cannot find Python DLL");
                     return;
                 }
+                GD.Print("Download Succeed.");
             }
             Runtime.PythonDLL = Dll[0].FullName;
             PythonEngine.Initialize();
@@ -94,13 +95,7 @@ public class PythonInterpreter
     /// 对传入的Python表达式求值并返回。由于提供了泛型参数，返回值可以直接使用。
     /// </summary>
     /// <typeparam name="T">返回值类型</typeparam>
-    public T Eval<T>(string expr)
-    {
-        using (Py.GIL())
-        {
-            return scope.Eval<T>(expr);
-        }
-    }
+    public T Eval<T>(string expr) => Eval(expr);
 
     /// <summary>
     /// 执行一个Python代码段，不返回值。

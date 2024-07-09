@@ -5,13 +5,23 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 ？？？："那么，世界回应了少女，实现了她的心愿？"
 
 ```false
-#runtime.InitMiniGame("Breakout")
 runtime.Branch("选项1", "选项2")
+```
+
+```python
+g = runtime.Global
+if g.LastChosenOptionId == 1:
+    g["test"] = "bbb"
+    g.PC += 10
 ```
 
 ？？："不完全是这样..."
 
 ？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"
+
+```python
+runtime.InitMiniGame("Breakout")
+```
 
 ？？："真的就只是那...一点点变化。"
 

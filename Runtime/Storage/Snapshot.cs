@@ -8,7 +8,7 @@ public class Snapshot : ISnapshot
 {
     public PackedScene UI;
     public PackedScene Canvas;
-    public string global;
+    public string Global;
 
     Snapshot() { }
 
@@ -16,7 +16,7 @@ public class Snapshot : ISnapshot
     {
         UI = runtime.UI.Serialize();
         Canvas = runtime.canvas.Serialize();
-        global = runtime.global.Serialize();
+        Global = runtime.Global.Serialize();
     }
 
     public Snapshot(string Folder)
@@ -41,7 +41,7 @@ public class Snapshot : ISnapshot
 
         this.UI = UI;
         this.Canvas = Canvas;
-        this.global = global;
+        this.Global = global;
     }
 
     public void Save(string Folder)
@@ -69,7 +69,7 @@ public class Snapshot : ISnapshot
                 ?? throw new Exception($"Failed to create file {Folder}/global.json")
         )
         {
-            file.StoreString(global);
+            file.StoreString(Global);
         }
     }
 

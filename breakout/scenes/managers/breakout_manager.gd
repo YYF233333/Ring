@@ -79,12 +79,13 @@ func _ready():
 	track_lost.connect(_on_track_lost)
 	cleared.connect(_on_cleared)
 
+
 func receive_init_message(message: Dictionary):
 	init_message = message.duplicate(true)
 	
 	
 func send_message() -> Dictionary:
-	var new_message = Dictionary()
+	var ret_message = Dictionary()
 	
 	var player_consumables = Dictionary()
 	for consumable in consumables.consumables:
@@ -93,12 +94,12 @@ func send_message() -> Dictionary:
 		var transformed = (consumable as Consumable).transformed
 		player_consumables[id]["rest_times"] = rest_times
 		player_consumables[id]["transformed"] = transformed
-	new_message["player_consumables"] = player_consumables
+	ret_message["player_consumables"] = player_consumables
 		
 	var level_result = Dictionary()
-	new_message["level_result"] = level_result
+	ret_message["level_result"] = level_result
 		
-	return new_message
+	return ret_message
 	
 	
 func reset():
@@ -184,10 +185,12 @@ func _on_failed():
 	var end_screen = preload("res://breakout/scenes/screens/EndMiniGameScreen.tscn").instantiate()
 	breakout.add_child(end_screen)
 	
+	
 func _on_track_lost():
 	get_tree().paused = true
 	var end_screen = preload("res://breakout/scenes/screens/EndMiniGameScreen.tscn").instantiate()
 	breakout.add_child(end_screen)
+	
 	
 func _on_cleared():
 	get_tree().paused = true
@@ -195,8 +198,3 @@ func _on_cleared():
 	breakout.add_child(end_screen)
 	
 
-
-func _process(delta):
-	#debug
-	if Input.is_action_just_pressed("menu"):
-		_on_failed()

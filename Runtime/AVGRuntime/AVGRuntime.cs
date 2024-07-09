@@ -28,17 +28,8 @@ public partial class AVGRuntime : Node2D, ISubRuntime
     public EffectBuffer mainBuffer;
     public EffectBuffer nonBlockingBuffer;
 
-    // 持久化数据存储
-    public DataBase global;
-
-    /// <summary>
-    /// 下一条执行的代码块index
-    /// </summary>
-    public int PC
-    {
-        get => global.PC;
-        set => global.PC = value;
-    }
+    // 全局变量
+    public DataBase Global { get; private set; }
 
     public AVGRuntime()
     {
@@ -59,18 +50,18 @@ public partial class AVGRuntime : Node2D, ISubRuntime
             GlobalConfig.ProjectRoot,
             FileAccess.GetFileAsString("res://init.py")
         );
-        global = new DataBase();
+        Global = new DataBase();
     }
 
     public ISnapshot Save()
     {
-        if (global.IsExecuting)
+        if (Global.IsExecuting)
         {
-            PC++;
-            global.IsExecuting = false;
+            Global.PC++;
+            Global.IsExecuting = false;
             var ret = new Snapshot(this);
-            PC--;
-            global.IsExecuting = true;
+            Global.PC--;
+            Global.IsExecuting = true;
             return ret;
         }
         return new Snapshot(this);
@@ -87,7 +78,7 @@ public partial class AVGRuntime : Node2D, ISubRuntime
         AddChild(UI);
         canvas = snapshotConcrete.Canvas.Instantiate<Canvas>();
         AddChild(canvas);
-        global = DataBase.Deserialize(snapshotConcrete.global);
+        Global = DataBase.Deserialize(snapshotConcrete.Global);
     }
 
     public void GetMessage(string runtimeName, object message)
@@ -96,7 +87,8 @@ public partial class AVGRuntime : Node2D, ISubRuntime
         if (runtimeName == "VerticalBranch")
         {
             var id = (int)message;
-            global.LastChosenOptionId = id;
+            Global.LastChosenOptionId = id;
+            Step();
         }
     }
 
@@ -126,19 +118,19 @@ public partial class AVGRuntime : Node2D, ISubRuntime
             mainBuffer.Interrupt();
             return;
         }
-        if (PC < script.segments.Count)
+        if (Global.PC < script.segments.Count)
         {
             var @continue = false;
             do
             {
-                @continue = script.segments[PC].@continue;
+                @continue = script.segments[Global.PC].@continue;
                 // 设置flag，防止执行中调用Save
-                global.IsExecuting = true;
-                script.segments[PC].Execute(this);
-                global.IsExecuting = false;
-                PC++;
-            } while (@continue && PC < script.segments.Count);
-            global.history.Add(new Snapshot(this));
+                Global.IsExecuting = true;
+                script.segments[Global.PC].Execute(this);
+                Global.IsExecuting = false;
+                Global.PC++;
+            } while (@continue && Global.PC < script.segments.Count);
+            Global.History.Add(new Snapshot(this));
         }
         else
         {
@@ -176,7 +168,7 @@ public partial class AVGRuntime : Node2D, ISubRuntime
                 {
                     mainBuffer.Interrupt();
                 }
-                LoadSnapshot(global.LoadHistory(1));
+                LoadSnapshot(Global.LoadHistory(1));
             }
             if (Input.IsActionPressed("Load"))
             {

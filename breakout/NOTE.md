@@ -23,32 +23,32 @@
 - [ ] Message结构：
 
   ```python
-  id - int	# id表见下面的NOTE-id_list
+  name - str	# name-id表见下面的NOTE-id_list
   rest_times - int
   transformed - bool # 部分消耗品有形态转换
   
   main2breakout message - dict{
-      "player_consumables": dict{
-          id: dict{
-          	"rest_times": int,
-          	"transformed": bool
-      	}
-      },
-      "selected_skill": id,
-      "selected_policy": array[id],
-      "current_level": id,
-      "player_max_health": int,
-      "player_init_ammo": int
+	  "player_consumables": dict{
+		  name: dict{
+		  	"rest_times": int,
+		  	"transformed": bool
+	  	}
+	  },
+	  "selected_skill": name,
+	  "selected_policy": array[id],
+	  "current_level": id,
+	  "player_max_health": int,
+	  "player_init_ammo": int
   }
   
   breakout2main message - dict{
-      "player_consumables": dict{
-          id: dict{
-          	"rest_times": int,
-          	"transformed": bool
-      	}
-      },
-      "level_result": dict{待定}
+	  "player_consumables": dict{
+		  name: dict{
+		  	"rest_times": int,
+		  	"transformed": bool
+	  	}
+	  },
+	  "level_result": dict{待定}
   }
   ```
 
