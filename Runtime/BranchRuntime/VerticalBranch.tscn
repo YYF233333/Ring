@@ -13,6 +13,7 @@ grow_vertical = 2
 script = ExtResource("1_g1c38")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 

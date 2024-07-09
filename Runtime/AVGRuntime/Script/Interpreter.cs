@@ -1,7 +1,10 @@
 namespace RingEngine.Runtime.AVGRuntime.Script;
 
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using Godot;
 using Python.Runtime;
 
@@ -32,9 +35,31 @@ public class PythonInterpreter
                 .Where(file => file.Name.StartsWith("python3"))
                 .Where(file => file.Name != "python3.dll")
                 .ToArray();
-            if (Dll.Length != 1)
+            if (Dll.Length < 1)
             {
-                throw new FileNotFoundException("Cannot identify Python Dll!");
+                // 找不到Python DLL，尝试从官网下载
+                GD.Print("Cannot find Python DLL, trying to download from python.org...");
+                var ZipPath = Path.Combine(projectRoot, "python", "python.zip");
+                using (var web = new WebClient())
+                {
+                    web.DownloadFile(
+                        "https://www.python.org/ftp/python/3.11.9/python-3.11.9-embed-amd64.zip",
+                        ZipPath);
+                }
+                ZipFile.ExtractToDirectory(ZipPath, PythonDir.FullName);
+                Dll = PythonDir
+                .GetFiles()
+                .Where(file => file.Extension == ".dll")
+                .Where(file => file.Name.StartsWith("python3"))
+                .Where(file => file.Name != "python3.dll")
+                .ToArray();
+                if (Dll.Length < 1)
+                {
+                    GD.Print("Failed to download Python, please download it manually and put it in the python folder.");
+                    GD.Print("https://www.python.org/ftp/python/3.11.9/python-3.11.9-embed-amd64.zip");
+                    GD.PushError("Cannot find Python DLL");
+                    return;
+                }
             }
             Runtime.PythonDLL = Dll[0].FullName;
             PythonEngine.Initialize();

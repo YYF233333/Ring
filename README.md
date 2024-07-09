@@ -17,10 +17,11 @@
 - [ ] 重要重构：分离Game Runtime和AVL Runtime
     - [x] Game Runtime包含存档、全局设置，AVL Runtime包含剩余的Runtime内容
     - [x] 创建Game Runtime下切换子Runtime功能
-    - [ ] 以附加Runtime形式实现选项卡
+    - [x] 以附加Runtime形式实现选项卡
     - [x] 以附加Runtime形式接入小游戏
-    - [ ] 以附加Runtime形式实现Gallary等组件
-
+    - [ ] 以附加Runtime形式实现Gallary
+    - [ ] 以附加Runtime形式实现Backlog
+    
 - [ ] 测试release build到没有python的机器上会不会有PYTHONPATH问题
 
 - [x] 弹出选项卡
@@ -34,7 +35,18 @@
     输出为选中的选项编号
 
     - [x] 竖排选项卡
+
     - [ ] 横排选项卡
+
+    - [ ] 选项卡的native脚本格式：表格
+
+        | 竖排/横排/Vertical/Horizontal |
+        | ----------------------------- |
+        | 选项1                         |
+        | 选项2                         |
+        | 选项3                         |
+
+    - [ ] Parser需要支持跨行结构解析
 
 - [ ] 数值面板
 
