@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ibgth")
-consumable_id = 999
+consumable_id = 199
 consumable_name = "notebook"
 consumable_description = "获得状态“最美好的前途”，本局游戏伤害+100%，充能速度翻倍，ammo+5，回复所有生命值"
 max_possess_amount = 1

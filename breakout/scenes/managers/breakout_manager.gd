@@ -105,19 +105,19 @@ func send_message() -> Dictionary:
 func reset():
 	if init_message:
 		var player_consumables: Dictionary = init_message["player_consumables"]
-		for id in player_consumables:
-			var rest_times: int = player_consumables[id]["rest_times"]
-			var transformed: bool = player_consumables[id]["transformed"]
-			var consumable: Consumable = ConsumableManager.get_consumable_scene_by_id(id).instantiate()
+		for consumable_name in player_consumables.keys():
+			var rest_times: int = player_consumables[consumable_name]["rest_times"]
+			var transformed: bool = player_consumables[consumable_name]["transformed"]
+			var consumable: Consumable = ConsumableManager.get_consumable_scene_by_name(consumable_name).instantiate()
 			consumable.rest_times = rest_times
 			consumable.transformed = transformed
 			consumables.consumables.append(consumable)
 		consumables.update()
 		
-		var selected_skill: int = init_message["selected_skill"]
-		skill = SkillManager.get_skill_scene_by_id(selected_skill).instantiate()
+		var selected_skill: String = init_message["selected_skill"]
+		skill = SkillManager.get_skill_scene_by_name(selected_skill).instantiate()
 		
-		var selected_policy: Array[int] = init_message["selected_policy"]
+		var selected_policy: Array[String] = init_message["selected_policy"]
 		#TODO
 		
 		var current_level: int = init_message["current_level"]
