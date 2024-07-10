@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_nstdb")
-consumable_id = 999
+consumable_id = 99
 consumable_name = "package"
 consumable_description = "等待约定时间再开启吧"
 max_possess_amount = 1
