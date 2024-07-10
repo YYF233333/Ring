@@ -31,6 +31,13 @@ public partial class AVGRuntime : Node2D, ISubRuntime
     // 全局变量
     public DataBase Global { get; private set; }
 
+    [Export]
+    public int PC
+    {
+        get => Global.PC;
+        set => Global.PC = value;
+    }
+
     public AVGRuntime()
     {
         script = new RingScript("res://main.md");
@@ -79,6 +86,7 @@ public partial class AVGRuntime : Node2D, ISubRuntime
         canvas = snapshotConcrete.Canvas.Instantiate<Canvas>();
         AddChild(canvas);
         Global = DataBase.Deserialize(snapshotConcrete.Global);
+        Global.History = snapshotConcrete.History.ToList();
     }
 
     public void GetMessage(string runtimeName, object message)
@@ -120,6 +128,8 @@ public partial class AVGRuntime : Node2D, ISubRuntime
         }
         if (Global.PC < script.segments.Count)
         {
+            // 脚本执行前是稳态，所有动画都已结束，在这里进行Snapshot
+            Global.History.Add(new Snapshot(this));
             var @continue = false;
             do
             {
@@ -130,11 +140,10 @@ public partial class AVGRuntime : Node2D, ISubRuntime
                 Global.IsExecuting = false;
                 Global.PC++;
             } while (@continue && Global.PC < script.segments.Count);
-            Global.History.Add(new Snapshot(this));
         }
         else
         {
-            throw new Exception("Script Out of Bound!");
+            throw new IndexOutOfRangeException("Script Out of Bound!");
         }
     }
 
@@ -168,7 +177,14 @@ public partial class AVGRuntime : Node2D, ISubRuntime
                 {
                     mainBuffer.Interrupt();
                 }
-                LoadSnapshot(Global.LoadHistory(1));
+                try
+                {
+                    LoadSnapshot(Global.LoadHistory(1));
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    GD.Print("History is empty.");
+                }
             }
             if (Input.IsActionPressed("Load"))
             {

@@ -4,17 +4,19 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 
 ？？？："那么，世界回应了少女，实现了她的心愿？"
 
+？？："不完全是这样..."
+
+？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"
+
 | 竖排  |        |
 | ----- | ------ |
 | 选项1 | label1 |
 | 选项2 | label2 |
 
-？？："不完全是这样..."
 
-？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"
 
 ```python
-runtime.InitMiniGame("Breakout")
+#runtime.InitMiniGame("Breakout")
 ```
 
 **label1**

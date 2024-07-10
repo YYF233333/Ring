@@ -485,3 +485,6 @@ dotnet_diagnostic.CA2211.severity = silent
 
 # SYSLIB0011: 类型或成员已过时
 dotnet_diagnostic.SYSLIB0011.severity = suggestion
+
+# IDE0305: 简化集合初始化
+dotnet_diagnostic.IDE0305.severity = silent

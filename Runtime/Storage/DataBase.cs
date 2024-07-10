@@ -1,6 +1,8 @@
 namespace RingEngine.Runtime.Storage;
 
+using System;
 using System.Collections.Generic;
+using Godot;
 using MessagePack;
 
 [MessagePackObject(keyAsPropertyName: true)]
@@ -37,6 +39,10 @@ public class DataBase
 
     public Snapshot LoadHistory(int step)
     {
+        if (step < 1 || step > History.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(step));
+        }
         var ret = History[^step];
         History.RemoveRange(History.Count - step, step);
         return ret;
