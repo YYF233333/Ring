@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Godot;
-using NLua.Exceptions;
+using Python.Runtime;
 using RingEngine.Runtime.AVGRuntime;
 using RingEngine.Runtime.AVGRuntime.Effect;
 
@@ -56,8 +56,8 @@ public abstract class IScriptBlock
 public class CodeBlock : IScriptBlock
 {
     // language specified in markdown codeblock(unused)
-    string identifier;
-    string code;
+    public string identifier;
+    public string code;
 
     public CodeBlock(string identifier, string code)
     {
@@ -78,7 +78,7 @@ public class CodeBlock : IScriptBlock
         {
             runtime.interpreter.Exec(code);
         }
-        catch (LuaException ex)
+        catch (PythonException ex)
         {
             GD.PrintErr(ex.Message);
         }
@@ -88,6 +88,54 @@ public class CodeBlock : IScriptBlock
     public override int GetHashCode() => HashCode.Combine(identifier, code);
 
     public override string ToString() => $"CodeBlock: identifier: {identifier}, code: {code}";
+}
+
+public class Branch : IScriptBlock
+{
+    public enum BranchType
+    {
+        Vertical,
+        Horizontal
+    }
+
+    public BranchType Type;
+    public string[] Options;
+
+    public Branch(string[] table)
+    {
+        // table不能为空
+        Trace.Assert(table.Length >= 3);
+        Type = table[0] switch
+        {
+            "vertical" or "竖排" => BranchType.Vertical,
+            "horizontal" or "横排" => BranchType.Horizontal,
+            _ => throw new ArgumentException("Invalid branch type"),
+        };
+        Options = table[2..];
+    }
+
+    public override void Execute(AVGRuntime runtime)
+    {
+        switch (Type)
+        {
+            case BranchType.Vertical:
+                runtime.VerticalBranch(Options);
+                break;
+            case BranchType.Horizontal:
+                runtime.HorizontalBranch(Options);
+                break;
+            default:
+                throw new UnreachableException();
+        }
+    }
+
+    public override bool Equals(object obj) =>
+        obj is Branch branch
+        && this.@continue == branch.@continue
+        && this.Type == branch.Type
+        && EqualityComparer<string[]>.Default.Equals(this.Options, branch.Options);
+
+    public override int GetHashCode() => HashCode.Combine(this.@continue, this.Type, this.Options);
 }
 
 public class JumpToLabel : IScriptBlock

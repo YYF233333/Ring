@@ -4,16 +4,10 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 
 ？？？："那么，世界回应了少女，实现了她的心愿？"
 
-```false
-runtime.Branch("选项1", "选项2")
-```
-
-```python
-g = runtime.Global
-if g.LastChosenOptionId == 1:
-    g["test"] = "bbb"
-    g.PC += 10
-```
+| 竖排  |        |
+| ----- | ------ |
+| 选项1 | label1 |
+| 选项2 | label2 |
 
 ？？："不完全是这样..."
 
@@ -23,6 +17,8 @@ if g.LastChosenOptionId == 1:
 runtime.InitMiniGame("Breakout")
 ```
 
+**label1**
+
 ？？："真的就只是那...一点点变化。"
 
 ？？？："这也...太悲哀了。"
@@ -30,6 +26,8 @@ runtime.InitMiniGame("Breakout")
 ？？："世界本就如此，何来悲哀。"
 
 ？？："说到底，哪有什么万能的许愿机啊..."
+
+**label2**
 
 ？？？："那么，人的执念，人的祈愿，就真的一点意义都没有吗"
 

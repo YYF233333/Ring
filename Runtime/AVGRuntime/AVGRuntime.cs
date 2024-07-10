@@ -183,7 +183,9 @@ public partial class AVGRuntime : Node2D, ISubRuntime
         GetParent<Runtime>().SwitchRuntime(this, name, new BreakoutMessage());
     }
 
-    public void Branch(params string[] options)
+    public void VerticalBranch(IEnumerable<string> options) => VerticalBranch(options.ToArray());
+
+    public void VerticalBranch(params string[] options)
     {
         GetParent<Runtime>()
             .SwitchRuntime(
@@ -192,5 +194,19 @@ public partial class AVGRuntime : Node2D, ISubRuntime
                 options.Select((option, index) => (index, option)).ToArray(),
                 SwitchMode.Pause
             );
+    }
+
+    public void HorizontalBranch(IEnumerable<string> options) =>
+        HorizontalBranch(options.ToArray());
+
+    public void HorizontalBranch(params string[] options)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Goto(string label)
+    {
+        // Execute结束后会PC++，所以这里要减1
+        Global.PC = script.labels[label] - 1;
     }
 }

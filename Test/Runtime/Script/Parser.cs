@@ -53,7 +53,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
     public void ParseLabel()
     {
         var ret = Parser.ParseLabel(@"**选择支1**");
-        Assert.AreEqual("选择支1", ret);
+        Assert.AreEqual("选择支1", ret.Item2);
     }
 
     [TestMethod]
@@ -62,7 +62,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         var ret = Parser.ParseShowChapterName("# Chapter 1\n");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Assert.AreEqual(new ShowChapterName("Chapter 1"), ret.Item2);
+        Assert.AreEqual(new ShowChapterName("Chapter 1"), ret.Item2[0]);
     }
 
     [TestMethod]
@@ -71,7 +71,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         var ret = Parser.ParseSay("红叶 : \"台词 abab;:.\n\"");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Assert.AreEqual(new Say("红叶", "台词 abab;:.\n"), ret.Item2);
+        Assert.AreEqual(new Say("红叶", "台词 abab;:.\n"), ret.Item2[0]);
     }
 
     [TestMethod]
@@ -80,7 +80,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         var ret = Parser.ParseSay("红叶 ： \"台词 abab;:.\n\"");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Assert.AreEqual(new Say("红叶", "台词 abab;:.\n"), ret.Item2);
+        Assert.AreEqual(new Say("红叶", "台词 abab;:.\n"), ret.Item2[0]);
     }
 
     [TestMethod]
@@ -89,7 +89,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         var ret = Parser.ParseSay("： \"台词 abab;:.\n\"");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Assert.AreEqual(new Say("", "台词 abab;:.\n"), ret.Item2);
+        Assert.AreEqual(new Say("", "台词 abab;:.\n"), ret.Item2[0]);
     }
 
     [TestMethod]
@@ -98,7 +98,7 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
         var ret = Parser.ParseSay("红叶 : \"台词\"\nother content");
         Assert.AreEqual("\nother content", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        Assert.AreEqual(new Say("红叶", "台词"), ret.Item2);
+        Assert.AreEqual(new Say("红叶", "台词"), ret.Item2[0]);
     }
 
     [TestMethod]
@@ -122,7 +122,65 @@ show <img src=""assets/chara.png"" style=""zoom:25%;"" /> as 红叶 at farleft w
 # e.g.
 #show_character()"
             ),
-            ret.Item2
+            ret.Item2[0]
+        );
+    }
+
+    [TestMethod]
+    public void ParseBranch()
+    {
+        var (remain, blocks) = Parser.ParseBranch(
+            @"| 竖排 |
+        | ----------------------------- |
+        | 选项1                         |
+        | 选项2                         |
+        | 选项3                         |"
+        );
+
+        Assert.AreEqual("", remain);
+        Assert.IsNotNull(blocks);
+        var branch = (Branch)blocks[0];
+        Assert.AreEqual(Branch.BranchType.Vertical, branch.Type);
+        foreach (
+            var (reference, actual) in new string[] { "选项1", "选项2", "选项3" }.Zip(branch.Options)
+        )
+        {
+            Assert.AreEqual(reference, actual);
+        }
+    }
+
+    [TestMethod]
+    public void ParseBranchwithLabel()
+    {
+        var (remain, blocks) = Parser.ParseBranch(
+            @"| 竖排 |        |
+        | ----------------------------- | ------ |
+        | 选项1                         | label1 |
+        | 选项2                         | label2 |
+        | 选项3                         | label3 |"
+        );
+
+        Assert.AreEqual("", remain);
+        Assert.IsNotNull(blocks);
+        var branch = (Branch)blocks[0];
+        var gotoCode = (CodeBlock)blocks[1];
+        Assert.AreEqual(Branch.BranchType.Vertical, branch.Type);
+        foreach (
+            var (reference, actual) in new string[] { "选项1", "选项2", "选项3" }.Zip(branch.Options)
+        )
+        {
+            Assert.AreEqual(reference, actual);
+        }
+        Assert.AreEqual(
+            gotoCode.code,
+            @"g = runtime.Global
+if g.LastChosenOptionId == 0:
+    runtime.Goto(""label1"")
+if g.LastChosenOptionId == 1:
+    runtime.Goto(""label2"")
+if g.LastChosenOptionId == 2:
+    runtime.Goto(""label3"")
+"
         );
     }
 }
@@ -138,7 +196,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (Show)ret.Item2;
+        var block = (Show)ret.Item2[0];
         Assert.AreEqual(new Show("assets/bg2.jpg", "left", "", "红叶"), block);
     }
 
@@ -150,7 +208,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (Show)ret.Item2;
+        var block = (Show)ret.Item2[0];
         Assert.AreEqual(new Show("assets/bg2.jpg", "left", "dissolve", "红叶"), block);
     }
 
@@ -162,14 +220,14 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (Show)ret.Item2;
+        var block = (Show)ret.Item2[0];
         Assert.AreEqual(new Show("assets/bg2.jpg", "left", "", "红叶"), block);
         ret = BuiltInFunctionParser.ParseShow(
             @"show   <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" />   as 红叶 at left"
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        block = (Show)ret.Item2;
+        block = (Show)ret.Item2[0];
         Assert.AreEqual(new Show("assets/bg2.jpg", "left", "", "红叶"), block);
     }
 
@@ -181,7 +239,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (Show)ret.Item2;
+        var block = (Show)ret.Item2[0];
         Assert.AreEqual(new Show("assets/bg2.jpg", "left", "Dissolve(2.0, 0.5)", "红叶"), block);
     }
 
@@ -193,7 +251,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (ChangeBG)ret.Item2;
+        var block = (ChangeBG)ret.Item2[0];
         Assert.AreEqual(new ChangeBG("assets/bg2.jpg", ""), block);
     }
 
@@ -205,7 +263,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (ChangeBG)ret.Item2;
+        var block = (ChangeBG)ret.Item2[0];
         Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "dissolve"), block);
     }
 
@@ -217,14 +275,14 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (ChangeBG)ret.Item2;
+        var block = (ChangeBG)ret.Item2[0];
         Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "dissolve"), block);
         ret = BuiltInFunctionParser.ParseChangeBG(
             @"changeBG   <img src=""assets/bg2.jpg"" alt=""bg2"" style=""zoom:25%;"" />   with dissolve"
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        block = (ChangeBG)ret.Item2;
+        block = (ChangeBG)ret.Item2[0];
         Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "dissolve"), block);
     }
 
@@ -236,7 +294,7 @@ public class TestBuiltInParser
         );
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (ChangeBG)ret.Item2;
+        var block = (ChangeBG)ret.Item2[0];
         Assert.AreEqual(new ChangeBG("assets/bg2.jpg", "Dissolve(2.0, 0.5)"), block);
     }
 
@@ -246,7 +304,7 @@ public class TestBuiltInParser
         var ret = BuiltInFunctionParser.ParseHide(@"hide 红叶");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (Hide)ret.Item2;
+        var block = (Hide)ret.Item2[0];
         Assert.AreEqual(new Hide("红叶", ""), block);
     }
 
@@ -256,7 +314,7 @@ public class TestBuiltInParser
         var ret = BuiltInFunctionParser.ParseHide(@"hide 红叶 with dissolve");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (Hide)ret.Item2;
+        var block = (Hide)ret.Item2[0];
         Assert.AreEqual(new Hide("红叶", "dissolve"), block);
     }
 
@@ -266,13 +324,13 @@ public class TestBuiltInParser
         var ret = BuiltInFunctionParser.ParseJumpToLabel(@"goto label1");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (JumpToLabel)ret.Item2;
+        var block = (JumpToLabel)ret.Item2[0];
         Assert.AreEqual(new JumpToLabel(true, "label1"), block);
 
         ret = BuiltInFunctionParser.ParseJumpToLabel(@"goto `label expression`");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        block = (JumpToLabel)ret.Item2;
+        block = (JumpToLabel)ret.Item2[0];
         Assert.AreEqual(new JumpToLabel(false, "label expression"), block);
     }
 
@@ -282,7 +340,7 @@ public class TestBuiltInParser
         var ret = BuiltInFunctionParser.ParseUIAnim(@"UIAnim dissolve");
         Assert.AreEqual("", ret.Item1);
         Assert.IsNotNull(ret.Item2);
-        var block = (UIAnim)ret.Item2;
+        var block = (UIAnim)ret.Item2[0];
         Assert.AreEqual(new UIAnim("dissolve"), block);
     }
 }

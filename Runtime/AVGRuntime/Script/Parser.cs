@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Godot;
 #nullable enable
-using ParseResult = (string, IScriptBlock?);
+using ParseResult = (string, IScriptBlock[]?);
 
 public class ParserException : Exception
 {
@@ -39,45 +39,47 @@ public static class Parser
             }
             try
             {
-                var ret = ParseShowChapterName(source);
-                if (ret.Item2 != null)
+                (source, var block) = ParseShowChapterName(source);
+                if (block != null)
                 {
-                    blocks.Add(ret.Item2);
-                    source = ret.Item1;
+                    blocks.AddRange(block);
                     continue;
                 }
-                ret = ParsePlayAudio(source);
-                if (ret.Item2 != null)
+                (source, block) = ParsePlayAudio(source);
+                if (block != null)
                 {
-                    blocks.Add(ret.Item2);
-                    source = ret.Item1;
+                    blocks.AddRange(block);
                     continue;
                 }
-                ret = ParseCodeBlock(source);
-                if (ret.Item2 != null)
+                (source, block) = ParseCodeBlock(source);
+                if (block != null)
                 {
-                    blocks.Add(ret.Item2);
-                    source = ret.Item1;
+                    blocks.AddRange(block);
                     continue;
                 }
-                var label = ParseLabel(source);
+                (source, block) = ParseBranch(source);
+                if (block != null)
+                {
+                    blocks.AddRange(block);
+                    continue;
+                }
+                (source, var label) = ParseLabel(source);
                 if (label != null)
                 {
                     labels[label] = blocks.Count;
-                }
-
-                ret = BuiltInFunctionParser.Parse(source);
-                if (ret.Item2 != null)
-                {
-                    blocks.Add(ret.Item2);
-                    source = ret.Item1;
                     continue;
                 }
-                ret = ParseSay(source);
-                if (ret.Item2 != null)
+
+                (source, block) = BuiltInFunctionParser.Parse(source);
+                if (block != null)
                 {
-                    blocks.Add(ret.Item2);
-                    source = ret.Item1;
+                    blocks.AddRange(block);
+                    continue;
+                }
+                (source, block) = ParseSay(source);
+                if (block != null)
+                {
+                    blocks.AddRange(block);
                     continue;
                 }
             }
@@ -88,17 +90,6 @@ public static class Parser
             throw new ParserException(source, totalLineNum - source.Count("\n") + 1);
         }
         return (blocks, labels);
-    }
-
-    static (string, string?) ParseIdentifier(string source)
-    {
-        var pattern = @"\A(?<ident>\S*)\s";
-        var match = Regex.Match(source, pattern);
-        if (match.Success)
-        {
-            return (source[match.Length..], match.Groups["ident"].Value);
-        }
-        return (source, null);
     }
 
     public static ParseResult ParseCodeBlock(string source)
@@ -115,7 +106,7 @@ public static class Parser
             {
                 ret.@continue = false;
             }
-            return new ParseResult(source[match.Length..], ret);
+            return new ParseResult(source[match.Length..], [ret]);
         }
         return (source, null);
     }
@@ -128,7 +119,7 @@ public static class Parser
         {
             return new ParseResult(
                 source[match.Length..],
-                new ShowChapterName(match.Groups["name"].Value.Trim())
+                [new ShowChapterName(match.Groups["name"].Value.Trim())]
             );
         }
         return new ParseResult(source, null);
@@ -142,7 +133,7 @@ public static class Parser
         {
             return new ParseResult(
                 source[match.Length..],
-                new Say(match.Groups["ident"].Value, match.Groups["content"].Value)
+                [new Say(match.Groups["ident"].Value, match.Groups["content"].Value)]
             );
         }
         return new ParseResult(source, null);
@@ -155,20 +146,60 @@ public static class Parser
         if (match.Success)
         {
             var ret = new PlayAudio(match.Groups["path"].Value);
-            return new ParseResult(source[match.Length..], ret);
+            return new ParseResult(source[match.Length..], [ret]);
         }
         return new ParseResult(source, null);
     }
 
-    public static string? ParseLabel(string source)
+    public static ParseResult ParseBranch(string source)
+    {
+        if (!source.StartsWith('|'))
+        {
+            return new ParseResult(source, null);
+        }
+        List<string[]> table = [];
+        while (source.StartsWith('|'))
+        {
+            // 获取当前行
+            var curLine = source.Split('\n', StringSplitOptions.TrimEntries)[0];
+            // 按|分割并去除空白项
+            table.Add(
+                curLine.Split(
+                    '|',
+                    StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries
+                )
+            );
+            source = source[curLine.Length..].Trim();
+        }
+        var labels = new Dictionary<int, string>();
+        for (int i = 2; i < table.Count; i++)
+        {
+            if (table[i].Length > 1)
+            {
+                labels[i - 2] = table[i][1];
+            }
+        }
+        var code = "g = runtime.Global\n";
+        foreach (var kv in labels)
+        {
+            code += $"if g.LastChosenOptionId == {kv.Key}:\n    runtime.Goto(\"{kv.Value}\")\n";
+        }
+        var JumpToLabel = new CodeBlock("python", code);
+        return new ParseResult(
+            source,
+            [new Branch(table.Select(row => row[0]).ToArray()), JumpToLabel]
+        );
+    }
+
+    public static (string, string?) ParseLabel(string source)
     {
         var pattern = @"\A\*\*(?<label>[\s\S]+?)\*\*";
         var match = Regex.Match(source, pattern);
         if (match.Success)
         {
-            return match.Groups["label"].Value;
+            return (source[match.Length..], match.Groups["label"].Value);
         }
-        return null;
+        return (source, null);
     }
 }
 
@@ -212,12 +243,14 @@ public static class BuiltInFunctionParser
         var effect = effect_group != null ? effect_group.Value : "";
         return new ParseResult(
             source[match.Length..],
-            new Show(
-                match.Groups["path"].Value,
-                match.Groups["pos"].Value,
-                effect,
-                match.Groups["name"].Value
-            )
+            [
+                new Show(
+                    match.Groups["path"].Value,
+                    match.Groups["pos"].Value,
+                    effect,
+                    match.Groups["name"].Value
+                )
+            ]
         );
     }
 
@@ -233,7 +266,7 @@ public static class BuiltInFunctionParser
         var effect = effect_group != null ? effect_group.Value : "";
         return new ParseResult(
             source[match.Length..],
-            new Hide(match.Groups["name"].Value, effect)
+            [new Hide(match.Groups["name"].Value, effect)]
         );
     }
 
@@ -250,7 +283,7 @@ public static class BuiltInFunctionParser
         var effect = effect_group != null ? effect_group.Value : "";
         return new ParseResult(
             source[match.Length..],
-            new ChangeBG(match.Groups["path"].Value, effect)
+            [new ChangeBG(match.Groups["path"].Value, effect)]
         );
     }
 
@@ -267,7 +300,7 @@ public static class BuiltInFunctionParser
         var effect = effect_group != null ? effect_group.Value : "";
         return new ParseResult(
             source[match.Length..],
-            new ChangeScene(match.Groups["path"].Value, effect)
+            [new ChangeScene(match.Groups["path"].Value, effect)]
         );
     }
 
@@ -282,9 +315,9 @@ public static class BuiltInFunctionParser
         var label = match.Groups["label"].Value;
         if (label.StartsWith('`'))
         {
-            return new ParseResult(source[match.Length..], new JumpToLabel(false, label[1..^1]));
+            return new ParseResult(source[match.Length..], [new JumpToLabel(false, label[1..^1])]);
         }
-        return new ParseResult(source[match.Length..], new JumpToLabel(true, label));
+        return new ParseResult(source[match.Length..], [new JumpToLabel(true, label)]);
     }
 
     public static ParseResult ParseUIAnim(string source)
@@ -295,7 +328,7 @@ public static class BuiltInFunctionParser
         {
             throw new ParserException(source);
         }
-        return new ParseResult(source[match.Length..], new UIAnim(match.Groups["effect"].Value));
+        return new ParseResult(source[match.Length..], [new UIAnim(match.Groups["effect"].Value)]);
     }
 
     public static ParseResult ParseStopAudio(string source)
@@ -306,6 +339,6 @@ public static class BuiltInFunctionParser
         {
             throw new ParserException(source);
         }
-        return new ParseResult(source[match.Length..], new StopAudio());
+        return new ParseResult(source[match.Length..], [new StopAudio()]);
     }
 }

@@ -119,7 +119,9 @@ public class ImageTrans : ITransition
                         canvas.AddMask(mask);
                         var material = new ShaderMaterial
                         {
-                            Shader = GD.Load<Shader>("res://Runtime/AVGRuntime/Effect/mask.gdshader"),
+                            Shader = GD.Load<Shader>(
+                                "res://Runtime/AVGRuntime/Effect/mask.gdshader"
+                            ),
                         };
                         material.SetShaderParameter("progress", 0.0);
                         material.SetShaderParameter("smooth_size", smooth);
