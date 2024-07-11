@@ -26,7 +26,8 @@ public class DataBase
     /// <summary>
     /// 其它数据，为了使python可调用需要限制类型
     /// </summary>
-    public Dictionary<string, string> Data = new() { { "test", "aaa" } };
+    public Dictionary<string, string> Data =
+        new() { { "BreakoutData", MessagePackSerializer.SerializeToJson(new BreakoutMessage()) } };
 
     public string this[string key]
     {

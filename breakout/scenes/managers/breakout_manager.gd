@@ -89,11 +89,12 @@ func send_message() -> Dictionary:
 	
 	var player_consumables = Dictionary()
 	for consumable in consumables.consumables:
-		var id = (consumable as Consumable).consumable_info.consumable_id
+		var name = (consumable as Consumable).consumable_info.consumable_name
 		var rest_times = (consumable as Consumable).rest_times
 		var transformed = (consumable as Consumable).transformed
-		player_consumables[id]["rest_times"] = rest_times
-		player_consumables[id]["transformed"] = transformed
+		player_consumables[name] = Dictionary()
+		player_consumables[name]["rest_times"] = rest_times
+		player_consumables[name]["transformed"] = transformed
 	ret_message["player_consumables"] = player_consumables
 		
 	var level_result = Dictionary()

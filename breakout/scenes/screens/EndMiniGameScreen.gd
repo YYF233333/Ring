@@ -24,4 +24,4 @@ func _on_restart_button_pressed():
 
 func _on_quit_button_pressed():
 	#TODO:把这里改成发出EndGame信号让上层接收
-	get_parent().get_parent().EndGame()
+	get_parent().get_parent().EndGame(BreakoutManager.send_message())

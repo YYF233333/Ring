@@ -160,6 +160,7 @@ public partial class Runtime : Node
                 throw new ArgumentException($"Invalid SwitchMode {switchMode}");
         }
 
+        GD.Print($"next subruntime name {nextSubRuntimeName}");
         ISubRuntime nextSubRuntime;
         if (PausedRuntimes.Contains(nextSubRuntimeName))
         {

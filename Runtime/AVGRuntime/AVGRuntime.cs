@@ -98,6 +98,10 @@ public partial class AVGRuntime : Node2D, ISubRuntime
             Global.LastChosenOptionId = id;
             Step();
         }
+        else if (runtimeName == "Breakout")
+        {
+            Global["BreakoutData"] = message as string;
+        }
     }
 
     public void LoadSnapshot(string snapshotPath)
@@ -196,7 +200,7 @@ public partial class AVGRuntime : Node2D, ISubRuntime
 
     public void InitMiniGame(string name)
     {
-        GetParent<Runtime>().SwitchRuntime(this, name, new BreakoutMessage());
+        GetParent<Runtime>().SwitchRuntime(this, name, Global["BreakoutData"]);
     }
 
     public void VerticalBranch(IEnumerable<string> options) => VerticalBranch(options.ToArray());
