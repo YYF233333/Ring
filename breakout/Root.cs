@@ -18,7 +18,7 @@ public class BreakoutMessage
     public Dictionary<string, Consumable> player_consumables = [];
     public string selected_skill;
     public string[] selected_policy;
-    public int current_level;
+    public string current_level;
     public int player_max_health { get; set; }
     public int player_init_ammo;
     public Dictionary<string, string> level_result;
@@ -38,7 +38,7 @@ public class BreakoutMessage
         {
             d[key] = new Godot.Collections.Array { value.rest_times, value.transformed };
         }
-        dict["player_consumable"] = d;
+        dict["player_consumables"] = d;
         return dict;
     }
 

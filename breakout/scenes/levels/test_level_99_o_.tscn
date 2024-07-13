@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bol7poi84eil" path="res://breakout/scenes/bricks/sturdy_brick/sturdy_brick.tscn" id="1_65w3i"]
 
-[node name="TestLevel99-O-" type="Node2D"]
+[node name="TestLevel99-O-" type="Node2D" groups=["levels"]]
 
 [node name="Bricks" type="Node2D" parent="." groups=["bricks"]]
 

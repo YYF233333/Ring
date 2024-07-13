@@ -10,11 +10,11 @@ func _ready():
 
 func spawn_drop():
 	var spawn_global_position = (owner as Node2D).global_position
-	DropManager.spawn_random_drop(spawn_global_position)
+	ResourceManager.spawn_random_drop(spawn_global_position)
 
 func spawn_lucky_drop():
 	var spawn_global_position = (owner as Node2D).global_position
-	DropManager.spawn_random_lucky_drop(spawn_global_position)
+	ResourceManager.spawn_random_lucky_drop(spawn_global_position)
 
 func _on_died():
 	BreakoutManager.point_scored.emit(owner.point)

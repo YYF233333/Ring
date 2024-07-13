@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://daw03w0dflwfi"]
 
 [ext_resource type="Script" path="res://breakout/scenes/paddles/paddle.gd" id="1_k4fmc"]
-[ext_resource type="Texture2D" uid="uid://bim1eeu1mgpdw" path="res://breakout/assets/DefaultPaddle.png" id="2_v4g27"]
+[ext_resource type="Texture2D" uid="uid://dadvts2kqdcg1" path="res://breakout/assets/DefaultPaddle.png" id="2_v4g27"]
 [ext_resource type="PackedScene" uid="uid://bglykrd6pd7mw" path="res://breakout/scenes/projectiles/laser_beam.tscn" id="3_gkwa8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eq4ir"]

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://brcke6f8gc7y4"]
+
+[node name="VoidLevel" type="Node2D" groups=["levels"]]
+
+[node name="Bricks" type="Node2D" parent="." groups=["bricks"]]
+
+[node name="Enemies" type="Node2D" parent="." groups=["enemies"]]

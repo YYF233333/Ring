@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c81idhg4ab0ye" path="res://breakout/scenes/bricks/basic_brick/basic_brick.tscn" id="2_e7ub2"]
 [ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="3_170qc"]
 
-[node name="TestLevel0" type="Node2D"]
+[node name="TestLevel01" type="Node2D" groups=["levels"]]
 
 [node name="Bricks" type="Node2D" parent="." groups=["bricks"]]
 

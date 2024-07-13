@@ -17,6 +17,7 @@ signal health_changed(value: int)
 
 signal skill_charge(value: int)
 signal skill_charged
+signal skill_changed
 
 signal ball_lost(ball: Ball)
 signal ball_hit(charge: int)
@@ -78,10 +79,12 @@ func _ready():
 	failed.connect(_on_failed)
 	track_lost.connect(_on_track_lost)
 	cleared.connect(_on_cleared)
-
+	
 
 func receive_init_message(message: Dictionary):
 	init_message = message.duplicate(true)
+	print(init_message )
+	BreakoutManager.reset() 
 	
 	
 func send_message() -> Dictionary:
@@ -89,12 +92,12 @@ func send_message() -> Dictionary:
 	
 	var player_consumables = Dictionary()
 	for consumable in consumables.consumables:
-		var name = (consumable as Consumable).consumable_info.consumable_name
+		var consumable_name = (consumable as Consumable).consumable_info.consumable_name
 		var rest_times = (consumable as Consumable).rest_times
 		var transformed = (consumable as Consumable).transformed
-		player_consumables[name] = Dictionary()
-		player_consumables[name]["rest_times"] = rest_times
-		player_consumables[name]["transformed"] = transformed
+		player_consumables[consumable_name] = Dictionary()
+		player_consumables[consumable_name]["rest_times"] = rest_times
+		player_consumables[consumable_name]["transformed"] = transformed
 	ret_message["player_consumables"] = player_consumables
 		
 	var level_result = Dictionary()
@@ -109,20 +112,26 @@ func reset():
 		for consumable_name in player_consumables.keys():
 			var rest_times: int = player_consumables[consumable_name]["rest_times"]
 			var transformed: bool = player_consumables[consumable_name]["transformed"]
-			var consumable: Consumable = ConsumableManager.get_consumable_scene_by_name(consumable_name).instantiate()
+			var consumable: Consumable = ResourceManager.get_consumable_scene_by_name(consumable_name).instantiate()
 			consumable.rest_times = rest_times
 			consumable.transformed = transformed
 			consumables.consumables.append(consumable)
 		consumables.update()
 		
 		var selected_skill: String = init_message["selected_skill"]
-		skill = SkillManager.get_skill_scene_by_name(selected_skill).instantiate()
-		
-		var selected_policy: Array[String] = init_message["selected_policy"]
+		skill = ResourceManager.get_skill_scene_by_name(selected_skill).instantiate()
+		skill_changed.emit()
+
+		var selected_policy: PackedStringArray = init_message["selected_policy"]
 		#TODO
 		
-		var current_level: int = init_message["current_level"]
-		#TODO
+		var current_level: String = init_message["current_level"]
+		var current_level_scene = ResourceManager.get_level_scene_by_name(current_level) as PackedScene
+		if current_level_scene:
+			var previous_level = get_tree().get_first_node_in_group("levels") as Node2D
+			previous_level.add_sibling(current_level_scene.instantiate())
+			previous_level.queue_free()
+		
 		
 		var player_max_health: int = init_message["player_max_health"]
 		ValueManager.player_max_health = player_max_health

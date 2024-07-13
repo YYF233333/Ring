@@ -7,7 +7,10 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 ```python
 import json
 breakout = json.loads(runtime.Global["BreakoutData"])
-breakout["player_max_health"] += 10
+breakout["selected_skill"] = "blood_bullet"
+breakout["current_level"] = "test_level_0"
+breakout["player_max_health"] = 20
+breakout["player_init_ammo"] = 5
 runtime.Global["BreakoutData"] = json.dumps(breakout)
 ```
 

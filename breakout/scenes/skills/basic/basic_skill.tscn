@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c0vaodg8o1phw"]
 
-[ext_resource type="Texture2D" uid="uid://c86yxr8s7kkat" path="res://breakout/assets/Mine/communicator.png" id="1_ety3c"]
+[ext_resource type="Texture2D" uid="uid://eagbq05vj30t" path="res://breakout/assets/Mine/communicator.png" id="1_ety3c"]
 [ext_resource type="Script" path="res://breakout/scenes/skills/basic/basic_skill.gd" id="2_hw0pv"]
 [ext_resource type="Resource" uid="uid://ccre4inhlqq2d" path="res://breakout/scenes/skills/basic/basic_skill.tres" id="3_f3l0c"]
 
