@@ -19,7 +19,7 @@ runtime.Global["BreakoutData"] = json.dumps(breakout)
 ？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"
 
 ```python
-runtime.InitMiniGame("Breakout")
+#runtime.InitMiniGame("Breakout")
 ```
 
 **label1**
