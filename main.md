@@ -7,8 +7,10 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 ```python
 import json
 breakout = json.loads(runtime.Global["BreakoutData"])
-breakout["selected_skill"] = "blood_bullet"
-breakout["current_level"] = "test_level_0"
+#breakout["player_consumables"] = {"calculator":{"rest_times":5, "transformed":0}}
+#breakout["player_consumables"] = dict("calculator":dict("rest_times":5, "transformed":0))
+breakout["selected_skill"] = "blood bullet"
+breakout["current_level"] = "test level 0"
 breakout["player_max_health"] = 20
 breakout["player_init_ammo"] = 5
 runtime.Global["BreakoutData"] = json.dumps(breakout)
@@ -19,7 +21,7 @@ runtime.Global["BreakoutData"] = json.dumps(breakout)
 ？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"
 
 ```python
-#runtime.InitMiniGame("Breakout")
+runtime.InitMiniGame("Breakout")
 ```
 
 **label1**

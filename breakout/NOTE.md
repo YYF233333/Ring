@@ -1,5 +1,7 @@
 ### TODO LIST
 
+
+
 #### <span style='color:red'>紧急</span>
 
 - [x] 到底如何让球和运动的实体相撞时不出毛病
@@ -12,6 +14,8 @@
 
 - [x] 啥b玩意模拟次数调到批高就行
 
+
+
 #### <span style='color:red'>对接</span>@yyf
 
 - [ ] consumables、skills、policy的获取（获取途径为剧情and后勤部？问问龙越）和查看
@@ -23,7 +27,7 @@
 - [ ] Message结构：
 
   ```python
-  name - str	# name-id表见下面的NOTE-id_list
+  name - str	# name-id表见下面的###名称表
   rest_times - int
   transformed - bool # 部分消耗品有形态转换
   
@@ -56,6 +60,10 @@
 
 - [ ] breakout的message接口见`breakout_manager.gd`
 
+
+
+
+
 #### 机制
 
 - [ ] 给出 brick 下降接口（小心压板子，大概需要板子齐高的检测线），有的关卡要让brick随时间下降，有的boss能让brick下降
@@ -71,6 +79,10 @@
 - [x] 发现事实上用m、v的话就需要考虑enemy的质量了，但我们的enemy其实没有质量？以及enemy也不应该旋转。。。感觉会有一堆奇奇怪怪的问题，我在想要不还是把m、v删了。。。或者是只保留一个m与damage挂钩，然后m越大初始速度越小。m不影响球大小，球大小这东西还是比较危险
 - [x] 对于球被卡住动不了，逻辑上好像确实是允许的（特例球水平移动），所以更需要一个花一血新增一个球的按键了（shoot）
 - [x] ~~潜在bug：火球被卡住时是否能持续上燃烧（因为实现上是撞一下上燃烧~~ 想把buff也删了，只留个直白的damage，精简
+
+
+
+
 
 #### 视效
 
@@ -91,11 +103,19 @@
 - [x] 激光视效
 - [ ] 被激光滋到视效
 
+
+
+
+
 #### 界面
 
 - [x] 道具界面（从俄罗斯方块consumable搬）
 - [x] ~~使用道具时是否需要暂停？毕竟consumables数量应该不少~~ 不需要
 - [ ] buff栏
+
+
+
+
 
 #### 逻辑/实现方案
 
@@ -107,9 +127,15 @@
 - [x] 用await后再free的方法，我在想是不是可以有固定last_time的multiplier了？
 - [x] 删除了enemy_info和brick_info两个resource，这是考虑到两者都是在level中固定实例化，即使有召唤方法也是少数，可以直接个性化；而drop需要轮盘赌随机抽取且同种drop的参数是固定的，需要一个drop_info方便进行统一管理
 
+
+
+
+
 #### 摩多摩多
 
 可以看着贴图想
+
+
 
 ##### player
 
@@ -120,25 +146,26 @@
 - [x] 初始技能：球分裂，板变至最长（99个long_drop）20s
 - [x] blood bullet：消耗1 hp发射一个新球
 
+
+
 ##### Game Value System
 
 - [ ] hp - 待调整
+
+
 
 ##### policy
 
 相当于被动强化
 
 - [ ] void: base
-
 - [ ] 人力短缺：学生满意度增长-20%
-
 - [ ] 低支持度：自治会支持度增长-50%，自治会支持度-20
-
 - [ ] 预算紧张：社会知名度增长-80%，社团开销-20%
-
 - [ ] 方针：群策群力，效果为初始球+3
-
 - [ ] 方针：自治会秩序，效果为敌方受到伤害+20%，初始球-2，自治会支持度增长-20%
+
+
 
 ##### drops
 
@@ -155,6 +182,8 @@
 - [ ] coin：获得一些资金（没贴图）
 - [x] laser beam：一段时间内持续发射激光并造成伤害
 
+
+
 ##### ~~ball_buffs~~
 
 - [x] ~~fire ball：挂燃烧~~
@@ -164,12 +193,16 @@
 - [ ] ~~定位：火球对付坚固，电球隔山打牛/aoe清场。~~
 - [ ] ~~电球的连锁伤害是与碰撞伤害共用一个接口，故其也为碰撞伤害（打坚固1），于是问题：坚固吃不吃电（待定~~
 
+
+
 ##### buff
 
 - [ ] 最美好的前途：
 - [ ] 持续治疗：
 - [ ] fever
 - [ ] slow/fast_buff 需要重做，只有一层效果
+
+
 
 ##### bricks
 
@@ -181,6 +214,8 @@
 - [x] ~~可以随意调整大小的接口？不知道需不需要，看是不是要手动制作关卡~~ 贴图伸展难看，建议手动修整
 - [ ] 能量包：打掉给10充能
 - [ ] 血包：打掉回5血
+
+
 
 ##### enemies
 
@@ -205,6 +240,8 @@
 - [x] oppressive_enemy：一直朝paddle移动，用于各种攻击性强的小怪（Day9黑帮小弟）
 - [ ] *oppressive_enemy不能穿墙的话可能要采用寻路算法（但感觉没工具包会很麻烦（好像有个寻路节点
 
+
+
 ##### consumables
 
 商店可以补货，但剧情道具不能补
@@ -223,6 +260,7 @@
 - [x] 女主的包裹：不可使用，无效果；Day14之后变成三十四届学园祭记录本（仅限剧情）
 - [ ] 三十四届学园祭记录本：玩家获得状态“最美好的前途”，效果为本局游戏造成伤害翻倍，充能速度翻倍，获得九十九个备用球，血量不会低于一点，每秒获得满血治疗与满充能（不使用会拿成就）
 - [ ] 包裹的转换需要在Main里做
+- [ ] 
 
 ##### levels
 
@@ -230,18 +268,45 @@
 
 正式level需要重新挂载
 
+- [ ] base：关卡目标以及获胜检测。目标有
+  - [ ] 清场
+  - [ ] 清除主要目标
+  - [ ] 坚持一定时间
+
+
+
+###### 主要关卡系列：
+
+主线的各个关卡。
+
+
+
 ###### TestLevel99系列：
 
 一个密闭空间里全几把是砖的急急急关卡，突出一个“终于出来了” ~~，一方面yyf想要，一方面也可以用来测试brick多的时候性能如何~~ 性能没问题
 
-- [x] 环（O-）
+- [x] 环（O-）-"test level 99_o_"
 - [ ] 音道w
-- [ ] 
 
-###### 其他
+
+
+###### Bonus系列：
+
+奖励关，能赚取额外的全局资源。多种思路
+
+1. 限时，怪会不断补充，补充速率有上限
+2. 限时，能打多少是多少
+
+
+
+###### 杂
 
 - [ ] 教学关卡，简单教下流程，以及如何使用drop/consumable
 - [ ] Day9 和黑帮打架被撅烂
+
+
+
+
 
 #### BUG
 
@@ -256,8 +321,8 @@
 - [x] ~~死亡墙bottom决定不采用，因为会让大球在奇怪的位置消失；选择计算球看不到的时间让其消失~~ 球大小不动了，所以不改了
 - [x] ~~球太慢的时候，板子比球快，推球推不动。。。感觉真不如rigid2D。。。~~ ~~rigid2D甚至没有velocity属性，感觉用不了一点~~ 不管
 - [x] ~~emeny和ball之间的碰撞更是依托答辩。感觉问题要么出现在max_speed或者acceleration，要么在character2D本身，要么就是碰撞逻辑没写好。。。要么就是godot physics真不行~~
-- [x] knock_back：为了让oppressive_enemy创一下玩家之后能被推走，以及为了防止怪在玩家面前被球直接创到似，需要一个击退。但是不管是撞球还是撞板都有bug。
-- [x] （如果不好解决的话就不要knock_back了，给怪一个deal_damage_interval，然后让球的伤害从 球碰怪 改回 怪扫球）（我认为有knock back视觉效果上会更好而已。。。
+- [x] ~~knock_back：为了让oppressive_enemy创一下玩家之后能被推走，以及为了防止怪在玩家面前被球直接创到似，需要一个击退。但是不管是撞球还是撞板都有bug。~~
+- [x] ~~（如果不好解决的话就不要knock_back了，给怪一个deal_damage_interval，然后让球的伤害从 球碰怪 改回 怪扫球）（我认为有knock back视觉效果上会更好而已。。。~~
 - [ ] basic_skill的结束提示在无限续时也会触发
 
 #### 杂
@@ -268,19 +333,78 @@
 
 - [ ] 可以考虑做一个弹窗/成就，告知玩家“球数已经到达上限”，能让人有成就感（
 
-  
 
 
 
-### 存档参数
 
-那一堆数值Dic[str: int]
 
-consumable - dict{消耗品id：数量，形态}
+### 名称表
 
-skill: 当前选择的技能，拥有的技能
+注：100+N 表示第二形态。初始默认为第一形态
 
-policy: 当前选择的方针，拥有的方针
+小心：用name获取资源时别吧下划线输进去了……
+
+##### consumables
+
+|  id  |  consumable_name   |                         description                          |           supplement           | max_quantity |
+| :--: | :----------------: | :----------------------------------------------------------: | :----------------------------: | :----------: |
+|  0   |        void        |             base class for consumables 基类/示例             |            +1 score            |      5       |
+|  1   |    communicator    |                  charge the skill 大招充能                   |            充能 +10            |      1       |
+|  2   |      passport      |                 shoot a new ball 发射一个球                  |        不会清除现存的球        |      5       |
+|  3   | strange calculator |  increase ball damage by 4 for 20s<br> 使用后20s内球伤害+4   |                                |      1       |
+|  4   |     old model      | 使用后30s内受到诅咒，球会对板子造成碰撞伤害<br>30s后转化为道具珍藏绝版模型 | 使用后永久转换（诅咒挺恶心的） |      1       |
+| 104  |     new model      |                 使用后30s内玩家反弹所有伤害                  |               t                |      1       |
+|  99  |      package       |                     等待约定时间再开启吧                     |            D14转换             |      1       |
+| 199  |      notebook      | 获得状态“最美好的前途”，本局游戏伤害+100%，充能速度翻倍，ammo+5，回复所有生命值 |               t                |      1       |
+|      |                    |                                                              |                                |              |
+
+##### skill
+
+|  id  |  skill_name  |                         description                          |                       supplement                       |
+| :--: | :----------: | :----------------------------------------------------------: | :----------------------------------------------------: |
+|  0   |     void     |               base class for skills 基类/示例                |                          none                          |
+|  1   | basic skill  | split all the ball 球分裂<br>lengthen the paddle to max length for 10s 板变到最长10s | 最长指99层long_buff<br>可以猛吃short刷新复原倒计时续杯 |
+|  2   | blood bullet |             use 1 hp to shoot 1 ball 一血射一球              |                    不会清除现存的球                    |
+|      |              |                                                              |                                                        |
+|      |              |                                                              |                                                        |
+
+##### drop
+
+|  id  | drop_name  |            description             |             supplement              |
+| :--: | :--------: | :--------------------------------: | :---------------------------------: |
+|  0   |    base    |        base class for drops        |                  \                  |
+|  1   |   split    | random one ball splits to 3 balls  |        split the oldest ball        |
+|  2   |    fast    |        fasten all the balls        |                                     |
+|  3   |    slow    |        slowen all the balls        |                                     |
+|  4   |   short    |         shorten the paddle         |                 10s                 |
+|  5   |    long    |        lengthen the paddle         |                 10s                 |
+|  6   | laser beam | shoot a laser beam and deal damage | slow down the enemy when hit<br>10s |
+|      |            |                                    |                                     |
+|      |            |                                    |                                     |
+
+##### policy
+
+|  id  | policy_name | description | supplement |
+| :--: | :---------: | :---------: | :--------: |
+|      |   还没做    |             |            |
+|      |             |             |            |
+|      |             |             |            |
+|      |             |             |            |
+|      |             |             |            |
+
+##### level
+
+|    level_name    |  goal   | supplement  |
+| :--------------: | :-----: | :---------: |
+|    void level    | nothing | empty level |
+|   test level 0   |  TODO   |             |
+| test level 99_o_ |  clear  |             |
+
+
+
+
+
+
 
 
 
@@ -306,72 +430,20 @@ policy: 当前选择的方针，拥有的方针
 
    于是
 
-   |      ?      | layer（物理） | mask（扫描） |
-   | :---------: | :-----------: | :----------: |
-   |  ball.body  |       1       |   2,4,5,7    |
-   |  wall.body  |       2       |   1,2,5,7    |
-   | bottom.area |       -       |   1,4,6,7    |
-   | brick.body  |       4       |  1,2,5,6,7   |
-   | brick.area  |       -       |      1       |
-   | paddle.body |       5       |  1,2,4,5,7   |
-   |  drop.area  |       -       |      5       |
-   | chain_area  |       -       |     4,7      |
-   | enemy.body  |       7       |  1,2,4,5,7   |
-   | enemy.area  |       -       |     1,5      |
+   |       ?        | layer（物理） | mask（扫描） |
+   | :------------: | :-----------: | :----------: |
+   |   ball.body    |       1       |   2,4,5,7    |
+   |   wall.body    |       2       |   1,2,5,7    |
+   |  bottom.area   |       -       |   1,4,6,7    |
+   |   brick.body   |       4       |  1,2,5,6,7   |
+   |   brick.area   |       -       |      1       |
+   |  paddle.body   |       5       |  1,2,4,5,7   |
+   |   drop.area    |       -       |      5       |
+   | ~~chain_area~~ |     ~~-~~     |   ~~4,7~~    |
+   |   enemy.body   |       7       |  1,2,4,5,7   |
+   |   enemy.area   |       -       |     1,5      |
 
    其实area也可以全扫，加上 if body is Ball 的判断就行
-
-#### id_list
-
-注：100+N 表示第二形态。初始默认为第一形态
-
-##### consumables
-
-|  id  |  consumable_name   |                         description                          |           Supplement           | max_quantity |
-| :--: | :----------------: | :----------------------------------------------------------: | :----------------------------: | :----------: |
-|  0   |        void        |             base class for consumables 基类/示例             |            +1 score            |      5       |
-|  1   |    communicator    |                  charge the skill 大招充能                   |            充能 +10            |      1       |
-|  2   |      passport      |                 shoot a new ball 发射一个球                  |        不会清除现存的球        |      5       |
-|  3   | strange calculator |  increase ball damage by 4 for 20s<br> 使用后20s内球伤害+4   |                                |      1       |
-|  4   |     old model      | 使用后30s内受到诅咒，球会对板子造成碰撞伤害<br>30s后转化为道具珍藏绝版模型 | 使用后永久转换（诅咒挺恶心的） |      1       |
-| 104  |     new model      |                 使用后30s内玩家反弹所有伤害                  |               t                |      1       |
-|  99  |      package       |                     等待约定时间再开启吧                     |            D14转换             |      1       |
-| 199  |      notebook      | 获得状态“最美好的前途”，本局游戏伤害+100%，充能速度翻倍，ammo+5，回复所有生命值 |               t                |      1       |
-|      |                    |                                                              |                                |              |
-
-##### skill
-
-|  id  |  skill_name  |                         description                          |                       Supplement                       |
-| :--: | :----------: | :----------------------------------------------------------: | :----------------------------------------------------: |
-|  0   |     void     |               base class for skills 基类/示例                |                          none                          |
-|  1   | basic skill  | split all the ball 球分裂<br>lengthen the paddle to max length for 10s 板变到最长10s | 最长指99层long_buff<br>可以猛吃short刷新复原倒计时续杯 |
-|  2   | blood bullet |             use 1 hp to shoot 1 ball 一血射一球              |                    不会清除现存的球                    |
-|      |              |                                                              |                                                        |
-|      |              |                                                              |                                                        |
-
-##### drop
-
-|  id  | drop_name  |            description             |             Supplement              |
-| :--: | :--------: | :--------------------------------: | :---------------------------------: |
-|  0   |    base    |        base class for drops        |                  \                  |
-|  1   |   split    | random one ball splits to 3 balls  |        split the oldest ball        |
-|  2   |    fast    |        fasten all the balls        |                                     |
-|  3   |    slow    |        slowen all the balls        |                                     |
-|  4   |   short    |         shorten the paddle         |                 10s                 |
-|  5   |    long    |        lengthen the paddle         |                 10s                 |
-|  6   | laser_beam | shoot a laser beam and deal damage | slow down the enemy when hit<br>10s |
-|      |            |                                    |                                     |
-|      |            |                                    |                                     |
-
-##### policy
-
-|  id  | policy_name | description | Supplement |
-| :--: | :---------: | :---------: | :--------: |
-|      |   还没做    |             |            |
-|      |             |             |            |
-|      |             |             |            |
-|      |             |             |            |
-|      |             |             |            |
 
 
 
@@ -392,8 +464,6 @@ policy: 当前选择的方针，拥有的方针
 3、分裂道具只让某一个球分裂
 
 4、鼠标操纵+没有碰撞体的板子能让手感好很多，但咱项目的场地比较窄，可能不适合（窄了弹起来会爽点）
-
-
 
 #### wzy原话
 

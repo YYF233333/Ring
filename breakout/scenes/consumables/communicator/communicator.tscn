@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cgd3nmqrheom3"]
 
-[ext_resource type="Texture2D" uid="uid://c86yxr8s7kkat" path="res://breakout/assets/Mine/communicator.png" id="1_w644t"]
+[ext_resource type="Texture2D" uid="uid://eagbq05vj30t" path="res://breakout/assets/Mine/communicator.png" id="1_w644t"]
 [ext_resource type="Script" path="res://breakout/scenes/consumables/communicator/communicator.gd" id="2_aoo8d"]
 [ext_resource type="Resource" uid="uid://c01e0ppjme4hj" path="res://breakout/scenes/consumables/communicator/communicator.tres" id="3_qx3p3"]
 

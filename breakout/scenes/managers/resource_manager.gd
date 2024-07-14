@@ -66,12 +66,12 @@ extends Node
 ]
 
 
-@onready var void_level_name: String = "void_level"
+@onready var void_level_name: String = "void level"
 @onready var void_level_scene = preload("res://breakout/scenes/levels/void_level.tscn")
 
 @onready var level_name_pool: Array[String] = [
-	"test_level_0",
-	"test_level_99_o_",
+	"test level 0",
+	"test level 99_o_",
 ]
 
 @onready var level_scene_pool: Array[PackedScene] = [
@@ -150,14 +150,14 @@ func get_drop_scene_by_id(drop_id: int) -> PackedScene:
 	if index == -1:
 		return void_drop_scene
 	else:
-		return drop_scene_pool[id_to_drop_scene_index.find(drop_id)]
+		return drop_scene_pool[index]
 
 func get_drop_scene_by_name(drop_name: String) -> PackedScene:
 	var index = name_to_drop_scene_index.find(drop_name)
 	if index == -1:
 		return void_drop_scene
 	else:
-		return drop_scene_pool[name_to_drop_scene_index.find(drop_name)]
+		return drop_scene_pool[index]
 
 
 func get_random_drop_scene(each_drop_percent: Array[float] = self.each_drop_percent) -> PackedScene:
@@ -209,14 +209,14 @@ func get_consumable_scene_by_id(consumable_id: int) -> PackedScene:
 	if index == -1:
 		return void_consumable_scene
 	else:
-		return consumable_scene_pool[id_to_consumable_scene_index.find(consumable_id)]
+		return consumable_scene_pool[index]
 
 func get_consumable_scene_by_name(consumable_name: String) -> PackedScene:
 	var index = name_to_consumable_scene_index.find(consumable_name)
 	if index == -1:
 		return void_consumable_scene
 	else:
-		return consumable_scene_pool[name_to_consumable_scene_index.find(consumable_name)]
+		return consumable_scene_pool[index]
 	
 	
 func _get_id_to_skill_scene_index():
@@ -234,14 +234,15 @@ func get_skill_scene_by_id(skill_id: int) -> PackedScene:
 	if index == -1:
 		return void_skill_scene
 	else:
-		return skill_scene_pool[id_to_skill_scene_index.find(skill_id)]
+		return skill_scene_pool[index]
 
 func get_skill_scene_by_name(skill_name: String) -> PackedScene:
+	print(skill_name, name_to_skill_scene_index)
 	var index = name_to_skill_scene_index.find(skill_name)
 	if index == -1:
 		return void_skill_scene
 	else:
-		return skill_scene_pool[name_to_skill_scene_index.find(skill_name)]
+		return skill_scene_pool[index]
 	
 	
 func _get_name_to_level_scene_index():
@@ -254,4 +255,4 @@ func get_level_scene_by_name(level_name: String) -> PackedScene:
 	if index == -1:
 		return null
 	else:
-		return level_scene_pool[name_to_level_scene_index.find(level_name)]
+		return level_scene_pool[index]

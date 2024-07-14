@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c5e1mb5jo1t4p"]
 
-[ext_resource type="Texture2D" uid="uid://c86nvolpb204q" path="res://breakout/assets/Mine/calculator.png" id="1_4qv4p"]
+[ext_resource type="Texture2D" uid="uid://igw4erd5pwd5" path="res://breakout/assets/Mine/calculator.png" id="1_4qv4p"]
 [ext_resource type="Script" path="res://breakout/scenes/consumables/calculator/calculator.gd" id="2_uer1d"]
 [ext_resource type="Resource" uid="uid://dqsjuieaqihf1" path="res://breakout/scenes/consumables/calculator/calculator.tres" id="3_na4ub"]
 

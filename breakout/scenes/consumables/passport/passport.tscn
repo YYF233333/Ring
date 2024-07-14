@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dw6byhuh2wuvh"]
 
-[ext_resource type="Texture2D" uid="uid://jo3u0whjrod6" path="res://breakout/assets/Mine/passport.png" id="1_c80n4"]
+[ext_resource type="Texture2D" uid="uid://du467kgg3v4f0" path="res://breakout/assets/Mine/passport.png" id="1_c80n4"]
 [ext_resource type="Script" path="res://breakout/scenes/consumables/passport/passport.gd" id="2_84kxi"]
 [ext_resource type="Resource" uid="uid://ih2x0ftk287j" path="res://breakout/scenes/consumables/passport/passport.tres" id="3_u4amn"]
 

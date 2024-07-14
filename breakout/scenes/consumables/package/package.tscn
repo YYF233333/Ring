@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bujvthov5ipeu"]
 
-[ext_resource type="Texture2D" uid="uid://cval47bu0kbjb" path="res://breakout/assets/Mine/package.png" id="1_obs02"]
+[ext_resource type="Texture2D" uid="uid://d3tdqyk7i7wgo" path="res://breakout/assets/Mine/package.png" id="1_obs02"]
 [ext_resource type="Script" path="res://breakout/scenes/consumables/package/package.gd" id="2_5hkc3"]
 [ext_resource type="Resource" uid="uid://deuloc7586wrh" path="res://breakout/scenes/consumables/package/package.tres" id="3_m74ja"]
 
