@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://jr34n4kfa3lg"]
+[gd_scene load_steps=15 format=3 uid="uid://jr34n4kfa3lg"]
 
 [ext_resource type="Script" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.gd" id="1_vpay1"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_yx7hq"]
@@ -6,6 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_rvx63"]
 [ext_resource type="Texture2D" uid="uid://ddt6ta71mv1wc" path="res://breakout/icon.svg" id="6_2abtu"]
 [ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="6_grvgx"]
+[ext_resource type="Shader" uid="uid://dglp1dnjevn6k" path="res://breakout/scenes/shaders/hit_flash.tres" id="6_t5uif"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxaj5"]
+resource_local_to_scene = true
+shader = ExtResource("6_t5uif")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_anf2t"]
 size = Vector2(128, 128)
@@ -15,6 +22,31 @@ size = Vector2(132, 132)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_63wg3"]
 size = Vector2(180, 180)
+
+[sub_resource type="Animation" id="Animation_qxn56"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_j3r5a"]
+resource_name = "hit_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yxbod"]
+_data = {
+"RESET": SubResource("Animation_qxn56"),
+"hit_flash": SubResource("Animation_j3r5a")
+}
 
 [node name="BasicEnemy" type="CharacterBody2D"]
 collision_layer = 64
@@ -41,6 +73,7 @@ health_component = NodePath("../HealthComponent")
 health_component = NodePath("../HealthComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_oxaj5")
 texture = ExtResource("6_2abtu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -110,3 +143,8 @@ one_shot = true
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yxbod")
+}

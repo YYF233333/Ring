@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://vmqbmvg4x0l"]
+[gd_scene load_steps=15 format=3 uid="uid://vmqbmvg4x0l"]
 
 [ext_resource type="Script" path="res://breakout/scenes/enemies/oppressive_enemy/oppressive_enemy.gd" id="1_d7eit"]
 [ext_resource type="Texture2D" uid="uid://bi0muynvg2nww" path="res://breakout/icon_heat.png" id="2_5q4i1"]
@@ -6,6 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="4_r15j5"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="5_nanaw"]
 [ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="6_o83aj"]
+[ext_resource type="Shader" uid="uid://dglp1dnjevn6k" path="res://breakout/scenes/shaders/hit_flash.tres" id="6_qjtj4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hcmic"]
+resource_local_to_scene = true
+shader = ExtResource("6_qjtj4")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_anf2t"]
 size = Vector2(128, 128)
@@ -15,6 +22,43 @@ size = Vector2(132, 132)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_63wg3"]
 size = Vector2(180, 180)
+
+[sub_resource type="Animation" id="Animation_x61xk"]
+resource_name = "hit_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_n6iu0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1g8o1"]
+_data = {
+"RESET": SubResource("Animation_n6iu0"),
+"hit_flash": SubResource("Animation_x61xk")
+}
 
 [node name="OppressiveEnemy" type="CharacterBody2D"]
 collision_layer = 64
@@ -42,6 +86,7 @@ health_component = NodePath("../HealthComponent")
 health_component = NodePath("../HealthComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_hcmic")
 texture = ExtResource("2_5q4i1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -110,3 +155,9 @@ one_shot = true
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_1g8o1")
+}

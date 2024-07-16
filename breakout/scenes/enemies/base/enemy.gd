@@ -29,6 +29,8 @@ class_name Enemy
 @onready var interval_hurt_component = $IntervalHurtComponent as IntervalHurtComponent
 @onready var chain_area = $ChainArea as Area2D
 
+@onready var hit_flash_animation_player = $HitFlashAnimationPlayer as AnimationPlayer
+
 @onready var health_bar = $HealthBar as ProgressBar
 @onready var health_label = $HealthLabel as Label
 
@@ -222,14 +224,8 @@ func _individual_ready():
 func hit_by_ball(ball: Ball):
 	BreakoutManager.ball_hit.emit(hit_by_ball_player_charge)
 	
-	if ball.fire_ball_buff > 0:
-		interval_hurt_component.fire_debuff_layer += ball.fire_ball_buff
-		
-	if ball.lightning_ball_buff > 0:
-		lightning_hurt(ValueManager.ball_damage)
-		chain_lightning(ball.lightning_ball_buff, ValueManager.ball_damage)
-	else:
-		physic_hurt(ValueManager.ball_damage)
+	physic_hurt(ValueManager.ball_damage)
+
 
 func hit_by_laser_beam(laser_beam: LaserBeam):
 	#TODO: 减速&视效
@@ -239,33 +235,8 @@ func hit_by_laser_beam(laser_beam: LaserBeam):
 
 func physic_hurt(value: int):
 	health_component.take_damage(value)
+	hit_flash_animation_player.play("hit_flash")
 	
-func lightning_hurt(value: int):
-	health_component.take_damage(value)
-			
-			
-func chain_lightning(lightning_ball_buff: int, damage: int):
-	var red_rate = modulate.r
-	modulate.r = 0
-	modulate.a = 0.5
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "modulate", Color(red_rate, modulate.g, modulate.b), 0.25)
-	
-	if lightning_ball_buff <= 0 or damage < 2:
-		return
-	
-	await get_tree().create_timer(0.1).timeout
-	
-	var chain_overlapping_bodies = chain_area.get_overlapping_bodies() #TODO: 文档里让请考虑使用信号？
-	for body in chain_overlapping_bodies:
-		var o = body.owner
-		#if o == self:
-			#continue
-		if o.is_in_group("bricks") or o.is_in_group("enemies"):
-			if o.has_method("chain_lightning"):
-				o.lightning_hurt(int(damage/2))
-				o.chain_lightning(lightning_ball_buff-1, int(damage/2))
-
 
 func _on_area_2d_body_entered(body):
 	if body is Ball:

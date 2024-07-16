@@ -108,6 +108,7 @@ func send_message() -> Dictionary:
 	
 func reset():
 	if init_message:
+		print(init_message)
 		var player_consumables: Dictionary = init_message["player_consumables"]
 		consumables.reset()
 		for consumable_name in player_consumables.keys():

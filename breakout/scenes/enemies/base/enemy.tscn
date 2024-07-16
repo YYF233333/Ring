@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bns5ttbkdsbjk"]
+[gd_scene load_steps=15 format=3 uid="uid://bns5ttbkdsbjk"]
 
 [ext_resource type="Script" path="res://breakout/scenes/enemies/base/enemy.gd" id="1_ne3pv"]
 [ext_resource type="Texture2D" uid="uid://ddt6ta71mv1wc" path="res://breakout/icon.svg" id="2_i3xhg"]
@@ -6,6 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_xmjjn"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_h1cae"]
 [ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="6_4j83i"]
+[ext_resource type="Shader" uid="uid://dglp1dnjevn6k" path="res://breakout/scenes/shaders/hit_flash.tres" id="6_twdrs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_useli"]
+resource_local_to_scene = true
+shader = ExtResource("6_twdrs")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_anf2t"]
 size = Vector2(126, 126)
@@ -15,6 +22,43 @@ size = Vector2(132, 132)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_63wg3"]
 size = Vector2(180, 180)
+
+[sub_resource type="Animation" id="Animation_qi0h7"]
+resource_name = "hit_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_ynur3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_07it2"]
+_data = {
+"RESET": SubResource("Animation_ynur3"),
+"hit_flash": SubResource("Animation_qi0h7")
+}
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 64
@@ -37,13 +81,13 @@ point = 100
 [node name="IntervalHurtComponent" parent="." instance=ExtResource("4_h1cae")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_useli")
 texture = ExtResource("2_i3xhg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_anf2t")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 17
 
@@ -107,3 +151,8 @@ one_shot = true
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_07it2")
+}

@@ -12,53 +12,56 @@
 
   ~~啥b godot 物理碰撞可以滚了，我选择直接用area2D，逆天想法~~ 失败
 
-- [x] 啥b玩意模拟次数调到批高就行
+  啥b玩意模拟次数调到批高就行
 
 
 
 #### <span style='color:red'>对接</span>@yyf
 
-- [ ] consumables、skills、policy的获取（获取途径为剧情and后勤部？问问龙越）和查看
+- [ ] consumables、skills、policy的获取（获取途径为剧情and后勤部？问问龙越）
 
-- [ ] 注意补货的时候不能超出物品数量上限
+- [ ] consumables、skills、policy的查看
 
-- [ ] 注意类似包裹（Day14转换）这种道具的转换是在剧情中发生的
+  注意补货的时候不能超出物品数量上限
+
+  注意类似包裹（Day14转换）这种道具的转换是在剧情中发生的
 
 - [ ] Message结构：
 
   ```python
   name - str	# name-id表见下面的###名称表
-  rest_times - int
-  transformed - bool # 部分消耗品有形态转换
+  transformed # 部分消耗品有形态转换
   
   main2breakout message - dict{
-	  "player_consumables": dict{
-		  name: dict{
-		  	"rest_times": int,
-		  	"transformed": bool
-	  	}
-	  },
-	  "selected_skill": name,
-	  "selected_policy": array[id],
-	  "current_level": id,
-	  "player_max_health": int,
-	  "player_init_ammo": int
+    "player_consumables": dict{
+  	  name: dict{
+  	  	"rest_times": int,
+  	  	"transformed": bool
+    	}
+    },
+    "selected_skill": name,
+    "selected_policy": array[name],
+    "current_level": name,
+    "player_max_health": int,
+    "player_init_ammo": int
   }
   
   breakout2main message - dict{
-	  "player_consumables": dict{
-		  name: dict{
-		  	"rest_times": int,
-		  	"transformed": bool
-	  	}
-	  },
-	  "level_result": dict{待定}
+    "player_consumables": dict{
+  	  name: dict{
+  	  	"rest_times": int,
+  	  	"transformed": bool
+    	}
+    },
+    "level_result": dict{待定}
   }
   ```
 
-- [ ] 潜在bug：UI显示上consumable的排序问题。理论上要先到的排前面，但是用dict会按id排序。<br>可以考虑维护一个获得顺序序号，实例化breakout时一个个append
+  潜在issue：UI显示上consumable的排序问题。理论上要先到的排前面，但是用dict会按id排序。<br>可以考虑维护一个获得顺序序号，实例化breakout时一个个append
 
-- [ ] breakout的message接口见`breakout_manager.gd`
+  breakout的message接口见`breakout_manager.gd`
+
+  - [ ] BUG：player_consumables因为json解析问题无法读取
 
 
 
@@ -95,13 +98,18 @@
 - [x] ~~fire ball 和 lightning ball 特效（自身、击中、触发伤害）~~ 删除
 - [x] ~~fire和lightning等buff做一个贴图叠加（shader？得找找学）~~ 删除
 - [ ] 伤害数字漂浮
-- [ ] 球的damage越高，颜色越深
+- [ ] *球的damage越高，颜色越深
 - [x] 屏幕震动，闪红（Utility.screen_shake, Utility.flicker_red）
 - [x] 初步角色受伤特效（生命图标闪红+板子闪红+屏幕震动
+  - [ ] 现在闪红直接修改modulate，可能得调整（已发现激光会跟着变红
+
 - [ ] 球碎
 - [x] 透明闪烁（Utility.flicker_transparent）、结束提示（Utility.end_hint）
-- [x] 激光视效
-- [ ] 被激光滋到视效
+- [x] 激光视效（参考b站教程）
+- [x] enemy受击闪白（参考b站教程）
+  - [ ] *现在闪白总感觉有点突兀，可能需要一个比较好的补间？
+  - [ ] *被激光滋到视效（闪淡蓝
+
 
 
 
