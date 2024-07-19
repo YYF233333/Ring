@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://b58xqjvnwv7j7"]
+
+[ext_resource type="Texture2D" uid="uid://blgs37lvosyb5" path="res://Runtime/BacklogRuntime/backlog.png" id="1_iu1oe"]
+[ext_resource type="PackedScene" uid="uid://dpy4j3w6hle3n" path="res://Runtime/BacklogRuntime/HistoryItem.tscn" id="2_jfiqk"]
+
+[node name="Backlog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(1.50548, 1.13229)
+texture = ExtResource("1_iu1oe")
+centered = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 90
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
+layout_mode = 2
+
+[node name="HBoxContainer2" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
+layout_mode = 2
+
+[node name="HBoxContainer3" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
+layout_mode = 2
+
+[node name="HBoxContainer4" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
+layout_mode = 2
+
+[node name="HBoxContainer5" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
+layout_mode = 2
+
+[node name="HBoxContainer6" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
+layout_mode = 2
+
+[node name="HBoxContainer7" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
+layout_mode = 2
+
+[node name="HBoxContainer8" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
+layout_mode = 2
