@@ -24,6 +24,8 @@ class_name Enemy
 
 @export var unstoppable: bool = false #TODO: 能否被击退。现在还不好用，没knockback和板贴贴会卡球
 
+@export var unique_drop_name: String
+
 #component
 @onready var health_component = $HealthComponent as HealthComponent
 @onready var interval_hurt_component = $IntervalHurtComponent as IntervalHurtComponent
@@ -223,7 +225,6 @@ func _individual_ready():
 
 func hit_by_ball(ball: Ball):
 	BreakoutManager.ball_hit.emit(hit_by_ball_player_charge)
-	
 	physic_hurt(ValueManager.ball_damage)
 
 

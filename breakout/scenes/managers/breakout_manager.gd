@@ -79,12 +79,13 @@ func _ready():
 	failed.connect(_on_failed)
 	track_lost.connect(_on_track_lost)
 	cleared.connect(_on_cleared)
-	
+
+	call_deferred("reset") #不用call_deferred会烂
+
 
 func receive_init_message(message: Dictionary):
 	init_message = message.duplicate(true)
-	print(init_message )
-	BreakoutManager.reset() 
+	call_deferred("reset")
 	
 	
 func send_message() -> Dictionary:
@@ -149,8 +150,7 @@ func reset():
 	
 	ammo = ValueManager.player_init_ammo
 	score = 0
-	cursed = false
-
+	
 
 func get_charge_percent():
 	if skill.max_charge <= 0:
@@ -209,4 +209,3 @@ func _on_cleared():
 	var end_screen = preload("res://breakout/scenes/screens/EndMiniGameScreen.tscn").instantiate()
 	breakout.add_child(end_screen)
 	
-

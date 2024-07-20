@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://breakout/scenes/breakout/Bottom.gd" id="1_pbrcl"]
 [ext_resource type="PackedScene" uid="uid://couhfdt63uc48" path="res://breakout/scenes/balls/ball.tscn" id="2_2hbpr"]
 [ext_resource type="PackedScene" uid="uid://hwfbtok4re4l" path="res://breakout/scenes/bricks/indestructible_brick/indestructible_brick.tscn" id="2_7b4tj"]
-[ext_resource type="PackedScene" uid="uid://c81idhg4ab0ye" path="res://breakout/scenes/bricks/basic_brick/basic_brick.tscn" id="3_ydx76"]
+[ext_resource type="PackedScene" uid="uid://b651bxuqe1lvi" path="res://breakout/scenes/bricks/charge_brick/charge_brick.tscn" id="3_wb2ko"]
 [ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="4_fxgx1"]
 [ext_resource type="PackedScene" uid="uid://vmqbmvg4x0l" path="res://breakout/scenes/enemies/oppressive_enemy/oppressive_enemy.tscn" id="5_4evi1"]
 [ext_resource type="PackedScene" uid="uid://bwmbf7k5vk8wp" path="res://breakout/scenes/drops/laser_beam/laser_beam_drop.tscn" id="6_76a8b"]
@@ -59,14 +59,8 @@ zoom = Vector2(0.833, 0.833)
 position = Vector2(960, 381)
 rotation = -0.00681059
 
-[node name="BasicBrick" parent="TestLevel0/Bricks" instance=ExtResource("3_ydx76")]
-position = Vector2(960, 304)
-
-[node name="BasicBrick2" parent="TestLevel0/Bricks" instance=ExtResource("3_ydx76")]
-position = Vector2(917, 304)
-
-[node name="BasicBrick3" parent="TestLevel0/Bricks" instance=ExtResource("3_ydx76")]
-position = Vector2(996, 305)
+[node name="ChargeBrick" parent="TestLevel0/Bricks" instance=ExtResource("3_wb2ko")]
+position = Vector2(959, 467)
 
 [node name="Enemies" type="Node2D" parent="TestLevel0" groups=["enemies"]]
 

@@ -9,9 +9,9 @@ import json
 breakout = json.loads(runtime.Global["BreakoutData"])
 #breakout["player_consumables"]["strange calculator"] = {"rest_times":5, "transformed":0}
 breakout["selected_skill"] = "blood bullet"
-#breakout["current_level"] = "test level 0"
-breakout["player_max_health"] = 20
-breakout["player_init_ammo"] = 5
+#breakout["current_level"] = "test level 0" # 不传这个则使用场景树上的未打包成tscn的关卡
+breakout["player_max_health"] = 16
+breakout["player_init_ammo"] = 6
 runtime.Global["BreakoutData"] = json.dumps(breakout)
 ```
 

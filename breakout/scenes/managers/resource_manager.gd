@@ -175,6 +175,13 @@ func spawn_random_drop(global_pos: Vector2, each_drop_percent: Array[float] = se
 	var drops = get_tree().get_first_node_in_group("drops") as Node2D
 	drops.add_child(random_drop_scene_instance)
 	random_drop_scene_instance.global_position = global_pos
+	
+	
+func spawn_unique_drop(global_pos: Vector2, drop_name: String):
+	var drop_scene_instance = get_drop_scene_by_name(drop_name).instantiate() as Drop
+	var drops = get_tree().get_first_node_in_group("drops") as Node2D
+	drops.add_child(drop_scene_instance)
+	drop_scene_instance.global_position = global_pos
 
 
 func get_random_lucky_drop_scene(each_lucky_drop_percent: Array[float] = self.each_lucky_drop_percent) -> PackedScene:

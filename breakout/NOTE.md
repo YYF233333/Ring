@@ -418,9 +418,9 @@
 
 ### NOTE
 
-#### Brick
-
-1. 物理形状 比 扫描形状 小一圈：ball 有 safe_margin 属性，如果物理不比扫描小，则在进入扫描之前就会认为已经发生碰撞而弹开，于是无法触发body_entered
+1. brick 物理形状 比 扫描形状 小一圈：ball 有 safe_margin 属性，如果物理不比扫描小，则在进入扫描之前就会认为已经发生碰撞而弹开，于是无法触发body_entered
+1. 在ready里使用call_defer(reset)可以让子节点都加载完后再调用，更稳定
+1. 检测一个节点有没有某变量用：if "var_name" in node
 
 #### General
 
