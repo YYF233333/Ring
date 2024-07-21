@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://c81idhg4ab0ye"]
+[gd_scene load_steps=11 format=3 uid="uid://b1ptm00ur7on0"]
 
-[ext_resource type="Script" path="res://breakout/scenes/bricks/basic_brick/basic_brick.gd" id="1_jwvbi"]
-[ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="3_xxm7y"]
-[ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="4_y72tj"]
-[ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="5_gsew7"]
-[ext_resource type="Texture2D" uid="uid://drmtjoiphuuwv" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/30-Breakout-Tiles.png" id="6_1e0a1"]
-[ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="6_1jbs7"]
+[ext_resource type="Script" path="res://breakout/scenes/bricks/charge_brick/charge_brick.gd" id="1_cj4ap"]
+[ext_resource type="Texture2D" uid="uid://cwsffm672xe5x" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/21-Breakout-Tiles.png" id="2_absa6"]
+[ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="3_oml6n"]
+[ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="4_u55lg"]
+[ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="5_xkc3e"]
+[ext_resource type="Texture2D" uid="uid://c3kpftmdk62jf" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/24-Breakout-Tiles.png" id="6_hc0io"]
+[ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="7_eo6dq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_muqvs"]
 size = Vector2(126, 126)
@@ -16,29 +17,30 @@ size = Vector2(130, 130)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_butaw"]
 size = Vector2(180, 180)
 
-[node name="BasicBrick" type="StaticBody2D"]
+[node name="HealBrick" type="StaticBody2D"]
 scale = Vector2(0.5, 0.5)
 collision_layer = 8
 collision_mask = 115
-script = ExtResource("1_jwvbi")
-brick_id = 1
-brick_name = "basic brick"
-brick_description = "nothing unusual"
+script = ExtResource("1_cj4ap")
+brick_id = 5
+brick_name = "heal brick"
+brick_description = "spawn a heal drop that heals 25% max health for player"
 max_health = 10
 init_health = 10
-sprites = Array[Texture]([ExtResource("6_1e0a1")])
-point = 100
+sprites = Array[Texture]([ExtResource("2_absa6")])
+drop_percent_scale = 100.0
+unique_drop_name = "heal"
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_xxm7y")]
+[node name="HealthComponent" parent="." instance=ExtResource("3_oml6n")]
 
-[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_y72tj")]
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_u55lg")]
 health_component = NodePath("../HealthComponent")
 
-[node name="IntervalHurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_gsew7")]
+[node name="IntervalHurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_xkc3e")]
 health_component = NodePath("../HealthComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("6_1e0a1")
+texture = ExtResource("6_hc0io")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_muqvs")
@@ -96,4 +98,4 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BonusParticles" parent="." instance=ExtResource("6_1jbs7")]
+[node name="BonusParticles" parent="." instance=ExtResource("7_eo6dq")]

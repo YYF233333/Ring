@@ -189,6 +189,8 @@
 - [ ] fever：得分翻五倍（那个金框贴图drop）
 - [ ] coin：获得一些资金（没贴图）
 - [x] laser beam：一段时间内持续发射激光并造成伤害
+- [x] charge：回50%能。比较稀有，一般是打充能包掉落
+- [x] heal：回25%血。比较稀有，一般是打治疗包掉落
 
 
 
@@ -220,8 +222,8 @@
 - [x] Indestructible brick：坚不可摧，但可以设计成999血basic brick然后整个成就w 
 - [ ] 坚固/坚不可摧 需要一个 钢框 之类的视觉提示
 - [x] ~~可以随意调整大小的接口？不知道需不需要，看是不是要手动制作关卡~~ 贴图伸展难看，建议手动修整
-- [x] 能量包(charge_brick)：打掉给10充能
-- [ ] 血包：打掉回5血
+- [x] 充能包(charge_brick)：打掉掉落一个charge drop
+- [x] 治疗包：打掉掉落一个heal drop
 
 
 
@@ -387,8 +389,8 @@
 |  4   |   short    |         shorten the paddle         |                 10s                 |
 |  5   |    long    |        lengthen the paddle         |                 10s                 |
 |  6   | laser beam | shoot a laser beam and deal damage | slow down the enemy when hit<br>10s |
-|  7   |   charge   |        charge 50% for skill        |                ceili                |
-|      |            |                                    |                                     |
+|  7   |   charge   |        charge 50% for skill        |      ceili<br>drop percent = 5      |
+|  8   |    heal    |   heal 25% max health for player   |      ceili<br>drop percent = 5      |
 
 ##### policy
 
@@ -416,7 +418,8 @@
 |  1   |     basic brick      |                       nothing unusual                        |    10 / 100    |                              \                               |
 |  2   |     sturdy brick     |        sturdy<br> take no more than 1 damage per hit         |    5 / 200     | change color per hit<br>red → orange → yellow → green → blue |
 |  3   | indestructible brick |                        indestructible                        |   999 / 999    | take no more than 1 damage per hit<br>TODO: unlock an achievement when broken<br>no charge when hit by ball |
-|  4   |     charge brick     | spawn a charge drop that charges 50% for skill<br>TODO: show charge drop as a child description |     10 / 0     | drop percent scale = 100. so if basic drop percent less than 0.01, it may not spawn drop |
+|  4   |     charge brick     | spawn a *charge drop* that charges 50% for skill<br>TODO: show charge drop as a child description |     10 / 0     | drop percent scale = 100. so if basic drop percent less than 0.01, it may not spawn drop |
+|  5   |      heal brick      |   spawn a *heal drop* that heals 25% max health for player   |     10 / 0     |                    same as *charge brick*                    |
 
 
 

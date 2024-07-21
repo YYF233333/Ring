@@ -10,7 +10,8 @@ extends Node
 	preload("res://breakout/scenes/drops/slow/slow_drop.tres"),
 	preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tres"),
 	preload("res://breakout/scenes/drops/split/split_drop.tres"),
-	preload("res://breakout/scenes/drops/charge/charge_drop.tres")
+	preload("res://breakout/scenes/drops/charge/charge_drop.tres"),
+	preload("res://breakout/scenes/drops/heal/heal_drop.tres")
 ]
 
 @onready var drop_scene_pool: Array[PackedScene] = [
@@ -20,21 +21,24 @@ extends Node
 	preload("res://breakout/scenes/drops/slow/slow_drop.tscn"),
 	preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tscn"),
 	preload("res://breakout/scenes/drops/split/split_drop.tscn"),
-	preload("res://breakout/scenes/drops/charge/charge_drop.tscn")
+	preload("res://breakout/scenes/drops/charge/charge_drop.tscn"),
+	preload("res://breakout/scenes/drops/heal/heal_drop.tscn")
 ]
 
 @onready var lucky_drop_tres_pool: Array[Resource] = [
 	preload("res://breakout/scenes/drops/long/long_drop.tres"),
 	preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tres"),
 	preload("res://breakout/scenes/drops/split/split_drop.tres"),
-	preload("res://breakout/scenes/drops/charge/charge_drop.tres")
+	preload("res://breakout/scenes/drops/charge/charge_drop.tres"),
+	preload("res://breakout/scenes/drops/heal/heal_drop.tres")
 ]
 
 @onready var lucky_drop_scene_pool: Array[PackedScene] = [
 	preload("res://breakout/scenes/drops/long/long_drop.tscn"),
 	preload("res://breakout/scenes/drops/laser_beam/laser_beam_drop.tscn"),
 	preload("res://breakout/scenes/drops/split/split_drop.tscn"),
-	preload("res://breakout/scenes/drops/charge/charge_drop.tscn")
+	preload("res://breakout/scenes/drops/charge/charge_drop.tscn"),
+	preload("res://breakout/scenes/drops/heal/heal_drop.tscn")
 ]
 
 @onready var void_consumable_tres = preload("res://breakout/scenes/consumables/base/consumable.tres")

@@ -10,4 +10,4 @@ drop_description = "charge 50% for skill"
 effect_layer = 1
 effect_multiplier = 1.0
 effect_last_time = 10.0
-drop_percent_level = 0.0
+drop_percent_level = 5.0

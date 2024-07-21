@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Drop_Info" load_steps=2 format=3 uid="uid://caluk865l6cd5"]
+
+[ext_resource type="Script" path="res://breakout/scenes/drops/base/drop_info.gd" id="1_wy5ce"]
+
+[resource]
+script = ExtResource("1_wy5ce")
+drop_id = 8
+drop_name = "heal"
+drop_description = "heal 25% max health for player"
+effect_layer = 1
+effect_multiplier = 1.0
+effect_last_time = 10.0
+drop_percent_level = 5.0
