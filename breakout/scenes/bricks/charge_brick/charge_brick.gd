@@ -10,4 +10,3 @@ func check_init_type():
 
 
 
-

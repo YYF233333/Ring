@@ -22,14 +22,14 @@ scale = Vector2(0.5, 0.5)
 collision_layer = 8
 collision_mask = 115
 script = ExtResource("1_ou1sq")
-brick_id = 1
-brick_name = "basic brick"
-brick_description = "nothing unusual"
+brick_id = 4
+brick_name = "charge brick"
+brick_description = "spawn a charge drop that charges 50% for skill"
 max_health = 10
 init_health = 10
 sprites = Array[Texture]([ExtResource("2_8ydvh")])
-point = 100
-unique_drop_name = "split"
+drop_percent_scale = 100.0
+unique_drop_name = "charge"
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_ried7")]
 

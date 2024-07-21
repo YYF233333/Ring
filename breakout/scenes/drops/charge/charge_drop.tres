@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Drop_Info" load_steps=2 format=3 uid="uid://witdg4p0itdp"]
+
+[ext_resource type="Script" path="res://breakout/scenes/drops/base/drop_info.gd" id="1_xrcnf"]
+
+[resource]
+script = ExtResource("1_xrcnf")
+drop_id = 7
+drop_name = "charge"
+drop_description = "charge 50% for skill"
+effect_layer = 1
+effect_multiplier = 1.0
+effect_last_time = 10.0
+drop_percent_level = 0.0

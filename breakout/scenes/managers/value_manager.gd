@@ -2,9 +2,7 @@ extends Node
 
 # player
 var player_max_health: int = 10
-
 var player_init_ammo: int = 10
-
 var player_charge_multiplier: float = 1.0
 
 # drop

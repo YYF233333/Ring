@@ -33,6 +33,7 @@ var type: int
 func _ready():
 	$Area2D.body_entered.connect(_on_area_2d_body_entered)
 	health_component.health_change.connect(_on_health_change)
+	health_component.died.connect(_on_died)
 	add_to_group("bricks")
 	
 	health_bar.min_value = 0
@@ -102,3 +103,5 @@ func _on_health_change():
 	if current_health > 0:
 		show_health()
 		
+func _on_died():
+	pass

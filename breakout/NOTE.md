@@ -220,7 +220,7 @@
 - [x] Indestructible brick：坚不可摧，但可以设计成999血basic brick然后整个成就w 
 - [ ] 坚固/坚不可摧 需要一个 钢框 之类的视觉提示
 - [x] ~~可以随意调整大小的接口？不知道需不需要，看是不是要手动制作关卡~~ 贴图伸展难看，建议手动修整
-- [ ] 能量包：打掉给10充能
+- [x] 能量包(charge_brick)：打掉给10充能
 - [ ] 血包：打掉回5血
 
 
@@ -382,12 +382,12 @@
 | :--: | :--------: | :--------------------------------: | :---------------------------------: |
 |  0   |    base    |        base class for drops        |                  \                  |
 |  1   |   split    | random one ball splits to 3 balls  |        split the oldest ball        |
-|  2   |    fast    |        fasten all the balls        |                                     |
-|  3   |    slow    |        slowen all the balls        |                                     |
+|  2   |    fast    |        fasten all the balls        |                ×1.25                |
+|  3   |    slow    |        slowen all the balls        |                ×0.8                 |
 |  4   |   short    |         shorten the paddle         |                 10s                 |
 |  5   |    long    |        lengthen the paddle         |                 10s                 |
 |  6   | laser beam | shoot a laser beam and deal damage | slow down the enemy when hit<br>10s |
-|      |            |                                    |                                     |
+|  7   |   charge   |        charge 50% for skill        |                ceili                |
 |      |            |                                    |                                     |
 
 ##### policy
@@ -407,6 +407,16 @@
 |    void level    | nothing | empty level |
 |   test level 0   |  TODO   |             |
 | test level 99_o_ |  clear  |             |
+
+##### brick
+
+|  id  |      brick_name      |                         description                          | health / point |                          supplement                          |
+| :--: | :------------------: | :----------------------------------------------------------: | :------------: | :----------------------------------------------------------: |
+|  0   |        brick         |                    base class for bricks                     |       \        |                              \                               |
+|  1   |     basic brick      |                       nothing unusual                        |    10 / 100    |                              \                               |
+|  2   |     sturdy brick     |        sturdy<br> take no more than 1 damage per hit         |    5 / 200     | change color per hit<br>red → orange → yellow → green → blue |
+|  3   | indestructible brick |                        indestructible                        |   999 / 999    | take no more than 1 damage per hit<br>TODO: unlock an achievement when broken<br>no charge when hit by ball |
+|  4   |     charge brick     | spawn a charge drop that charges 50% for skill<br>TODO: show charge drop as a child description |     10 / 0     | drop percent scale = 100. so if basic drop percent less than 0.01, it may not spawn drop |
 
 
 

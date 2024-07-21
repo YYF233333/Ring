@@ -10,4 +10,4 @@ drop_description = "shorten the paddle"
 effect_layer = 1
 effect_multiplier = 1.0
 effect_last_time = 10.0
-basic_drop_luck_level = -1.0
+drop_percent_level = 0.0

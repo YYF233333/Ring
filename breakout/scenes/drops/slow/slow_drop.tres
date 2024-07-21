@@ -10,4 +10,4 @@ drop_description = "slowen all the balls"
 effect_layer = 1
 effect_multiplier = 0.8
 effect_last_time = 10.0
-basic_drop_luck_level = -1.0
+drop_percent_level = 0.0

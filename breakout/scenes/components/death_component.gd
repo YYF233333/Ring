@@ -23,10 +23,14 @@ func spawn_lucky_drop():
 func _on_died():
 	BreakoutManager.point_scored.emit(owner.point)
 	
-	if owner.unique_drop_name:
-		spawn_unique_drop()
-	elif owner.bonus:
-		spawn_lucky_drop()
+	if owner.bonus:
+		if owner.unique_drop_name:
+			spawn_unique_drop()
+		else:
+			spawn_lucky_drop()
 	elif randf() <= ValueManager.current_drop_percent * owner.drop_percent_scale:
-		spawn_drop()
+		if owner.unique_drop_name:
+			spawn_unique_drop() # 想稳定掉落指定drop且不闪光，将drop percent调成100就行
+		else:
+			spawn_drop()
 	

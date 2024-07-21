@@ -10,6 +10,4 @@ drop_description = "shoot a laser beam and deal damage"
 effect_layer = 1
 effect_multiplier = 1.0
 effect_last_time = 10.0
-can_be_dropped = true
 drop_percent_level = 0.0
-is_lucky_drop = false
