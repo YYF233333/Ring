@@ -16,7 +16,7 @@ func _ready():
 func _process(delta):
 	if shake:
 		shake_time += 1
-		var target_offset = Vector2(cos(shake_time)*4.0*shake_force, sin(shake_time)*2.25*shake_force) 
+		var target_offset = Vector2(cos(shake_time)*4.0*shake_force, sin(shake_time)*2.25*shake_force)
 		camera.offset = lerp(camera.offset, target_offset, 2)
 	elif shake_time:
 		shake_time = 0

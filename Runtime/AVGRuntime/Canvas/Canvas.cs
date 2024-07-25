@@ -86,7 +86,8 @@ public partial class Canvas : Node2D
 
     public Texture2D Stretch(Texture2D texture, Vector2I? windowSize = null)
     {
-        var _windowSize = windowSize ?? GetTree().Root.Size;
+        // 防止jz乱改窗口大小（-0.01.jpg）
+        var _windowSize = windowSize ?? new Vector2I(1920, 1080);
         var image = texture.GetImage();
         var imageSize = image.GetSize();
         var scale = Math.Max(
