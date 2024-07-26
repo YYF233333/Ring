@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -36,7 +37,11 @@ public class BreakoutMessage
         var d = new Godot.Collections.Dictionary();
         foreach (var (key, value) in player_consumables)
         {
-            d[key] = new Godot.Collections.Array { value.rest_times, value.transformed };
+            d[key] = new Godot.Collections.Dictionary()
+            {
+                { "rest_times", value.rest_times },
+                { "transformed", value.transformed },
+            };
         }
         dict["player_consumables"] = d;
         return dict;

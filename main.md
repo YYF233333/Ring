@@ -7,7 +7,7 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 ```python
 import json
 breakout = json.loads(runtime.Global["BreakoutData"])
-#breakout["player_consumables"]["strange calculator"] = {"rest_times":5, "transformed":0}
+breakout["player_consumables"]["strange calculator"] = {"rest_times":5, "transformed":False}
 breakout["selected_skill"] = "blood bullet"
 #breakout["current_level"] = "test level 0" # 不传这个则使用场景树上的未打包成tscn的关卡
 breakout["player_max_health"] = 16
