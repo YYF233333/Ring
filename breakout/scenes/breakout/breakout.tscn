@@ -9,10 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="4_fxgx1"]
 [ext_resource type="PackedScene" uid="uid://b1ptm00ur7on0" path="res://breakout/scenes/bricks/heal_brick/heal_brick.tscn" id="4_ys6bt"]
 [ext_resource type="PackedScene" uid="uid://vmqbmvg4x0l" path="res://breakout/scenes/enemies/oppressive_enemy/oppressive_enemy.tscn" id="5_4evi1"]
-[ext_resource type="Texture2D" uid="uid://dyn00gfpfdick" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/24-Breakout-Tiles.png" id="5_df2iw"]
+[ext_resource type="Texture2D" uid="uid://b4sffru63p4th" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/24-Breakout-Tiles.png" id="5_df2iw"]
 [ext_resource type="PackedScene" uid="uid://bwmbf7k5vk8wp" path="res://breakout/scenes/drops/laser_beam/laser_beam_drop.tscn" id="6_76a8b"]
 [ext_resource type="Script" path="res://breakout/scenes/balls/balls.gd" id="6_s6fh4"]
-[ext_resource type="Texture2D" uid="uid://cet86wiotq47n" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
+[ext_resource type="Texture2D" uid="uid://ci1pxjrjurudf" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
 [ext_resource type="PackedScene" uid="uid://bs7ujwrx4cyhd" path="res://breakout/scenes/walls/static_wall.tscn" id="9_rq28d"]
 [ext_resource type="Script" path="res://breakout/scenes/ui/UI.gd" id="14_tu7t6"]
 [ext_resource type="PackedScene" uid="uid://deo02t7m4xonq" path="res://breakout/scenes/consumables/base/consumables.tscn" id="15_yxme3"]
@@ -20,7 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://dw6byhuh2wuvh" path="res://breakout/scenes/consumables/passport/passport.tscn" id="16_gj7fc"]
 [ext_resource type="PackedScene" uid="uid://jahunc3lre5m" path="res://breakout/scenes/consumables/base/consumable.tscn" id="17_76icu"]
 [ext_resource type="PackedScene" uid="uid://c5e1mb5jo1t4p" path="res://breakout/scenes/consumables/calculator/calculator.tscn" id="17_q3775"]
-[ext_resource type="Texture2D" uid="uid://lilambiw78ha" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="18_36oic"]
+[ext_resource type="Texture2D" uid="uid://cf07qkmmi0sd8" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="18_36oic"]
 [ext_resource type="PackedScene" uid="uid://d0h47jgrvih5b" path="res://breakout/scenes/consumables/old_model/old_model.tscn" id="18_yrrrg"]
 [ext_resource type="PackedScene" uid="uid://bujvthov5ipeu" path="res://breakout/scenes/consumables/package/package.tscn" id="19_rl5u4"]
 [ext_resource type="PackedScene" uid="uid://dsw27ashjrjbv" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.tscn" id="24_wfglu"]
@@ -51,7 +51,6 @@ script = ExtResource("1_orx43")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
-zoom = Vector2(0.833, 0.833)
 
 [node name="TestLevel0" type="Node2D" parent="." groups=["levels"]]
 

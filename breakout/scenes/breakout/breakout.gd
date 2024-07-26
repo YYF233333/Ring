@@ -10,6 +10,7 @@ var shake_force: float = 1.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	BreakoutManager.breakout = self
+	BreakoutManager.call_deferred("reset") #不用call_deferred会烂
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

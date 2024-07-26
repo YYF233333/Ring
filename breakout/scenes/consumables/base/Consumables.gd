@@ -6,13 +6,13 @@ class_name Consumables
 
 var consumable_num: int
 var selected_consumable_num: int
-var consumables: Array[Node]
+var consumable_nodes: Array[Node] #小心这里Node都是索引
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	BreakoutManager.consumables = self
-	self.consumables = grid_container.get_children()
+	self.consumable_nodes = grid_container.get_children()
 	selected_consumable_num = 0
 	update()
 	
@@ -26,33 +26,19 @@ func _process(delta):
 			selected_consumable_num = (selected_consumable_num + 1) % consumable_num
 			move_select_box()
 	if Input.is_action_just_pressed("use_selected_consumable"):
-		var selected_consumable = consumables[selected_consumable_num] as Consumable
+		var selected_consumable = consumable_nodes[selected_consumable_num] as Consumable
 		if selected_consumable.use(1):
 			select_box_flicker()
-			
-	#手柄玩家好像没这么多按键
-	#if Input.is_action_just_pressed("use_consumable_1"):
-		#var selected_consumable = consumables[0] as Consumable
-		#selected_consumable.use(selected_consumable.exhaust)
-	#if Input.is_action_just_pressed("use_consumable_2"):
-		#var selected_consumable = consumables[1] as Consumable
-		#selected_consumable.use(selected_consumable.exhaust)
-	#if Input.is_action_just_pressed("use_consumable_3"):
-		#var selected_consumable = consumables[2] as Consumable
-		#selected_consumable.use(selected_consumable.exhaust)
-	#if Input.is_action_just_pressed("use_consumable_4"):
-		#var selected_consumable = consumables[3] as Consumable
-		#selected_consumable.use(selected_consumable.exhaust)
+	
 		
 func reset():
-	consumables.clear()
 	selected_consumable_num = 0
 	update()
 		
 
 func move_select_box():
 	var tween = create_tween()
-	tween.tween_property(select_box, "global_position", consumables[selected_consumable_num].global_position, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.tween_property(select_box, "global_position", consumable_nodes[selected_consumable_num].global_position, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		
 func select_box_flicker():
 	var tween = create_tween()
@@ -63,16 +49,12 @@ func select_box_flicker():
 	tween.parallel().tween_property(select_box, "scale", Vector2(1, 1), 0.1).set_trans(Tween.TRANS_BOUNCE)
 	
 func update():
-	for consumable in grid_container.get_children():
-		remove_consumable_instance(consumable)
-	for consumable in consumables:
-		add_consumable_instance(consumable)
-	consumable_num = consumables.size()
+	consumable_num = consumable_nodes.size()
 	if consumable_num == 0:
 		select_box.modulate = Color(1, 1, 1, 0)
 	else:
 		var tween = create_tween()
-		tween.tween_property(select_box, "global_position", consumables[selected_consumable_num].global_position, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		tween.tween_property(select_box, "global_position", consumable_nodes[selected_consumable_num].global_position, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		tween.parallel().tween_property(select_box, "modulate", Color(1, 1, 1, 1), 0.5).set_trans(Tween.TRANS_BOUNCE)
 		
 
@@ -99,13 +81,13 @@ func change_consumable_instance(from: Consumable, to: Consumable, node: Node = g
 		add_consumable_instance(node, to)
 		
 func find_consumable_by_id(id: int):
-	for consumable in consumables:
+	for consumable in consumable_nodes:
 		if consumable.consumable_info.consumable_id == id:
 			return consumable
 	return null
 	
 func find_consumable_by_name(name: String):
-	for consumable in consumables:
+	for consumable in consumable_nodes:
 		if consumable.consumable_info.consumable_name == name:
 			return consumable
 	return null
@@ -115,6 +97,6 @@ func _on_consumable_manager_consumable_change(from: Consumable, to: Consumable):
 	update()
 
 func _on_consumable_manager_consumable_restore(consumable: Consumable, quantity: int):
-	for consumable_i in consumables:
+	for consumable_i in consumable_nodes:
 		if consumable_i.consumable_info.consumable_id == consumable.consumable_id:
 			consumable_i.restore_charge(1)

@@ -79,8 +79,8 @@ func _ready():
 	failed.connect(_on_failed)
 	track_lost.connect(_on_track_lost)
 	cleared.connect(_on_cleared)
-
-	call_deferred("reset") #不用call_deferred会烂
+#
+	#call_deferred("reset") #在breakout里调用，不然restart会寄
 
 
 func receive_init_message(message: Dictionary):
@@ -92,7 +92,7 @@ func send_message() -> Dictionary:
 	var ret_message = Dictionary()
 	
 	var player_consumables = Dictionary()
-	for consumable in consumables.consumables:
+	for consumable in consumables.consumable_nodes:
 		var consumable_name = (consumable as Consumable).consumable_info.consumable_name
 		var rest_times = (consumable as Consumable).rest_times
 		var transformed = (consumable as Consumable).transformed
@@ -118,7 +118,7 @@ func reset():
 			var consumable: Consumable = ResourceManager.get_consumable_scene_by_name(consumable_name).instantiate()
 			consumable.rest_times = rest_times
 			consumable.transformed = transformed
-			consumables.consumables.append(consumable)
+			consumables.consumable_nodes.append(consumable)
 		consumables.update()
 		
 		var selected_skill: String = init_message["selected_skill"]
