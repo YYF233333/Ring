@@ -141,7 +141,7 @@
 
 #### 摩多摩多
 
-可以看着贴图想
+可以看着贴图想 <span style="font-size:10px;color:gray">没有的贴图可以ai造/自己改</span>
 
 
 

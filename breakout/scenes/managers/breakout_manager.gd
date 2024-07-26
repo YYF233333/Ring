@@ -118,9 +118,9 @@ func reset():
 			var consumable: Consumable = ResourceManager.get_consumable_scene_by_name(consumable_name).instantiate()
 			consumable.rest_times = rest_times
 			consumable.transformed = transformed
-			consumables.consumable_nodes.append(consumable)
-		consumables.update()
-		
+			consumables.add_consumable_instance(consumable)
+
+
 		var selected_skill: String = init_message["selected_skill"]
 		skill = ResourceManager.get_skill_scene_by_name(selected_skill).instantiate() as Skill
 		skill_changed.emit()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://xs5dbesq4xxp"]
+[gd_scene load_steps=29 format=3 uid="uid://xs5dbesq4xxp"]
 
 [ext_resource type="PackedScene" uid="uid://daw03w0dflwfi" path="res://breakout/scenes/paddles/paddle.tscn" id="1_n40qs"]
 [ext_resource type="Script" path="res://breakout/scenes/breakout/breakout.gd" id="1_orx43"]
@@ -17,11 +17,9 @@
 [ext_resource type="Script" path="res://breakout/scenes/ui/UI.gd" id="14_tu7t6"]
 [ext_resource type="PackedScene" uid="uid://deo02t7m4xonq" path="res://breakout/scenes/consumables/base/consumables.tscn" id="15_yxme3"]
 [ext_resource type="PackedScene" uid="uid://cgd3nmqrheom3" path="res://breakout/scenes/consumables/communicator/communicator.tscn" id="16_10h23"]
-[ext_resource type="PackedScene" uid="uid://dw6byhuh2wuvh" path="res://breakout/scenes/consumables/passport/passport.tscn" id="16_gj7fc"]
 [ext_resource type="PackedScene" uid="uid://jahunc3lre5m" path="res://breakout/scenes/consumables/base/consumable.tscn" id="17_76icu"]
 [ext_resource type="PackedScene" uid="uid://c5e1mb5jo1t4p" path="res://breakout/scenes/consumables/calculator/calculator.tscn" id="17_q3775"]
 [ext_resource type="Texture2D" uid="uid://cf07qkmmi0sd8" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="18_36oic"]
-[ext_resource type="PackedScene" uid="uid://d0h47jgrvih5b" path="res://breakout/scenes/consumables/old_model/old_model.tscn" id="18_yrrrg"]
 [ext_resource type="PackedScene" uid="uid://bujvthov5ipeu" path="res://breakout/scenes/consumables/package/package.tscn" id="19_rl5u4"]
 [ext_resource type="PackedScene" uid="uid://dsw27ashjrjbv" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.tscn" id="24_wfglu"]
 
@@ -190,17 +188,10 @@ layout_mode = 2
 [node name="Communicator" parent="UI/Consumables/GridContainer" index="1" instance=ExtResource("16_10h23")]
 layout_mode = 2
 
-[node name="Passport" parent="UI/Consumables/GridContainer" index="2" instance=ExtResource("16_gj7fc")]
+[node name="Calculator" parent="UI/Consumables/GridContainer" index="2" instance=ExtResource("17_q3775")]
 layout_mode = 2
 
-[node name="Calculator" parent="UI/Consumables/GridContainer" index="3" instance=ExtResource("17_q3775")]
-layout_mode = 2
-
-[node name="OldModel" parent="UI/Consumables/GridContainer" index="4" instance=ExtResource("18_yrrrg")]
-layout_mode = 2
-transform_time = 10.0
-
-[node name="Package" parent="UI/Consumables/GridContainer" index="5" instance=ExtResource("19_rl5u4")]
+[node name="Package" parent="UI/Consumables/GridContainer" index="3" instance=ExtResource("19_rl5u4")]
 layout_mode = 2
 
 [node name="SelectBox" parent="UI/Consumables" index="1"]

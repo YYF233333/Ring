@@ -7,17 +7,18 @@ class_name Consumable
 
 var max_possess_amount: int
 var price: int
-var rest_times: int:
+var rest_times: int: 
 	set(value):
 		rest_times = min(max(value, 0), max_possess_amount)
-		rest_times_label.text = str(rest_times)
-var transformed = false:
+		if rest_times_label:
+			rest_times_label.text = str(rest_times)
+var transformed: bool = false: 
 	set(value):
 		transformed = value
 		_on_transformed() #没有形态转换则为空函数pass
 		
 func _ready():
-	_init_info()
+	_init_info() 
 	_connect_signal()
 
 func _init_info():

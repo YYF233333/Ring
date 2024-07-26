@@ -31,7 +31,11 @@ func _process(delta):
 			select_box_flicker()
 	
 		
-func reset():
+func reset(clear_consumable: bool = true, node: Node = grid_container):
+	if clear_consumable:
+		for consumable in consumable_nodes:
+			node.remove_child(consumable)
+			consumable.queue_free()
 	selected_consumable_num = 0
 	update()
 		
@@ -48,7 +52,13 @@ func select_box_flicker():
 	tween.tween_property(select_box, "modulate", Color(1, 1, 1, 1), 0.1).set_trans(Tween.TRANS_BOUNCE)
 	tween.parallel().tween_property(select_box, "scale", Vector2(1, 1), 0.1).set_trans(Tween.TRANS_BOUNCE)
 	
+
 func update():
+	"""
+	将consumable_nodes与grid_container同步
+	以及更新select_box的位置
+	"""
+	consumable_nodes = grid_container.get_children()
 	consumable_num = consumable_nodes.size()
 	if consumable_num == 0:
 		select_box.modulate = Color(1, 1, 1, 0)
@@ -63,6 +73,7 @@ func add_consumable_instance(consumable: Consumable, node: Node = grid_container
 	var consumable_instance = load(scene_file_path).instantiate() as Consumable
 	node.add_child(consumable_instance)
 	#consumable_instance.apply_passive_effect()
+	update()
 
 
 func remove_consumable_instance(consumable: Consumable, node: Node = grid_container):
@@ -72,6 +83,7 @@ func remove_consumable_instance(consumable: Consumable, node: Node = grid_contai
 			node.remove_child(child)
 			child.queue_free()
 			break
+	update()
 
 func change_consumable_instance(from: Consumable, to: Consumable, node: Node = grid_container):
 	if !from:
@@ -79,6 +91,7 @@ func change_consumable_instance(from: Consumable, to: Consumable, node: Node = g
 	else:
 		remove_consumable_instance(node, from)
 		add_consumable_instance(node, to)
+	update()
 		
 func find_consumable_by_id(id: int):
 	for consumable in consumable_nodes:
@@ -100,3 +113,4 @@ func _on_consumable_manager_consumable_restore(consumable: Consumable, quantity:
 	for consumable_i in consumable_nodes:
 		if consumable_i.consumable_info.consumable_id == consumable.consumable_id:
 			consumable_i.restore_charge(1)
+	update()
