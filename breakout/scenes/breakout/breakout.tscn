@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://xs5dbesq4xxp"]
+[gd_scene load_steps=28 format=3 uid="uid://xs5dbesq4xxp"]
 
 [ext_resource type="PackedScene" uid="uid://daw03w0dflwfi" path="res://breakout/scenes/paddles/paddle.tscn" id="1_n40qs"]
 [ext_resource type="Script" path="res://breakout/scenes/breakout/breakout.gd" id="1_orx43"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="4_fxgx1"]
 [ext_resource type="PackedScene" uid="uid://b1ptm00ur7on0" path="res://breakout/scenes/bricks/heal_brick/heal_brick.tscn" id="4_ys6bt"]
 [ext_resource type="PackedScene" uid="uid://vmqbmvg4x0l" path="res://breakout/scenes/enemies/oppressive_enemy/oppressive_enemy.tscn" id="5_4evi1"]
-[ext_resource type="Texture2D" uid="uid://b4sffru63p4th" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/24-Breakout-Tiles.png" id="5_df2iw"]
 [ext_resource type="PackedScene" uid="uid://bwmbf7k5vk8wp" path="res://breakout/scenes/drops/laser_beam/laser_beam_drop.tscn" id="6_76a8b"]
 [ext_resource type="Script" path="res://breakout/scenes/balls/balls.gd" id="6_s6fh4"]
 [ext_resource type="Texture2D" uid="uid://ci1pxjrjurudf" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
@@ -63,7 +62,6 @@ position = Vector2(895, 467)
 
 [node name="HealBrick" parent="TestLevel0/Bricks" instance=ExtResource("4_ys6bt")]
 position = Vector2(1032, 462)
-sprites = Array[Texture]([ExtResource("5_df2iw")])
 
 [node name="Enemies" type="Node2D" parent="TestLevel0" groups=["enemies"]]
 
