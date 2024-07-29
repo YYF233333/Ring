@@ -41,7 +41,6 @@ public partial class Canvas : Node2D
             return;
         }
         // 占位BG
-        AddTexture("BG", GD.Load<Texture2D>("res://assets/Runtime/black.png"), Placement.BG, -1);
         BG = new Sprite2D
         {
             Name = "BG",
