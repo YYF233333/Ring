@@ -150,7 +150,7 @@
 技能（命中时充能）：
 
 - [x] 基础框架
-- [x] base class skill：+100 score
+- [x] base class skill：~~+100 score~~ void
 - [x] 初始技能：球分裂，板变至最长（99个long_drop）20s
 - [x] blood bullet：消耗1 hp发射一个新球
 
