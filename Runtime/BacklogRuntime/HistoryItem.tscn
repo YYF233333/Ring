@@ -1,21 +1,24 @@
-[gd_scene format=3 uid="uid://dpy4j3w6hle3n"]
+[gd_scene load_steps=2 format=3 uid="uid://dpy4j3w6hle3n"]
+
+[ext_resource type="Script" path="res://Runtime/BacklogRuntime/HistoryItem.cs" id="1_ketpg"]
 
 [node name="HBoxContainer" type="HBoxContainer"]
 custom_minimum_size = Vector2(1830, 250)
+script = ExtResource("1_ketpg")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 50
 
-[node name="Label" type="Label" parent="."]
+[node name="Name" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 40
 text = "【0d00】"
 
-[node name="Label2" type="Label" parent="."]
+[node name="Content" type="Label" parent="."]
 custom_minimum_size = Vector2(1200, 0)
 layout_mode = 2
 size_flags_vertical = 0

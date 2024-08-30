@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b58xqjvnwv7j7"]
 
 [ext_resource type="Texture2D" uid="uid://blgs37lvosyb5" path="res://Runtime/BacklogRuntime/backlog.png" id="1_iu1oe"]
-[ext_resource type="PackedScene" uid="uid://dpy4j3w6hle3n" path="res://Runtime/BacklogRuntime/HistoryItem.tscn" id="2_jfiqk"]
+[ext_resource type="Script" path="res://Runtime/BacklogRuntime/Backlog.cs" id="1_u8147"]
 
 [node name="Backlog" type="Control"]
 layout_mode = 3
@@ -10,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_u8147")
 
 [node name="Background" type="Sprite2D" parent="."]
 scale = Vector2(1.50548, 1.13229)
@@ -28,28 +29,4 @@ theme_override_constants/margin_right = 90
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
-layout_mode = 2
-
-[node name="HBoxContainer2" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
-layout_mode = 2
-
-[node name="HBoxContainer3" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
-layout_mode = 2
-
-[node name="HBoxContainer4" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
-layout_mode = 2
-
-[node name="HBoxContainer5" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
-layout_mode = 2
-
-[node name="HBoxContainer6" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
-layout_mode = 2
-
-[node name="HBoxContainer7" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
-layout_mode = 2
-
-[node name="HBoxContainer8" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_jfiqk")]
 layout_mode = 2

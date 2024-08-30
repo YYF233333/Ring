@@ -4,6 +4,7 @@ namespace RingEngine.Runtime.AVGRuntime;
 
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using Godot;
 using RingEngine.Runtime.AVGRuntime.Effect;
 using RingEngine.Runtime.AVGRuntime.Script;
@@ -102,6 +103,14 @@ public partial class AVGRuntime : Node2D, ISubRuntime
         {
             Global["BreakoutData"] = message as string;
         }
+        else if (runtimeName == "Backlog")
+        {
+            var step = (int)message;
+            if (step > 0)
+            {
+                LoadSnapshot(Global.LoadHistory(step));
+            }
+        }
     }
 
     public void LoadSnapshot(string snapshotPath)
@@ -196,6 +205,18 @@ public partial class AVGRuntime : Node2D, ISubRuntime
                 LoadSnapshot(snap);
             }
         }
+        else if (@event is InputEventMouseButton mouse)
+        {
+            if (mouse.ButtonIndex == MouseButton.WheelUp)
+            {
+                Backlog();
+            }
+        }
+    }
+
+    public void Backlog()
+    {
+        GetParent<Runtime>().SwitchRuntime(this, "Backlog", Global.History);
     }
 
     public void InitMiniGame(string name)

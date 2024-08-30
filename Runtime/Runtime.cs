@@ -104,6 +104,10 @@ public partial class Runtime : Node
                         GD.Load<PackedScene>("res://Runtime/BranchRuntime/VerticalBranch.tscn")
                             .Instantiate()
             },
+            {
+                "Backlog",
+                () => (Backlog)GD.Load<PackedScene>("res://Runtime/BacklogRuntime/Backlog.tscn").Instantiate()
+            }
         };
 
     public Dictionary<string, ISnapshot> snapshots = [];

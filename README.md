@@ -18,6 +18,8 @@
 
 - [ ] 动画未结束时进行backlog会使动画系统崩溃
 
+    ​	最近没碰到了，等复现了再说
+
 ## TODO List
 
 **new:**
@@ -28,7 +30,7 @@
     - [x] 以附加Runtime形式实现选项卡
     - [x] 以附加Runtime形式接入小游戏
     - [ ] 以附加Runtime形式实现Gallary
-    - [ ] 以附加Runtime形式实现Backlog
+    - [x] 以附加Runtime形式实现Backlog
         - [ ] 高级功能：鼠标悬浮时显示对应的场景
     
 - [ ] 测试release build到没有python的机器上会不会有PYTHONPATH问题

@@ -86,4 +86,3 @@ func restore(value: int):
 
 func _on_transformed():
 	pass
-
