@@ -1,24 +1,19 @@
-[gd_scene load_steps=28 format=3 uid="uid://xs5dbesq4xxp"]
+[gd_scene load_steps=23 format=3 uid="uid://xs5dbesq4xxp"]
 
 [ext_resource type="PackedScene" uid="uid://daw03w0dflwfi" path="res://breakout/scenes/paddles/paddle.tscn" id="1_n40qs"]
 [ext_resource type="Script" path="res://breakout/scenes/breakout/breakout.gd" id="1_orx43"]
 [ext_resource type="Script" path="res://breakout/scenes/breakout/Bottom.gd" id="1_pbrcl"]
 [ext_resource type="PackedScene" uid="uid://couhfdt63uc48" path="res://breakout/scenes/balls/ball.tscn" id="2_2hbpr"]
-[ext_resource type="PackedScene" uid="uid://hwfbtok4re4l" path="res://breakout/scenes/bricks/indestructible_brick/indestructible_brick.tscn" id="2_7b4tj"]
-[ext_resource type="PackedScene" uid="uid://b651bxuqe1lvi" path="res://breakout/scenes/bricks/charge_brick/charge_brick.tscn" id="3_wb2ko"]
-[ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="4_fxgx1"]
-[ext_resource type="PackedScene" uid="uid://b1ptm00ur7on0" path="res://breakout/scenes/bricks/heal_brick/heal_brick.tscn" id="4_ys6bt"]
-[ext_resource type="PackedScene" uid="uid://vmqbmvg4x0l" path="res://breakout/scenes/enemies/oppressive_enemy/oppressive_enemy.tscn" id="5_4evi1"]
-[ext_resource type="PackedScene" uid="uid://bwmbf7k5vk8wp" path="res://breakout/scenes/drops/laser_beam/laser_beam_drop.tscn" id="6_76a8b"]
+[ext_resource type="PackedScene" uid="uid://f1v8i5rxki0d" path="res://breakout/scenes/bricks/base/brick.tscn" id="2_l5yab"]
 [ext_resource type="Script" path="res://breakout/scenes/balls/balls.gd" id="6_s6fh4"]
-[ext_resource type="Texture2D" uid="uid://ci1pxjrjurudf" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
+[ext_resource type="Texture2D" uid="uid://dqe8iggs7qup8" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
 [ext_resource type="PackedScene" uid="uid://bs7ujwrx4cyhd" path="res://breakout/scenes/walls/static_wall.tscn" id="9_rq28d"]
 [ext_resource type="Script" path="res://breakout/scenes/ui/UI.gd" id="14_tu7t6"]
 [ext_resource type="PackedScene" uid="uid://deo02t7m4xonq" path="res://breakout/scenes/consumables/base/consumables.tscn" id="15_yxme3"]
 [ext_resource type="PackedScene" uid="uid://cgd3nmqrheom3" path="res://breakout/scenes/consumables/communicator/communicator.tscn" id="16_10h23"]
 [ext_resource type="PackedScene" uid="uid://jahunc3lre5m" path="res://breakout/scenes/consumables/base/consumable.tscn" id="17_76icu"]
 [ext_resource type="PackedScene" uid="uid://c5e1mb5jo1t4p" path="res://breakout/scenes/consumables/calculator/calculator.tscn" id="17_q3775"]
-[ext_resource type="Texture2D" uid="uid://cf07qkmmi0sd8" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="18_36oic"]
+[ext_resource type="Texture2D" uid="uid://ddipccel05gfx" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="18_36oic"]
 [ext_resource type="PackedScene" uid="uid://bujvthov5ipeu" path="res://breakout/scenes/consumables/package/package.tscn" id="19_rl5u4"]
 [ext_resource type="PackedScene" uid="uid://dsw27ashjrjbv" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.tscn" id="24_wfglu"]
 
@@ -27,12 +22,12 @@ a = Vector2(0, 27)
 b = Vector2(1920, 27)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_wxmte"]
-a = Vector2(555, 0)
-b = Vector2(555, 2134)
+a = Vector2(510, 0)
+b = Vector2(510, 2134)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_h52gp"]
-a = Vector2(1365, 0)
-b = Vector2(1365, 2134)
+a = Vector2(1410, 0)
+b = Vector2(1410, 2134)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rxjr0"]
 size = Vector2(3840, 1000)
@@ -49,34 +44,17 @@ script = ExtResource("1_orx43")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 
-[node name="TestLevel0" type="Node2D" parent="." groups=["levels"]]
+[node name="TutorialLevel" type="Node2D" parent="." groups=["levels"]]
 
-[node name="Bricks" type="Node2D" parent="TestLevel0" groups=["bricks"]]
+[node name="Bricks" type="Node2D" parent="TutorialLevel" groups=["bricks"]]
 
-[node name="IndestructibleBrick" parent="TestLevel0/Bricks" instance=ExtResource("2_7b4tj")]
-position = Vector2(960, 381)
-rotation = -0.00681059
+[node name="Brick" parent="TutorialLevel/Bricks" instance=ExtResource("2_l5yab")]
+position = Vector2(781, 287)
+max_health = 2
 
-[node name="ChargeBrick" parent="TestLevel0/Bricks" instance=ExtResource("3_wb2ko")]
-position = Vector2(895, 467)
+[node name="Enemies" type="Node2D" parent="TutorialLevel" groups=["enemies"]]
 
-[node name="HealBrick" parent="TestLevel0/Bricks" instance=ExtResource("4_ys6bt")]
-position = Vector2(1032, 462)
-
-[node name="Enemies" type="Node2D" parent="TestLevel0" groups=["enemies"]]
-
-[node name="BasicEnemy" parent="TestLevel0/Enemies" instance=ExtResource("4_fxgx1")]
-position = Vector2(790, 145)
-max_health = 1000
-init_health = 1000
-
-[node name="OppressiveEnemy" parent="TestLevel0/Enemies" instance=ExtResource("5_4evi1")]
-position = Vector2(1483, 163)
-
-[node name="Drops" type="Node2D" parent="." groups=["drops"]]
-
-[node name="LaserBeamDrop" parent="Drops" instance=ExtResource("6_76a8b")]
-position = Vector2(942, 307)
+[node name="Drops" type="Node2D" parent="TutorialLevel" groups=["drops"]]
 
 [node name="Walls" type="Node2D" parent="." groups=["walls"]]
 
@@ -87,7 +65,7 @@ shape = SubResource("SegmentShape2D_4axdp")
 
 [node name="Sprite2D" parent="Walls/Top" index="1"]
 position = Vector2(960, 13.5)
-scale = Vector2(2.109, 0.211)
+scale = Vector2(2.344, 0.211)
 texture = ExtResource("6_waixi")
 
 [node name="Left" parent="Walls" instance=ExtResource("9_rq28d")]
@@ -96,7 +74,7 @@ texture = ExtResource("6_waixi")
 shape = SubResource("SegmentShape2D_wxmte")
 
 [node name="Sprite2D" parent="Walls/Left" index="1"]
-position = Vector2(541.5, 540)
+position = Vector2(496.5, 540)
 rotation = -1.5708
 scale = Vector2(2.813, 0.211)
 
@@ -106,7 +84,7 @@ scale = Vector2(2.813, 0.211)
 shape = SubResource("SegmentShape2D_h52gp")
 
 [node name="Sprite2D" parent="Walls/Right" index="1"]
-position = Vector2(1378.5, 540)
+position = Vector2(1423.5, 540)
 rotation = 1.5708
 scale = Vector2(2.813, 0.211)
 flip_h = true
@@ -173,12 +151,16 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -516.0
-offset_top = -264.0
-offset_right = -516.0
-offset_bottom = -264.0
+offset_left = -425.0
+offset_top = -315.0
+offset_right = -425.0
+offset_bottom = -315.0
 grow_horizontal = 0
 grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+
+[node name="GridContainer" parent="UI/Consumables" index="0"]
+columns = 3
 
 [node name="Consumable" parent="UI/Consumables/GridContainer" index="0" instance=ExtResource("17_76icu")]
 layout_mode = 2
@@ -200,15 +182,15 @@ offset_bottom = -1563.0
 
 [node name="Status" type="Control" parent="UI"]
 anchors_preset = 0
-offset_right = 500.0
+offset_left = 22.5
+offset_right = 522.5
 offset_bottom = 300.0
 
 [node name="Health" type="Control" parent="UI/Status"]
 layout_mode = 2
 anchors_preset = 0
-offset_left = 13.5
 offset_top = 54.0
-offset_right = 513.5
+offset_right = 500.0
 offset_bottom = 134.0
 size_flags_vertical = 3
 
@@ -231,8 +213,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -400.0
+offset_left = -395.0
 offset_top = -16.0
+offset_right = -80.0
 offset_bottom = 16.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -263,9 +246,8 @@ vertical_alignment = 1
 [node name="Skill" type="Control" parent="UI/Status"]
 layout_mode = 2
 anchors_preset = 0
-offset_left = 13.5
 offset_top = 152.0
-offset_right = 513.5
+offset_right = 500.0
 offset_bottom = 232.0
 size_flags_vertical = 3
 
@@ -284,8 +266,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -400.0
+offset_left = -395.0
 offset_top = -16.0
+offset_right = -80.0
 offset_bottom = 16.0
 grow_horizontal = 0
 grow_vertical = 2

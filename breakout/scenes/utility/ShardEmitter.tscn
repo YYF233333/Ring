@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt6y0d0hloto3"]
+
+[ext_resource type="Script" path="res://breakout/scenes/utility/shard_emitter.gd" id="1_ra0e3"]
+
+[node name="ShardEmitter" type="Node2D"]
+script = ExtResource("1_ra0e3")
+
+[node name="DeleteTimer" type="Timer" parent="."]
+wait_time = 2.0

@@ -30,6 +30,9 @@ var type: int
 @onready var health_bar = $HealthBar as ProgressBar
 @onready var health_label = $HealthLabel as Label
 
+@onready var shard_emitter: ShardEmitter = $Sprite2D/ShardEmitter
+
+
 func _ready():
 	$Area2D.body_entered.connect(_on_area_2d_body_entered)
 	health_component.health_change.connect(_on_health_change)
@@ -104,4 +107,7 @@ func _on_health_change():
 		show_health()
 		
 func _on_died():
-	pass
+	disable_mode = DisableMode.DISABLE_MODE_REMOVE
+	shard_emitter.shatter()
+	await get_tree().create_timer(2).timeout
+	queue_free()

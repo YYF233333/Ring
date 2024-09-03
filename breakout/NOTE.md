@@ -26,7 +26,7 @@
 
   注意类似包裹（Day14转换）这种道具的转换是在剧情中发生的
 
-- [ ] Message结构：
+- [x] Message结构：
 
   ```python
   name - str	# name-id表见下面的###名称表
@@ -57,11 +57,11 @@
   }
   ```
 
-  潜在issue：UI显示上consumable的排序问题。理论上要先到的排前面，但是用dict会按id排序。<br>可以考虑维护一个获得顺序序号，实例化breakout时一个个append
+  潜在issue：~~UI显示上consumable的排序问题。理论上要先到的排前面，但是用dict会按id排序。~~由于是6个槽位让玩家自己选择携带的道具故无所谓<br>可以考虑维护一个获得顺序序号，实例化breakout时一个个append
 
   breakout的message接口见`breakout_manager.gd`
 
-  - [ ] BUG：player_consumables因为json解析问题无法读取
+  - [x] BUG：player_consumables因为json解析问题无法读取
 
 
 
