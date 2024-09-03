@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1rbomj502k5f"]
+
+[ext_resource type="Texture2D" uid="uid://de4gtovwnp6op" path="res://assets/Runtime/GUI/_ui01bg.png" id="1_o3trv"]
+[ext_resource type="Script" path="res://Runtime/SettingRuntime/Setting.cs" id="1_ue3i8"]
+[ext_resource type="Script" path="res://Runtime/SettingRuntime/return.gd" id="2_hxqbv"]
+[ext_resource type="Script" path="res://Runtime/SettingRuntime/title.gd" id="3_ktf2h"]
+
+[node name="Setting" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ue3i8")
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_o3trv")
+centered = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 1000
+theme_override_constants/margin_top = 800
+theme_override_constants/margin_bottom = 150
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Title" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "返回标题"
+script = ExtResource("3_ktf2h")
+
+[node name="Return" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "返回游戏"
+script = ExtResource("2_hxqbv")
+
+[node name="Reset" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "设置初始化"
+
+[node name="Restart" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "重开游戏"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Title" to="MarginContainer/HBoxContainer/Title" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Return" to="MarginContainer/HBoxContainer/Return" method="_on_pressed"]

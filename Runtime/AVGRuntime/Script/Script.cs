@@ -105,7 +105,7 @@ public class Branch : IScriptBlock
     {
         // table不能为空
         Trace.Assert(table.Length >= 3);
-        Type = table[0] switch
+        Type = table[0].ToLowerInvariant() switch
         {
             "vertical" or "竖排" => BranchType.Vertical,
             "horizontal" or "横排" => BranchType.Horizontal,

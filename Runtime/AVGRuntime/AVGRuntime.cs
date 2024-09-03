@@ -168,7 +168,11 @@ public partial class AVGRuntime : Node2D, ISubRuntime
             {
                 Step();
             }
-            if (Input.IsActionPressed("Save"))
+            else if (Input.IsActionPressed("ui_cancel"))
+            {
+                Setting();
+            }
+            else if (Input.IsActionPressed("Save"))
             {
                 if (nonBlockingBuffer.IsRunning)
                 {
@@ -180,7 +184,7 @@ public partial class AVGRuntime : Node2D, ISubRuntime
                 }
                 DebugSnapshot();
             }
-            if (Input.IsActionPressed("ui_text_backspace"))
+            else if (Input.IsActionPressed("ui_text_backspace"))
             {
                 if (nonBlockingBuffer.IsRunning)
                 {
@@ -199,7 +203,7 @@ public partial class AVGRuntime : Node2D, ISubRuntime
                     GD.Print("History is empty.");
                 }
             }
-            if (Input.IsActionPressed("Load"))
+            else if (Input.IsActionPressed("Load"))
             {
                 var snap = new Snapshot("res://snapshot");
                 LoadSnapshot(snap);
@@ -217,6 +221,11 @@ public partial class AVGRuntime : Node2D, ISubRuntime
     public void Backlog()
     {
         GetParent<Runtime>().SwitchRuntime(this, "Backlog", Global.History);
+    }
+
+    public void Setting()
+    {
+        GetParent<Runtime>().SwitchRuntime(this, "Setting", "AVG");
     }
 
     public void InitMiniGame(string name)

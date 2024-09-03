@@ -107,6 +107,10 @@ public partial class Runtime : Node
             {
                 "Backlog",
                 () => (Backlog)GD.Load<PackedScene>("res://Runtime/BacklogRuntime/Backlog.tscn").Instantiate()
+            },
+            {
+                "Setting",
+                () => (Setting)GD.Load<PackedScene>("res://Runtime/SettingRuntime/Setting.tscn").Instantiate()
             }
         };
 

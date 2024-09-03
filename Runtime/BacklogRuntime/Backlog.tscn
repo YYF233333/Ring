@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b58xqjvnwv7j7"]
 
-[ext_resource type="Texture2D" uid="uid://blgs37lvosyb5" path="res://Runtime/BacklogRuntime/backlog.png" id="1_iu1oe"]
 [ext_resource type="Script" path="res://Runtime/BacklogRuntime/Backlog.cs" id="1_u8147"]
+[ext_resource type="Texture2D" uid="uid://de4gtovwnp6op" path="res://assets/Runtime/GUI/_ui01bg.png" id="2_ynh22"]
 
 [node name="Backlog" type="Control"]
 layout_mode = 3
@@ -13,8 +13,8 @@ grow_vertical = 2
 script = ExtResource("1_u8147")
 
 [node name="Background" type="Sprite2D" parent="."]
-scale = Vector2(1.50548, 1.13229)
-texture = ExtResource("1_iu1oe")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_ynh22")
 centered = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

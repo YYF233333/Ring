@@ -27,6 +27,9 @@ public partial class Backlog : Control, ISubRuntime
             item.Content = UI.TextBox.Text;
             History.Add(item);
         }
+        // 把滚动条拖到最下面
+        var scroll = GetNode<ScrollContainer>("MarginContainer/ScrollContainer");
+        GetTree().Connect("process_frame", Callable.From(() => scroll.EnsureControlVisible(History[-1])), (uint)ConnectFlags.OneShot);
     }
 
     /// <param name="step">要回退的步数，0表示不需要回退</param>
