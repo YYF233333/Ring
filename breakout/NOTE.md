@@ -1,5 +1,13 @@
 ### TODO LIST
 
+[跳转示例](#跳转示例)
+
+
+
+#### <span style='color:yellow'>进行中</span>
+
+[碎裂视效](#球碎)
+
 
 
 #### <span style='color:red'>紧急</span>
@@ -102,8 +110,14 @@
 - [x] 屏幕震动，闪红（Utility.screen_shake, Utility.flicker_red）
 - [x] 初步角色受伤特效（生命图标闪红+板子闪红+屏幕震动
   - [ ] 现在闪红直接修改modulate，可能得调整（已发现激光会跟着变红
+- [ ] 球碎<a name="球碎"></a>
+  - [x] 碎裂视效已初步实现，适用于所有`mainbody/sprite2D`结构
+  - [ ] 需要调整碎片物理
+    - [ ] 碎片与其他物理体交互（目前穿墙）
+    - [ ] 碎片飞出去好像没有阻力，看上去比较怪
 
-- [ ] 球碎
+  - [ ] 碎片消失突兀，需要逐渐淡化
+
 - [x] 透明闪烁（Utility.flicker_transparent）、结束提示（Utility.end_hint）
 - [x] 激光视效（参考b站教程）
 - [x] enemy受击闪白（参考b站教程）
@@ -536,7 +550,7 @@
 
 方针：自治会秩序，效果为敌方受到伤害+20%，初始球-2，自治会支持度增长-20%
 
-
+<a name="跳转示例"></a>
 
 
 

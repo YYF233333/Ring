@@ -6,9 +6,6 @@ class_name Enemy
 @export var enemy_name: String
 @export_multiline var enemy_description: String
 
-@export var max_health: int
-@export var init_health: int
-
 @export var basic_speed: float
 @export var basic_acceleration: float
 @export var basic_damage: float = 1.0

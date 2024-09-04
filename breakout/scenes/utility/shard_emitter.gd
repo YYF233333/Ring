@@ -16,17 +16,26 @@ class_name ShardEmitter extends Node2D
 @export var lifetime: float = 5.0
 
 ## Whether to display the triangles, for debug purposes.
-@export var display_triangles: bool = false 
+@export var display_triangles: bool = false
+
+## To adjust shard scale. Auto_get only applicable to Brick and Enemy, which will cover the shard_scale set previously
+@export var shard_scale: Vector2
+@export var auto_get_scale: bool = true
 
 const SHARD = preload("res://breakout/scenes/utility/Shard.tscn")
 
 var triangles = []
 var shards = []
 
+@onready var delete_timer: Timer = $DeleteTimer
+
 func _ready() -> void:
-	$DeleteTimer.timeout.connect(_on_DeleteTimer_timeout)
+	delete_timer.timeout.connect(_on_DeleteTimer_timeout)
 	
 	if get_parent() is Sprite2D:
+		var sprite = get_parent() as Sprite2D
+		if auto_get_scale:
+			shard_scale = sprite.get_parent().scale # 要求sprite的父节点上为主要scale
 		var _rect = get_parent().get_rect()
 		var points = []
 		#add outer frame points
@@ -55,19 +64,24 @@ func _ready() -> void:
 			triangles.append([points[delaunay[i + 2]], points[delaunay[i + 1]], points[delaunay[i]]])
 
 		#create RigidBody2D shards
-		var texture = get_parent().texture
+		var texture = sprite.texture
+		var texture_offset = (_rect.size / 2) - sprite.offset if sprite.centered else -sprite.offset  # 计算uv_offset
 		for t in triangles:
 			var center = Vector2((t[0].x + t[1].x + t[2].x)/3.0,(t[0].y + t[1].y + t[2].y)/3.0)
 
 			var shard = SHARD.instantiate()
 			shard.position = center
+			shard.scale = shard_scale
 			shard.hide()
 			shards.append(shard)
 
 			#setup polygons & collision shapes
-			shard.get_node("Polygon2D").texture = texture
-			shard.get_node("Polygon2D").polygon = t
-			shard.get_node("Polygon2D").position = -center
+			var polygon2d = shard.get_node("Polygon2D")
+			polygon2d.texture = texture
+			polygon2d.polygon = t
+			polygon2d.position = -center
+			polygon2d.texture_offset += texture_offset
+			polygon2d.scale = shard_scale
 
 			#shrink polygon so that the collision shapes don't overlapp
 			var shrunk_triangles = Geometry2D.offset_polygon(t, -2)
@@ -95,7 +109,7 @@ func shatter() -> void:
 		s.apply_central_impulse(direction * impulse)
 		s.get_node("CollisionPolygon2D").disabled = false
 		s.show()
-	$DeleteTimer.start(lifetime)
+	delete_timer.start(lifetime)
 
 
 func _on_DeleteTimer_timeout() -> void:

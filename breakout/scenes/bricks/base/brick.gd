@@ -6,9 +6,6 @@ class_name Brick
 @export var brick_name: String
 @export_multiline var brick_description: String
 
-@export var max_health: int
-@export var init_health: int
-
 @export var init_type: int
 @export var sprites : Array[Texture]
 
@@ -107,7 +104,9 @@ func _on_health_change():
 		show_health()
 		
 func _on_died():
-	disable_mode = DisableMode.DISABLE_MODE_REMOVE
+	remove_from_group("bricks")
+	$CollisionShape2D.disabled = true
+	$Area2D/CollisionShape2D.disabled = true
 	shard_emitter.shatter()
-	await get_tree().create_timer(2).timeout
+	await shard_emitter.delete_timer.timeout
 	queue_free()

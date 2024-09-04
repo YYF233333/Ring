@@ -4,16 +4,15 @@ class_name HealthComponent
 signal health_change #use to update health_bar
 signal died
 
-var max_health: int
-var init_health: int
+@export var max_health: int = 4
+@export var init_health: int = 4
 var current_health: int
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if (owner is Brick) || (owner is Enemy):
-		max_health = owner.max_health
-		init_health = owner.init_health
+		pass
 	else:
 		#debug
 		print("health component has wrong owner")

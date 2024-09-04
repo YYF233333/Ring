@@ -4,7 +4,6 @@
 collision_layer = 1073741824
 collision_mask = 1073741824
 sleeping = true
-constant_force = Vector2(0, 9.8)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 

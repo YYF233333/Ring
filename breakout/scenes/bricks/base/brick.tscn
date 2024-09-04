@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://breakout/scenes/bricks/base/brick.gd" id="1_p3o87"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_ov7kj"]
-[ext_resource type="Texture2D" uid="uid://dqouqbeg0mgof" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/29-Breakout-Tiles.png" id="2_ttia7"]
+[ext_resource type="Texture2D" uid="uid://prhdxolpdqju" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/29-Breakout-Tiles.png" id="2_ttia7"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_mtxkn"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_si4qc"]
 [ext_resource type="PackedScene" uid="uid://bt6y0d0hloto3" path="res://breakout/scenes/utility/ShardEmitter.tscn" id="6_bnyi8"]
@@ -24,8 +24,6 @@ collision_mask = 115
 script = ExtResource("1_p3o87")
 brick_name = "brick"
 brick_description = "base class for bricks"
-max_health = 10
-init_health = 10
 sprites = Array[Texture]([ExtResource("2_ttia7")])
 point = 100
 
