@@ -266,4 +266,4 @@ func _on_health_change():
 		show_health()
 	
 func _on_died():
-	pass
+	queue_free()

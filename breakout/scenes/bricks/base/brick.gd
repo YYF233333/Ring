@@ -104,9 +104,10 @@ func _on_health_change():
 		show_health()
 		
 func _on_died():
-	remove_from_group("bricks")
-	$CollisionShape2D.disabled = true
-	$Area2D/CollisionShape2D.disabled = true
-	shard_emitter.shatter()
-	await shard_emitter.delete_timer.timeout
+	# # 想用ShardEmitter时
+	#remove_from_group("bricks")
+	#$CollisionShape2D.disabled = true
+	#$Area2D/CollisionShape2D.disabled = true
+	#shard_emitter.shatter()
+	#await shard_emitter.delete_timer.timeout
 	queue_free()

@@ -1,10 +1,12 @@
-[gd_scene load_steps=23 format=3 uid="uid://xs5dbesq4xxp"]
+[gd_scene load_steps=25 format=3 uid="uid://xs5dbesq4xxp"]
 
 [ext_resource type="PackedScene" uid="uid://daw03w0dflwfi" path="res://breakout/scenes/paddles/paddle.tscn" id="1_n40qs"]
 [ext_resource type="Script" path="res://breakout/scenes/breakout/breakout.gd" id="1_orx43"]
 [ext_resource type="Script" path="res://breakout/scenes/breakout/Bottom.gd" id="1_pbrcl"]
 [ext_resource type="PackedScene" uid="uid://couhfdt63uc48" path="res://breakout/scenes/balls/ball.tscn" id="2_2hbpr"]
 [ext_resource type="PackedScene" uid="uid://f1v8i5rxki0d" path="res://breakout/scenes/bricks/base/brick.tscn" id="2_l5yab"]
+[ext_resource type="PackedScene" uid="uid://b651bxuqe1lvi" path="res://breakout/scenes/bricks/charge_brick/charge_brick.tscn" id="3_bv64m"]
+[ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="4_eluyc"]
 [ext_resource type="Script" path="res://breakout/scenes/balls/balls.gd" id="6_s6fh4"]
 [ext_resource type="Texture2D" uid="uid://ci1pxjrjurudf" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
 [ext_resource type="PackedScene" uid="uid://bs7ujwrx4cyhd" path="res://breakout/scenes/walls/static_wall.tscn" id="9_rq28d"]
@@ -51,7 +53,13 @@ position = Vector2(960, 540)
 [node name="Brick" parent="TutorialLevel/Bricks" instance=ExtResource("2_l5yab")]
 position = Vector2(781, 287)
 
+[node name="ChargeBrick" parent="TutorialLevel/Bricks" instance=ExtResource("3_bv64m")]
+position = Vector2(960, 718)
+
 [node name="Enemies" type="Node2D" parent="TutorialLevel" groups=["enemies"]]
+
+[node name="BasicEnemy" parent="TutorialLevel/Enemies" instance=ExtResource("4_eluyc")]
+position = Vector2(1018, 220)
 
 [node name="Drops" type="Node2D" parent="TutorialLevel" groups=["drops"]]
 
@@ -294,6 +302,8 @@ grow_vertical = 2
 text = "0/0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ForeGround" type="Node2D" parent="." groups=["foregrounds"]]
 
 [editable path="Walls/Top"]
 [editable path="Walls/Left"]

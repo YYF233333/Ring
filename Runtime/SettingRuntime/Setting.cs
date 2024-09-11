@@ -1,6 +1,6 @@
+using System;
 using Godot;
 using RingEngine.Runtime;
-using System;
 
 public partial class Setting : Control, ISubRuntime
 {

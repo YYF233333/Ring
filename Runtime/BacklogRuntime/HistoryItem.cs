@@ -22,7 +22,11 @@ public partial class HistoryItem : HBoxContainer
 
     private void HistoryItem_GuiInput(InputEvent @event)
     {
-        if (@event is InputEventMouseButton mouseClick && mouseClick.Pressed && mouseClick.ButtonIndex == MouseButton.Left)
+        if (
+            @event is InputEventMouseButton mouseClick
+            && mouseClick.Pressed
+            && mouseClick.ButtonIndex == MouseButton.Left
+        )
         {
             Root.End(GetParent().GetChildCount() - GetIndex());
         }

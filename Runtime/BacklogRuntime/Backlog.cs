@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using Godot;
 using RingEngine.Runtime;
 using RingEngine.Runtime.Storage;
-using System.Collections.Generic;
 
 public partial class Backlog : Control, ISubRuntime
 {
@@ -21,7 +21,8 @@ public partial class Backlog : Control, ISubRuntime
         foreach (var snapshot in snapshots)
         {
             var UI = snapshot.UI.Instantiate<UI>();
-            var item = GD.Load<PackedScene>("res://Runtime/BacklogRuntime/HistoryItem.tscn").Instantiate<HistoryItem>();
+            var item = GD.Load<PackedScene>("res://Runtime/BacklogRuntime/HistoryItem.tscn")
+                .Instantiate<HistoryItem>();
             item.Root = this;
             item.CharacterName = UI.CharacterName;
             item.Content = UI.TextBox.Text;
@@ -29,7 +30,12 @@ public partial class Backlog : Control, ISubRuntime
         }
         // 把滚动条拖到最下面
         var scroll = GetNode<ScrollContainer>("MarginContainer/ScrollContainer");
-        GetTree().Connect("process_frame", Callable.From(() => scroll.EnsureControlVisible(History[-1])), (uint)ConnectFlags.OneShot);
+        GetTree()
+            .Connect(
+                "process_frame",
+                Callable.From(() => scroll.EnsureControlVisible(History[-1])),
+                (uint)ConnectFlags.OneShot
+            );
     }
 
     /// <param name="step">要回退的步数，0表示不需要回退</param>
@@ -41,7 +47,11 @@ public partial class Backlog : Control, ISubRuntime
 
     private void Backlog_GuiInput(InputEvent @event)
     {
-        if (@event is InputEventMouseButton mouseClick && mouseClick.Pressed && mouseClick.ButtonIndex == MouseButton.Right)
+        if (
+            @event is InputEventMouseButton mouseClick
+            && mouseClick.Pressed
+            && mouseClick.ButtonIndex == MouseButton.Right
+        )
         {
             End(0);
         }

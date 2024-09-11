@@ -8,6 +8,8 @@
 
 [碎裂视效](#球碎)
 
+[伤害/治疗数字](#漂浮数字)
+
 
 
 #### <span style='color:red'>紧急</span>
@@ -100,12 +102,13 @@
 - [x] ball 拖尾（line2D or particle）
 - [x] ~~球的大小会随radius变化了，但line2D拖尾还不会~~ 直接duplicate了
 - [ ] paddle 击球效果（particle）（要考虑球damage
-- [ ] sturdy brick 受击效果（shader）
-- [ ] sturdy brick 击碎效果（shader）
 - [ ] 捡拾 drop 特效
 - [x] ~~fire ball 和 lightning ball 特效（自身、击中、触发伤害）~~ 删除
 - [x] ~~fire和lightning等buff做一个贴图叠加（shader？得找找学）~~ 删除
-- [ ] 伤害数字漂浮
+- [ ] 伤害数字漂浮<a name="漂浮数字"></a>
+  - [x] 搬运并修改，加上了`color`和`if_show`选项。看上去还挺好
+  - [ ] 玩家血量变化还没有数字，准备漂浮数字产生于板子位置
+
 - [ ] *球的damage越高，颜色越深
 - [x] 屏幕震动，闪红（Utility.screen_shake, Utility.flicker_red）
 - [x] 初步角色受伤特效（生命图标闪红+板子闪红+屏幕震动
@@ -117,12 +120,13 @@
     - [ ] 碎片飞出去好像没有阻力，看上去比较怪
 
   - [ ] 碎片消失突兀，需要逐渐淡化
-
 - [x] 透明闪烁（Utility.flicker_transparent）、结束提示（Utility.end_hint）
 - [x] 激光视效（参考b站教程）
 - [x] enemy受击闪白（参考b站教程）
   - [ ] *现在闪白总感觉有点突兀，可能需要一个比较好的补间？
   - [ ] *被激光滋到视效（闪淡蓝
+- [ ] hard brick受击效果（未确定要用什么效果，闪白感觉有点软了）
+- [ ] hard brick击碎效果
 
 
 
@@ -186,6 +190,8 @@
 - [ ] 预算紧张：社会知名度增长-80%，社团开销-20%
 - [ ] 方针：群策群力，效果为初始球+3
 - [ ] 方针：自治会秩序，效果为敌方受到伤害+20%，初始球-2，自治会支持度增长-20%
+
+给lly想
 
 
 

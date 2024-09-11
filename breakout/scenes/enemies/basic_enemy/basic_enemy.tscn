@@ -57,14 +57,14 @@ script = ExtResource("1_vpay1")
 enemy_id = 1
 enemy_name = "basic enemy"
 enemy_description = "nothing unusual"
-max_health = 10
-init_health = 10
 basic_speed = 100.0
 basic_acceleration = 200.0
 sprites = Array[Texture]([ExtResource("6_2abtu")])
 point = 200
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_yx7hq")]
+max_health = 100
+init_health = 60
 
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_yysgq")]
 health_component = NodePath("../HealthComponent")

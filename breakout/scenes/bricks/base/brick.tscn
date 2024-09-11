@@ -39,7 +39,6 @@ health_component = NodePath("../HealthComponent")
 texture = ExtResource("2_ttia7")
 
 [node name="ShardEmitter" parent="Sprite2D" instance=ExtResource("6_bnyi8")]
-display_triangles = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_muqvs")
