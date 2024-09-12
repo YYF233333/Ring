@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dn2kckgy7bx2n"]
 
-[ext_resource type="Texture2D" uid="uid://cemwtsbeelw4p" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/59-Breakout-Tiles.png" id="1_r85xp"]
+[ext_resource type="Texture2D" uid="uid://b6yhysq2vtdhx" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/59-Breakout-Tiles.png" id="1_nmy0c"]
 
 [sub_resource type="Curve" id="Curve_dnn32"]
 min_value = -200.0
@@ -33,10 +33,10 @@ scale_min = 0.01
 scale_max = 0.1
 scale_curve = SubResource("CurveTexture_3w7hf")
 
-[node name="BonusParticles" type="GPUParticles2D"]
+[node name="LuckyDropHintParticles" type="GPUParticles2D"]
 amount = 4
 process_material = SubResource("ParticleProcessMaterial_cenct")
-texture = ExtResource("1_r85xp")
+texture = ExtResource("1_nmy0c")
 lifetime = 2.0
 fixed_fps = 2
 trail_lifetime = 1.0

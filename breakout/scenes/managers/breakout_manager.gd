@@ -43,7 +43,10 @@ var current_health: int:
 	set(value):
 		var old_health = current_health
 		current_health = min(max(value, 0), max_health)
-		health_changed.emit(current_health-old_health)
+		if _health_ready:
+			health_changed.emit(current_health-old_health)
+		else:
+			health_changed.emit(0) #为了防止初始化时血量变化被识别为回血
 var max_health: int:
 	set(value):
 		max_health = value
@@ -69,7 +72,7 @@ var blessed: bool = false:
 		#视效
 		
 var init_message: Dictionary
-
+var _health_ready: bool = false
 
 func _ready():
 	point_scored.connect(_on_point_scored)
@@ -145,12 +148,15 @@ func reset():
 	
 	if skill:
 		skill.current_charge = 0
+	
+	_health_ready = false
 	max_health = ValueManager.player_max_health #小心顺序，要先设置max_health
 	current_health = max_health
+	_health_ready = true
 	
 	ammo = ValueManager.player_init_ammo
 	score = 0
-	
+
 
 func get_charge_percent():
 	if skill.max_charge <= 0:

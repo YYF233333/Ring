@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_yysgq"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_rvx63"]
 [ext_resource type="Texture2D" uid="uid://ddt6ta71mv1wc" path="res://breakout/icon.svg" id="6_2abtu"]
-[ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="6_grvgx"]
+[ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/lucky_drop_particles.tscn" id="6_grvgx"]
 [ext_resource type="Shader" uid="uid://dglp1dnjevn6k" path="res://breakout/scenes/shaders/hit_flash.tres" id="6_t5uif"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oxaj5"]
@@ -133,7 +133,7 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BonusParticles" parent="." instance=ExtResource("6_grvgx")]
+[node name="LuckyDropHintParticles" parent="." instance=ExtResource("6_grvgx")]
 emitting = false
 
 [node name="KnockBackTimer" type="Timer" parent="."]

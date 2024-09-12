@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_mtxkn"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_si4qc"]
 [ext_resource type="PackedScene" uid="uid://bt6y0d0hloto3" path="res://breakout/scenes/utility/ShardEmitter.tscn" id="6_bnyi8"]
-[ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="7_8vdog"]
+[ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/lucky_drop_particles.tscn" id="7_8vdog"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_muqvs"]
 size = Vector2(126, 126)
@@ -97,5 +97,5 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BonusParticles" parent="." instance=ExtResource("7_8vdog")]
+[node name="LuckyDropHintParticles" parent="." instance=ExtResource("7_8vdog")]
 emitting = false

@@ -35,7 +35,8 @@ func take_damage(value: int):
 		var floating_text = floating_text_scene.instantiate() as FloatingText
 		get_tree().get_first_node_in_group("foregrounds").add_child(floating_text)
 		
-		floating_text.global_position = owner.global_position + (Vector2.UP * 16)
+		floating_text.global_position = owner.global_position + \
+			Vector2(randi_range(-8,8),randi_range(-4,4)-16)
 		
 		var health_change_value = current_health - prev_health
 		if health_change_value == 0:

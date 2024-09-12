@@ -33,9 +33,11 @@ func screen_shake(shake_force: float = 1.0):
 func wait_with_end_hint(node: Node, time: float, end_hint_time: float = 5.0):
 	if time > end_hint_time:
 		await get_tree().create_timer(time-end_hint_time).timeout
-		end_hint(node, end_hint_time)
+		if node:
+			end_hint(node, end_hint_time)
 	else:
-		end_hint(node, time)
+		if node:
+			end_hint(node, time)
 
 func end_hint(node: Node, last_time: float):
 	var flicker_tween = flicker_transparent(node, -1) as Tween

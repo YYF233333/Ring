@@ -1,21 +1,24 @@
 extends StaticBody2D
 class_name Brick
 
-#info
+@export_group("Info")
 @export var brick_id: int
 @export var brick_name: String
 @export_multiline var brick_description: String
 
+@export_group("Basic")
 @export var init_type: int
 @export var sprites : Array[Texture]
 
+@export_group("Bonus")
 @export var point: int
-
 @export var drop_percent_scale: float = 1.0 #1.0表示正常掉率
-@export var bonus: bool = false #会进行lucky drop
 @export var hit_by_ball_player_charge: int = 1 #被球击中时玩家获得多少充能
 
+@export var lucky_drop: bool = false #会进行lucky drop
 @export var unique_drop_name: String
+
+@export_group("", "")
 
 var type: int
 
@@ -44,7 +47,7 @@ func _ready():
 	set_type(type)
 	show_health()
 	
-	_show_bonus()
+	_show_lucky_drop()
 	
 	_individual_ready()
 	
@@ -69,12 +72,12 @@ func show_health():
 	
 	health_label.text = str(health_component.current_health)
 
-func _show_bonus():
-	if bonus:
+func _show_lucky_drop():
+	if lucky_drop:
 		# 闪金光，表示必定掉落
-		$BonusParticles.emitting = true
+		$LuckyDropHintParticles.emitting = true
 	else:
-		$BonusParticles.emitting = false
+		$LuckyDropHintParticles.emitting = false
 		
 		
 func _individual_ready():

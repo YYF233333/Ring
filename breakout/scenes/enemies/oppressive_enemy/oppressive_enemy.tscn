@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="3_mbnlo"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="4_r15j5"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="5_nanaw"]
-[ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/bonus_particles.tscn" id="6_o83aj"]
+[ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/lucky_drop_particles.tscn" id="6_o83aj"]
 [ext_resource type="Shader" uid="uid://dglp1dnjevn6k" path="res://breakout/scenes/shaders/hit_flash.tres" id="6_qjtj4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hcmic"]
@@ -69,8 +69,6 @@ script = ExtResource("1_d7eit")
 enemy_id = 1
 enemy_name = "basic enemy"
 enemy_description = "nothing unusual"
-max_health = 100
-init_health = 100
 basic_speed = 200.0
 basic_acceleration = 400.0
 sprites = Array[Texture]([ExtResource("2_5q4i1")])
@@ -145,7 +143,7 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BonusParticles" parent="." instance=ExtResource("6_o83aj")]
+[node name="LuckyDropHintParticles" parent="." instance=ExtResource("6_o83aj")]
 emitting = false
 
 [node name="KnockBackTimer" type="Timer" parent="."]

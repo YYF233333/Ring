@@ -1,11 +1,12 @@
 extends CharacterBody2D
 class_name Enemy
 
-#enemy_info
+@export_group("Info")
 @export var enemy_id: int
 @export var enemy_name: String
 @export_multiline var enemy_description: String
 
+@export_group("Basic")
 @export var basic_speed: float
 @export var basic_acceleration: float
 @export var basic_damage: float = 1.0
@@ -13,15 +14,17 @@ class_name Enemy
 @export var init_type: int
 @export var sprites : Array[Texture]
 
-@export var point: int
-
-@export var drop_percent_scale: float = 1.0 #1.0表示正常掉率
-@export var bonus: bool = false #会进行lucky drop
-@export var hit_by_ball_player_charge: int = 1 #被球击中时玩家获得多少充能
-
 @export var unstoppable: bool = false #TODO: 能否被击退。现在还不好用，没knockback和板贴贴会卡球
 
+@export_group("Bonus")
+@export var point: int
+@export var drop_percent_scale: float = 1.0 #1.0表示正常掉率
+@export var hit_by_ball_player_charge: int = 1 #被球击中时玩家获得多少充能
+
+@export var lucky_drop: bool = false #会进行lucky drop
 @export var unique_drop_name: String
+
+@export_group("", "")
 
 #component
 @onready var health_component = $HealthComponent as HealthComponent
@@ -36,6 +39,7 @@ class_name Enemy
 @onready var knock_back_timer = $KnockBackTimer as Timer
 @onready var attack_cooldown_timer = $AttackCooldownTimer as Timer
 
+@export_group("Basic")
 #stat
 var type: int
 @export var direction: Vector2 = Vector2(1.0, 0.0):
@@ -81,7 +85,7 @@ func _ready():
 	
 	init_velocity()
 	
-	_show_bonus()
+	_show_lucky_drop()
 	
 	_individual_ready()
 	
@@ -203,19 +207,18 @@ func set_type(new_type : int):
 		return
 	$Sprite2D.texture = sprites[type]
 	
-	
 func show_health():
 	health_bar.value = health_component.current_health
 	health_bar.max_value = health_component.max_health
 	
 	health_label.text = str(health_component.current_health)
 	
-func _show_bonus():
-	if bonus:
+func _show_lucky_drop():
+	if lucky_drop:
 		#TODO: 闪金光，表示必定掉落
-		$BonusParticles.emitting = true
+		$LuckyDropHintParticles.emitting = true
 	else:
-		$BonusParticles.emitting = false
+		$LuckyDropHintParticles.emitting = false
 		
 func _individual_ready():
 	pass

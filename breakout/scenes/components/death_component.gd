@@ -23,7 +23,7 @@ func spawn_lucky_drop():
 func _on_died():
 	BreakoutManager.point_scored.emit(owner.point)
 	
-	if owner.bonus:
+	if owner.lucky_drop:
 		if owner.unique_drop_name:
 			spawn_unique_drop()
 		else:

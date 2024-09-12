@@ -25,6 +25,9 @@ var basic_scale: Vector2
 @onready var speed_change_timer = $SpeedChangeTimer as Timer
 @onready var laser_beam_timer = $LaserBeamTimer as Timer
 
+@export var show_floating_text: bool = true
+var floating_text_scene = preload("res://breakout/scenes/ui/floating_text.tscn")
+
 @onready var max_scale_x = (right_wall.segment_shape.a.x - left_wall.segment_shape.a.x) / float(shape.size.x)
 
 #debug
@@ -174,6 +177,26 @@ func _on_health_changed(value: int):
 	if value < 0:
 		Utility.flicker_red($%HealthIcon)
 		Utility.flicker_red(BreakoutManager.paddle)
+		
+		if show_floating_text:
+			#加载伤害 UI 组件
+			var floating_text = floating_text_scene.instantiate() as FloatingText
+			get_tree().get_first_node_in_group("foregrounds").add_child(floating_text)
+			
+			floating_text.global_position = self.global_position + \
+			Vector2(randi_range(-8,8),randi_range(-4,4))
+
+			floating_text.start(str(abs(value)), Color(1.0, 0.0, 0.0))
+	elif value > 0:
+		if show_floating_text:
+			#加载伤害 UI 组件
+			var floating_text = floating_text_scene.instantiate() as FloatingText
+			get_tree().get_first_node_in_group("foregrounds").add_child(floating_text)
+			
+			floating_text.global_position = self.global_position + \
+			Vector2(randi_range(-8,8),randi_range(-4,4))
+			
+			floating_text.start(str(abs(value)), Color(0.0, 1.0, 0.0))
 		
 func _on_area_2d_body_entered(body):
 	if body is Ball:
