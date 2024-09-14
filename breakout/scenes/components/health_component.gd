@@ -47,7 +47,7 @@ func take_damage(value: int):
 			floating_text.start(str(abs(health_change_value)), Color(1.0, 0.0, 0.0))
 	
 	Callable(check_death).call_deferred()
-	
+
 
 func set_max_health(value: int):
 	max_health = max(value, 0)

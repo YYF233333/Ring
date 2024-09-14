@@ -131,11 +131,14 @@
 
 
 
-
 #### 界面
 
-- [x] 道具界面（从俄罗斯方块consumable搬）
-- [x] ~~使用道具时是否需要暂停？毕竟consumables数量应该不少~~ 不需要
+游戏内
+
+- [x] 道具界面（从俄罗斯方块consumable搬） `融合在breakout.tscn里`
+  - [x] 道具说明界面 `consumable_info_screen.tscn`，对当前选择道具进行更好的显示
+
+- [x] ~~使用道具时是否需要暂停？毕竟consumables数量应该不少~~ 不需要，最多携带六个道具
 - [ ] buff栏
 
 
@@ -353,6 +356,8 @@
 - [x] ~~knock_back：为了让oppressive_enemy创一下玩家之后能被推走，以及为了防止怪在玩家面前被球直接创到似，需要一个击退。但是不管是撞球还是撞板都有bug。~~
 - [x] ~~（如果不好解决的话就不要knock_back了，给怪一个deal_damage_interval，然后让球的伤害从 球碰怪 改回 怪扫球）（我认为有knock back视觉效果上会更好而已。。。~~
 - [ ] basic_skill的结束提示在无限续时也会触发
+
+
 
 #### 杂
 

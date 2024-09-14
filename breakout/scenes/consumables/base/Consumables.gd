@@ -1,8 +1,9 @@
 extends Control
 class_name Consumables
 
-@onready var select_box = $SelectBox as TextureRect
 @onready var grid_container = $GridContainer
+@onready var select_box = $SelectBox as TextureRect
+@onready var consumable_info_screen: ConsumableInfoScreen = $ConsumableInfoScreen
 
 var consumable_num: int
 var selected_consumable_num: int
@@ -25,10 +26,14 @@ func _process(delta):
 		if consumable_num > 1:
 			selected_consumable_num = (selected_consumable_num + 1) % consumable_num
 			move_select_box()
+		update()
 	if Input.is_action_just_pressed("use_selected_consumable"):
 		var selected_consumable = consumable_nodes[selected_consumable_num] as Consumable
 		if selected_consumable.use(1):
 			select_box_flicker()
+		else:
+			consumable_info_screen.hint_not_available()
+		update()
 	
 		
 func reset(clear_consumable: bool = true, node: Node = grid_container):
@@ -43,6 +48,7 @@ func reset(clear_consumable: bool = true, node: Node = grid_container):
 func move_select_box():
 	var tween = create_tween()
 	tween.tween_property(select_box, "global_position", consumable_nodes[selected_consumable_num].global_position, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		
 		
 func select_box_flicker():
 	var tween = create_tween()
@@ -62,11 +68,14 @@ func update():
 	consumable_num = consumable_nodes.size()
 	if consumable_num == 0:
 		select_box.modulate = Color(1, 1, 1, 0)
+		consumable_info_screen.consumable = null
+		consumable_info_screen.update()
 	else:
 		var tween = create_tween()
 		tween.tween_property(select_box, "global_position", consumable_nodes[selected_consumable_num].global_position, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		tween.parallel().tween_property(select_box, "modulate", Color(1, 1, 1, 1), 0.5).set_trans(Tween.TRANS_BOUNCE)
-		
+		consumable_info_screen.consumable = consumable_nodes[selected_consumable_num]
+		consumable_info_screen.update()
 
 func add_consumable_instance(consumable: Consumable, node: Node = grid_container):
 	var scene_file_path = consumable.scene_file_path

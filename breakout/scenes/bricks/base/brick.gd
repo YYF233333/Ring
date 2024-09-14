@@ -30,8 +30,6 @@ var type: int
 @onready var health_bar = $HealthBar as ProgressBar
 @onready var health_label = $HealthLabel as Label
 
-@onready var shard_emitter: ShardEmitter = $Sprite2D/ShardEmitter
-
 
 func _ready():
 	$Area2D.body_entered.connect(_on_area_2d_body_entered)
@@ -105,7 +103,8 @@ func _on_health_change():
 	var current_health = health_component.current_health
 	if current_health > 0:
 		show_health()
-		
+
+#@onready var shard_emitter: ShardEmitter = $Sprite2D/ShardEmitter
 func _on_died():
 	# # 想用ShardEmitter时
 	#remove_from_group("bricks")
