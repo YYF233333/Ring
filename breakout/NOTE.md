@@ -8,6 +8,8 @@
 
 [碎裂视效](#球碎)
 
+[选择框闪烁bug](#BUG)
+
 
 
 #### <span style='color:red'>紧急</span>
@@ -113,7 +115,7 @@
 - [x] 初步角色受伤特效（生命图标闪红+板子闪红+屏幕震动
   - [ ] 现在闪红直接修改modulate，可能得调整（已发现激光会跟着变红
 - [ ] 球碎<a name="球碎"></a>
-  - [x] 碎裂视效已初步实现，适用于所有`mainbody/sprite2D`结构
+  - [ ] ~~碎裂视效已初步实现，适用于所有`mainbody/sprite2D`结构~~ 实现个几把，只有方形且不动的才能正常使用，待修复 or 放弃
   - [ ] 需要调整碎片物理
     - [ ] 碎片与其他物理体交互（目前穿墙）
     - [ ] 碎片飞出去好像没有阻力，看上去比较怪
@@ -122,7 +124,6 @@
 - [x] 透明闪烁（Utility.flicker_transparent）、结束提示（Utility.end_hint）
 - [x] 激光视效（参考b站教程）
 - [x] enemy受击闪白（参考b站教程）
-  - [ ] *现在闪白总感觉有点突兀，可能需要一个比较好的补间？
   - [ ] *被激光滋到视效（闪淡蓝
 - [ ] hard brick受击效果（未确定要用什么效果，闪白感觉有点软了）
 - [ ] hard brick击碎效果
@@ -355,7 +356,13 @@
 - [x] ~~emeny和ball之间的碰撞更是依托答辩。感觉问题要么出现在max_speed或者acceleration，要么在character2D本身，要么就是碰撞逻辑没写好。。。要么就是godot physics真不行~~
 - [x] ~~knock_back：为了让oppressive_enemy创一下玩家之后能被推走，以及为了防止怪在玩家面前被球直接创到似，需要一个击退。但是不管是撞球还是撞板都有bug。~~
 - [x] ~~（如果不好解决的话就不要knock_back了，给怪一个deal_damage_interval，然后让球的伤害从 球碰怪 改回 怪扫球）（我认为有knock back视觉效果上会更好而已。。。~~
+
+<a name="BUG"></a>
+
 - [ ] basic_skill的结束提示在无限续时也会触发
+- [ ] select_box_flicker要对scale做补间动画，不知道为什么以左上为轴心缩放，明明pivot已经设置为中心点了（单独场景预览的时候还是正常的，但是一运行breakout，一缩放就往左上缩了，从tween改成了animate_player也没用
+
+
 
 
 

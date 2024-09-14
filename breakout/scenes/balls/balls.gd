@@ -32,6 +32,10 @@ func add_ball(ball: Ball = null):
 func del_ball(ball: Ball):
 	if ball:
 		ball.queue_free()
+	
+#func break_ball(ball: Ball):
+	#if ball:
+		#ball.broken()
 		
 		
 func shoot_new_ball(del_old_ball: bool = !BreakoutManager.debug, ammo_exhaust: int = 1):

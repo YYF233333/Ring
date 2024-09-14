@@ -7,4 +7,3 @@ func apply_effect():
 		return true #返回false就不会消耗charge
 	else:
 		return false
-

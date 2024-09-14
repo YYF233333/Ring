@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://xs5dbesq4xxp"]
+[gd_scene load_steps=21 format=3 uid="uid://xs5dbesq4xxp"]
 
 [ext_resource type="PackedScene" uid="uid://daw03w0dflwfi" path="res://breakout/scenes/paddles/paddle.tscn" id="1_n40qs"]
 [ext_resource type="Script" path="res://breakout/scenes/breakout/breakout.gd" id="1_orx43"]
@@ -12,14 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bs7ujwrx4cyhd" path="res://breakout/scenes/walls/static_wall.tscn" id="9_rq28d"]
 [ext_resource type="Script" path="res://breakout/scenes/ui/UI.gd" id="14_tu7t6"]
 [ext_resource type="PackedScene" uid="uid://deo02t7m4xonq" path="res://breakout/scenes/consumables/base/consumables.tscn" id="15_yxme3"]
-[ext_resource type="PackedScene" uid="uid://cgd3nmqrheom3" path="res://breakout/scenes/consumables/communicator/communicator.tscn" id="16_10h23"]
-[ext_resource type="PackedScene" uid="uid://la82br576quu" path="res://breakout/scenes/ui/consumable_info_screen.tscn" id="17_1ij2a"]
-[ext_resource type="PackedScene" uid="uid://jahunc3lre5m" path="res://breakout/scenes/consumables/base/consumable.tscn" id="17_76icu"]
-[ext_resource type="PackedScene" uid="uid://d0h47jgrvih5b" path="res://breakout/scenes/consumables/old_model/old_model.tscn" id="17_k8wc6"]
-[ext_resource type="PackedScene" uid="uid://c5e1mb5jo1t4p" path="res://breakout/scenes/consumables/calculator/calculator.tscn" id="17_q3775"]
 [ext_resource type="Texture2D" uid="uid://cf07qkmmi0sd8" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="18_36oic"]
-[ext_resource type="PackedScene" uid="uid://dw6byhuh2wuvh" path="res://breakout/scenes/consumables/passport/passport.tscn" id="18_ji01s"]
-[ext_resource type="PackedScene" uid="uid://bujvthov5ipeu" path="res://breakout/scenes/consumables/package/package.tscn" id="19_rl5u4"]
 [ext_resource type="PackedScene" uid="uid://dsw27ashjrjbv" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.tscn" id="24_wfglu"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_4axdp"]
@@ -155,60 +148,7 @@ text = "0"
 horizontal_alignment = 2
 
 [node name="Consumables" parent="UI" instance=ExtResource("15_yxme3")]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -425.0
-offset_top = -315.0
-offset_right = -425.0
-offset_bottom = -315.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(1.5, 1.5)
-
-[node name="GridContainer" parent="UI/Consumables" index="0"]
-offset_top = 132.0
-offset_right = 500.0
-offset_bottom = 212.0
-scale = Vector2(0.5, 0.5)
-
-[node name="Consumable" parent="UI/Consumables/GridContainer" index="0" instance=ExtResource("17_76icu")]
-layout_mode = 2
-
-[node name="Communicator" parent="UI/Consumables/GridContainer" index="1" instance=ExtResource("16_10h23")]
-layout_mode = 2
-
-[node name="Calculator" parent="UI/Consumables/GridContainer" index="2" instance=ExtResource("17_q3775")]
-layout_mode = 2
-
-[node name="Package" parent="UI/Consumables/GridContainer" index="3" instance=ExtResource("19_rl5u4")]
-layout_mode = 2
-
-[node name="OldModel" parent="UI/Consumables/GridContainer" index="4" instance=ExtResource("17_k8wc6")]
-layout_mode = 2
-
-[node name="Passport" parent="UI/Consumables/GridContainer" index="5" instance=ExtResource("18_ji01s")]
-layout_mode = 2
-
-[node name="SelectBox" parent="UI/Consumables" index="1"]
-offset_left = -2262.0
-offset_top = -1643.0
-offset_right = -2222.0
-offset_bottom = -1603.0
-
-[node name="ConsumableInfoScreen" parent="UI/Consumables" instance=ExtResource("17_1ij2a")]
 layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_right = 0.0
-offset_left = -8.0
-offset_top = -160.0
-offset_right = 264.0
-offset_bottom = 96.0
-grow_horizontal = 1
 
 [node name="Status" type="Control" parent="UI"]
 anchors_preset = 0
@@ -331,4 +271,3 @@ vertical_alignment = 1
 [editable path="Walls/Top"]
 [editable path="Walls/Left"]
 [editable path="Walls/Right"]
-[editable path="UI/Consumables"]

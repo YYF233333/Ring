@@ -3,6 +3,7 @@ class_name Consumables
 
 @onready var grid_container = $GridContainer
 @onready var select_box = $SelectBox as TextureRect
+@onready var animation_player: AnimationPlayer = $SelectBox/AnimationPlayer
 @onready var consumable_info_screen: ConsumableInfoScreen = $ConsumableInfoScreen
 
 var consumable_num: int
@@ -51,13 +52,9 @@ func move_select_box():
 		
 		
 func select_box_flicker():
-	var tween = create_tween()
-	tween.tween_property(select_box, "modulate", Color(1, 1, 1, 0), 0.1).set_trans(Tween.TRANS_BOUNCE)
-	tween.parallel().tween_property(select_box, "scale", Vector2(0.9, 0.9), 0.1).set_trans(Tween.TRANS_BOUNCE)
-	tween.chain()
-	tween.tween_property(select_box, "modulate", Color(1, 1, 1, 1), 0.1).set_trans(Tween.TRANS_BOUNCE)
-	tween.parallel().tween_property(select_box, "scale", Vector2(1, 1), 0.1).set_trans(Tween.TRANS_BOUNCE)
-	
+	animation_player.play("RESET")
+	animation_player.play("flicker")
+
 
 func update():
 	"""
@@ -76,6 +73,7 @@ func update():
 		tween.parallel().tween_property(select_box, "modulate", Color(1, 1, 1, 1), 0.5).set_trans(Tween.TRANS_BOUNCE)
 		consumable_info_screen.consumable = consumable_nodes[selected_consumable_num]
 		consumable_info_screen.update()
+
 
 func add_consumable_instance(consumable: Consumable, node: Node = grid_container):
 	var scene_file_path = consumable.scene_file_path

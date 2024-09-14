@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dsw27ashjrjbv"]
 
-[ext_resource type="Texture2D" uid="uid://c86yxr8s7kkat" path="res://breakout/assets/Mine/communicator.png" id="1_b5lqb"]
+[ext_resource type="Texture2D" uid="uid://ddfeh3p12h4l2" path="res://breakout/assets/Mine/blood bullet.png" id="1_tkbuj"]
 [ext_resource type="Script" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.gd" id="2_i54uf"]
 [ext_resource type="Resource" uid="uid://ewau7rjsviwg" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.tres" id="3_r6xqd"]
 
 [node name="BloodBullet" type="TextureButton"]
 offset_right = 64.0
 offset_bottom = 64.0
-texture_normal = ExtResource("1_b5lqb")
+texture_normal = ExtResource("1_tkbuj")
 script = ExtResource("2_i54uf")
 skill_info = ExtResource("3_r6xqd")
 

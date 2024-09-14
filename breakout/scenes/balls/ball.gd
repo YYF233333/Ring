@@ -7,6 +7,7 @@ class_name Ball
 @onready var sprite = $Sprite2D as Sprite2D
 
 @onready var collision_shape = $CollisionShape2D as CollisionShape2D
+@onready var shard_emitter: ShardEmitter = $Sprite2D/ShardEmitter
 
 #stat
 @export var init_speed : float = ValueManager.ball_init_speed
@@ -119,8 +120,16 @@ func update_sprite():
 	pass
 	
 
+#func broken():
+	#remove_from_group("balls")
+	#$CollisionShape2D.disabled = true
+	#shard_emitter.shatter()
+	#await shard_emitter.delete_timer.timeout
+	#queue_free()
+	
 func _on_fire_ball_timer_timeout():
 	change_fire_ball_buff(-1, fire_ball_timer.wait_time)
 	
 func _on_lightning_ball_timer_timeout():
 	change_lightning_ball_buff(-1, lightning_ball_timer.wait_time)
+	

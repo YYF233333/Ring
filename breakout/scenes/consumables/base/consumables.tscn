@@ -1,28 +1,138 @@
-[gd_scene load_steps=3 format=3 uid="uid://deo02t7m4xonq"]
+[gd_scene load_steps=13 format=3 uid="uid://deo02t7m4xonq"]
 
 [ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumables.gd" id="1_yg7s0"]
+[ext_resource type="PackedScene" uid="uid://jahunc3lre5m" path="res://breakout/scenes/consumables/base/consumable.tscn" id="2_hkbx8"]
 [ext_resource type="Texture2D" uid="uid://d1px1cpuu1d8i" path="res://breakout/assets/Mine/select_box.png" id="2_no4hm"]
+[ext_resource type="PackedScene" uid="uid://la82br576quu" path="res://breakout/scenes/ui/consumable_info_screen.tscn" id="3_8mhmy"]
+[ext_resource type="PackedScene" uid="uid://c5e1mb5jo1t4p" path="res://breakout/scenes/consumables/calculator/calculator.tscn" id="3_sje5g"]
+[ext_resource type="PackedScene" uid="uid://cgd3nmqrheom3" path="res://breakout/scenes/consumables/communicator/communicator.tscn" id="4_h1wrm"]
+[ext_resource type="PackedScene" uid="uid://d0h47jgrvih5b" path="res://breakout/scenes/consumables/old_model/old_model.tscn" id="5_3x1e0"]
+[ext_resource type="PackedScene" uid="uid://bujvthov5ipeu" path="res://breakout/scenes/consumables/package/package.tscn" id="6_k2b51"]
+[ext_resource type="PackedScene" uid="uid://dw6byhuh2wuvh" path="res://breakout/scenes/consumables/passport/passport.tscn" id="7_m71ki"]
+
+[sub_resource type="Animation" id="Animation_4bsl5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nar3f"]
+resource_name = "flicker"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ojx43"]
+_data = {
+"RESET": SubResource("Animation_4bsl5"),
+"flicker": SubResource("Animation_nar3f")
+}
 
 [node name="Consumables" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 270.0
-offset_bottom = 180.0
 script = ExtResource("1_yg7s0")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1
-offset_right = 270.0
-offset_bottom = 180.0
+offset_left = 1492.0
+offset_top = 952.0
+offset_right = 1992.0
+offset_bottom = 1032.0
+scale = Vector2(0.75, 0.75)
 columns = 6
 
+[node name="Consumable" parent="GridContainer" instance=ExtResource("2_hkbx8")]
+layout_mode = 2
+
+[node name="Calculator" parent="GridContainer" instance=ExtResource("3_sje5g")]
+layout_mode = 2
+
+[node name="Communicator" parent="GridContainer" instance=ExtResource("4_h1wrm")]
+layout_mode = 2
+
+[node name="OldModel" parent="GridContainer" instance=ExtResource("5_3x1e0")]
+layout_mode = 2
+
+[node name="Package" parent="GridContainer" instance=ExtResource("6_k2b51")]
+layout_mode = 2
+
+[node name="Passport" parent="GridContainer" instance=ExtResource("7_m71ki")]
+layout_mode = 2
+
 [node name="SelectBox" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -190.0
-offset_bottom = -100.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1080.0
+offset_top = -720.0
+offset_right = -1020.0
+offset_bottom = -660.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(30, 30)
 texture = ExtResource("2_no4hm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SelectBox"]
+libraries = {
+"": SubResource("AnimationLibrary_ojx43")
+}
+
+[node name="ConsumableInfoScreen" parent="." instance=ExtResource("3_8mhmy")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 1476.0
+offset_top = 512.0
+offset_right = 1748.0
+offset_bottom = 768.0
+grow_horizontal = 1
+scale = Vector2(1.5, 1.5)

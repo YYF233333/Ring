@@ -7,5 +7,5 @@ script = ExtResource("1_etlvt")
 consumable_id = 0
 consumable_name = "void"
 consumable_description = "base class for consumables"
-max_possess_amount = 5
+max_possess_amount = 50
 price = 1

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bs7ujwrx4cyhd"]
 
 [ext_resource type="Script" path="res://breakout/scenes/walls/static_wall.gd" id="1_crfpi"]
-[ext_resource type="Texture2D" uid="uid://rijnq6prh542" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/20-Breakout-Tiles.png" id="2_s15my"]
+[ext_resource type="Texture2D" uid="uid://3at4kopmpxsk" path="res://breakout/assets/Breakout_Tile_Set_Free/Breakout Tile Set Free/PNG/20-Breakout-Tiles.png" id="2_da76c"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_klump"]
 b = Vector2(1920, 0)
@@ -15,4 +15,4 @@ script = ExtResource("1_crfpi")
 shape = SubResource("SegmentShape2D_klump")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_s15my")
+texture = ExtResource("2_da76c")
