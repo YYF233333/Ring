@@ -8,8 +8,6 @@
 
 [碎裂视效](#球碎)
 
-[选择框闪烁bug](#BUG)
-
 [《闘壊ガール-ブロック崩しRPG》感想](#跳转示例)
 
 
@@ -359,12 +357,14 @@
 - [x] ~~knock_back：为了让oppressive_enemy创一下玩家之后能被推走，以及为了防止怪在玩家面前被球直接创到似，需要一个击退。但是不管是撞球还是撞板都有bug。~~
 - [x] ~~（如果不好解决的话就不要knock_back了，给怪一个deal_damage_interval，然后让球的伤害从 球碰怪 改回 怪扫球）（我认为有knock back视觉效果上会更好而已。。。~~
 
-<a name="BUG"></a>
-
 - [ ] basic_skill的结束提示在无限续时也会触发
-- [ ] select_box_flicker要对scale做补间动画，不知道为什么以左上为轴心缩放，明明pivot已经设置为中心点了（单独场景预览的时候还是正常的，但是一运行breakout，一缩放就往左上缩了，从tween改成了animate_player也没用
+- [x] select_box_flicker要对scale做补间动画，不知道为什么以左上为轴心缩放，明明pivot已经设置为中心点了（单独场景预览的时候还是正常的，但是一运行breakout，一缩放就往左上缩了，从tween改成了animate_player也没用
+  - [x] 找到原因了。缩放基于中心点，但position由左上角决定，所以缩放的时候position会变；但同时use_consumable这个操作会调用update以检查消耗品栏更新，而检查里面有一项是将select_box位置移到对应物品位置。于是两个tween同时进行导致框往左上缩放
+  - [x] 直接不update是一个解决左上缩放的方法，但新bug是边移动边缩放会导致position一直往左上飞
+  - [x] 最终解决方法是：创建一个select_box的父节点select_box_anchor，专门管select_box的position而不参与scale
 
 
+<a name="BUG"></a>
 
 
 
