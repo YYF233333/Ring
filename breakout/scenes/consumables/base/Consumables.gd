@@ -27,14 +27,14 @@ func _process(delta):
 		if consumable_num > 1:
 			selected_consumable_num = (selected_consumable_num + 1) % consumable_num
 			move_select_box()
-		#update()
+		update()
 	if Input.is_action_just_pressed("use_selected_consumable"):
 		var selected_consumable = consumable_nodes[selected_consumable_num] as Consumable
 		if selected_consumable.use(1):
 			select_box_flicker()
 		else:
 			consumable_info_screen.hint_not_available()
-		#update()
+		update()
 	
 		
 func reset(clear_consumable: bool = true, node: Node = grid_container):
@@ -78,7 +78,6 @@ func update():
 	else:
 		pass
 		
-
 	# update info screen
 	if consumable_num == 0:
 		consumable_info_screen.consumable = null

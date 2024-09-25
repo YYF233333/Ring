@@ -1,0 +1,173 @@
+[gd_scene load_steps=12 format=3 uid="uid://bismkv6jji1im"]
+
+[ext_resource type="Script" path="res://UI/office_button.gd" id="1_s0f36"]
+[ext_resource type="Shader" path="res://breakout/addons/outline/outline.gdshader" id="2_3qwtq"]
+[ext_resource type="Texture2D" uid="uid://bhemsdunn0620" path="res://breakout/assets/Mine/computer.png" id="2_t17kd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p5a01"]
+shader = ExtResource("2_3qwtq")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 0
+shader_parameter/inside = true
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="BitMap" id="BitMap_xglol"]
+
+[sub_resource type="Animation" id="Animation_us8d2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureButton:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureButton:material:shader_parameter/width")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_cqetu"]
+resource_name = "down"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureButton:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(0.75, 0.75)]
+}
+
+[sub_resource type="Animation" id="Animation_m4meq"]
+resource_name = "enter"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureButton:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(1.35, 1.35), Vector2(1.2, 1.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureButton:material:shader_parameter/width")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.03),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.0]
+}
+
+[sub_resource type="Animation" id="Animation_i3vgh"]
+resource_name = "exit"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureButton:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.02, 0.2),
+"transitions": PackedFloat32Array(0.68, 1),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureButton:material:shader_parameter/width")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(0.68),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_m3vkn"]
+resource_name = "up"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureButton:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.75, 0.75), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1w1ul"]
+_data = {
+"RESET": SubResource("Animation_us8d2"),
+"down": SubResource("Animation_cqetu"),
+"enter": SubResource("Animation_m4meq"),
+"exit": SubResource("Animation_i3vgh"),
+"up": SubResource("Animation_m3vkn")
+}
+
+[node name="OfficeButton" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_s0f36")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+material = SubResource("ShaderMaterial_p5a01")
+layout_mode = 0
+offset_right = 245.0
+offset_bottom = 189.0
+pivot_offset = Vector2(122.5, 94.5)
+texture_normal = ExtResource("2_t17kd")
+texture_click_mask = SubResource("BitMap_xglol")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1w1ul")
+}
+
+[connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]
+[connection signal="button_up" from="TextureButton" to="." method="_on_texture_button_button_up"]
+[connection signal="focus_entered" from="TextureButton" to="." method="_on_texture_button_focus_entered"]
+[connection signal="focus_exited" from="TextureButton" to="." method="_on_texture_button_focus_exited"]
+[connection signal="mouse_entered" from="TextureButton" to="." method="_on_texture_button_mouse_entered"]
+[connection signal="mouse_exited" from="TextureButton" to="." method="_on_texture_button_mouse_exited"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
+[connection signal="current_animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_current_animation_changed"]

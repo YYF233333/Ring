@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://dau5pscvvrlu6"]
+
+[ext_resource type="Script" path="res://scenes/office.gd" id="1_m1qyh"]
+[ext_resource type="Texture2D" uid="uid://s7fnj51n4axp" path="res://breakout/assets/Mine/a-simple-student-office-desk-with-nothing-on-it--w.png" id="1_qmyyo"]
+[ext_resource type="PackedScene" uid="uid://bismkv6jji1im" path="res://UI/office_button.tscn" id="2_gchmj"]
+
+[node name="Office" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m1qyh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_qmyyo")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 848.0
+offset_top = 298.0
+offset_right = 1159.0
+offset_bottom = 533.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 108.0
+offset_right = 188.0
+offset_bottom = 145.0
+theme_override_font_sizes/font_size = 24
+text = "几把"
+
+[node name="Computer" parent="." instance=ExtResource("2_gchmj")]
+offset_left = 872.0
+offset_top = 327.0
+offset_right = 872.0
+offset_bottom = 327.0
+
+[connection signal="pressed" from="Computer" to="." method="_on_computer_pressed"]

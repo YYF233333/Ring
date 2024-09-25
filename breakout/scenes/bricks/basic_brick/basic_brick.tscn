@@ -59,6 +59,7 @@ visible = false
 shape = SubResource("RectangleShape2D_butaw")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -76,6 +77,7 @@ step = 0.0
 show_percentage = false
 
 [node name="HealthLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -95,3 +97,4 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LuckyDropHintParticles" parent="." instance=ExtResource("6_1jbs7")]
+emitting = false

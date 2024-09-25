@@ -31,6 +31,9 @@ point = 999
 hit_by_ball_player_charge = 0
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_yqu4r")]
+max_health = 999
+init_health = 999
+show_floating_text = false
 
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_2akhq")]
 health_component = NodePath("../HealthComponent")
@@ -39,6 +42,7 @@ health_component = NodePath("../HealthComponent")
 health_component = NodePath("../HealthComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_eprt5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_muqvs")
@@ -61,6 +65,7 @@ visible = false
 shape = SubResource("RectangleShape2D_i2d6w")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -79,6 +84,7 @@ step = 0.0
 show_percentage = false
 
 [node name="HealthLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

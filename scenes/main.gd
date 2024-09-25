@@ -4,6 +4,8 @@ extends Node
 static var cnt := 0
 
 @onready var minigame_scene: PackedScene
+@onready var office_scene: PackedScene = preload("res://scenes/office.tscn")
+#TODO: 芝士二级菜单UI示例@yyf
 
 func game_start():
 	var tween := create_tween()
@@ -39,7 +41,7 @@ func load_tetromino():
 	$Runtime.process_mode = Node.PROCESS_MODE_DISABLED
 	$Runtime.visible = false
 	add_child(tetromino)
-
+	
 func end_tetromino():
 	$Tetromino.queue_free()
 	$Runtime.process_mode = Node.PROCESS_MODE_INHERIT

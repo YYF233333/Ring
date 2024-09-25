@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b651bxuqe1lvi"]
+[gd_scene load_steps=15 format=3 uid="uid://b651bxuqe1lvi"]
 
 [ext_resource type="Script" path="res://breakout/scenes/bricks/charge_brick/charge_brick.gd" id="1_ou1sq"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="3_ried7"]
@@ -16,6 +16,45 @@ size = Vector2(130, 130)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_butaw"]
 size = Vector2(180, 180)
 
+[sub_resource type="Curve" id="Curve_3y0oy"]
+bake_resolution = 60
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.35, 0), 0.0, 0.0, 0, 0, Vector2(0.45, 0.8), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="CurveTexture" id="CurveTexture_4xqo6"]
+curve = SubResource("Curve_3y0oy")
+
+[sub_resource type="Curve" id="Curve_5o1r3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25001, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="CurveTexture" id="CurveTexture_3w7hf"]
+curve = SubResource("Curve_5o1r3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cenct"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(10, 10, 1)
+emission_shape = 3
+emission_box_extents = Vector3(10, 10, 1)
+angle_min = -720.0
+angle_max = 720.0
+inherit_velocity_ratio = 1.0
+velocity_pivot = Vector3(0, 0, 1)
+spread = 180.0
+initial_velocity_min = 60.0
+initial_velocity_max = 65.0
+gravity = Vector3(0, 0, 0)
+damping_min = 30.0
+damping_max = 40.0
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_3w7hf")
+alpha_curve = SubResource("CurveTexture_4xqo6")
+
 [node name="ChargeBrick" type="StaticBody2D"]
 scale = Vector2(0.5, 0.5)
 collision_layer = 8
@@ -26,6 +65,7 @@ brick_name = "charge brick"
 brick_description = "spawn a charge drop that charges 50% for skill"
 sprites = Array[Texture]([ExtResource("6_cnght")])
 drop_percent_scale = 100.0
+lucky_drop = true
 unique_drop_name = "charge"
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_ried7")]
@@ -60,6 +100,7 @@ visible = false
 shape = SubResource("RectangleShape2D_butaw")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -77,6 +118,7 @@ step = 0.0
 show_percentage = false
 
 [node name="HealthLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -96,3 +138,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LuckyDropHintParticles" parent="." instance=ExtResource("7_74by8")]
+scale = Vector2(0.66, 0.66)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_cenct")
