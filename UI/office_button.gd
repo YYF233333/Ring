@@ -1,6 +1,6 @@
 extends Control
 
-signal pressed(node: Node)
+signal tb_pressed(node: Node)
 
 @onready var texture_button: TextureButton = $TextureButton
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -9,7 +9,6 @@ signal pressed(node: Node)
 func _ready() -> void:
 	texture_button.pivot_offset = texture_button.size / 2.0
 	texture_button.texture_click_mask.create_from_image_alpha(texture_button.texture_normal.get_image())
-
 
 #func _on_texture_button_focus_entered() -> void:
 	#animation_player.play("enter")
@@ -42,7 +41,7 @@ func _on_texture_button_button_up() -> void:
 	
 
 func _on_texture_button_pressed() -> void:
-	pressed.emit(self)
+	tb_pressed.emit(self)
 	
 	
 # debug

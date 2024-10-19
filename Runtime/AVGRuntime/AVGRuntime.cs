@@ -224,6 +224,8 @@ public partial class AVGRuntime : Node2D, ISubRuntime
         GetParent<Runtime>().SwitchRuntime(this, nextSubRuntimeName, message);
     }
 
+    public void Office() => SwitchRuntime("Office", "");
+
     public void Backlog()
     {
         GetParent<Runtime>().SwitchRuntime(this, "Backlog", Global.History);

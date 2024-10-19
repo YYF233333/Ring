@@ -8,7 +8,7 @@ changeBG<img src="assets/bg1.png" alt="bg1" style="zoom:25%;" />with dissolve
 runtime.Office()
 ```
 
-
+changeBG <img src="assets/transparent.png" alt="transparent" style="zoom:25%;" />
 
 ```python
 import json
@@ -23,6 +23,10 @@ runtime.Global["BreakoutData"] = json.dumps(breakout)
 ```
 
 ？？："不完全是这样..."
+
+```
+runtime.Office()
+```
 
 ？？："世界以少女的愿望为契机，发生了些许变化，仅此而已。"
 

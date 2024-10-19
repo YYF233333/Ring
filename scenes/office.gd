@@ -3,6 +3,6 @@ extends Control
 func get_message(runtimeName: String, message) -> void:
 	print("Office get " + message + " from " + runtimeName)
 
-
-func _on_computer_pressed(node: Node) -> void:
-	get_parent().SwitchRuntime("AVG")
+func _on_computer_tb_pressed(node: Node) -> void:
+	await get_tree().create_timer(0.5).timeout
+	get_parent().call_deferred("SwitchRuntime", "AVG", "", "Pause")

@@ -86,6 +86,7 @@ public partial class GDRuntimeWrapper : Node, ISubRuntime
 {
     public GDRuntimeWrapper(Node scene)
     {
+        Name = scene.Name;
         AddChild(scene);
     }
 
