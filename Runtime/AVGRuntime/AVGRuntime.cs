@@ -218,20 +218,20 @@ public partial class AVGRuntime : Node2D, ISubRuntime
         }
     }
 
+    // 常见的传字符串消息情形，可以从脚本里调用
+    public void SwitchRuntime(string nextSubRuntimeName, string message)
+    {
+        GetParent<Runtime>().SwitchRuntime(this, nextSubRuntimeName, message);
+    }
+
     public void Backlog()
     {
         GetParent<Runtime>().SwitchRuntime(this, "Backlog", Global.History);
     }
 
-    public void Setting()
-    {
-        GetParent<Runtime>().SwitchRuntime(this, "Setting", "AVG");
-    }
+    public void Setting() => SwitchRuntime("Setting", "AVG");
 
-    public void InitMiniGame(string name)
-    {
-        GetParent<Runtime>().SwitchRuntime(this, name, Global["BreakoutData"]);
-    }
+    public void InitMiniGame(string name) => SwitchRuntime(name, Global["BreakoutData"]);
 
     public void VerticalBranch(IEnumerable<string> options) => VerticalBranch(options.ToArray());
 

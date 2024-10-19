@@ -82,6 +82,36 @@ public enum SwitchMode
     Pause,
 }
 
+public partial class GDRuntimeWrapper : Node, ISubRuntime
+{
+    public GDRuntimeWrapper(Node scene)
+    {
+        AddChild(scene);
+    }
+
+    public string RuntimeName => GetChild(0).Name;
+
+    public void GetMessage(string runtimeName, object message) =>
+        GetChild(0).Call("get_message", runtimeName, (string)message);
+
+    public void SwitchRuntime(string nextSubRuntimeName) =>
+        SwitchRuntime(nextSubRuntimeName, "", "Unload");
+
+    public void SwitchRuntime(string nextSubRuntimeName, string message) =>
+        SwitchRuntime(nextSubRuntimeName, message, "Unload");
+
+    public void SwitchRuntime(string nextSubRuntimeName, string message, string switchMode)
+    {
+        var mode = switchMode switch
+        {
+            "Unload" => SwitchMode.Unload,
+            "Pause" => SwitchMode.Pause,
+            _ => throw new ArgumentException($"Invalid SwitchMode {switchMode}")
+        };
+        GetParent<Runtime>().SwitchRuntime(this, nextSubRuntimeName, message, mode);
+    }
+}
+
 public partial class Runtime : Node
 {
     // 进度无关全局设置
@@ -117,6 +147,13 @@ public partial class Runtime : Node
                     (Setting)
                         GD.Load<PackedScene>("res://Runtime/SettingRuntime/Setting.tscn")
                             .Instantiate()
+            },
+            {
+                "Office",
+                () =>
+                    new GDRuntimeWrapper(
+                        GD.Load<PackedScene>("res://scenes/office.tscn").Instantiate()
+                    )
             }
         };
 
