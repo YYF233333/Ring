@@ -34,10 +34,11 @@ sprites = Array[Texture]([ExtResource("3_8uef2"), ExtResource("4_prynk"), ExtRes
 point = 200
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_wq6i7")]
-show_floating_text = false
 
-[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_c4r0r")]
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite_2d") instance=ExtResource("4_c4r0r")]
+death_type = "basic_brick"
 health_component = NodePath("../HealthComponent")
+sprite_2d = NodePath("../Sprite2D")
 
 [node name="IntervalHurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_44b2i")]
 health_component = NodePath("../HealthComponent")

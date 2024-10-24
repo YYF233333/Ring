@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://doeh0m7k7ueit"]
+
+[ext_resource type="Texture2D" uid="uid://dt5161v5jvyv6" path="res://breakout/addons/shaderV/examples/godot_logo.png" id="1_bc7xk"]
+
+[sub_resource type="Curve" id="Curve_s07rc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.764706, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_g5sy8"]
+curve = SubResource("Curve_s07rc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sqnh7"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 30.0
+initial_velocity_min = 960.0
+initial_velocity_max = 1280.0
+angular_velocity_min = -1440.0
+angular_velocity_max = 1440.0
+gravity = Vector3(0, 1920, 0)
+scale_curve = SubResource("CurveTexture_g5sy8")
+
+[node name="PopGPUParticles2D" type="GPUParticles2D"]
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_sqnh7")
+texture = ExtResource("1_bc7xk")
+lifetime = 5.0
+one_shot = true
+fixed_fps = 144

@@ -77,8 +77,10 @@ direction = Vector2(0, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_mbnlo")]
 
-[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_r15j5")]
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite_2d") instance=ExtResource("4_r15j5")]
+death_type = "basic_enemy"
 health_component = NodePath("../HealthComponent")
+sprite_2d = NodePath("../Sprite2D")
 
 [node name="IntervalHurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_nanaw")]
 health_component = NodePath("../HealthComponent")

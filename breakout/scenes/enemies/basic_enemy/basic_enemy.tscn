@@ -64,10 +64,12 @@ point = 200
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_yx7hq")]
 max_health = 100
-init_health = 60
+init_health = 100
 
-[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_yysgq")]
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite_2d") instance=ExtResource("3_yysgq")]
+death_type = "basic_enemy"
 health_component = NodePath("../HealthComponent")
+sprite_2d = NodePath("../Sprite2D")
 
 [node name="IntervalHurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_rvx63")]
 health_component = NodePath("../HealthComponent")

@@ -29,8 +29,10 @@ point = 100
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_xxm7y")]
 
-[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_y72tj")]
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite_2d") instance=ExtResource("4_y72tj")]
+death_type = "basic_brick"
 health_component = NodePath("../HealthComponent")
+sprite_2d = NodePath("../Sprite2D")
 
 [node name="IntervalHurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_gsew7")]
 health_component = NodePath("../HealthComponent")

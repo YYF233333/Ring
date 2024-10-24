@@ -35,8 +35,10 @@ max_health = 999
 init_health = 999
 show_floating_text = false
 
-[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_2akhq")]
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite_2d") instance=ExtResource("3_2akhq")]
+death_type = "basic_brick"
 health_component = NodePath("../HealthComponent")
+sprite_2d = NodePath("../Sprite2D")
 
 [node name="IntervalHurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_5ix3v")]
 health_component = NodePath("../HealthComponent")

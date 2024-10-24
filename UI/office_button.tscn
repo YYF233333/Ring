@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://UI/office_button.gd" id="1_s0f36"]
 [ext_resource type="Shader" path="res://breakout/addons/outline/outline.gdshader" id="2_3qwtq"]
-[ext_resource type="Texture2D" uid="uid://ddrh3mfunb143" path="res://breakout/assets/Mine/computer.png" id="2_t17kd"]
+[ext_resource type="Texture2D" uid="uid://bhemsdunn0620" path="res://breakout/assets/Mine/computer.png" id="2_t17kd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p5a01"]
 shader = ExtResource("2_3qwtq")

@@ -70,8 +70,10 @@ unique_drop_name = "charge"
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_ried7")]
 
-[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_ir3m3")]
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite_2d") instance=ExtResource("4_ir3m3")]
+death_type = "basic_brick"
 health_component = NodePath("../HealthComponent")
+sprite_2d = NodePath("../Sprite2D")
 
 [node name="IntervalHurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_qly3b")]
 health_component = NodePath("../HealthComponent")
