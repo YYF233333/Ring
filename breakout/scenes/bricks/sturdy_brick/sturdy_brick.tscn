@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bol7poi84eil"]
+[gd_scene load_steps=17 format=3 uid="uid://bol7poi84eil"]
 
 [ext_resource type="Script" path="res://breakout/scenes/bricks/sturdy_brick/sturdy_brick.gd" id="1_s8hf7"]
 [ext_resource type="Texture2D" uid="uid://yo5sgf1p4h42" path="res://breakout/assets/Brick-Blue.png" id="3_8uef2"]
@@ -20,6 +20,43 @@ size = Vector2(400, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_butaw"]
 size = Vector2(450, 150)
 
+[sub_resource type="Animation" id="Animation_ynur3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qi0h7"]
+resource_name = "hit_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_07it2"]
+_data = {
+"RESET": SubResource("Animation_ynur3"),
+"hit_flash": SubResource("Animation_qi0h7")
+}
+
 [node name="SturdyBrick" type="StaticBody2D"]
 scale = Vector2(0.5, 0.5)
 collision_layer = 8
@@ -31,6 +68,7 @@ brick_description = "sturdy
 take no more than 1 damage per hit"
 init_type = 4
 sprites = Array[Texture]([ExtResource("3_8uef2"), ExtResource("4_prynk"), ExtResource("5_yhmiq"), ExtResource("6_rccko"), ExtResource("7_furh4")])
+hit_flash = false
 point = 200
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_wq6i7")]
@@ -106,3 +144,8 @@ vertical_alignment = 1
 
 [node name="LuckyDropHintParticles" parent="." instance=ExtResource("10_xvaym")]
 emitting = false
+
+[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_07it2")
+}

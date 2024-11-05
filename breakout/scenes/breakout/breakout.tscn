@@ -61,6 +61,10 @@ rotation = -0.00681059
 [node name="BasicBrick" parent="TestLevel01/Bricks" instance=ExtResource("3_0jn84")]
 position = Vector2(960, 304)
 
+[node name="HealthComponent" parent="TestLevel01/Bricks/BasicBrick" index="0"]
+max_health = 40
+init_health = 10
+
 [node name="SturdyBrick" parent="TestLevel01/Bricks" instance=ExtResource("4_085b3")]
 position = Vector2(705, 381)
 scale = Vector2(0.262693, 0.262693)
@@ -291,6 +295,7 @@ vertical_alignment = 1
 
 [node name="ForeGround" type="Node2D" parent="." groups=["foregrounds"]]
 
+[editable path="TestLevel01/Bricks/BasicBrick"]
 [editable path="TestLevel01/Enemies/BasicEnemy"]
 [editable path="Walls/Top"]
 [editable path="Walls/Left"]

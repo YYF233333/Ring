@@ -9,6 +9,7 @@ class_name Brick
 @export_group("Basic")
 @export var init_type: int
 @export var sprites : Array[Texture]
+@export var hit_flash : bool = true
 
 @export_group("Bonus")
 @export var point: int
@@ -26,6 +27,7 @@ var type: int
 @onready var health_component = $HealthComponent as HealthComponent
 @onready var interval_hurt_component = $IntervalHurtComponent as IntervalHurtComponent
 @onready var chain_area = $ChainArea as Area2D
+@onready var hit_flash_animation_player: AnimationPlayer = $HitFlashAnimationPlayer
 
 @onready var health_bar = $HealthBar as ProgressBar
 @onready var health_label = $HealthLabel as Label
@@ -93,6 +95,8 @@ func hit_by_laser_beam(laser_beam: LaserBeam):
 
 func physic_hurt(value: int):
 	health_component.take_damage(value)
+	if hit_flash:
+		hit_flash_animation_player.play("hit_flash")
 	
 
 func _on_area_2d_body_entered(body):
