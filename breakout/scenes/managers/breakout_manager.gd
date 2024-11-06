@@ -24,7 +24,8 @@ signal ball_hit(charge: int)
 
 signal failed
 signal track_lost #剧情杀，特殊结算
-signal cleared
+signal goal_clear(level_name: String, goal_name: String) #关卡小目标达成，通常准备转阶段
+signal level_clear(level_name: String) #关卡完成
 
 var breakout: Breakout
 var skill: Skill
@@ -81,7 +82,7 @@ func _ready():
 	
 	failed.connect(_on_failed)
 	track_lost.connect(_on_track_lost)
-	cleared.connect(_on_cleared)
+	level_clear.connect(_on_level_clear)
 #
 	#call_deferred("reset") #在breakout里调用，不然restart会寄
 
@@ -182,6 +183,26 @@ func check_death():
 	if current_health <= 0:
 		failed.emit()
 
+
+func clear_bricks():
+	var bricks = get_tree().get_nodes_in_group("bricks")
+	for brick in bricks:
+		brick.queue_free()
+
+
+func clear_enemies():
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	for enemy in enemies:
+		enemy.queue_free()
+
+
+func pause_game():
+	breakout.process_mode = PROCESS_MODE_DISABLED
+	
+	
+func continue_game():
+	breakout.process_mode = PROCESS_MODE_INHERIT
+	
 	
 func _on_point_scored(point: int):
 	score += point
@@ -210,7 +231,7 @@ func _on_track_lost():
 	breakout.add_child(end_screen)
 	
 	
-func _on_cleared():
+func _on_level_clear():
 	get_tree().paused = true
 	var end_screen = preload("res://breakout/scenes/screens/EndMiniGameScreen.tscn").instantiate()
 	breakout.add_child(end_screen)

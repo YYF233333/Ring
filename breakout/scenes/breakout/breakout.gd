@@ -1,6 +1,8 @@
 extends Node2D
 class_name Breakout
 
+signal achieve(goal: String) #通知上层某个goal已完成
+
 @onready var camera = $Camera2D as Camera2D
 
 var shake: bool = false
@@ -11,7 +13,6 @@ var shake_force: float = 1.0
 func _ready():
 	BreakoutManager.breakout = self
 	BreakoutManager.call_deferred("reset") #不用call_deferred会烂
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -27,3 +28,5 @@ func _process(delta):
 	#debug
 	if Input.is_action_just_pressed("menu"):
 		BreakoutManager._on_failed()
+		
+	
