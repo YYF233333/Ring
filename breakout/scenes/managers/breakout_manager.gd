@@ -22,6 +22,9 @@ signal skill_changed
 signal ball_lost(ball: Ball)
 signal ball_hit(charge: int)
 
+signal enemy_beaten(enemy_name: StringName)
+signal brick_broken(brick_name: StringName)
+
 signal failed
 signal track_lost #剧情杀，特殊结算
 signal goal_clear(level_name: String, goal_name: String) #关卡小目标达成，通常准备转阶段
@@ -197,11 +200,11 @@ func clear_enemies():
 
 
 func pause_game():
-	breakout.process_mode = PROCESS_MODE_DISABLED
+	breakout.process_mode = Node.PROCESS_MODE_DISABLED
 	
 	
 func continue_game():
-	breakout.process_mode = PROCESS_MODE_INHERIT
+	breakout.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	
 func _on_point_scored(point: int):

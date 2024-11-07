@@ -7,7 +7,6 @@ class_name Ball
 @onready var sprite = $Sprite2D as Sprite2D
 
 @onready var collision_shape = $CollisionShape2D as CollisionShape2D
-@onready var shard_emitter: ShardEmitter = $Sprite2D/ShardEmitter
 
 #stat
 @export var init_speed : float = ValueManager.ball_init_speed

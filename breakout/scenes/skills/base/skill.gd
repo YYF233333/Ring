@@ -94,5 +94,3 @@ func _on_ball_hit(charge: int):
 func _on_skill_charge(value: int):
 	value = ceil(value * ValueManager.player_charge_multiplier)
 	restore_charge(value)
-
-

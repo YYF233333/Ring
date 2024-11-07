@@ -1,15 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://xs5dbesq4xxp"]
+[gd_scene load_steps=19 format=3 uid="uid://xs5dbesq4xxp"]
 
 [ext_resource type="PackedScene" uid="uid://daw03w0dflwfi" path="res://breakout/scenes/paddles/paddle.tscn" id="1_n40qs"]
 [ext_resource type="Script" path="res://breakout/scenes/breakout/breakout.gd" id="1_orx43"]
 [ext_resource type="Script" path="res://breakout/scenes/breakout/Bottom.gd" id="1_pbrcl"]
 [ext_resource type="PackedScene" uid="uid://couhfdt63uc48" path="res://breakout/scenes/balls/ball.tscn" id="2_2hbpr"]
-[ext_resource type="PackedScene" uid="uid://hwfbtok4re4l" path="res://breakout/scenes/bricks/indestructible_brick/indestructible_brick.tscn" id="2_giq6t"]
-[ext_resource type="Script" path="res://breakout/scenes/breakout/example_level.gd" id="2_nx17b"]
-[ext_resource type="PackedScene" uid="uid://c81idhg4ab0ye" path="res://breakout/scenes/bricks/basic_brick/basic_brick.tscn" id="3_0jn84"]
-[ext_resource type="PackedScene" uid="uid://bol7poi84eil" path="res://breakout/scenes/bricks/sturdy_brick/sturdy_brick.tscn" id="4_085b3"]
-[ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="4_eluyc"]
-[ext_resource type="Shader" uid="uid://dglp1dnjevn6k" path="res://breakout/scenes/shaders/hit_flash.tres" id="6_o8t62"]
+[ext_resource type="PackedScene" uid="uid://btyy5g3nhs8lh" path="res://breakout/scenes/levels/goal_test_level/goal_test_level.tscn" id="2_j42lq"]
 [ext_resource type="Script" path="res://breakout/scenes/balls/balls.gd" id="6_s6fh4"]
 [ext_resource type="Texture2D" uid="uid://ci1pxjrjurudf" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
 [ext_resource type="PackedScene" uid="uid://bs7ujwrx4cyhd" path="res://breakout/scenes/walls/static_wall.tscn" id="9_rq28d"]
@@ -17,12 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://deo02t7m4xonq" path="res://breakout/scenes/consumables/base/consumables.tscn" id="15_yxme3"]
 [ext_resource type="Texture2D" uid="uid://cf07qkmmi0sd8" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="18_36oic"]
 [ext_resource type="PackedScene" uid="uid://dsw27ashjrjbv" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.tscn" id="24_wfglu"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2fj2b"]
-resource_local_to_scene = true
-shader = ExtResource("6_o8t62")
-shader_parameter/enabled = false
-shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_4axdp"]
 a = Vector2(0, 27)
@@ -51,42 +40,7 @@ script = ExtResource("1_orx43")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 
-[node name="Level" type="Node2D" parent="." groups=["levels"]]
-script = ExtResource("2_nx17b")
-
-[node name="Bricks" type="Node2D" parent="Level" groups=["bricks"]]
-
-[node name="IndestructibleBrick" parent="Level/Bricks" instance=ExtResource("2_giq6t")]
-position = Vector2(960, 381)
-rotation = -0.00681059
-
-[node name="BasicBrick" parent="Level/Bricks" instance=ExtResource("3_0jn84")]
-position = Vector2(960, 304)
-
-[node name="HealthComponent" parent="Level/Bricks/BasicBrick" index="0"]
-max_health = 40
-init_health = 10
-
-[node name="SturdyBrick" parent="Level/Bricks" instance=ExtResource("4_085b3")]
-position = Vector2(705, 381)
-scale = Vector2(0.262693, 0.262693)
-
-[node name="SturdyBrick2" parent="Level/Bricks" instance=ExtResource("4_085b3")]
-position = Vector2(1226, 378)
-scale = Vector2(0.262693, 0.262693)
-
-[node name="Enemies" type="Node2D" parent="Level" groups=["enemies"]]
-
-[node name="BasicEnemy" parent="Level/Enemies" instance=ExtResource("4_eluyc")]
-position = Vector2(790, 145)
-
-[node name="HealthComponent" parent="Level/Enemies/BasicEnemy" index="0"]
-init_health = 6
-
-[node name="Sprite2D" parent="Level/Enemies/BasicEnemy" index="3"]
-material = SubResource("ShaderMaterial_2fj2b")
-
-[node name="Drops" type="Node2D" parent="Level" groups=["drops"]]
+[node name="GoalTestLevel" parent="." instance=ExtResource("2_j42lq")]
 
 [node name="Walls" type="Node2D" parent="." groups=["walls"]]
 
@@ -297,8 +251,6 @@ vertical_alignment = 1
 
 [node name="ForeGround" type="Node2D" parent="." groups=["foregrounds"]]
 
-[editable path="Level/Bricks/BasicBrick"]
-[editable path="Level/Enemies/BasicEnemy"]
 [editable path="Walls/Top"]
 [editable path="Walls/Left"]
 [editable path="Walls/Right"]

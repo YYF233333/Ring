@@ -116,4 +116,5 @@ func _on_died():
 	#$Area2D/CollisionShape2D.disabled = true
 	#shard_emitter.shatter()
 	#await shard_emitter.delete_timer.timeout
+	BreakoutManager.brick_broken.emit(self.name)
 	queue_free()
