@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://breakout/scenes/breakout/breakout.gd" id="1_orx43"]
 [ext_resource type="Script" path="res://breakout/scenes/breakout/Bottom.gd" id="1_pbrcl"]
 [ext_resource type="PackedScene" uid="uid://couhfdt63uc48" path="res://breakout/scenes/balls/ball.tscn" id="2_2hbpr"]
-[ext_resource type="PackedScene" uid="uid://btyy5g3nhs8lh" path="res://breakout/scenes/levels/goal_test_level/goal_test_level.tscn" id="2_j42lq"]
+[ext_resource type="PackedScene" uid="uid://6hg04t01dat8" path="res://breakout/scenes/levels/goal_test_level/goal_test_level_manager.tscn" id="2_68jfq"]
 [ext_resource type="Script" path="res://breakout/scenes/balls/balls.gd" id="6_s6fh4"]
 [ext_resource type="Texture2D" uid="uid://ci1pxjrjurudf" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
 [ext_resource type="PackedScene" uid="uid://bs7ujwrx4cyhd" path="res://breakout/scenes/walls/static_wall.tscn" id="9_rq28d"]
@@ -40,7 +40,15 @@ script = ExtResource("1_orx43")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 
-[node name="GoalTestLevel" parent="." instance=ExtResource("2_j42lq")]
+[node name="GoalTestLevelManager" parent="." instance=ExtResource("2_68jfq")]
+
+[node name="Level" type="Node2D" parent="." groups=["levels"]]
+
+[node name="Bricks" type="Node2D" parent="Level" groups=["bricks"]]
+
+[node name="Enemies" type="Node2D" parent="Level" groups=["enemies"]]
+
+[node name="Drops" type="Node2D" parent="Level" groups=["drops"]]
 
 [node name="Walls" type="Node2D" parent="." groups=["walls"]]
 

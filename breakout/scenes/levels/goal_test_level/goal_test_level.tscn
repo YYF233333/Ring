@@ -1,43 +1,264 @@
-[gd_scene load_steps=4 format=3 uid="uid://btyy5g3nhs8lh"]
+[gd_scene load_steps=19 format=3 uid="uid://dlmyiw052v3hm"]
 
-[ext_resource type="Script" path="res://breakout/scenes/levels/goal_test_level/goal_test_level.gd" id="1_6xa0v"]
-[ext_resource type="PackedScene" uid="uid://bol7poi84eil" path="res://breakout/scenes/bricks/sturdy_brick/sturdy_brick.tscn" id="4_0mgk6"]
-[ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="5_ruo0m"]
+[ext_resource type="Script" path="res://breakout/scenes/breakout/breakout.gd" id="1_o4xvn"]
+[ext_resource type="PackedScene" uid="uid://6hg04t01dat8" path="res://breakout/scenes/levels/goal_test_level/goal_test_level_manager.tscn" id="2_uf6l5"]
+[ext_resource type="PackedScene" uid="uid://bs7ujwrx4cyhd" path="res://breakout/scenes/walls/static_wall.tscn" id="3_nim3q"]
+[ext_resource type="Texture2D" uid="uid://ci1pxjrjurudf" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="4_sqpyd"]
+[ext_resource type="Script" path="res://breakout/scenes/breakout/Bottom.gd" id="5_rxor3"]
+[ext_resource type="PackedScene" uid="uid://daw03w0dflwfi" path="res://breakout/scenes/paddles/paddle.tscn" id="6_sb74a"]
+[ext_resource type="Script" path="res://breakout/scenes/balls/balls.gd" id="7_f5kew"]
+[ext_resource type="PackedScene" uid="uid://couhfdt63uc48" path="res://breakout/scenes/balls/ball.tscn" id="8_agq5p"]
+[ext_resource type="Script" path="res://breakout/scenes/ui/UI.gd" id="9_fonul"]
+[ext_resource type="PackedScene" uid="uid://deo02t7m4xonq" path="res://breakout/scenes/consumables/base/consumables.tscn" id="10_vkp2t"]
+[ext_resource type="Texture2D" uid="uid://cf07qkmmi0sd8" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="11_q6imj"]
+[ext_resource type="PackedScene" uid="uid://dsw27ashjrjbv" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.tscn" id="12_mlql0"]
 
-[node name="GoalTestLevel" type="Node2D" groups=["levels"]]
-script = ExtResource("1_6xa0v")
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_4axdp"]
+a = Vector2(0, 27)
+b = Vector2(1920, 27)
 
-[node name="Bricks" type="Node2D" parent="." groups=["bricks"]]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_wxmte"]
+a = Vector2(510, 0)
+b = Vector2(510, 2134)
 
-[node name="SturdyBrick2-1" parent="Bricks" instance=ExtResource("4_0mgk6")]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_h52gp"]
+a = Vector2(1410, 0)
+b = Vector2(1410, 2134)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxjr0"]
+size = Vector2(3840, 1000)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5k1t"]
+bg_color = Color(0.870588, 0, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rybd"]
+bg_color = Color(0.254902, 0.615686, 1, 1)
+
+[node name="GoalTestLevel" type="Node2D"]
+script = ExtResource("1_o4xvn")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="GoalTestLevelManager" parent="." instance=ExtResource("2_uf6l5")]
+
+[node name="Level" type="Node2D" parent="." groups=["levels"]]
+
+[node name="Bricks" type="Node2D" parent="Level" groups=["bricks"]]
+
+[node name="Enemies" type="Node2D" parent="Level" groups=["enemies"]]
+
+[node name="Drops" type="Node2D" parent="Level" groups=["drops"]]
+
+[node name="Walls" type="Node2D" parent="." groups=["walls"]]
+
+[node name="Top" parent="Walls" instance=ExtResource("3_nim3q")]
+
+[node name="CollisionShape2D" parent="Walls/Top" index="0"]
+shape = SubResource("SegmentShape2D_4axdp")
+
+[node name="Sprite2D" parent="Walls/Top" index="1"]
+position = Vector2(960, 13.5)
+scale = Vector2(2.344, 0.211)
+texture = ExtResource("4_sqpyd")
+
+[node name="Left" parent="Walls" instance=ExtResource("3_nim3q")]
+
+[node name="CollisionShape2D" parent="Walls/Left" index="0"]
+shape = SubResource("SegmentShape2D_wxmte")
+
+[node name="Sprite2D" parent="Walls/Left" index="1"]
+position = Vector2(496.5, 540)
+rotation = -1.5708
+scale = Vector2(2.813, 0.211)
+
+[node name="Right" parent="Walls" instance=ExtResource("3_nim3q")]
+
+[node name="CollisionShape2D" parent="Walls/Right" index="0"]
+shape = SubResource("SegmentShape2D_h52gp")
+
+[node name="Sprite2D" parent="Walls/Right" index="1"]
+position = Vector2(1423.5, 540)
+rotation = 1.5708
+scale = Vector2(2.813, 0.211)
+flip_h = true
+
+[node name="Bottom" type="Area2D" parent="Walls"]
+collision_layer = 0
+collision_mask = 105
+script = ExtResource("5_rxor3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom"]
+position = Vector2(960, 1607)
+shape = SubResource("RectangleShape2D_rxjr0")
+
+[node name="Paddle" parent="." groups=["paddles"] instance=ExtResource("6_sb74a")]
 unique_name_in_owner = true
-position = Vector2(598, 433)
-scale = Vector2(0.45, 0.5)
+position = Vector2(960, 1026)
 
-[node name="SturdyBrick2-2" parent="Bricks" instance=ExtResource("4_0mgk6")]
+[node name="Balls" type="Node2D" parent="." groups=["balls"]]
+script = ExtResource("7_f5kew")
+ball_scenes = ExtResource("8_agq5p")
+
+[node name="BasicBall" parent="Balls" instance=ExtResource("8_agq5p")]
+position = Vector2(960, 980)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("9_fonul")
+metadata/_edit_lock_ = true
+
+[node name="Hud" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Ammo" type="Label" parent="UI/Hud"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 40
+
+[node name="Score" type="Label" parent="UI/Hud"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 55.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 2
+
+[node name="Consumables" parent="UI" instance=ExtResource("10_vkp2t")]
+layout_mode = 0
+
+[node name="Status" type="Control" parent="UI"]
+anchors_preset = 0
+offset_left = 22.5
+offset_right = 522.5
+offset_bottom = 300.0
+
+[node name="Health" type="Control" parent="UI/Status"]
+layout_mode = 2
+anchors_preset = 0
+offset_top = 54.0
+offset_right = 500.0
+offset_bottom = 134.0
+size_flags_vertical = 3
+
+[node name="Container" type="PanelContainer" parent="UI/Status/Health"]
+clip_contents = true
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 116.0
+scale = Vector2(0.625, 0.69)
+
+[node name="HealthIcon" type="TextureRect" parent="UI/Status/Health/Container"]
 unique_name_in_owner = true
-position = Vector2(779, 433)
-scale = Vector2(0.45, 0.5)
+layout_mode = 2
+texture = ExtResource("11_q6imj")
 
-[node name="SturdyBrick2-3" parent="Bricks" instance=ExtResource("4_0mgk6")]
-unique_name_in_owner = true
-position = Vector2(960, 433)
-scale = Vector2(0.45, 0.5)
+[node name="HealthBar" type="ProgressBar" parent="UI/Status/Health"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -395.0
+offset_top = -16.0
+offset_right = -80.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_o5k1t")
+max_value = 1.0
+step = 0.0
+show_percentage = false
 
-[node name="SturdyBrick2-4" parent="Bricks" instance=ExtResource("4_0mgk6")]
-unique_name_in_owner = true
-position = Vector2(1141, 433)
-scale = Vector2(0.45, 0.5)
+[node name="HealthInfo" type="Label" parent="UI/Status/Health/HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="SturdyBrick2-5" parent="Bricks" instance=ExtResource("4_0mgk6")]
-unique_name_in_owner = true
-position = Vector2(1322, 433)
-scale = Vector2(0.45, 0.5)
+[node name="Skill" type="Control" parent="UI/Status"]
+layout_mode = 2
+anchors_preset = 0
+offset_top = 152.0
+offset_right = 500.0
+offset_bottom = 232.0
+size_flags_vertical = 3
 
-[node name="Enemies" type="Node2D" parent="." groups=["enemies"]]
+[node name="Container" type="PanelContainer" parent="UI/Status/Skill"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
 
-[node name="BasicEnemy2-1" parent="Enemies" instance=ExtResource("5_ruo0m")]
-unique_name_in_owner = true
-position = Vector2(963, 169)
+[node name="BloodBullet" parent="UI/Status/Skill/Container" instance=ExtResource("12_mlql0")]
+layout_mode = 2
 
-[node name="Drops" type="Node2D" parent="." groups=["drops"]]
+[node name="ChargeBar" type="ProgressBar" parent="UI/Status/Skill"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -395.0
+offset_top = -16.0
+offset_right = -80.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_1rybd")
+max_value = 1.0
+step = 0.0
+show_percentage = false
+
+[node name="ChargeInfo" type="Label" parent="UI/Status/Skill/ChargeBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ForeGround" type="Node2D" parent="." groups=["foregrounds"]]
+
+[editable path="Walls/Top"]
+[editable path="Walls/Left"]
+[editable path="Walls/Right"]

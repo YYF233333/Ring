@@ -331,9 +331,10 @@ gg动画
     - [ ] 如何生成预定义的怪
       - [x] 纯代码实例化然后改属性不可取，不仅麻烦且编辑的时候不可见
       - [ ] instantiate预制子场景
-        - [ ] instantiate一个挂脚本的场景然后调用预定方法报错func not exist，好像instantiate的场景节点是不带脚本的。但感觉说不过去，下次再试试，万一是gd抽风呢
-        - [ ] **用@export packedscene**
-        - [ ] instantiate后直接转移unique node
+        - [x] ~~instantiate一个挂脚本的场景然后调用预定方法报错func not exist，好像instantiate的场景节点是不带脚本的。但感觉说不过去，下次再试试，万一是gd抽风呢~~
+        - [x] ~~用@export packedscene 不行，报错Attempted to set an object of type 'PackedScene' into a TypedArray, which does not inherit from 'Node'.~~
+        - [x] ~~instantiate后直接转移unique node~~
+        - [x] **解决办法：**instantiate(PackedScene.GEN_EDIT_STATE_MAIN_INHERITED)
       - [ ] 全部堆到初始场景，代码里将其包装后孤立，到对应阶段再加回来（下策）
     - [ ] 怪的出场动画和出场物理检测及处理
 

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://6hg04t01dat8"]
+
+[ext_resource type="Script" path="res://breakout/scenes/levels/goal_test_level/goal_test_level_manager.gd" id="1_o6m0m"]
+
+[node name="GoalTestLevelManager" type="Node" node_paths=PackedStringArray("goal_scene_list")]
+script = ExtResource("1_o6m0m")
+goal_scene_list = [null]

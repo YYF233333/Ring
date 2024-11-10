@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv4lup77vtagb"]
+
+[ext_resource type="Script" path="res://breakout/scenes/levels/goal.gd" id="1_m1hdp"]
+
+[node name="Goal" type="Node2D" groups=["levels"]]
+script = ExtResource("1_m1hdp")
+
+[node name="Bricks" type="Node2D" parent="." groups=["bricks"]]
+
+[node name="Enemies" type="Node2D" parent="." groups=["enemies"]]
+
+[node name="Drops" type="Node2D" parent="." groups=["drops"]]

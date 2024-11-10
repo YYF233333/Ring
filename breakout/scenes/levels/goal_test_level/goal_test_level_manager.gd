@@ -1,10 +1,9 @@
-extends Node2D
-class_name GOAL_TEST_LEVEL
+extends Node
 
 #signal BreakoutManager.goal_clear
 #signal BreakoutManager.level_clear
-const level_name = "example_level"
-const goal_list = [
+const level_name = "goal_test_level"
+const goal_description = [
 					"start level",
 					"try to shoot a ball",
 					"1: ball shot",
@@ -20,7 +19,14 @@ const goal_list = [
 					"try to clear all bricks",
 					"6: all cleared",
 				]
-				
+const GOAL_2 = preload("res://breakout/scenes/levels/goal_test_level/goal_2.tscn")		
+@onready var goal_2 = GOAL_2.instantiate(PackedScene.GEN_EDIT_STATE_MAIN_INHERITED) as Goal
+
+@onready var level: Node2D = $"../Level"
+@onready var bricks: Node2D = $"../Level/Bricks"
+@onready var enemies: Node2D = $"../Level/Enemies"
+@onready var drops: Node2D = $"../Level/Drops"
+
 var current_goal_id = 0
 
 
@@ -56,6 +62,7 @@ func end_goal_1():
 	start_goal_2()
 	
 func start_goal_2():
+	goal_2.load_all_to_level(level)
 	current_goal_id = 2
 	
 func end_goal_2():
@@ -91,12 +98,3 @@ func start_goal_6():
 	
 func end_goal_6():
 	BreakoutManager.level_clear.emit(level_name)
-
-
-# general func
-
-func get_bricks():
-	return $Bricks.get_children()
-
-func get_enemies():
-	return $Enemies.get_children()
