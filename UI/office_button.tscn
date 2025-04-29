@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bismkv6jji1im"]
 
-[ext_resource type="Script" path="res://UI/office_button.gd" id="1_s0f36"]
-[ext_resource type="Shader" path="res://breakout/addons/outline/outline.gdshader" id="2_3qwtq"]
+[ext_resource type="Script" uid="uid://cm3ov6c7ruwkj" path="res://UI/office_button.gd" id="1_s0f36"]
+[ext_resource type="Shader" uid="uid://deui3edl4j1d4" path="res://breakout/addons/outline/outline.gdshader" id="2_3qwtq"]
 [ext_resource type="Texture2D" uid="uid://bhemsdunn0620" path="res://breakout/assets/Mine/computer.png" id="2_t17kd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p5a01"]
@@ -136,11 +136,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1w1ul"]
 _data = {
-"RESET": SubResource("Animation_us8d2"),
-"down": SubResource("Animation_cqetu"),
-"enter": SubResource("Animation_m4meq"),
-"exit": SubResource("Animation_i3vgh"),
-"up": SubResource("Animation_m3vkn")
+&"RESET": SubResource("Animation_us8d2"),
+&"down": SubResource("Animation_cqetu"),
+&"enter": SubResource("Animation_m4meq"),
+&"exit": SubResource("Animation_i3vgh"),
+&"up": SubResource("Animation_m3vkn")
 }
 
 [node name="OfficeButton" type="Control"]
@@ -160,7 +160,7 @@ texture_click_mask = SubResource("BitMap_xglol")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_1w1ul")
+&"": SubResource("AnimationLibrary_1w1ul")
 }
 
 [connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]

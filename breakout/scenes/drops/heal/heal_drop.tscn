@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bvg3png44tyuc"]
 
-[ext_resource type="Script" path="res://breakout/scenes/drops/heal/heal_drop.gd" id="1_nr3yo"]
+[ext_resource type="Script" uid="uid://6ldvsr58bxix" path="res://breakout/scenes/drops/heal/heal_drop.gd" id="1_nr3yo"]
 [ext_resource type="Resource" uid="uid://caluk865l6cd5" path="res://breakout/scenes/drops/heal/heal_drop.tres" id="2_rqhsm"]
-[ext_resource type="Texture2D" uid="uid://bsl10xgrixfb7" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/mine-heal.png" id="3_6lg66"]
+[ext_resource type="Texture2D" uid="uid://dlaqyn3pgm7ms" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/mine-heal.png" id="3_6lg66"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d7fnk"]
 radius = 64.0

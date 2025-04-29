@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://df0xtjqcyqwyf"]
 
-[ext_resource type="Script" path="res://breakout/scenes/components/death_component.gd" id="1_v3dt5"]
+[ext_resource type="Script" uid="uid://dy27q7fbpva22" path="res://breakout/scenes/components/death_component.gd" id="1_v3dt5"]
 [ext_resource type="PackedScene" uid="uid://doeh0m7k7ueit" path="res://breakout/scenes/particles/pop_gpu_particles_2d.tscn" id="2_wl6ix"]
 
 [sub_resource type="Animation" id="Animation_7732x"]
@@ -35,8 +35,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_atk2i"]
 _data = {
-"RESET": SubResource("Animation_7732x"),
-"pop": SubResource("Animation_6fq61")
+&"RESET": SubResource("Animation_7732x"),
+&"pop": SubResource("Animation_6fq61")
 }
 
 [node name="DeathComponent" type="Node2D"]
@@ -44,7 +44,7 @@ script = ExtResource("1_v3dt5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_atk2i")
+&"": SubResource("AnimationLibrary_atk2i")
 }
 
 [node name="PopGPUParticles2D" parent="." instance=ExtResource("2_wl6ix")]

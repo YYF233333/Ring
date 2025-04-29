@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwmbf7k5vk8wp"]
 
-[ext_resource type="Script" path="res://breakout/scenes/drops/laser_beam/laser_beam_drop.gd" id="1_73kba"]
+[ext_resource type="Script" uid="uid://cphoolxto0uag" path="res://breakout/scenes/drops/laser_beam/laser_beam_drop.gd" id="1_73kba"]
 [ext_resource type="Resource" uid="uid://cl2k8e0k7v44b" path="res://breakout/scenes/drops/laser_beam/laser_beam_drop.tres" id="2_wn88u"]
-[ext_resource type="Texture2D" uid="uid://jbpmb6t2i0ap" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/48-Breakout-Tiles.png" id="2_yqfoy"]
+[ext_resource type="Texture2D" uid="uid://dwkutrywkexl" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/48-Breakout-Tiles.png" id="2_yqfoy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fqkcl"]
 radius = 64.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://la82br576quu"]
 
-[ext_resource type="Script" path="res://breakout/scenes/ui/consumable_info_screen.gd" id="1_h3v2l"]
+[ext_resource type="Script" uid="uid://2u4adth02gek" path="res://breakout/scenes/ui/consumable_info_screen.gd" id="1_h3v2l"]
 [ext_resource type="Texture2D" uid="uid://cy16mrordqn4a" path="res://breakout/assets/poke0.png" id="2_cbke7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12wr1"]

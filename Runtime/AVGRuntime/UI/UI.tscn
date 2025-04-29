@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://dgbqw5xywsnn"]
 
-[ext_resource type="Script" path="res://Runtime/AVGRuntime/UI/UI.cs" id="1_ocqio"]
+[ext_resource type="Script" uid="uid://qvkruu7tn5ar" path="res://Runtime/AVGRuntime/UI/UI.cs" id="1_ocqio"]
 [ext_resource type="Texture2D" uid="uid://dro58woypkt16" path="res://button/1404.png" id="1_yuxqm"]
 [ext_resource type="Texture2D" uid="uid://be8fhkca37s20" path="res://button/1400.png" id="2_hf4ne"]
 [ext_resource type="Texture2D" uid="uid://bqukcc2y6xlmd" path="res://assets/textbox.png" id="2_vb5qb"]

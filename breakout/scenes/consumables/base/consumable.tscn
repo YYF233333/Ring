@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://jahunc3lre5m"]
 
-[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumable.gd" id="1_14cju"]
+[ext_resource type="Script" uid="uid://dmcbvtcs8mjdf" path="res://breakout/scenes/consumables/base/consumable.gd" id="1_14cju"]
 [ext_resource type="Texture2D" uid="uid://cy16mrordqn4a" path="res://breakout/assets/poke0.png" id="1_vm4o4"]
 [ext_resource type="Resource" uid="uid://cckhckt0fqk6m" path="res://breakout/scenes/consumables/base/consumable.tres" id="2_fyoo6"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b58xqjvnwv7j7"]
 
-[ext_resource type="Script" path="res://Runtime/BacklogRuntime/Backlog.cs" id="1_u8147"]
-[ext_resource type="Texture2D" uid="uid://de4gtovwnp6op" path="res://assets/Runtime/GUI/_ui01bg.png" id="2_ynh22"]
+[ext_resource type="Script" uid="uid://b5jnfquymat2q" path="res://Runtime/BacklogRuntime/Backlog.cs" id="1_u8147"]
+[ext_resource type="Texture2D" uid="uid://c8vwki2b4i2vx" path="res://assets/Runtime/GUI/_ui01bg.png" id="2_ynh22"]
 
 [node name="Backlog" type="Control"]
 layout_mode = 3

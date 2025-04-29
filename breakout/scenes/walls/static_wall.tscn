@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bs7ujwrx4cyhd"]
 
-[ext_resource type="Script" path="res://breakout/scenes/walls/static_wall.gd" id="1_crfpi"]
+[ext_resource type="Script" uid="uid://jch3fbjpxg27" path="res://breakout/scenes/walls/static_wall.gd" id="1_crfpi"]
 [ext_resource type="Texture2D" uid="uid://3at4kopmpxsk" path="res://breakout/assets/Breakout_Tile_Set_Free/Breakout Tile Set Free/PNG/20-Breakout-Tiles.png" id="2_da76c"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_klump"]

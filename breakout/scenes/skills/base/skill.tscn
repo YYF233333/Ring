@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cl7mhsrrvxywn"]
 
-[ext_resource type="Script" path="res://breakout/scenes/skills/base/skill.gd" id="2_so3uc"]
+[ext_resource type="Script" uid="uid://cuwr1xjay2h8" path="res://breakout/scenes/skills/base/skill.gd" id="2_so3uc"]
 [ext_resource type="Resource" uid="uid://cpbcho8806rca" path="res://breakout/scenes/skills/base/skill.tres" id="3_46u4w"]
 
 [node name="Skill" type="TextureButton"]

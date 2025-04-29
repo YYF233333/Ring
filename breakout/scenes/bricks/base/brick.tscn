@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://f1v8i5rxki0d"]
 
-[ext_resource type="Script" path="res://breakout/scenes/bricks/base/brick.gd" id="1_p3o87"]
+[ext_resource type="Script" uid="uid://c1obqhxqg8onb" path="res://breakout/scenes/bricks/base/brick.gd" id="1_p3o87"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_ov7kj"]
 [ext_resource type="Texture2D" uid="uid://prhdxolpdqju" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/29-Breakout-Tiles.png" id="2_ttia7"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_mtxkn"]
@@ -56,8 +56,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_07it2"]
 _data = {
-"RESET": SubResource("Animation_ynur3"),
-"hit_flash": SubResource("Animation_qi0h7")
+&"RESET": SubResource("Animation_ynur3"),
+&"hit_flash": SubResource("Animation_qi0h7")
 }
 
 [node name="Brick" type="StaticBody2D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://b1ptm00ur7on0"]
 
-[ext_resource type="Script" path="res://breakout/scenes/bricks/charge_brick/charge_brick.gd" id="1_cj4ap"]
+[ext_resource type="Script" uid="uid://bhk5v8pg5lkub" path="res://breakout/scenes/bricks/charge_brick/charge_brick.gd" id="1_cj4ap"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="3_oml6n"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="4_u55lg"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="5_xkc3e"]
@@ -55,8 +55,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_07it2"]
 _data = {
-"RESET": SubResource("Animation_ynur3"),
-"hit_flash": SubResource("Animation_qi0h7")
+&"RESET": SubResource("Animation_ynur3"),
+&"hit_flash": SubResource("Animation_qi0h7")
 }
 
 [node name="HealBrick" type="StaticBody2D"]

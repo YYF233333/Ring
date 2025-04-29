@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://x5u2twatbtxf"]
 
-[ext_resource type="Script" path="res://Runtime/AVGRuntime/UI/ChooseTab.gd" id="1_326si"]
-[ext_resource type="Script" path="res://Runtime/BranchRuntime/VerticalBranch.cs" id="1_g1c38"]
+[ext_resource type="Script" uid="uid://tvacuatbt56b" path="res://Runtime/AVGRuntime/UI/ChooseTab.gd" id="1_326si"]
+[ext_resource type="Script" uid="uid://dwyywg2uwsulw" path="res://Runtime/BranchRuntime/VerticalBranch.cs" id="1_g1c38"]
 
 [node name="VerticalBranch" type="Control"]
 layout_mode = 3

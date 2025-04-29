@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://vmqbmvg4x0l"]
 
-[ext_resource type="Script" path="res://breakout/scenes/enemies/oppressive_enemy/oppressive_enemy.gd" id="1_d7eit"]
+[ext_resource type="Script" uid="uid://7rrjpn6dh6gv" path="res://breakout/scenes/enemies/oppressive_enemy/oppressive_enemy.gd" id="1_d7eit"]
 [ext_resource type="Texture2D" uid="uid://bi0muynvg2nww" path="res://breakout/icon_heat.png" id="2_5q4i1"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="3_mbnlo"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="4_r15j5"]
@@ -56,8 +56,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1g8o1"]
 _data = {
-"RESET": SubResource("Animation_n6iu0"),
-"hit_flash": SubResource("Animation_x61xk")
+&"RESET": SubResource("Animation_n6iu0"),
+&"hit_flash": SubResource("Animation_x61xk")
 }
 
 [node name="OppressiveEnemy" type="CharacterBody2D"]

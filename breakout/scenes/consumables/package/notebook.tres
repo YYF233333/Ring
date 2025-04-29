@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Consumable_Info" load_steps=2 format=3 uid="uid://u5ofbcilmh5d"]
 
-[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumable_info.gd" id="1_ibgth"]
+[ext_resource type="Script" uid="uid://iioau5g5buk5" path="res://breakout/scenes/consumables/base/consumable_info.gd" id="1_ibgth"]
 
 [resource]
 script = ExtResource("1_ibgth")

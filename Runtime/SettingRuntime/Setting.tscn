@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://b1rbomj502k5f"]
 
-[ext_resource type="Texture2D" uid="uid://de4gtovwnp6op" path="res://assets/Runtime/GUI/_ui01bg.png" id="1_o3trv"]
-[ext_resource type="Script" path="res://Runtime/SettingRuntime/Setting.cs" id="1_ue3i8"]
-[ext_resource type="Script" path="res://Runtime/SettingRuntime/return.gd" id="2_hxqbv"]
-[ext_resource type="Script" path="res://Runtime/SettingRuntime/title.gd" id="3_ktf2h"]
+[ext_resource type="Texture2D" uid="uid://c8vwki2b4i2vx" path="res://assets/Runtime/GUI/_ui01bg.png" id="1_o3trv"]
+[ext_resource type="Script" uid="uid://c5mc3p1bt8rj8" path="res://Runtime/SettingRuntime/Setting.cs" id="1_ue3i8"]
+[ext_resource type="Script" uid="uid://cpn6bks7vd4uh" path="res://Runtime/SettingRuntime/return.gd" id="2_hxqbv"]
+[ext_resource type="Script" uid="uid://dw7exwkwl0sn1" path="res://Runtime/SettingRuntime/title.gd" id="3_ktf2h"]
 
 [node name="Setting" type="Control"]
 layout_mode = 3

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://uw151al3ohow"]
 
-[ext_resource type="Script" path="res://breakout/scenes/drops/long/long_drop.gd" id="1_05np2"]
+[ext_resource type="Script" uid="uid://cgp10tofphr40" path="res://breakout/scenes/drops/long/long_drop.gd" id="1_05np2"]
 [ext_resource type="Resource" uid="uid://cetmk1s5riaqe" path="res://breakout/scenes/drops/long/long_drop.tres" id="2_6f3mg"]
-[ext_resource type="Texture2D" uid="uid://isn4q8yceuy4" path="res://breakout/assets/Breakout_Tile_Set_Free/Breakout Tile Set Free/PNG/47-Breakout-Tiles.png" id="3_8yqm7"]
+[ext_resource type="Texture2D" uid="uid://bnt2jbetsar8h" path="res://breakout/assets/Breakout_Tile_Set_Free/Breakout Tile Set Free/PNG/47-Breakout-Tiles.png" id="3_8yqm7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fqkcl"]
 radius = 64.0

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Drop_Info" load_steps=2 format=3 uid="uid://c02dsdwgmdv04"]
 
-[ext_resource type="Script" path="res://breakout/scenes/drops/base/drop_info.gd" id="1_cm8rh"]
+[ext_resource type="Script" uid="uid://bwliinxbmjnuo" path="res://breakout/scenes/drops/base/drop_info.gd" id="1_cm8rh"]
 
 [resource]
 script = ExtResource("1_cm8rh")

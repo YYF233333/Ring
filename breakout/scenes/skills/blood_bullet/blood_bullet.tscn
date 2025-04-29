@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dsw27ashjrjbv"]
 
 [ext_resource type="Texture2D" uid="uid://ddfeh3p12h4l2" path="res://breakout/assets/Mine/blood bullet.png" id="1_tkbuj"]
-[ext_resource type="Script" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.gd" id="2_i54uf"]
+[ext_resource type="Script" uid="uid://bwb4dwor82s44" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.gd" id="2_i54uf"]
 [ext_resource type="Resource" uid="uid://ewau7rjsviwg" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.tres" id="3_r6xqd"]
 
 [node name="BloodBullet" type="TextureButton"]

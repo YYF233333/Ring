@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bxhjyawr3m2kg"]
 
-[ext_resource type="Texture2D" uid="uid://di7g4mdxyuj0g" path="res://button/1208.png" id="1_pyko8"]
-[ext_resource type="Script" path="res://Runtime/AVGRuntime/UI/ChooseTab.gd" id="2_u3f6b"]
+[ext_resource type="Texture2D" uid="uid://pbannh5ik5ag" path="res://button/1208.png" id="1_pyko8"]
+[ext_resource type="Script" uid="uid://tvacuatbt56b" path="res://Runtime/AVGRuntime/UI/ChooseTab.gd" id="2_u3f6b"]
 
 [node name="ChooseTable" type="Control"]
 layout_mode = 3

@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://bns5ttbkdsbjk"]
 
-[ext_resource type="Script" path="res://breakout/scenes/enemies/base/enemy.gd" id="1_ne3pv"]
+[ext_resource type="Script" uid="uid://bcjgrkv4n8uns" path="res://breakout/scenes/enemies/base/enemy.gd" id="1_ne3pv"]
 [ext_resource type="Texture2D" uid="uid://ddt6ta71mv1wc" path="res://breakout/icon.svg" id="2_i3xhg"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_xa3t2"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_xmjjn"]
@@ -56,8 +56,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_07it2"]
 _data = {
-"RESET": SubResource("Animation_ynur3"),
-"hit_flash": SubResource("Animation_qi0h7")
+&"RESET": SubResource("Animation_ynur3"),
+&"hit_flash": SubResource("Animation_qi0h7")
 }
 
 [node name="Enemy" type="CharacterBody2D"]

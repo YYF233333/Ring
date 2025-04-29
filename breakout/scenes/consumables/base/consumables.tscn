@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://deo02t7m4xonq"]
 
-[ext_resource type="Script" path="res://breakout/scenes/consumables/base/consumables.gd" id="1_yg7s0"]
+[ext_resource type="Script" uid="uid://c1osel6a3nlgc" path="res://breakout/scenes/consumables/base/consumables.gd" id="1_yg7s0"]
 [ext_resource type="PackedScene" uid="uid://jahunc3lre5m" path="res://breakout/scenes/consumables/base/consumable.tscn" id="2_hkbx8"]
 [ext_resource type="Texture2D" uid="uid://d1px1cpuu1d8i" path="res://breakout/assets/Mine/select_box.png" id="2_no4hm"]
 [ext_resource type="PackedScene" uid="uid://la82br576quu" path="res://breakout/scenes/ui/consumable_info_screen.tscn" id="3_8mhmy"]
@@ -67,8 +67,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ojx43"]
 _data = {
-"RESET": SubResource("Animation_4bsl5"),
-"flicker": SubResource("Animation_nar3f")
+&"RESET": SubResource("Animation_4bsl5"),
+&"flicker": SubResource("Animation_nar3f")
 }
 
 [node name="Consumables" type="Control"]

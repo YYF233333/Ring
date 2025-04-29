@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dr73esh4242a0"]
 
-[ext_resource type="Script" path="res://breakout/scenes/components/interval_hurt_component.gd" id="1_ybbgo"]
+[ext_resource type="Script" uid="uid://b2lnbirxl2qva" path="res://breakout/scenes/components/interval_hurt_component.gd" id="1_ybbgo"]
 
 [node name="IntervalHurtComponent" type="Node"]
 script = ExtResource("1_ybbgo")

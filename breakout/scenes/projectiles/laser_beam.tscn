@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://bglykrd6pd7mw"]
 
-[ext_resource type="Script" path="res://breakout/scenes/projectiles/laser_beam.gd" id="1_wpie5"]
+[ext_resource type="Script" uid="uid://66d2ufoukavr" path="res://breakout/scenes/projectiles/laser_beam.gd" id="1_wpie5"]
 [ext_resource type="Texture2D" uid="uid://cw0jjbbew1tl5" path="res://breakout/assets/Mine/pixil-glowing-blue.png" id="2_dwbio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k4fmy"]

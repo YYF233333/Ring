@@ -2,11 +2,13 @@
 .godot/
 *.import
 **/*.import
+/android/
 build/
-# 从python官网下载embedded package解压到这个目录即可，可以自动识别不同版本
 python/**
 !python/.gitkeep
 !python/.gdignore
+
+*.uid
 
 .vs/
 .vscode/

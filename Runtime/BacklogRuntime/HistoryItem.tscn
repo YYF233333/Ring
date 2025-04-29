@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dpy4j3w6hle3n"]
 
-[ext_resource type="Script" path="res://Runtime/BacklogRuntime/HistoryItem.cs" id="1_ketpg"]
+[ext_resource type="Script" uid="uid://3wb7kugs6iq4" path="res://Runtime/BacklogRuntime/HistoryItem.cs" id="1_ketpg"]
 
 [node name="HBoxContainer" type="HBoxContainer"]
 custom_minimum_size = Vector2(1830, 250)

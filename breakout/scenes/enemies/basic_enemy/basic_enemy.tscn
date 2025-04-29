@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://jr34n4kfa3lg"]
 
-[ext_resource type="Script" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.gd" id="1_vpay1"]
+[ext_resource type="Script" uid="uid://bsesr8vyevgoj" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.gd" id="1_vpay1"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="2_yx7hq"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="3_yysgq"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="4_rvx63"]
@@ -44,8 +44,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yxbod"]
 _data = {
-"RESET": SubResource("Animation_qxn56"),
-"hit_flash": SubResource("Animation_j3r5a")
+&"RESET": SubResource("Animation_qxn56"),
+&"hit_flash": SubResource("Animation_j3r5a")
 }
 
 [node name="BasicEnemy" type="CharacterBody2D"]

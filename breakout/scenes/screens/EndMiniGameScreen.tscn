@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b6a3cddsrw2e3"]
 
-[ext_resource type="Script" path="res://breakout/scenes/screens/EndMiniGameScreen.gd" id="1_4t40w"]
+[ext_resource type="Script" uid="uid://dacycidcvwa2w" path="res://breakout/scenes/screens/EndMiniGameScreen.gd" id="1_4t40w"]
 
 [node name="EndMiniGameScreen" type="CanvasLayer"]
 process_mode = 3
