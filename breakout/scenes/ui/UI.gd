@@ -8,7 +8,12 @@ func _ready():
 	BreakoutManager.skill_charged.connect(_on_skill_charged)
 	BreakoutManager.skill_changed.connect(_on_skill_changed)
 	BreakoutManager.health_changed.connect(_on_health_changed)
-	
+	BreakoutManager.goal_text_changed.connect(_on_goal_text_changed)
+
+
+func _on_goal_text_changed(text: String):
+	$Hud/Goal.text = "GOAL:\n" + text
+
 
 func _on_point_scored(_point):
 	$Hud/Score.text = str(BreakoutManager.score)

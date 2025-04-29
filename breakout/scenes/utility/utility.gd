@@ -51,3 +51,8 @@ func end_hint(node: Node, last_time: float):
 	flicker_tween.kill()
 	
 	
+func dialogue(str: String):
+	#TODO: 替换为RING Dialogue
+	var res = DialogueManager.create_resource_from_text(str)
+	await DialogueManager.get_next_dialogue_line(res)
+	DialogueManager.show_dialogue_balloon(res)

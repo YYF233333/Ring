@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://deo02t7m4xonq"]
 
-[ext_resource type="Script" uid="uid://c1osel6a3nlgc" path="res://breakout/scenes/consumables/base/consumables.gd" id="1_yg7s0"]
+[ext_resource type="Script" uid="uid://d0c5usq8soysb" path="res://breakout/scenes/consumables/base/Consumables.gd" id="1_yg7s0"]
 [ext_resource type="PackedScene" uid="uid://jahunc3lre5m" path="res://breakout/scenes/consumables/base/consumable.tscn" id="2_hkbx8"]
-[ext_resource type="Texture2D" uid="uid://d1px1cpuu1d8i" path="res://breakout/assets/Mine/select_box.png" id="2_no4hm"]
+[ext_resource type="Texture2D" uid="uid://cenw8y21iamcr" path="res://breakout/assets/Mine/select_box.png" id="2_no4hm"]
 [ext_resource type="PackedScene" uid="uid://la82br576quu" path="res://breakout/scenes/ui/consumable_info_screen.tscn" id="3_8mhmy"]
 [ext_resource type="PackedScene" uid="uid://c5e1mb5jo1t4p" path="res://breakout/scenes/consumables/calculator/calculator.tscn" id="3_sje5g"]
 [ext_resource type="PackedScene" uid="uid://cgd3nmqrheom3" path="res://breakout/scenes/consumables/communicator/communicator.tscn" id="4_h1wrm"]
@@ -118,7 +118,7 @@ scale = Vector2(1.5, 1.5)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../SelectBoxAnchor/SelectBox")
 libraries = {
-"": SubResource("AnimationLibrary_ojx43")
+&"": SubResource("AnimationLibrary_ojx43")
 }
 
 [node name="SelectBoxAnchor" type="Control" parent="."]

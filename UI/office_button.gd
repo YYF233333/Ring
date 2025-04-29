@@ -46,8 +46,8 @@ func _on_texture_button_pressed() -> void:
 	
 # debug
 #func _on_animation_player_animation_changed(old_name: StringName, new_name: StringName) -> void:
-	#print("animation_changed: " + old_name + " -> " + new_name)
+	#print_debug("animation_changed: " + old_name + " -> " + new_name)
 
 # debug
 #func _on_animation_player_current_animation_changed(name: String) -> void:
-	#print("current_animation_changed_to: " + name)
+	#print_debug("current_animation_changed_to: " + name)

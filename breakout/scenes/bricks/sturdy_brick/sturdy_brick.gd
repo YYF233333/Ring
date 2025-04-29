@@ -12,10 +12,10 @@ func _individual_ready():
 	point = type * 50 + 100
 	drop_percent_scale = type * 0.125 + 1.0
 
-func check_init_type():
+func check_type():
 	#debug
-	if type != health_component.init_health - 1:
-		print("type seems not correct")
+	if type != health_component.current_health - 1:
+		print_debug("type seems not correct")
 
 
 func physic_hurt(value: int):

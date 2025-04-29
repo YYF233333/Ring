@@ -1,14 +1,14 @@
 [gd_scene load_steps=17 format=3 uid="uid://bol7poi84eil"]
 
-[ext_resource type="Script" uid="uid://bdctlgir185gn" path="res://breakout/scenes/bricks/sturdy_brick/sturdy_brick.gd" id="1_s8hf7"]
-[ext_resource type="Texture2D" uid="uid://yo5sgf1p4h42" path="res://breakout/assets/Brick-Blue.png" id="3_8uef2"]
+[ext_resource type="Script" uid="uid://buc3tc1cnoub6" path="res://breakout/scenes/bricks/sturdy_brick/sturdy_brick.gd" id="1_s8hf7"]
+[ext_resource type="Texture2D" uid="uid://dt0n4nvsjbsk3" path="res://breakout/assets/Brick-Blue.png" id="3_8uef2"]
 [ext_resource type="PackedScene" uid="uid://cjte5k01j4quc" path="res://breakout/scenes/components/health_component.tscn" id="3_wq6i7"]
 [ext_resource type="PackedScene" uid="uid://df0xtjqcyqwyf" path="res://breakout/scenes/components/death_component.tscn" id="4_c4r0r"]
-[ext_resource type="Texture2D" uid="uid://bfgjybhwwjrrc" path="res://breakout/assets/Brick-Green.png" id="4_prynk"]
+[ext_resource type="Texture2D" uid="uid://yosmqbvu16sw" path="res://breakout/assets/Brick-Green.png" id="4_prynk"]
 [ext_resource type="PackedScene" uid="uid://dr73esh4242a0" path="res://breakout/scenes/components/interval_hurt_component.tscn" id="5_44b2i"]
-[ext_resource type="Texture2D" uid="uid://fk3ykwawrrn8" path="res://breakout/assets/Brick-Yellow.png" id="5_yhmiq"]
-[ext_resource type="Texture2D" uid="uid://bk033rks6lweb" path="res://breakout/assets/Brick-Orange.png" id="6_rccko"]
-[ext_resource type="Texture2D" uid="uid://5rwwayj70rvb" path="res://breakout/assets/Brick-Red.png" id="7_furh4"]
+[ext_resource type="Texture2D" uid="uid://bwi5prpsnycfo" path="res://breakout/assets/Brick-Yellow.png" id="5_yhmiq"]
+[ext_resource type="Texture2D" uid="uid://qabbwrvb644j" path="res://breakout/assets/Brick-Orange.png" id="6_rccko"]
+[ext_resource type="Texture2D" uid="uid://chcbxhqgwre2e" path="res://breakout/assets/Brick-Red.png" id="7_furh4"]
 [ext_resource type="PackedScene" uid="uid://dn2kckgy7bx2n" path="res://breakout/scenes/particles/lucky_drop_particles.tscn" id="10_xvaym"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_muqvs"]
@@ -67,6 +67,8 @@ brick_name = "sturdy brick"
 brick_description = "sturdy
 take no more than 1 damage per hit"
 init_type = 4
+max_health = 4
+init_health = 4
 sprites = Array[Texture]([ExtResource("3_8uef2"), ExtResource("4_prynk"), ExtResource("5_yhmiq"), ExtResource("6_rccko"), ExtResource("7_furh4")])
 hit_flash = false
 point = 200
@@ -147,5 +149,5 @@ emitting = false
 
 [node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_07it2")
+&"": SubResource("AnimationLibrary_07it2")
 }

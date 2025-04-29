@@ -1,0 +1,265 @@
+[gd_scene load_steps=19 format=3 uid="uid://xs5dbesq4xxp"]
+
+[ext_resource type="PackedScene" uid="uid://daw03w0dflwfi" path="res://breakout/scenes/paddles/paddle.tscn" id="1_n40qs"]
+[ext_resource type="Script" uid="uid://biopc6tv0td34" path="res://breakout/scenes/breakout/breakout.gd" id="1_orx43"]
+[ext_resource type="Script" uid="uid://b8hqykp4su3vu" path="res://breakout/scenes/breakout/Bottom.gd" id="1_pbrcl"]
+[ext_resource type="PackedScene" uid="uid://couhfdt63uc48" path="res://breakout/scenes/balls/ball.tscn" id="2_2hbpr"]
+[ext_resource type="PackedScene" uid="uid://6hg04t01dat8" path="res://breakout/scenes/levels/goal_test_level/goal_test_level_manager.tscn" id="2_68jfq"]
+[ext_resource type="Script" uid="uid://d2aqm4u0bpryq" path="res://breakout/scenes/balls/balls.gd" id="6_s6fh4"]
+[ext_resource type="Texture2D" uid="uid://brm31c085al57" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
+[ext_resource type="PackedScene" uid="uid://bs7ujwrx4cyhd" path="res://breakout/scenes/walls/static_wall.tscn" id="9_rq28d"]
+[ext_resource type="Script" uid="uid://bquq0cywkljrr" path="res://breakout/scenes/ui/UI.gd" id="14_tu7t6"]
+[ext_resource type="PackedScene" uid="uid://deo02t7m4xonq" path="res://breakout/scenes/consumables/base/consumables.tscn" id="15_yxme3"]
+[ext_resource type="Texture2D" uid="uid://2eafi2ig6jek" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="18_36oic"]
+[ext_resource type="PackedScene" uid="uid://dsw27ashjrjbv" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.tscn" id="24_wfglu"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_4axdp"]
+a = Vector2(0, 27)
+b = Vector2(1920, 27)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_wxmte"]
+a = Vector2(510, 0)
+b = Vector2(510, 2134)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_h52gp"]
+a = Vector2(1410, 0)
+b = Vector2(1410, 2134)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxjr0"]
+size = Vector2(3840, 1000)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5k1t"]
+bg_color = Color(0.870588, 0, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rybd"]
+bg_color = Color(0.254902, 0.615686, 1, 1)
+
+[node name="Breakout" type="Node2D"]
+script = ExtResource("1_orx43")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="GoalTestLevelManager" parent="." instance=ExtResource("2_68jfq")]
+
+[node name="Level" type="Node2D" parent="." groups=["levels"]]
+
+[node name="Bricks" type="Node2D" parent="Level" groups=["bricks"]]
+
+[node name="Enemies" type="Node2D" parent="Level" groups=["enemies"]]
+
+[node name="Drops" type="Node2D" parent="Level" groups=["drops"]]
+
+[node name="Walls" type="Node2D" parent="." groups=["walls"]]
+
+[node name="Top" parent="Walls" instance=ExtResource("9_rq28d")]
+
+[node name="CollisionShape2D" parent="Walls/Top" index="0"]
+shape = SubResource("SegmentShape2D_4axdp")
+
+[node name="Sprite2D" parent="Walls/Top" index="1"]
+position = Vector2(960, 13.5)
+scale = Vector2(2.344, 0.211)
+texture = ExtResource("6_waixi")
+
+[node name="Left" parent="Walls" instance=ExtResource("9_rq28d")]
+
+[node name="CollisionShape2D" parent="Walls/Left" index="0"]
+shape = SubResource("SegmentShape2D_wxmte")
+
+[node name="Sprite2D" parent="Walls/Left" index="1"]
+position = Vector2(496.5, 540)
+rotation = -1.5708
+scale = Vector2(2.813, 0.211)
+
+[node name="Right" parent="Walls" instance=ExtResource("9_rq28d")]
+
+[node name="CollisionShape2D" parent="Walls/Right" index="0"]
+shape = SubResource("SegmentShape2D_h52gp")
+
+[node name="Sprite2D" parent="Walls/Right" index="1"]
+position = Vector2(1423.5, 540)
+rotation = 1.5708
+scale = Vector2(2.813, 0.211)
+flip_h = true
+
+[node name="Bottom" type="Area2D" parent="Walls"]
+collision_layer = 0
+collision_mask = 105
+script = ExtResource("1_pbrcl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom"]
+position = Vector2(960, 1607)
+shape = SubResource("RectangleShape2D_rxjr0")
+
+[node name="Paddle" parent="." groups=["paddles"] instance=ExtResource("1_n40qs")]
+unique_name_in_owner = true
+position = Vector2(960, 1026)
+
+[node name="Balls" type="Node2D" parent="." groups=["balls"]]
+script = ExtResource("6_s6fh4")
+ball_scenes = ExtResource("2_2hbpr")
+
+[node name="BasicBall" parent="Balls" instance=ExtResource("2_2hbpr")]
+position = Vector2(960, 980)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("14_tu7t6")
+metadata/_edit_lock_ = true
+
+[node name="Hud" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Ammo" type="Label" parent="UI/Hud"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 40
+
+[node name="Score" type="Label" parent="UI/Hud"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 55.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 2
+
+[node name="Consumables" parent="UI" instance=ExtResource("15_yxme3")]
+layout_mode = 0
+
+[node name="Status" type="Control" parent="UI"]
+anchors_preset = 0
+offset_left = 22.5
+offset_right = 522.5
+offset_bottom = 300.0
+
+[node name="Health" type="Control" parent="UI/Status"]
+layout_mode = 2
+anchors_preset = 0
+offset_top = 54.0
+offset_right = 500.0
+offset_bottom = 134.0
+size_flags_vertical = 3
+
+[node name="Container" type="PanelContainer" parent="UI/Status/Health"]
+clip_contents = true
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 116.0
+scale = Vector2(0.625, 0.69)
+
+[node name="HealthIcon" type="TextureRect" parent="UI/Status/Health/Container"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("18_36oic")
+
+[node name="HealthBar" type="ProgressBar" parent="UI/Status/Health"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -395.0
+offset_top = -16.0
+offset_right = -80.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_o5k1t")
+max_value = 1.0
+step = 0.0
+show_percentage = false
+
+[node name="HealthInfo" type="Label" parent="UI/Status/Health/HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skill" type="Control" parent="UI/Status"]
+layout_mode = 2
+anchors_preset = 0
+offset_top = 152.0
+offset_right = 500.0
+offset_bottom = 232.0
+size_flags_vertical = 3
+
+[node name="Container" type="PanelContainer" parent="UI/Status/Skill"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+
+[node name="BloodBullet" parent="UI/Status/Skill/Container" instance=ExtResource("24_wfglu")]
+layout_mode = 2
+texture_normal = null
+
+[node name="ChargeBar" type="ProgressBar" parent="UI/Status/Skill"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -395.0
+offset_top = -16.0
+offset_right = -80.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_1rybd")
+max_value = 1.0
+step = 0.0
+show_percentage = false
+
+[node name="ChargeInfo" type="Label" parent="UI/Status/Skill/ChargeBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ForeGround" type="Node2D" parent="." groups=["foregrounds"]]
+
+[editable path="Walls/Top"]
+[editable path="Walls/Left"]
+[editable path="Walls/Right"]

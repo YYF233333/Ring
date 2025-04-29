@@ -1,15 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://btyy5g3nhs8lh"]
+[gd_scene load_steps=4 format=3 uid="uid://btyy5g3nhs8lh"]
 
-[ext_resource type="Script" uid="uid://dgd2cq4aqqmf6" path="res://breakout/scenes/levels/goal.gd" id="1_6v8ou"]
+[ext_resource type="Script" uid="uid://brx2y2krs20i4" path="res://breakout/scenes/levels/goal.gd" id="1_6v8ou"]
 [ext_resource type="PackedScene" uid="uid://bol7poi84eil" path="res://breakout/scenes/bricks/sturdy_brick/sturdy_brick.tscn" id="4_0mgk6"]
 [ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="5_ruo0m"]
-[ext_resource type="Shader" uid="uid://dglp1dnjevn6k" path="res://breakout/scenes/shaders/hit_flash.tres" id="8_p53vx"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_884ea"]
-resource_local_to_scene = true
-shader = ExtResource("8_p53vx")
-shader_parameter/enabled = false
-shader_parameter/tint = Color(1, 1, 1, 1)
 
 [node name="Goal2" type="Node2D" groups=["levels"]]
 script = ExtResource("1_6v8ou")
@@ -46,13 +39,7 @@ scale = Vector2(0.45, 0.5)
 [node name="BasicEnemy2-1" parent="Enemies" instance=ExtResource("5_ruo0m")]
 unique_name_in_owner = true
 position = Vector2(962, 161)
-
-[node name="HealthComponent" parent="Enemies/BasicEnemy2-1" index="0"]
-init_health = 13
-
-[node name="Sprite2D" parent="Enemies/BasicEnemy2-1" index="3"]
-material = SubResource("ShaderMaterial_884ea")
+max_health = 60
+init_health = 5
 
 [node name="Drops" type="Node2D" parent="." groups=["drops"]]
-
-[editable path="Enemies/BasicEnemy2-1"]

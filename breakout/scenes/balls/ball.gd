@@ -61,7 +61,7 @@ func _physics_process(delta):
 		elif collider.is_in_group("enemies"):
 			bounce_off_enemies(collision, collider)
 		else:
-			print("what's this?")
+			print_debug("what's this?")
 
 
 func bounce_off_walls(wall : KinematicCollision2D):

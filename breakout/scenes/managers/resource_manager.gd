@@ -252,7 +252,7 @@ func get_skill_scene_by_id(skill_id: int) -> PackedScene:
 		return skill_scene_pool[index]
 
 func get_skill_scene_by_name(skill_name: String) -> PackedScene:
-	print(skill_name, name_to_skill_scene_index)
+	print_debug(skill_name, name_to_skill_scene_index)
 	var index = name_to_skill_scene_index.find(skill_name)
 	if index == -1:
 		return void_skill_scene

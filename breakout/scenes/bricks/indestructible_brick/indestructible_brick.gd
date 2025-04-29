@@ -4,7 +4,7 @@ extends Brick
 func check_init_type():
 	#debug
 	if type != min(health_component.current_health-1, 1):
-		print("type seems not correct")
+		print_debug("type seems not correct")
 		
 
 func physic_hurt(value: int):

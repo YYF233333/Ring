@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://6hg04t01dat8"]
 
-[ext_resource type="Script" uid="uid://ckqwseprigf58" path="res://breakout/scenes/levels/goal_test_level/goal_test_level_manager.gd" id="1_o6m0m"]
+[ext_resource type="Script" uid="uid://csc1ikercseck" path="res://breakout/scenes/levels/goal_test_level/goal_test_level_manager.gd" id="1_o6m0m"]
 
 [node name="GoalTestLevelManager" type="Node"]
 script = ExtResource("1_o6m0m")

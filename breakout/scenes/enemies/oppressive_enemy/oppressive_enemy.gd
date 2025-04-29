@@ -5,7 +5,7 @@ func check_init_type():
 	#debug
 	# check if init_type correspond with other stats
 	if type != 0:
-		print("type seems not correct")
+		print_debug("type seems not correct")
 	
 func update_stat(delta):
 	if !knock_back_timer.time_left:

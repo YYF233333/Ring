@@ -4,8 +4,6 @@ class_name HealthComponent
 signal health_change #use to update health_bar
 signal died
 
-@export var max_health: int = 4
-@export var init_health: int = 4
 var current_health: int
 
 @export var show_floating_text: bool = true
@@ -17,17 +15,17 @@ func _ready():
 		pass
 	else:
 		#debug
-		print("health component has wrong owner")
+		print_debug("health component has wrong owner")
 		queue_free()
 		
-	current_health = init_health
+	current_health = owner.init_health
 	
 	
 func take_damage(value: int):
 	#debug
 	var prev_health = current_health
 	
-	current_health = min(max(current_health - value, 0), max_health)
+	current_health = min(max(current_health - value, 0), owner.max_health)
 	health_change.emit()
 	
 	if show_floating_text:
@@ -50,18 +48,18 @@ func take_damage(value: int):
 
 
 func set_max_health(value: int):
-	max_health = max(value, 0)
-	if current_health > max_health:
-		current_health = max_health
+	owner.max_health = max(value, 0)
+	if current_health > owner.max_health:
+		current_health = owner.max_health
 	health_change.emit()
 	Callable(check_death).call_deferred()
 	
 	
 func get_health_percent():
-	if max_health <= 0:
+	if owner.max_health <= 0:
 		return 0
 	else:
-		return min(current_health/float(max_health), 1)
+		return min(current_health/float(owner.max_health), 1)
 			
 		
 func check_death():

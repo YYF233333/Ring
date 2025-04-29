@@ -32,7 +32,7 @@ var floating_text_scene = preload("res://breakout/scenes/ui/floating_text.tscn")
 
 #debug
 #func _set(property: StringName, value: Variant) -> bool:
-	#print(property)
+	#print_debug(property)
 	#return false
 
 # buff
@@ -123,7 +123,7 @@ func shoot_laser_beam(last_time: float = 10.0):
 	
 func update_max_scale() -> float:
 	max_scale_x = (right_wall.segment_shape.a.x - left_wall.segment_shape.a.x) / float(shape.size.x)
-	print(max_scale_x)
+	print_debug(max_scale_x)
 	return max_scale_x
 	
 func update_stat():

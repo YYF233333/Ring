@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cv4lup77vtagb"]
 
-[ext_resource type="Script" uid="uid://dgd2cq4aqqmf6" path="res://breakout/scenes/levels/goal.gd" id="1_m1hdp"]
+[ext_resource type="Script" uid="uid://brx2y2krs20i4" path="res://breakout/scenes/levels/goal.gd" id="1_m1hdp"]
 
 [node name="Goal" type="Node2D" groups=["levels"]]
 script = ExtResource("1_m1hdp")

@@ -50,7 +50,7 @@ func end_tetromino():
 func init_minigame(name: String) -> void:
 	match name:
 		"Tetromino": load_tetromino()
-		_: print("Cannot find minigame " + name)
+		_: print_debug("Cannot find minigame " + name)
 
 func get_persist_data(name: String) -> Dictionary:
 	return {}

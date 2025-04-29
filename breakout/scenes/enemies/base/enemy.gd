@@ -7,6 +7,8 @@ class_name Enemy
 @export_multiline var enemy_description: String
 
 @export_group("Basic")
+@export var max_health: int
+@export var init_health: int
 @export var basic_speed: float
 @export var basic_acceleration: float
 @export var basic_damage: float = 1.0
@@ -76,7 +78,7 @@ func _ready():
 	add_to_group("enemies")
 	
 	health_bar.min_value = 0
-	health_bar.max_value = health_component.max_health
+	health_bar.max_value = max_health
 	
 	type = init_type
 	check_init_type()
@@ -108,7 +110,7 @@ func _physics_process(delta):
 		elif collider.is_in_group("paddles"):
 			bounce_off_paddles(collision, collider)
 		else:
-			print("what's this?")
+			print_debug("what's this?")
 
 
 func bounce_off_walls(wall : KinematicCollision2D):
@@ -198,7 +200,7 @@ func check_init_type():
 	#debug
 	# check if init_type correspond with other stats
 	if 0:
-		print("type seems not correct")
+		print_debug("type seems not correct")
 	
 
 func set_type(new_type : int):
@@ -208,8 +210,8 @@ func set_type(new_type : int):
 	$Sprite2D.texture = sprites[type]
 	
 func show_health():
+	health_bar.max_value = max_health
 	health_bar.value = health_component.current_health
-	health_bar.max_value = health_component.max_health
 	
 	health_label.text = str(health_component.current_health)
 	

@@ -10,6 +10,8 @@ player状态处理中心
 
 signal point_scored(point)
 
+signal goal_text_changed(text: String)
+
 signal ammo_lost(value: int)
 signal ammo_changed
 
@@ -116,7 +118,7 @@ func send_message() -> Dictionary:
 	
 func reset():
 	if init_message:
-		print(init_message)
+		print_debug(init_message)
 		var player_consumables: Dictionary = init_message["player_consumables"]
 		consumables.reset()
 		for consumable_name in player_consumables.keys():
@@ -219,7 +221,7 @@ func _on_ball_lost(ball: Ball):
 func _on_ammo_lost(value: int):
 	ammo -= value
 	if ammo == 0:
-		print("ammo run out") #TODO: hint label & restart bottom
+		print_debug("ammo run out") #TODO: hint label & restart bottom
 	
 	
 func _on_failed():
@@ -234,7 +236,7 @@ func _on_track_lost():
 	breakout.add_child(end_screen)
 	
 	
-func _on_level_clear():
+func _on_level_clear(level_name: String):
 	get_tree().paused = true
 	var end_screen = preload("res://breakout/scenes/screens/EndMiniGameScreen.tscn").instantiate()
 	breakout.add_child(end_screen)

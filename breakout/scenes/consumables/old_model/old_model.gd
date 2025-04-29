@@ -43,4 +43,3 @@ func _on_transformed():
 		texture_normal = preload("res://breakout/assets/Mine/new model.png")
 	
 	
-

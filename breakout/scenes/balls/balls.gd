@@ -12,9 +12,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("shoot"):
 		shoot_new_ball()
 
-	exist_ball_quantity = get_child_count()
-	if exist_ball_quantity <= 0 && BreakoutManager.ammo > 0:
-		shoot_new_ball()
+	#exist_ball_quantity = get_child_count()
+	#if exist_ball_quantity <= 0 && BreakoutManager.ammo > 0:
+		#shoot_new_ball()
 
 func instantiate_new_ball():
 	var new_ball = ball_scenes.instantiate() as Ball
@@ -41,7 +41,7 @@ func del_ball(ball: Ball):
 func shoot_new_ball(del_old_ball: bool = !BreakoutManager.debug, ammo_exhaust: int = 1):
 	if del_old_ball:
 		if BreakoutManager.ammo < ammo_exhaust:
-			print("ammo not enough") #TODO: ammo label flicker
+			print_debug("ammo not enough") #TODO: ammo label flicker
 			return
 			
 		var exist_balls = get_children() as Array[Ball]
@@ -87,7 +87,7 @@ func split_ball(ball: Ball, num: int = ValueManager.ball_split_quantity) -> bool
 			child_ball.lightning_ball_timer.wait_time = ball.lightning_ball_timer.wait_time
 			child_ball.lightning_ball_timer.start()
 			#var end = Time.get_ticks_usec()
-			#print("%d %d %d" % [end-start, mid-start, end-mid])
+			#print_debug("%d %d %d" % [end-start, mid-start, end-mid])
 			
 	#remove_child(ball)
 	#del_ball(ball)

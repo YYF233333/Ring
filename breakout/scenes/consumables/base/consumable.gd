@@ -59,7 +59,7 @@ func check_usable(value: int):
 
 func apply_effect():
 	BreakoutManager.point_scored.emit(1)
-	print("void used")
+	print_debug("void used")
 	return true
 	
 func exhaust(value: int):

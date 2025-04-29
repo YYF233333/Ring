@@ -8,6 +8,8 @@ class_name Brick
 
 @export_group("Basic")
 @export var init_type: int
+@export var max_health: int
+@export var init_health: int
 @export var sprites : Array[Texture]
 @export var hit_flash : bool = true
 
@@ -40,7 +42,7 @@ func _ready():
 	add_to_group("bricks")
 	
 	health_bar.min_value = 0
-	health_bar.max_value = health_component.max_health
+	health_bar.max_value = max_health
 	
 	type = init_type
 	check_init_type()
@@ -56,7 +58,7 @@ func check_init_type():
 	#debug
 	# check if init_type correspond with other stats
 	if 0:
-		print("type seems not correct")
+		print_debug("type seems not correct")
 	
 
 func set_type(new_type : int):
@@ -67,8 +69,8 @@ func set_type(new_type : int):
 	
 	
 func show_health():
+	health_bar.max_value = max_health
 	health_bar.value = health_component.current_health
-	health_bar.max_value = health_component.max_health
 	
 	health_label.text = str(health_component.current_health)
 
