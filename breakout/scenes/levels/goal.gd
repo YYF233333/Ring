@@ -21,22 +21,22 @@ func get_enemies():
 func get_drops():
 	return $Drops.get_children()
 
-func load_bricks_to_node(bricks: Node):
+func load_bricks_to_node(bricks: Node, reset: bool = true):
 	for brick in self.get_bricks():
 		brick.get_parent().remove_child(brick)
 		bricks.call_deferred("add_child", brick)
 		
-func load_enemies_to_node(enemies: Node):
+func load_enemies_to_node(enemies: Node, reset: bool = true):
 	for enemy in self.get_enemies():
 		enemy.get_parent().remove_child(enemy)
 		enemies.call_deferred("add_child", enemy)
 		
-func load_drops_to_node(drops: Node):
+func load_drops_to_node(drops: Node, reset: bool = true):
 	for drop in self.get_drops():
 		drop.get_parent().remove_child(drop)
 		drops.call_deferred("add_child", drop)
 
-func load_all_to_level(level: Node):
-	load_bricks_to_node(level.get_node("./Bricks"))
-	load_enemies_to_node(level.get_node("./Enemies"))
-	load_drops_to_node(level.get_node("./Drops"))
+func load_all_to_level(level: Node, reset: bool = true):
+	load_bricks_to_node(level.get_node("./Bricks"), reset)
+	load_enemies_to_node(level.get_node("./Enemies"), reset)
+	load_drops_to_node(level.get_node("./Drops"), reset)

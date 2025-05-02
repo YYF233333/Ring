@@ -63,14 +63,15 @@ brick_id = 3
 brick_name = "indestructible brick"
 brick_description = "indestructible"
 init_type = 1
+max_health = 99
+init_health = 99
 sprites = Array[Texture]([ExtResource("3_ts5qu"), ExtResource("4_eprt5")])
 hit_flash = false
 point = 999
+drop_percent_scale = 0.0
 hit_by_ball_player_charge = 0
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_yqu4r")]
-max_health = 999
-init_health = 999
 show_floating_text = false
 
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite_2d") instance=ExtResource("3_2akhq")]
@@ -148,5 +149,5 @@ emitting = false
 
 [node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_07it2")
+&"": SubResource("AnimationLibrary_07it2")
 }

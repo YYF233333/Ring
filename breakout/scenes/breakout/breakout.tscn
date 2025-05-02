@@ -1,16 +1,16 @@
 [gd_scene load_steps=19 format=3 uid="uid://xs5dbesq4xxp"]
 
 [ext_resource type="PackedScene" uid="uid://daw03w0dflwfi" path="res://breakout/scenes/paddles/paddle.tscn" id="1_n40qs"]
-[ext_resource type="Script" uid="uid://biopc6tv0td34" path="res://breakout/scenes/breakout/breakout.gd" id="1_orx43"]
-[ext_resource type="Script" uid="uid://b8hqykp4su3vu" path="res://breakout/scenes/breakout/Bottom.gd" id="1_pbrcl"]
+[ext_resource type="Script" uid="uid://3dllojs1bmxf" path="res://breakout/scenes/breakout/breakout.gd" id="1_orx43"]
+[ext_resource type="Script" uid="uid://cph638lax6yun" path="res://breakout/scenes/breakout/Bottom.gd" id="1_pbrcl"]
 [ext_resource type="PackedScene" uid="uid://couhfdt63uc48" path="res://breakout/scenes/balls/ball.tscn" id="2_2hbpr"]
 [ext_resource type="PackedScene" uid="uid://6hg04t01dat8" path="res://breakout/scenes/levels/goal_test_level/goal_test_level_manager.tscn" id="2_68jfq"]
-[ext_resource type="Script" uid="uid://d2aqm4u0bpryq" path="res://breakout/scenes/balls/balls.gd" id="6_s6fh4"]
-[ext_resource type="Texture2D" uid="uid://brm31c085al57" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
+[ext_resource type="Script" uid="uid://b41o4j6wur8x7" path="res://breakout/scenes/balls/balls.gd" id="6_s6fh4"]
+[ext_resource type="Texture2D" uid="uid://ci1pxjrjurudf" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/19-Breakout-Tiles.png" id="6_waixi"]
 [ext_resource type="PackedScene" uid="uid://bs7ujwrx4cyhd" path="res://breakout/scenes/walls/static_wall.tscn" id="9_rq28d"]
-[ext_resource type="Script" uid="uid://bquq0cywkljrr" path="res://breakout/scenes/ui/UI.gd" id="14_tu7t6"]
+[ext_resource type="Script" uid="uid://b8idc54oxocif" path="res://breakout/scenes/ui/UI.gd" id="14_tu7t6"]
 [ext_resource type="PackedScene" uid="uid://deo02t7m4xonq" path="res://breakout/scenes/consumables/base/consumables.tscn" id="15_yxme3"]
-[ext_resource type="Texture2D" uid="uid://2eafi2ig6jek" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="18_36oic"]
+[ext_resource type="Texture2D" uid="uid://cf07qkmmi0sd8" path="res://breakout/assets/Breakout_Tile_Set_Free_PNG/60-Breakout-Tiles.png" id="18_36oic"]
 [ext_resource type="PackedScene" uid="uid://dsw27ashjrjbv" path="res://breakout/scenes/skills/blood_bullet/blood_bullet.tscn" id="24_wfglu"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_4axdp"]
@@ -40,7 +40,7 @@ script = ExtResource("1_orx43")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 
-[node name="GoalTestLevelManager" parent="." instance=ExtResource("2_68jfq")]
+[node name="GoalTestLevelManager" parent="." groups=["level_managers"] instance=ExtResource("2_68jfq")]
 
 [node name="Level" type="Node2D" parent="." groups=["levels"]]
 
@@ -219,14 +219,13 @@ offset_right = 500.0
 offset_bottom = 232.0
 size_flags_vertical = 3
 
-[node name="Container" type="PanelContainer" parent="UI/Status/Skill"]
+[node name="SkillContainer" type="PanelContainer" parent="UI/Status/Skill"]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 80.0
 
-[node name="BloodBullet" parent="UI/Status/Skill/Container" instance=ExtResource("24_wfglu")]
+[node name="BloodBullet" parent="UI/Status/Skill/SkillContainer" instance=ExtResource("24_wfglu")]
 layout_mode = 2
-texture_normal = null
 
 [node name="ChargeBar" type="ProgressBar" parent="UI/Status/Skill"]
 layout_mode = 1

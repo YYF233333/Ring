@@ -23,6 +23,11 @@ func _process(delta):
 	if !consumable_num:
 		return
 		
+	if Input.is_action_just_pressed("select_prev_consumable"):
+		if consumable_num > 1:
+			selected_consumable_num = (selected_consumable_num - 1) % consumable_num
+			move_select_box()
+		update()
 	if Input.is_action_just_pressed("select_next_consumable"):
 		if consumable_num > 1:
 			selected_consumable_num = (selected_consumable_num + 1) % consumable_num

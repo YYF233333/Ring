@@ -19,27 +19,11 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("1_qmyyo")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 848.0
-offset_top = 298.0
-offset_right = 1159.0
-offset_bottom = 533.0
-color = Color(0, 0, 0, 1)
-
-[node name="Label" type="Label" parent="ColorRect"]
-layout_mode = 0
-offset_left = 126.0
-offset_top = 108.0
-offset_right = 188.0
-offset_bottom = 145.0
-theme_override_font_sizes/font_size = 24
-text = "几把"
-
 [node name="Computer" parent="." instance=ExtResource("2_gchmj")]
-offset_left = 872.0
-offset_top = 327.0
-offset_right = 872.0
-offset_bottom = 327.0
+offset_left = 860.0
+offset_top = 315.0
+offset_right = 860.0
+offset_bottom = 315.0
+scale = Vector2(1.1, 1.1)
 
 [connection signal="tb_pressed" from="Computer" to="." method="_on_computer_tb_pressed"]

@@ -20,6 +20,7 @@ signal health_changed(value: int)
 signal skill_charge(value: int)
 signal skill_charged
 signal skill_changed
+signal try_use_skill
 
 signal ball_lost(ball: Ball)
 signal ball_hit(charge: int)
@@ -81,6 +82,7 @@ var init_message: Dictionary
 var _health_ready: bool = false
 
 func _ready():
+	try_use_skill.connect(_on_try_use_skill)
 	point_scored.connect(_on_point_scored)
 	ball_lost.connect(_on_ball_lost)
 	ammo_lost.connect(_on_ammo_lost)
@@ -136,6 +138,12 @@ func reset():
 
 		var selected_policy: PackedStringArray = init_message["selected_policy"]
 		#TODO
+
+		var player_max_health: int = init_message["player_max_health"]
+		ValueManager.player_max_health = player_max_health
+		
+		var player_init_ammo: int = init_message["player_init_ammo"]
+		ValueManager.player_init_ammo = player_init_ammo
 		
 		var current_level: String = init_message["current_level"]
 		var current_level_scene = ResourceManager.get_level_scene_by_name(current_level) as PackedScene
@@ -144,13 +152,13 @@ func reset():
 			previous_level.add_sibling(current_level_scene.instantiate())
 			previous_level.queue_free()
 		
+		var current_level_manager_name: String = init_message["current_level_manager"]
+		var current_level_manager = ResourceManager.get_level_manager_by_name(current_level_manager_name) as PackedScene
+		if current_level_manager:
+			var previous_level_manager = get_tree().get_first_node_in_group("level_managers") as Node2D
+			previous_level_manager.add_sibling(current_level_manager.instantiate())
+			previous_level_manager.queue_free()
 		
-		var player_max_health: int = init_message["player_max_health"]
-		ValueManager.player_max_health = player_max_health
-		
-		var player_init_ammo: int = init_message["player_init_ammo"]
-		ValueManager.player_init_ammo = player_init_ammo
-	
 	
 	if skill:
 		skill.current_charge = 0
@@ -207,8 +215,13 @@ func pause_game():
 	
 func continue_game():
 	breakout.process_mode = Node.PROCESS_MODE_INHERIT
-	
-	
+
+
+func _on_try_use_skill():
+	if skill:
+		skill.try_use()
+
+
 func _on_point_scored(point: int):
 	score += point
 

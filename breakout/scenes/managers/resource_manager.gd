@@ -81,10 +81,16 @@ extends Node
 	"test level 0",
 	"test level 99_o_",
 ]
-
 @onready var level_scene_pool: Array[PackedScene] = [
 	preload("res://breakout/scenes/levels/test_level_0.tscn"),
 	preload("res://breakout/scenes/levels/test_level_99_o_.tscn"),
+]
+
+@onready var level_manager_name_pool: Array[String] = [
+	"goal test level manager",
+]
+@onready var level_manager_pool: Array[PackedScene] = [
+	preload("res://breakout/scenes/levels/goal_test_level/goal_test_level_manager.tscn"),
 ]
 
 # please ensure one-to-one correspondence of tres_pool and scene_pool
@@ -104,6 +110,7 @@ var id_to_skill_scene_index: Array[int] = []
 var name_to_skill_scene_index: Array[String] = []
 
 var name_to_level_scene_index: Array[String] = []
+var name_to_level_manager_index: Array[String] = []
 
 
 func _ready():
@@ -271,3 +278,15 @@ func get_level_scene_by_name(level_name: String) -> PackedScene:
 		return null
 	else:
 		return level_scene_pool[index]
+
+func _get_name_to_level_manager_index():
+	name_to_level_manager_index.clear()
+	for level_manager_name in (level_manager_name_pool as Array[String]):
+		name_to_level_manager_index.append(level_manager_name)
+
+func get_level_manager_by_name(level_manager_name: String) -> PackedScene:
+	var index = name_to_level_manager_index.find(level_manager_name)
+	if index == -1:
+		return null
+	else:
+		return level_manager_pool[index]

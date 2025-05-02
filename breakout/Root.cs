@@ -20,6 +20,7 @@ public class BreakoutMessage
 	public string selected_skill;
 	public string[] selected_policy;
 	public string current_level;
+	public string current_level_manager;
 	public int player_max_health { get; set; }
 	public int player_init_ammo;
 	public Dictionary<string, string> level_result;
@@ -31,6 +32,7 @@ public class BreakoutMessage
 			{ "selected_skill", selected_skill },
 			{ "selected_policy", selected_policy },
 			{ "current_level", current_level },
+			{ "current_level_manager", current_level_manager },
 			{ "player_max_health", player_max_health },
 			{ "player_init_ammo", player_init_ammo },
 		};

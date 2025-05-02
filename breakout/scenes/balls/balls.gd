@@ -12,9 +12,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("shoot"):
 		shoot_new_ball()
 
-	#exist_ball_quantity = get_child_count()
-	#if exist_ball_quantity <= 0 && BreakoutManager.ammo > 0:
-		#shoot_new_ball()
+	exist_ball_quantity = get_child_count()
+	if exist_ball_quantity <= 0 && BreakoutManager.ammo > 0:
+		shoot_new_ball()
 
 func instantiate_new_ball():
 	var new_ball = ball_scenes.instantiate() as Ball

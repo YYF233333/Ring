@@ -150,5 +150,5 @@ emitting = false
 
 [node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_07it2")
+&"": SubResource("AnimationLibrary_07it2")
 }

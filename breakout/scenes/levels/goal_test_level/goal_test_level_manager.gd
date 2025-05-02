@@ -2,7 +2,8 @@ extends Node
 
 #signal BreakoutManager.goal_clear
 #signal BreakoutManager.level_clear
-const level_name = "goal_test_level"
+const level_manager_name = "goal test level manager"
+const level_name = "goal test level"
 const goal_description = [
 					"start level",
 					"try to shoot a ball",
@@ -46,18 +47,14 @@ func _on_enemy_beaten(enemy_name: StringName):
 		end_goal_3()
 
 func init_level():
-	BreakoutManager.ammo = 99
-	BreakoutManager.pause_game()
-	await get_tree().create_timer(1).timeout
-	BreakoutManager.continue_game()
-	start_goal_1()
+	start_goal_2()
 
 func start_goal_1():
 	current_goal_id = 1
 	#BreakoutManager.pause_game()
 	#await Utility.dialogue("press [UpArrow] or [W] to shoot a ball")
 	#BreakoutManager.continue_game()
-	#Utility.dialogue("press [UpArrow] or [W] to shoot a ball")
+	#Utility.dialogue("shot")
 	BreakoutManager.goal_text_changed.emit("press [UpArrow] or [W] to shoot a ball")
 	
 func end_goal_1():
@@ -66,6 +63,7 @@ func end_goal_1():
 	
 func start_goal_2():
 	goal_2.load_all_to_level(level)
+	goal_2.free()
 	current_goal_id = 2
 	BreakoutManager.goal_text_changed.emit("protect the ball from falling out and break a brick")
 	

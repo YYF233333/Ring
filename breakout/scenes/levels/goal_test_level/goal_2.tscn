@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://btyy5g3nhs8lh"]
 
-[ext_resource type="Script" uid="uid://brx2y2krs20i4" path="res://breakout/scenes/levels/goal.gd" id="1_6v8ou"]
+[ext_resource type="Script" uid="uid://dgd2cq4aqqmf6" path="res://breakout/scenes/levels/goal.gd" id="1_6v8ou"]
 [ext_resource type="PackedScene" uid="uid://bol7poi84eil" path="res://breakout/scenes/bricks/sturdy_brick/sturdy_brick.tscn" id="4_0mgk6"]
 [ext_resource type="PackedScene" uid="uid://jr34n4kfa3lg" path="res://breakout/scenes/enemies/basic_enemy/basic_enemy.tscn" id="5_ruo0m"]
 

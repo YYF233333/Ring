@@ -30,15 +30,18 @@ func _init_info():
 	BreakoutManager.skill = self
 	
 func _connect_signal():
+	self.pressed.connect(_on_pressed)
 	BreakoutManager.ball_hit.connect(_on_ball_hit)
 	BreakoutManager.skill_charge.connect(_on_skill_charge)
 	
 func _process(delta):
 	if Input.is_action_just_pressed("use_skill"):
-		if !use(exhaust):
-			Utility.hint_not_available(self)
+		BreakoutManager.try_use_skill.emit()
+		
+func try_use():
+	if !use(exhaust):
+		Utility.hint_not_available(self)
 	
-
 func check_usable(value: int):
 	if current_charge >= value:
 		return true
@@ -87,7 +90,9 @@ func restore_charge(value: int):
 			#$CurrentCharge/Price.hide()
 			#$CurrentCharge/budget.hide()
 
-
+func _on_pressed():
+	BreakoutManager.try_use_skill.emit()
+	
 func _on_ball_hit(charge: int):
 	_on_skill_charge(charge)
 	

@@ -1,6 +1,6 @@
 extends Control
 
-@onready var skill_container = $Status/Skill/Container
+@onready var skill_container = $Status/Skill/SkillContainer
 
 func _ready():
 	BreakoutManager.point_scored.connect(_on_point_scored)
