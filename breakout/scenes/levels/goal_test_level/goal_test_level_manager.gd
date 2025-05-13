@@ -10,8 +10,8 @@ const goal_description = [
 					"1: ball shot",
 					"try to break a brick",
 					"2: brick broken", 
-					"try to beat an enemy",
-					"3: enemy beaten",
+					"try to defeat an enemy",
+					"3: enemy defeated",
 					"plenty of enemies appear",
 					"try to use your skill",
 					"4: all cleared",
@@ -31,7 +31,7 @@ var current_goal_id = 0
 func _ready() -> void:
 	BreakoutManager.ammo_lost.connect(_on_ammo_lost)
 	BreakoutManager.brick_broken.connect(_on_brick_broken)
-	BreakoutManager.enemy_beaten.connect(_on_enemy_beaten)
+	BreakoutManager.enemy_defeated.connect(_on_enemy_defeated)
 	call_deferred("init_level")
 	
 func _on_ammo_lost(value: int): #tip：nnd不加value: int識別不到
@@ -42,7 +42,7 @@ func _on_brick_broken(brick_name: StringName):
 	if current_goal_id == 2:
 		end_goal_2()
 	
-func _on_enemy_beaten(enemy_name: StringName):
+func _on_enemy_defeated(enemy_name: StringName):
 	if current_goal_id == 3:
 		end_goal_3()
 
@@ -73,10 +73,10 @@ func end_goal_2():
 
 func start_goal_3():
 	current_goal_id = 3
-	BreakoutManager.goal_text_changed.emit("beat the enemy")
+	BreakoutManager.goal_text_changed.emit("defeat the enemy")
 	
 func end_goal_3():
-	BreakoutManager.goal_clear.emit(level_name, "enemy beaten")
+	BreakoutManager.goal_clear.emit(level_name, "enemy defeated")
 	BreakoutManager.level_clear.emit(level_name)
 	start_goal_4()
 

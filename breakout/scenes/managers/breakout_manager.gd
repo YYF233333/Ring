@@ -25,7 +25,7 @@ signal try_use_skill
 signal ball_lost(ball: Ball)
 signal ball_hit(charge: int)
 
-signal enemy_beaten(enemy_name: StringName)
+signal enemy_defeated(enemy_name: StringName)
 signal brick_broken(brick_name: StringName)
 
 signal failed

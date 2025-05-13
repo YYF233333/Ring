@@ -271,5 +271,5 @@ func _on_health_change():
 		show_health()
 	
 func _on_died():
-	BreakoutManager.enemy_beaten.emit(self.name)
+	BreakoutManager.enemy_defeated.emit(self.name)
 	queue_free()
