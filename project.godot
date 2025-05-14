@@ -70,6 +70,10 @@ import/blender/enabled=false
 
 level_managers=""
 
+[gui]
+
+theme/custom="uid://dscuqjayny0d7"
+
 [input]
 
 move_right={

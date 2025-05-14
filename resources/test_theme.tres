@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dscuqjayny0d7"]
+
+[ext_resource type="Texture2D" uid="uid://b8x4sk3jvys0y" path="res://assets/Runtime/GUI/label.png" id="2_sd3rj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rb6tg"]
+content_margin_bottom = 12.0
+texture = ExtResource("2_sd3rj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sd3rj"]
+texture = ExtResource("2_sd3rj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uu6bd"]
+content_margin_bottom = 4.0
+texture = ExtResource("2_sd3rj")
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0.698039, 0.588235, 0.4, 1)
+Button/constants/outline_size = 16
+Button/font_sizes/font_size = 16
+Button/fonts/font = null
+Button/icons/icon = null
+Button/styles/hover = SubResource("StyleBoxTexture_rb6tg")
+Button/styles/normal = SubResource("StyleBoxTexture_sd3rj")
+Button/styles/pressed = SubResource("StyleBoxTexture_uu6bd")
